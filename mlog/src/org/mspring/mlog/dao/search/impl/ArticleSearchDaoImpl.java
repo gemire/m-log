@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ArticleSearchDaoImpl extends AbstractSearchDao<Article> implements ArticleSearchDao {
-
     /**
      * @param indexedClass
      */
@@ -34,7 +33,7 @@ public class ArticleSearchDaoImpl extends AbstractSearchDao<Article> implements 
     @Override
     public Page<Article> search(Page<Article> page, String queryString) {
         // TODO Auto-generated method stub
-        String[] fields = new String[] { "title", "intro", "content", "tag", "category.name" };
+        String[] fields = new String[] { "title", "intro", "content"};
         Query query = getQueryBuilder().keyword().onFields(fields).matching(queryString).createQuery();
         return searchPage(page, query);
     }
