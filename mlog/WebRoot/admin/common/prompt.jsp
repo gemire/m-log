@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="org.mspring.mlog.common.Const"%>
-<%@page import="org.mspring.platform.common.StringUtils"%>
+<%@page import="org.mspring.platform.utils.StringUtils"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";

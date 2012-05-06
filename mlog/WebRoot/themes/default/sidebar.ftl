@@ -23,7 +23,7 @@
 	</div>
 	
 	<div class="clear-block block block-catalog">
-		<h2>${recentArticle}</h2>
+		<h2>${recentComment}</h2>
 		<div class="content">
 			<div class="item-list" id="item-list-topcomment">
 				<ul>

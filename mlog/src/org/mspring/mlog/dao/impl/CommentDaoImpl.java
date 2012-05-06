@@ -6,6 +6,7 @@ package org.mspring.mlog.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.mspring.mlog.dao.CommentDao;
 import org.mspring.mlog.entity.Comment;
@@ -36,10 +37,10 @@ public class CommentDaoImpl extends AbstractHibernateDao<Comment> implements Com
     @Override
     public List<Comment> getRecentComments(int count) {
         // TODO Auto-generated method stub
-        Criteria c = super.getSession().createCriteria(Comment.class);
-        c.addOrder(Order.desc("createTime"));
-        c.setMaxResults(count);
-        return c.list();
+        Query query = getSession().createQuery("select comment from Comment comment where comment.status = ?");
+        query.setParameter(0, Comment.STATUS_PASS);
+        query.setMaxResults(count);
+        return query.list();
     }
 
     /*

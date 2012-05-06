@@ -26,9 +26,10 @@ public class RecentCommentWidget extends AbstractWidget {
         if (args.size() > 0) {
             numOfPosts = new Integer(args.get(0).toString());
         }
+        String path = getRequest().getContextPath();
         List<Comment> recentComments = ServiceFactory.getCommentService().getRecentComments(numOfPosts);
         for (Comment comment : recentComments) {
-            result.append("<li><a href='#'>" + comment.getContent() + "</a></li>\n");
+            result.append("<li><a href='" + path + "\\post\\" + comment.getArticle().getId() + ".html#cmt" + comment.getId() + "'>" + comment.getContent() + "</a></li>\n");
         }
         return result.toString();
     }
