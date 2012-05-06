@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN" "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="webroot" extends="public">
+		
+		<global-results>
+			<result name="exception" type="theme">/themes/${theme}/exception.ftl</result>
+		</global-results>
+		
+		<action name="single" class="org.mspring.mlog.web.action.web.SingleAction">
+			<result name="success" type="theme">/themes/${theme}/single.ftl</result>
+		</action>
+		
+		<action name="index" class="org.mspring.mlog.web.action.web.IndexAction">
+			<result name="success" type="theme">/themes/${theme}/index.ftl</result>
+		</action>
+		
+		<action name="postcomment" class="org.mspring.mlog.web.action.web.CommentAction" method="postcomment">
+			<result name="success" type="redirect">/post/${comment.article.id}.html</result>
+		</action>
+		
+		<action name="search" class="org.mspring.mlog.web.action.web.SearchAction">
+			<result name="success" type="theme">/themes/${theme}/search.ftl</result>
+		</action>
+		
+		<action name="metaweblog" class="org.mspring.mlog.web.action.web.MetaweblogAction"></action>
+		
+		<action name="singleStatistic" class="org.mspring.mlog.web.action.web.StatisticAction" method="singleStatistic"></action>
+		
+		<action name="visitStatistic" class="org.mspring.mlog.web.action.web.StatisticAction" method="visitStatistic"></action>
+	</package>
+</struts>

@@ -1,0 +1,544 @@
+﻿/**
+ * garland_blue, for Drupal 5.0
+ * Stefan Nagtegaal, iStyledThis [dot] nl
+ * Steven Wittens, acko [dot] net`
+ *
+ * If you use a customized color scheme, you must regenerate it after
+ * modifying this file.
+ */ /**
+ * Generic elements
+ */
+body {
+	margin: 0;
+	padding: 0;
+	background: #EDF5FA none repeat scroll 0%;
+	font: 12px/ 170% Verdana;
+	color: #494949;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+h1 {
+	font-size: 170%;
+}
+
+h2 {
+	font-size: 160%;
+	line-height: 130%;
+}
+
+h3 {
+	font-size: 140%;
+}
+
+h4 {
+	font-size: 130%;
+}
+
+h5 {
+	font-size: 120%;
+}
+
+h6 {
+	font-size: 110%;
+}
+
+.quote,.code,ul,quote,code,fieldset {
+	margin: .5em 0;
+}
+
+quote,code,.code,.quote {
+	padding: 8px;
+	display: block;
+}
+
+p {
+	margin: 0.6em 0 1.2em;
+	padding: 0;
+}
+
+a:link,a:visited {
+	color: #027AC6;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0062A0;
+	text-decoration: underline;
+}
+
+a:active,a.active {
+	color: #5895be;
+}
+
+hr {
+	margin: 0;
+	padding: 0;
+	border: none;
+	height: 1px;
+	background: #5294c1;
+}
+
+ul {
+	margin: 0.5em 0 1em;
+	padding: 0;
+}
+
+ul li {
+	margin: 0.4em 0 0.4em .5em;
+}
+
+ul.menu,.item-list ul {
+	margin: 0.35em 0 0 -0.5em;
+	padding: 0;
+}
+
+ul.menu ul,.item-list ul ul {
+	margin-left: 0em;
+}
+
+ul li,ul.menu li,.item-list ul li,li.leaf {
+	margin: 0.15em 0 0.15em .5em;
+}
+
+ul li,ul.menu li,.item-list ul li,li.leaf {
+	padding: 0 0 .2em 1.5em;
+	list-style-type: none;
+	list-style-image: none;
+	background: transparent url(../images/menu-leaf.gif) no-repeat 1px .35em
+		;
+}
+
+ul li.expanded {
+	background: transparent url(../images/menu-expanded.gif) no-repeat 1px
+		.35em;
+}
+
+ul li.collapsed {
+	background: transparent url(../images/menu-collapsed.gif) no-repeat 0px
+		.35em;
+}
+
+ul li.leaf a,ul li.expanded a,ul li.collapsed a {
+	display: block;
+}
+
+ul.inline li {
+	background: none;
+	margin: 0;
+	padding: 0 1em 0 0;
+}
+
+fieldset ul.clear-block li {
+	margin: 0;
+	padding: 0;
+	background-image: none;
+}
+
+dl {
+	margin: 0.5em 0 1em 1.5em;
+}
+
+dl dt {
+	
+}
+
+dl dd {
+	margin: 0 0 .5em 1.5em;
+}
+
+img,a img {
+	border: none;
+}
+
+table {
+	margin: 1em 0;
+	width: 100%;
+}
+
+thead th {
+	border-bottom: 2px solid #d3e7f4;
+	color: #494949;
+	font-weight: bold;
+}
+
+th a:link,th a:visited {
+	color: #6f9dbd;
+}
+
+td,th {
+	padding: .3em .5em;
+}
+
+tr.even,tr.odd,tbody th {
+	border: solid #d3e7f4;
+	border-width: 1px 0;
+}
+
+tr.odd,tr.info {
+	background-color: #EDF5FA;
+}
+
+tr.even {
+	background-color: #fff;
+}
+
+tr.odd td.active {
+	background-color: #ddecf5;
+}
+
+tr.even td.active {
+	background-color: #e6f1f7;
+}
+
+td.region,td.module,td.container {
+	border-top: 1.5em solid #fff;
+	border-bottom: 1px solid #b4d7f0;
+	background-color: #d4e7f3;
+	color: #455067;
+	font-weight: bold;
+}
+
+tr:first-child td.region,tr:first-child td.module,tr:first-child td.container
+{
+	border-top-width: 0;
+}
+
+
+#wrapper {
+	background: #EDF5FA url(../images/body.png) repeat-x 50% 0;
+}
+
+#wrapper #container {
+	margin: 0 auto;
+	padding: 0 20px;
+	max-width: 1270px;
+}
+
+#wrapper #container #header {
+	height: 80px;
+}
+
+#wrapper #container #header #logo-floater {
+	position: absolute;
+}
+
+#wrapper #container #header h1,#wrapper #container #header h1 a:link,#wrapper #container #header h1 a:visited
+	{
+	line-height: 120px;
+	position: relative;
+	z-index: 2;
+	white-space: nowrap;
+}
+
+#wrapper #container #header h1 span {
+	font-weight: bold;
+}
+
+#wrapper #container #header h1 img {
+	padding-top: 12px;
+	padding-right: 20px;
+	float: left;
+}
+
+/* We must define 100% width to avoid the body being too narrow for near-empty pages */
+#wrapper #container #center {
+	float: left;
+	width: 100%;
+}
+
+/* So we move the #center container over the sidebars to compensate */
+body.sidebar-left #center {
+	margin-left: -210px;
+}
+
+body #center {
+	margin-right: -210px;
+}
+
+body.sidebars #center {
+	margin: 0 -210px;
+}
+
+/* And add blanks left and right for the sidebars to fill */
+body.sidebar-left #squeeze {
+	margin-left: 210px;
+}
+
+body #squeeze {
+	margin-right: 210px;
+}
+
+body.sidebars #squeeze {
+	margin: 0 210px;
+}
+
+/* We ensure the sidebars are still clickable using z-index */
+#wrapper #container .sidebar {
+	margin: 60px 0 5em;
+	width: 210px;
+	float: left;
+	z-index: 2;
+	position: relative;
+}
+
+#wrapper #container .sidebar .block {
+	margin: 0 0 1.5em 0;
+}
+
+#sidebar-left .block {
+	padding: 0 15px 0 0px;
+}
+
+.block {
+	padding: 0 0px 0 15px;
+}
+
+.block .content {
+	margin: 0.5em 0;
+}
+
+#sidebar-left .block-region {
+	margin: 0 15px 0 0px;
+}
+
+.block-region {
+	margin: 0 0px 0 15px;
+}
+
+.block-region {
+	padding: 1em;
+	background: transparent;
+	border: 2px dashed #b4d7f0;
+	text-align: center;
+	font-size: 1.3em;
+}
+
+/* Now we add the backgrounds for the main content shading */
+#wrapper #container #center #squeeze {
+	background: #fff url(../images/bg-content.png) repeat-x 50% 0;
+	position: relative;
+}
+
+#wrapper #container #center .right-corner {
+	background: transparent url(../images/bg-content-right.png) no-repeat
+		100% 0;
+	position: relative;
+	left: 10px;
+}
+
+#wrapper #container #center .right-corner .left-corner {
+	padding: 60px 25px 5em 35px;
+	background: transparent url(../images/bg-content-left.png) no-repeat 0 0
+		;
+	margin-left: -10px;
+	position: relative;
+	left: -10px;
+	min-height: 400px;
+}
+
+#wrapper #container #footer {
+	float: none;
+	clear: both;
+	text-align: center;
+	margin: 4em 0 -3em;
+	color: #898989;
+}
+
+#wrapper #container .breadcrumb {
+	position: absolute;
+	top: 15px;
+	left: 35px;
+	z-index: 3;
+}
+
+body.sidebar-left  #footer {
+	margin-left: -210px;
+}
+
+body #footer {
+	margin-right: -210px;
+}
+
+body.sidebars #footer {
+	margin: 0 -210px;
+}
+
+/**
+ * Header
+ */
+#wrapper #container #header h1,#wrapper #container #header h1 a:link,#wrapper #container #header h1 a:visited
+	{
+	color: #fff;
+	font-weight: normal;
+	text-shadow: #1659ac 0px 1px 3px;
+	font-size: 1.5em;
+}
+
+#wrapper #container #header h1 a:hover {
+	text-decoration: none;
+}
+
+#wrapper #container .breadcrumb {
+	font-size: 0.92em;
+}
+
+#wrapper #container .breadcrumb,#wrapper #container .breadcrumb a {
+	color: #529ad6;
+}
+
+#mission {
+	padding: 1em;
+	background-color: #fff;
+	border: 1px solid #e0e5fb;
+	margin-bottom: 2em;
+}
+
+/**
+ * Primary navigation
+ */
+ul.primary-links {
+	margin: 0;
+	padding: 0;
+	float: right;
+	position: relative;
+	z-index: 4;
+}
+
+ul.primary-links li {
+	margin: 0;
+	padding: 0;
+	float: left;
+	background-image: none;
+}
+
+ul.primary-links li a,ul.primary-links li a:link,ul.primary-links li a:visited
+	{
+	display: block;
+	margin: 0 1em;
+	padding: .75em 0 0;
+	color: #fff;
+	background: transparent url(../images/bg-navigation-item.png) no-repeat
+		50% 0;
+}
+
+ul.primary-links li a:hover,ul.primary-links li a.active {
+	color: #fff;
+	background: transparent url(../images/bg-navigation-item-hover.png)
+		no-repeat 50% 0;
+}
+
+/**
+ * Secondary navigation
+ */
+ul.secondary-links {
+	margin: 0;
+	padding: 18px 0 0;
+	float: right;
+	clear: right;
+	position: relative;
+	z-index: 4;
+}
+
+ul.secondary-links li {
+	margin: 0;
+	padding: 0;
+	float: left;
+	background-image: none;
+}
+
+ul.secondary-links li a,ul.secondary-links li a:link,ul.secondary-links li a:visited
+	{
+	display: block;
+	margin: 0 1em;
+	padding: .75em 0 0;
+	color: #cde3f1;
+	background: transparent;
+}
+
+ul.secondary-links li a:hover,ul.secondary-links li a.active {
+	color: #cde3f1;
+	background: transparent;
+}
+
+
+/**
+ * Nodes & comments
+ */
+.node {
+	border-bottom: 1px solid #e9eff3;
+	margin: -1.5em -26px 1.5em;
+	padding: 1.5em 26px;
+}
+
+ul.links li,ul.inline li {
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 1em;
+	background-image: none;
+}
+
+ul.links li {
+	display: inline;
+	list-style-type: none;
+	padding: 0pt 0.5em;
+}
+
+
+
+.clear-block:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0pt;
+	visibility: hidden;
+}
+
+.clear-block {
+	
+}
+
+
+/* Comment */
+#comment-form img {
+    cursor: pointer;
+}
+#comment-form input, #comment-form textarea {
+    background: url("../images/textfield.gif") repeat-x scroll 50% 0 #FFFFFF;
+    border: 1px solid #A6A6A6;
+    color: #555555;
+    font-family: Helvetica,Arial,sans-serif;
+    height: 16px;
+    outline: none;
+    padding: 2px 1px;
+    width: 200px;
+}
+#comment-form textarea {
+    font-size: 12px;
+    height: 100px;
+    width: 601px;
+}
+#comment-form .submitbutton {
+    background: none repeat scroll 0 0 #B4D666;
+    border-color: #B4D666 #81B840 #81B840 #B4D666;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 1px;
+    color: #2970A6;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 6px;
+}
+#comment-form button:hover {
+    background: none repeat scroll 0 0 #98C64C;
+    border-color: #76B33A #98C64C #98C64C #76B33A;
+    color: #074A7E;
+}
+/* Comment ends */

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<security-config>
+    <excludes>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.gif</url-pattern>
+		
+        <url-pattern>/admin/login.action</url-pattern>
+		
+		<!--                
+        <ip-pattern>
+            <ip-address>127.0.0.3</ip-address>
+            <url-pattern>/service1/*</url-pattern>
+            <url-pattern>/service2/*</url-pattern>
+        </ip-pattern>
+		-->
+    </excludes>
+    
+	<parameters>
+		<init-param>
+			<param-name>login.url</param-name>
+			<param-value>/admin/admin_login.jsp</param-value>
+		</init-param>
+		
+		<init-param>
+		    <param-name>logout.url</param-name>
+            <param-value>/admin/logout.action</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>original.url.key</param-name>
+			<param-value>sentry_original_url</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>logged.in.key</param-name>
+			<param-value>currentUser</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>logged.out.key</param-name>
+			<param-value>sentry_authenticator_logged_out_user</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>loginform.username.key</param-name>
+			<param-value>sentry_username</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>loginform.password.key</param-name>
+			<param-value>sentry_password</param-value>
+		</init-param>
+	</parameters>
+	
+    <controller class="org.mspring.platform.security.controller.DefaultSecurityController"/>
+    <authenticator class="org.mspring.platform.security.auth.DefaultExternalAuthenticator"/>
+   	<!-- 
+   	<interceptors>
+        <interceptor class="com.quanxun.aicrm.permission.action.AuditLogoutInterceptor"/>
+    </interceptors>
+   	-->
+</security-config>

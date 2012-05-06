@@ -1,0 +1,16 @@
+createNewComment=发表评论
+commentNums=条评论
+articleCategory=文章分类
+commentAuthorName=名字：
+commentAuthorEmail=电子邮件：
+commentAuthorHomepage=主页：
+commentContent=评论内容：
+submitComment=提交评论
+searchInfo=你在找啥?搜搜看...
+recentArticle=最新文章
+recentComment=最新评论
+friendLinks=友情链接
+postAt=发表于
+postBy=作者
+viewNums=次查看
+category=分类
