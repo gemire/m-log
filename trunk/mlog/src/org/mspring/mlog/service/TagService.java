@@ -29,4 +29,9 @@ public interface TagService {
     void deleteTag(Long... ids);
 
     Page<Tag> queryTag(Page<Tag> page, QueryCriterion queryCriterion);
+    
+    /**
+     * 更新TAG使用量
+     */
+    void updateTagCount();
 }

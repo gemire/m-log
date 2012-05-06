@@ -42,7 +42,7 @@ public class Tag implements java.io.Serializable {
     @Expose
     private String name;
     private String intro;
-    private Integer count;
+    private Long count;
     private Set<Article> articles;
 
     // Constructors
@@ -100,11 +100,11 @@ public class Tag implements java.io.Serializable {
     }
 
     @Column(name = "tag_count")
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 
