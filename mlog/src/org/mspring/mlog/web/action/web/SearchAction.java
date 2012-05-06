@@ -50,7 +50,6 @@ public class SearchAction extends CommonWebActionSupport {
 
     public String execute() throws UnsupportedEncodingException {
         if (!StringUtils.isBlank(queryString)) {
-            System.out.println(queryString);
             articlePage = articleSearchService.search(articlePage, queryString);
         }
         return SUCCESS;

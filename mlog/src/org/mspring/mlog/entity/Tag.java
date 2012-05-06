@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -21,6 +27,7 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @Table(name = "tag")
+@Indexed(index = "tag")
 public class Tag implements java.io.Serializable {
 
     // Fields
@@ -63,6 +70,7 @@ public class Tag implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "tag_id", unique = true, nullable = false)
+    @DocumentId
     public Long getId() {
         return id;
     }
@@ -72,6 +80,7 @@ public class Tag implements java.io.Serializable {
     }
 
     @Column(name = "tag_name")
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getName() {
         return name;
     }
@@ -81,6 +90,7 @@ public class Tag implements java.io.Serializable {
     }
 
     @Column(name = "tag_intro", columnDefinition = "text")
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getIntro() {
         return intro;
     }

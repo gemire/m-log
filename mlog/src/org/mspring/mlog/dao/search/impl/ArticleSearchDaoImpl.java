@@ -33,7 +33,7 @@ public class ArticleSearchDaoImpl extends AbstractSearchDao<Article> implements 
     @Override
     public Page<Article> search(Page<Article> page, String queryString) {
         // TODO Auto-generated method stub
-        String[] fields = new String[] { "title", "intro", "content"};
+        String[] fields = new String[] { "title", "intro", "content", "categories.name", "tags.name"};
         Query query = getQueryBuilder().keyword().onFields(fields).matching(queryString).createQuery();
         return searchPage(page, query);
     }
