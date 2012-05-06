@@ -2,7 +2,7 @@
 <%@ taglib prefix="mspring" uri="/WEB-INF/mspring.tld" %>
 
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
-<%@page import="org.mspring.core.xwork.interceptor.ExceptionInterceptor"%>
+<%@page import="org.mspring.platform.web.xwork.interceptor.ExceptionInterceptor"%>
 
 <html>
 <head>

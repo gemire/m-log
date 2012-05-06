@@ -14,12 +14,7 @@
 <div id="search-div" style="text-align: center;">
 	<input type="text" value="${queryString?default(searchInfo)}" name="queryString" id="queryString" style="width:300px;" 
 		onfocus="this.value = this.value == this.defaultValue ? '' : this.value" onblur="this.value = this.value == '' ? this.defaultValue : this.value">
-	<input type="button" value=" Search " onclick="doSearch();" />
-	<#--
-	<form name="searchform" action="${path}/search.action" method="get">
-		<input type="text" value="${queryString?default(searchInfo)}" name="queryString" style="width:300px;" onfocus="this.value = this.value == this.defaultValue ? '' : this.value" onblur="this.value = this.value == '' ? this.defaultValue : this.value">
-	</form>
-	-->
+	<input type="button" class="submitbutton" value=" Search " onclick="doSearch();" />
 </div>
 <div id="node-130" class="node">
 	<#if articlePage?exists && articlePage.result?exists>
