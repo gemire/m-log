@@ -12,4 +12,6 @@ import org.mspring.platform.dao.support.Page;
  */
 public interface ArticleSearchService {
     Page<Article> search(Page<Article> page, String queryString);
+    void rebuildArticleIndex(Long articleId);
+    void rebuildAllArticleIndex();
 }
