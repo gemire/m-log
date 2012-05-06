@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- scheduler itself -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="updateCommentNumTrigger"/>
+			</list>
+		</property>
+		<property name="schedulerContextAsMap">
+			<map>
+				<entry key="sessionFactory">
+					<ref bean="sessionFactory"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<!-- triggers -->
+	<bean id="updateCommentNumTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="updateCommentNumJob" />
+		<property name="startDelay" value="20000"></property>
+		<property name="repeatInterval" value="20000"></property>
+	</bean>
+	
+	<!-- Jobs -->
+	<bean id="updateCommentNumJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="org.mspring.mlog.job.UpdateCommentNumJob" />
+		<!-- 
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobService" value-ref="jobService"/>
+			</map>
+		</property>
+		-->
+	</bean>
+</beans>
