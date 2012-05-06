@@ -35,9 +35,9 @@
 		<property name="repeatInterval" value="300000"></property>
 	</bean>
 	<bean id="updateTagCountTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
-		<property name="jobDetail" ref="updateCommentNumJob" />
-		<property name="startDelay" value="20000"></property>
-		<property name="repeatInterval" value="20000"></property>
+		<property name="jobDetail" ref="updateTagCountJob" />
+		<property name="startDelay" value="300000"></property>
+		<property name="repeatInterval" value="300000"></property>
 	</bean>
 	
 	<!-- Jobs -->
