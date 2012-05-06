@@ -9,8 +9,9 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.mspring.platform.dao.BaseSearchDao;
 
-public abstract class AbstractSearchDao<T> {
+public abstract class AbstractSearchDao<T> implements BaseSearchDao<T> {
     private Class<T> indexedClass;
 
     protected AbstractSearchDao(Class<T> indexedClass) {
@@ -36,12 +37,23 @@ public abstract class AbstractSearchDao<T> {
         return getFullTextSession().getSearchFactory().buildQueryBuilder().forEntity(this.indexedClass).get();
     }
 
-    protected Page<T> searchPage(Page<T> page, Query query) {
-        // long start = System.currentTimeMillis();
-        // getFullTextSession().createIndexer(indexedClass).start();
-        // long end = System.currentTimeMillis();
-        // System.out.println(end - start);
+    @Override
+    public Integer count(Query query) {
+        // TODO Auto-generated method stub
+        FullTextQuery fullTextQuery = getFullTextSession().createFullTextQuery(query, new Class[] { this.indexedClass });
+        return Integer.valueOf(fullTextQuery.getResultSize());
+    }
 
+    @Override
+    public void index(T paramT) {
+        // TODO Auto-generated method stub
+        FullTextSession fullTextSession = getFullTextSession();
+        fullTextSession.index(paramT);
+    }
+
+    @Override
+    public Page<T> searchPage(Page<T> page, Query query) {
+        // TODO Auto-generated method stub
         FullTextQuery fullTextQuery = getFullTextSession().createFullTextQuery(query, new Class[] { this.indexedClass });
 
         if (!page.isAutoCount()) {
@@ -52,10 +64,5 @@ public abstract class AbstractSearchDao<T> {
         fullTextQuery.setFirstResult(page.getFirst() - 1);
         fullTextQuery.setMaxResults(page.getPageSize());
         return page.setResult(fullTextQuery.list());
-    }
-
-    protected Integer count(Query query) {
-        FullTextQuery fullTextQuery = getFullTextSession().createFullTextQuery(query, new Class[] { this.indexedClass });
-        return Integer.valueOf(fullTextQuery.getResultSize());
     }
 }
