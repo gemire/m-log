@@ -37,7 +37,7 @@ public class CommentDaoImpl extends AbstractHibernateDao<Comment> implements Com
     @Override
     public List<Comment> getRecentComments(int count) {
         // TODO Auto-generated method stub
-        Query query = getSession().createQuery("select comment from Comment comment where comment.status = ?");
+        Query query = getSession().createQuery("select comment from Comment comment where comment.status = ? order by comment.createTime desc");
         query.setParameter(0, Comment.STATUS_PASS);
         query.setMaxResults(count);
         return query.list();
