@@ -110,4 +110,14 @@ public class TagServiceImpl implements TagService {
         return tagDao.findPage(page, queryCriterion);
     }
 
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.TagService#updateTagCount()
+     */
+    @Override
+    public void updateTagCount() {
+        // TODO Auto-generated method stub
+        String hql = "update Tag tag set tag.count = (select count(*) from ArticleTag at where at.PK.tag.id = tag.id)";
+        tagDao.executeUpdate(hql);
+    }
+
 }

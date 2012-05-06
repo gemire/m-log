@@ -15,6 +15,7 @@
 		<property name="triggers">
 			<list>
 				<ref bean="updateCommentNumTrigger"/>
+				<ref bean="updateTagCountTrigger"/>
 			</list>
 		</property>
 		<property name="schedulerContextAsMap">
@@ -33,6 +34,11 @@
 		<property name="startDelay" value="300000"></property>
 		<property name="repeatInterval" value="300000"></property>
 	</bean>
+	<bean id="updateTagCountTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="updateCommentNumJob" />
+		<property name="startDelay" value="20000"></property>
+		<property name="repeatInterval" value="20000"></property>
+	</bean>
 	
 	<!-- Jobs -->
 	<bean id="updateCommentNumJob" class="org.springframework.scheduling.quartz.JobDetailBean">
@@ -44,5 +50,8 @@
 			</map>
 		</property>
 		-->
+	</bean>
+	<bean id="updateTagCountJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="org.mspring.mlog.job.UpdateTagCountJob" />
 	</bean>
 </beans>
