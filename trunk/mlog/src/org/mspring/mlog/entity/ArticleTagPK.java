@@ -5,12 +5,16 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 /**
  * ArticleTagId entity.
  * 
  * @author MyEclipse Persistence Tools
  */
 @Embeddable
+@Indexed(index = "articleTag")
 public class ArticleTagPK implements java.io.Serializable {
 
     // Fields
@@ -44,6 +48,7 @@ public class ArticleTagPK implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Article.class)
     @JoinColumn(name = "article_id")
+    @IndexedEmbedded
     public Article getArticle() {
         return article;
     }
@@ -54,6 +59,7 @@ public class ArticleTagPK implements java.io.Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Tag.class)
     @JoinColumn(name = "tag_id")
+    @IndexedEmbedded
     public Tag getTag() {
         return tag;
     }

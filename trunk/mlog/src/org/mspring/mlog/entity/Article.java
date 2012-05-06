@@ -22,6 +22,7 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 
 @Entity
@@ -82,8 +83,6 @@ public class Article implements java.io.Serializable {
         this.id = id;
     }
 
-    
-
     @Column(name = "article_url")
     @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getUrl() {
@@ -103,7 +102,7 @@ public class Article implements java.io.Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     @Column(name = "article_author")
     @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getAuthor() {
@@ -187,8 +186,6 @@ public class Article implements java.io.Serializable {
         this.viewNums = viewNums;
     }
 
-    
-
     @Column(name = "article_publish")
     @Field(index = Index.TOKENIZED, store = Store.YES)
     public boolean isPublish() {
@@ -199,7 +196,7 @@ public class Article implements java.io.Serializable {
         this.publish = publish;
     }
 
-    @Column(name = "article_password", length= 200)
+    @Column(name = "article_password", length = 200)
     @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getPassword() {
         return password;
@@ -241,6 +238,7 @@ public class Article implements java.io.Serializable {
 
     @ManyToMany(targetEntity = Category.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "article_category", joinColumns = { @JoinColumn(name = "article_id") }, inverseJoinColumns = { @JoinColumn(name = "category_id") })
+    @IndexedEmbedded
     public Set<Category> getCategories() {
         return categories;
     }
@@ -251,6 +249,7 @@ public class Article implements java.io.Serializable {
 
     @ManyToMany(targetEntity = Tag.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "article_tag", joinColumns = { @JoinColumn(name = "article_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    @IndexedEmbedded
     public Set<Tag> getTags() {
         return tags;
     }

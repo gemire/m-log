@@ -29,7 +29,7 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @Table(name = "category")
-@Indexed
+@Indexed(index = "category")
 public class Category implements java.io.Serializable {
 
     // Fields

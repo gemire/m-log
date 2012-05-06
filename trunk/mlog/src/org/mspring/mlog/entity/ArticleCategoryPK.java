@@ -5,17 +5,20 @@ package org.mspring.mlog.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * @author Gao Youbo
  * @since Apr 17, 2012
  */
 @Embeddable
+@Indexed(index = "articleCategory")
 public class ArticleCategoryPK implements Serializable {
     /**
      * 
@@ -41,6 +44,7 @@ public class ArticleCategoryPK implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Article.class)
     @JoinColumn(name = "article_id")
+    @IndexedEmbedded
     public Article getArticle() {
         return article;
     }
@@ -51,6 +55,7 @@ public class ArticleCategoryPK implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Category.class)
     @JoinColumn(name = "category_id")
+    @IndexedEmbedded
     public Category getCategory() {
         return category;
     }
