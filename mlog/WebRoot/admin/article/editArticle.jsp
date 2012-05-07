@@ -379,14 +379,6 @@
 				<form action="<%=path %>/admin/article/doEditArticle.action" id="articleForm" name="articleForm" method="post">
 					<!-- hidden -->
 					<input type="hidden" name="article.id" value="<ss:property value="article.id" />" />
-					<!-- 
-					<input type="hidden" name="article.level" value="<ss:property value="article.level" />" />
-					<input type="hidden" name="article.url" value="<ss:property value="article.url" />" />
-					<input type="hidden" name="article.ip" value="<%=IpUtils.getIpAddr(request) %>" />
-					<input type="hidden" name="article.commentNums" value="<ss:property value="article.commentNums" />" />
-					<input type="hidden" name="article.viewNums" value="<ss:property value="article.viewNums" />" />
-					<input type="hidden" name="article.isDel" value="<ss:property value="article.isDel" />" />
-					-->
 					
 					<table class="gridtable" width='100%' style='padding: 0px; margin: 0px;' cellspacing='0' cellpadding='0'>
 						<tr>
