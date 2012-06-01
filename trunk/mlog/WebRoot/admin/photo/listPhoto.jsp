@@ -142,17 +142,6 @@
 		    //删除照片
 		    function deletePhoto(){
 		    	document.photoForm.submit();
-		    	/*
-		    	Ext.Ajax.request({
-		    		url: '<%=path%>/admin/deletePhoto.action',
-				   	success: function(response){
-				   		var json = Ext.decode(response.responseText);
-				   		alert(json.message);
-				   	},
-				   	failure: function(){
-				   	}
-		    	});
-		    	*/
 		    }
 		    
 		    //全选
@@ -229,7 +218,7 @@
 										</tr>
 										<tr>
 											<td class="photo_name">
-												<input type="checkbox" name="photoItems" style="display:none;" value="<ss:property value="id" />" title="<ss:property value="name" />" />
+												<input type="checkbox" name="photoItems" style="display:none;" value="<ss:property value="photoId" />" title="<ss:property value="name" />" />
 												<ss:property value="name" />
 											</td>
 										</tr>
