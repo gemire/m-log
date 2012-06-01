@@ -109,6 +109,7 @@
     <param-value>
 			classpath:applicationContext.xml
 			classpath:applicationContext-job.xml
+			classpath:applicationContext-event.xml
 		</param-value>
   </context-param>
   <listener>

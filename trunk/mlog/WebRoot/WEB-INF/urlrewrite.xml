@@ -26,6 +26,12 @@
 		<to>search.action</to>
 	</rule>
 	
+	<!-- 相册 -->
+	<rule>
+		<from>^/album.html|^/album.htm</from>
+		<to>album.action</to>
+	</rule>
+	
 	<!-- 分页 -->
 	<rule>
 		<from>^/page/([0-9]+)$</from>

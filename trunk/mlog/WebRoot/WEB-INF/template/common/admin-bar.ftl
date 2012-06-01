@@ -51,6 +51,7 @@
     </a>
     
     <span style="float: right;">
+    	<a href="${path}/articleAtom.action" target="_blank">订阅本站</a>
 	    <#-- 如果用户已经登录 -->
 	    <#if currentUser?exists>
 	    	<a href="javascript:">欢迎您：${currentUser.name}</a>
@@ -58,7 +59,6 @@
 	    	<a href="${path}/admin/logout.action">退出登录</a>
 	    <#-- 如果如果访客名字存在 -->
 	    <#elseif guest?exists>
-	    	<a href="javascript:">订阅本站</a>
 	    	<a href="javascript:window.external.AddFavorite('${blogurl}', '${blogname}')">收藏本站</a>
 	    	<a  href='#' onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('${blogurl}');">设为首页</a>
 	    	<a href="${path}/admin/admin_login.jsp" target="_blank">登录</a>
