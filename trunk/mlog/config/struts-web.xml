@@ -25,10 +25,24 @@
 			<result name="success" type="theme">/themes/${theme}/search.ftl</result>
 		</action>
 		
+		<action name="album" class="org.mspring.mlog.web.action.web.AlbumAction">
+			<result name="success" type="theme">/themes/${theme}/album.ftl</result>
+		</action>
+		
+		<action name="photo" class="org.mspring.mlog.web.action.web.PhotoAction">
+			<result name="success" type="theme">/themes/${theme}/photo.ftl</result>
+		</action>
+		
+		<action name="photoView" class="org.mspring.mlog.web.action.web.PhotoViewAction">
+			<result name="success" type="theme">/themes/${theme}/photoView.ftl</result>
+		</action>
+		
 		<action name="metaweblog" class="org.mspring.mlog.web.action.web.MetaweblogAction"></action>
 		
 		<action name="singleStatistic" class="org.mspring.mlog.web.action.web.StatisticAction" method="singleStatistic"></action>
 		
 		<action name="visitStatistic" class="org.mspring.mlog.web.action.web.StatisticAction" method="visitStatistic"></action>
+		
+		<action name="articleAtom" class="org.mspring.mlog.web.action.web.FeedAction" method="articleAtom"></action>
 	</package>
 </struts>
