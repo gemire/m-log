@@ -11,6 +11,7 @@ import org.mspring.mlog.dao.PhotoDao;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.PhotoService;
+import org.mspring.platform.dao.query.QueryCriterion;
 import org.mspring.platform.dao.support.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class AlbumServiceImpl implements AlbumService {
     public void setPhotoService(PhotoService photoService) {
         this.photoService = photoService;
     }
+
     /*
      * (non-Javadoc)
      * 
@@ -96,6 +98,16 @@ public class AlbumServiceImpl implements AlbumService {
         }
     }
 
-    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.AlbumService#queryAlbum(org.mspring.platform.dao.support.Page,
+     *      org.mspring.platform.dao.query.QueryCriterion)
+     */
+    @Override
+    public Page<Album> queryAlbum(Page<Album> page, QueryCriterion queryCriterion) {
+        // TODO Auto-generated method stub
+        return albumDao.findPage(page, queryCriterion);
+    }
 
 }

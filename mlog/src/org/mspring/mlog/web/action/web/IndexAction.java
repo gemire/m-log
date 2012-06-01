@@ -6,11 +6,16 @@ package org.mspring.mlog.web.action.web;
 import java.util.List;
 import java.util.Map;
 
+import org.mspring.mlog.common.ServiceFactory;
 import org.mspring.mlog.entity.Article;
+import org.mspring.mlog.event.ping.PingEvent;
+import org.mspring.mlog.event.ping.PingEventType;
 import org.mspring.mlog.web.action.manage.article.query.ArticleQueryCriterion;
 import org.mspring.platform.dao.query.QueryCriterion;
 import org.mspring.platform.dao.support.Page;
 import org.mspring.platform.dao.support.Sort;
+import org.mspring.platform.event.Event;
+import org.mspring.platform.event.EventManager;
 import org.mspring.platform.web.xwork.interceptor.QueryParameterAware;
 
 /**
@@ -18,6 +23,10 @@ import org.mspring.platform.web.xwork.interceptor.QueryParameterAware;
  * @since Mar 24, 2012
  */
 public class IndexAction extends CommonWebActionSupport implements QueryParameterAware {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5925120058563881866L;
     private Map queryParameters;
     private QueryCriterion queryCriterion;
 
@@ -70,6 +79,9 @@ public class IndexAction extends CommonWebActionSupport implements QueryParamete
         queryCriterion = new ArticleQueryCriterion(queryParameters);
         articlePage = articleService.queryArticle(articlePage, queryCriterion);
         articles = articlePage.getResult();
+        Event event = new PingEvent("Source", PingEventType.PING);
+        EventManager eventManager = ServiceFactory.getDefaultEventManager();
+        eventManager.publishEvent(event);
         return SUCCESS;
     }
 }

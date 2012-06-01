@@ -20,6 +20,7 @@ import org.mspring.mlog.service.ThemeService;
 import org.mspring.mlog.service.security.TreeService;
 import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.core.ContextManager;
+import org.mspring.platform.event.EventManager;
 
 import freemarker.template.Configuration;
 
@@ -95,5 +96,9 @@ public class ServiceFactory {
     
     public static Configuration getFreemarkerConfiguration(){
         return (Configuration) ContextManager.getApplicationContext().getBean("freemarkerConfiguration");
+    }
+    
+    public static EventManager getDefaultEventManager(){
+        return (EventManager) ContextManager.getApplicationContext().getBean("eventManager");
     }
 }

@@ -6,13 +6,14 @@ package org.mspring.mlog.service.impl;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -24,9 +25,8 @@ import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PhotoService;
-import org.mspring.mlog.util.MLogUtils;
 import org.mspring.mlog.util.ImageUtils;
-import org.mspring.platform.dao.query.AbstractQueryCriterion;
+import org.mspring.mlog.util.MLogUtils;
 import org.mspring.platform.dao.query.QueryCriterion;
 import org.mspring.platform.dao.support.Page;
 import org.mspring.platform.utils.StringUtils;
@@ -67,9 +67,8 @@ public class PhotoServiceImpl implements PhotoService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.service.PhotoService#createPhoto(javax.servlet.http.
-     * HttpServletRequest, java.lang.String)
+     * @see org.mspring.mlog.service.PhotoService#createPhoto(javax.servlet.http.
+     *      HttpServletRequest, java.lang.String)
      */
     @Override
     public void createPhoto(HttpServletRequest request, String path, Long album) throws IOException {
@@ -80,9 +79,8 @@ public class PhotoServiceImpl implements PhotoService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.service.PhotoService#createPhoto(javax.servlet.http.
-     * HttpServletRequest, java.lang.String)
+     * @see org.mspring.mlog.service.PhotoService#createPhoto(javax.servlet.http.
+     *      HttpServletRequest, java.lang.String)
      */
     @Override
     public void createPhoto(HttpServletRequest request, String path, Long album, boolean autoRotate) throws IOException {
@@ -131,93 +129,39 @@ public class PhotoServiceImpl implements PhotoService {
 
                 log.debug("uploading image " + originalImagePath);
 
-                BufferedImage oldImage = ImageIO.read(originalImage);
+                BufferedImage sourceImage = ImageIO.read(originalImage);
+
                 Photo photo = new Photo();
+                
+                // 限制图片最大大小
+                boolean isLimit = "1".equals(optionService.getOption(ConfigTokens.mspring_album_islimit_size));
+                if (isLimit) {
+                    String string_ori_width = optionService.getOption(ConfigTokens.mspring_album_islimit_width);
+                    String string_ori_height = optionService.getOption(ConfigTokens.mspring_album_islimit_height);
+                    int MAX_WIDTH = StringUtils.isBlank(string_ori_width) ? DEFAULT_MAX_WIDTH : Integer.parseInt(string_ori_width);
+                    int MAX_HEIGHT = StringUtils.isBlank(string_ori_height) ? DEFAULT_MAX_HEIGHT : Integer.parseInt(string_ori_height);
+
+                    // 图片大小超过限定范围，调整图片大小
+                    if (sourceImage.getWidth() > MAX_WIDTH && sourceImage.getHeight() > MAX_HEIGHT) {
+                        //targetImage = ImageUtils.resize(sourceImage, MAX_WIDTH, MAX_HEIGHT);
+                        ImageUtils.saveImage(originalImage, originalImage, MAX_WIDTH, MAX_HEIGHT);
+                        
+                        //重新读取图片
+                        sourceImage = ImageIO.read(originalImage);
+                    }
+                }
+                photo.setWidth(sourceImage.getWidth());
+                photo.setHeight(sourceImage.getHeight());
                 photo.setAlbum(new Album(album));
                 photo.setFileName(originalImage.getName());
                 photo.setName(originalImage.getName().substring(0, originalImage.getName().lastIndexOf(".")));
                 photo.setUrl(imageAbstractUrl);
                 photo.setPreviewUrl(previewImageAbstractUrl);
-                photo.setWidth(oldImage.getWidth());
-                photo.setHeight(oldImage.getHeight());
-                createPreviewImage(photo, originalImagePath, previewImagePath);
+                
+                //创建缩略图
+                ImageUtils.saveImage(originalImage, new File(previewImagePath), PREVIEW_WIDTH, PREVIEW_HEIGHT);
+                //图片信息插入数据库
                 insertPhotoToDB(photo, originalImagePath, autoRotate);
-            }
-        }
-    }
-
-    /**
-     * 生成预览图片
-     * 
-     * @param photo
-     *            图片对象
-     * @param originalImage
-     *            原始图片文件路径
-     * @param oldImage
-     *            原始图片
-     * @throws IOException
-     */
-    private void createPreviewImage(Photo photo, String originalImagePath, String previewImagePath) throws IOException {
-
-        File originalImage = new File(originalImagePath);
-
-        // 限制图片最大大小
-        boolean isLimit = "1".equals(optionService.getOption(ConfigTokens.mspring_album_islimit_size));
-        if (isLimit) {
-            String string_ori_width = optionService.getOption(ConfigTokens.mspring_album_islimit_width);
-            String string_ori_height = optionService.getOption(ConfigTokens.mspring_album_islimit_height);
-            int MAX_WIDTH = StringUtils.isBlank(string_ori_width) ? DEFAULT_MAX_WIDTH : Integer.parseInt(string_ori_width);
-            int MAX_HEIGHT = StringUtils.isBlank(string_ori_height) ? DEFAULT_MAX_HEIGHT : Integer.parseInt(string_ori_height);
-
-            int ori_width = MAX_WIDTH;
-            int ori_height = MAX_HEIGHT;
-
-            int old_width = photo.getWidth();
-            int old_height = photo.getHeight();
-            boolean regenerate_img = true;
-            if (old_width <= MAX_WIDTH && old_height <= MAX_HEIGHT) {
-                ori_width = old_width;
-                ori_height = old_height;
-                regenerate_img = false;
-            } else if (old_width > MAX_WIDTH && old_height > MAX_HEIGHT) {
-                ori_width = MAX_WIDTH;
-                ori_height = old_height * ori_width / old_width;
-            } else if (old_width > MAX_WIDTH && old_height <= MAX_HEIGHT) {
-                ori_width = MAX_WIDTH;
-                ori_height = old_height;
-            } else if (old_width <= MAX_WIDTH && old_height > MAX_HEIGHT) {
-                ori_height = MAX_HEIGHT;
-                ori_width = old_width * ori_height / old_height;
-            }
-            if (regenerate_img) {
-                ImageUtils.createPreviewImage(originalImage, originalImagePath, ori_width, ori_height);
-                photo.setWidth(ori_width);
-                photo.setHeight(ori_height);
-                photo.setSize((int) new File(originalImagePath).length());
-            }
-        }
-
-        // 生成缩略图
-        {
-            int preview_width, preview_height;
-            preview_width = Math.min(PREVIEW_WIDTH, photo.getWidth());
-            if (photo.getHeight() <= PREVIEW_HEIGHT)
-                preview_height = photo.getHeight();
-            else {
-                // 按比例对图像高度进行压缩
-                preview_height = photo.getHeight() * preview_width / photo.getWidth();
-            }
-
-            if (preview_width == photo.getWidth() && preview_height == photo.getHeight()) {
-                // 图像不变
-                previewImagePath = originalImagePath;
-            } else {
-                String extendName = StringUtils.getFileExtend(originalImagePath);
-                // 生成略缩图
-                if (ImageUtils.isImage(extendName)) {
-                    previewImagePath = ImageUtils.createPreviewImage(originalImage, previewImagePath, preview_width, preview_height);
-                    log.debug("create preview image " + previewImagePath);
-                }
             }
         }
     }
@@ -267,8 +211,7 @@ public class PhotoServiceImpl implements PhotoService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.service.PhotoService#deletePhoto(java.lang.Long[])
+     * @see org.mspring.mlog.service.PhotoService#deletePhoto(java.lang.Long[])
      */
     @Override
     public void deletePhoto(String basePath, Long[] ids) {
@@ -289,9 +232,8 @@ public class PhotoServiceImpl implements PhotoService {
         Photo photo = findPhotoById(id);
         String imagePath = basePath + File.separator + photo.getUrl();
         String previewPath = basePath + File.separator + photo.getPreviewUrl();
-
-        photoDao.delete(id);
         deletePhotoFile(basePath, imagePath, previewPath);
+        photoDao.delete(photo);
     }
 
     private void deletePhotoFile(String basePath, String imagePath, String previewPath) {
@@ -308,8 +250,7 @@ public class PhotoServiceImpl implements PhotoService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.service.PhotoService#findPhotoById(java.lang.Long)
+     * @see org.mspring.mlog.service.PhotoService#findPhotoById(java.lang.Long)
      */
     @Override
     public Photo findPhotoById(Long id) {
@@ -317,8 +258,11 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.get(id);
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.PhotoService#queryPhoto(org.mspring.platform.dao.support.Page, org.mspring.platform.dao.query.QueryCriterion)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PhotoService#queryPhoto(org.mspring.platform.dao.support.Page,
+     *      org.mspring.platform.dao.query.QueryCriterion)
      */
     @Override
     public Page<Photo> queryPhoto(Page<Photo> page, QueryCriterion queryCriterion) {
@@ -326,7 +270,9 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.findPage(page, queryCriterion);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.mspring.mlog.service.PhotoService#hasPhotoInAlbum(java.lang.Long)
      */
     @Override
@@ -339,4 +285,40 @@ public class PhotoServiceImpl implements PhotoService {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PhotoService#findPhotosByAlbum(java.lang.Long)
+     */
+    @Override
+    public List<Photo> findPhotosByAlbum(Long albumId) {
+        // TODO Auto-generated method stub
+        return photoDao.find(" select photo from Photo photo where photo.album.id = ? ", albumId);
+    }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PhotoService#findNearPhotos(java.lang.Long, java.lang.Long, int)
+     */
+    @Override
+    public List<Photo> findNearPhotos(Long albumId, Long currentPhotoId, int length) {
+        // TODO Auto-generated method stub
+        List<Photo> result = new ArrayList<Photo>();
+        List<Photo> allPhotosInAlbum = findPhotosByAlbum(albumId);
+        Photo currentPhoto = findPhotoById(currentPhotoId);
+        int currentPoint = allPhotosInAlbum.indexOf(currentPhoto);
+        
+        int startIndex, endIndex;
+        if ((length / 2) >= currentPoint) {
+            startIndex = 0;
+            endIndex = length;
+        }
+        else {
+            startIndex = currentPoint - (length / 2);
+            endIndex = currentPoint + (length / 2) + 1;
+            if (endIndex > (allPhotosInAlbum.size() - 1)) {
+                startIndex = allPhotosInAlbum.size() - length;
+                endIndex = allPhotosInAlbum.size();
+            }
+        }
+        result = allPhotosInAlbum.subList(startIndex, endIndex);
+        return result;
+    }
 }
