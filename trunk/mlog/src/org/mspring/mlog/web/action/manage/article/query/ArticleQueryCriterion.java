@@ -5,10 +5,8 @@ package org.mspring.mlog.web.action.manage.article.query;
 
 import java.util.Map;
 
-import org.hibernate.Criteria;
 import org.mspring.platform.dao.query.AbstractQueryCriterion;
 import org.mspring.platform.dao.query.QueryBuilder;
-import org.mspring.platform.utils.StringUtils;
 
 /**
  * @author Gao Youbo

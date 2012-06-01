@@ -4,27 +4,20 @@
 package org.mspring.mlog.util;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mspring.mlog.entity.Photo;
-import org.mspring.platform.utils.StringUtils;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;
@@ -46,129 +39,37 @@ public class ImageUtils {
     private static Log log = LogFactory.getLog(ImageUtils.class);
 
     /**
-     * 生成御览图
-     * 
-     * @param photo
-     *            图片
-     * @param previewImageName
-     *            预览图名称
-     * @param width
-     * @param height
+     * 保存图片，并以一定的比例缩放
+     * @param formImage
+     * @param saveImage
+     * @param maxWidth
+     * @param maxHeight
      * @throws IOException
      */
-    public static String createPreviewImage(File photo, String previewImageName, int width, int height) throws IOException {
-        // 判断缩略图路径是否存在, 如果不存在就创建
-        File previewFile = new File(previewImageName);
-        if (!previewFile.getParentFile().exists()) {
-            previewFile.getParentFile().mkdirs();
+    public static void saveImage(File formImage, File saveImage, int maxWidth, int maxHeight) throws IOException {
+        BufferedImage srcImage;
+        // String ex =
+        // fromFileStr.substring(fromFileStr.indexOf("."),fromFileStr.length());
+        String imgType = "JPEG";
+        if (formImage.getName().toLowerCase().endsWith(".png")) {
+            imgType = "PNG";
         }
-        String extendName = StringUtils.getFileExtend(previewImageName).toLowerCase();
-        FileOutputStream newimage = null;
-        InputStream fis = new FileInputStream(photo);
-        File file;
-        try {
-            if ("gif".equalsIgnoreCase(extendName)) {
-                GifImage gifImage = GifDecoder.decode(fis);
-                fis.close();
-                fis = null;
-                GifImage newGif = GifTransformer.resize(gifImage, width, height, false);
-                newimage = new FileOutputStream(previewImageName);
-                GifEncoder.encode(newGif, newimage);
-            } else {
-                BufferedImage orig_portrait = (BufferedImage) ImageIO.read(fis);
-                fis.close();
-                fis = null;
-                // 统一转成JPG格式
-                BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                bi.getGraphics().drawImage(orig_portrait, 0, 0, width, height, null);
-                // if (!previewImageName.endsWith(".jpg"))
-                // previewImageName += ".jpg";
-                newimage = new FileOutputStream(previewImageName);
-                ImageIO.write(bi, "jpg", newimage);
+        //如果保存路径不存在，那么创建
+        if (!saveImage.getParentFile().exists()) {
+            saveImage.getParentFile().mkdirs();
+        }
+        //处理GIF动态图片
+        if (formImage.getName().toLowerCase().endsWith(".gif")) {
+            GifImage gifImage = GifDecoder.decode(formImage);
+            GifImage newGif = GifTransformer.resize(gifImage, maxWidth, maxHeight, false);
+            GifEncoder.encode(newGif, saveImage);
+        }
+        else {
+            srcImage = ImageIO.read(formImage);
+            if (maxWidth > 0 || maxHeight > 0) {
+                srcImage = resize(srcImage, maxWidth, maxHeight);
             }
-        } finally {
-            if (newimage != null)
-                newimage.close();
-            if (fis != null)
-                fis.close();
-        }
-        return previewImageName;
-    }
-
-    // /**
-    // * 将上传的图片保存到磁盘中
-    // *
-    // * @param imgFile
-    // * @param origionalPath
-    // * @throws IOException
-    // */
-    // public static void writeToFile(FormFile imgFile, String origionalPath)
-    // throws IOException {
-    // // 保存上传的文件
-    // FileOutputStream oldimage = null;
-    // InputStream fin = null;
-    // byte[] data = new byte[8192];
-    // try {
-    // fin = imgFile.getInputStream();
-    // oldimage = new FileOutputStream(origionalPath);
-    // do {
-    // int rc = fin.read(data);
-    // if (rc == -1)
-    // break;
-    // oldimage.write(data, 0, rc);
-    // if (rc < data.length)
-    // break;
-    // } while (true);
-    // } finally {
-    // data = null;
-    // if (oldimage != null)
-    // oldimage.close();
-    // if (fin != null)
-    // fin.close();
-    // }
-    // }
-
-    /**
-     * 上传图片
-     */
-    public void upload(HttpServletRequest request, String origionalPath) throws IOException {
-        File saveFile = new File(origionalPath); // 保存的图片完整路径
-        File saveFolder = new File(saveFile.getParent()); // 保存图片的文件夹路径
-        if (!saveFolder.exists())
-            saveFolder.mkdirs();
-
-        DiskFileItemFactory fac = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(fac);
-        upload.setHeaderEncoding("utf-8");
-        List<FileItem> fileList = null;
-        try {
-            fileList = upload.parseRequest(request);
-        } catch (FileUploadException e) {
-            // TODO: handle exception
-            return;
-        }
-        Iterator<FileItem> it = fileList.iterator();
-        String name = ""; // 文件名
-        String extName = ""; // 文件后缀
-        while (it.hasNext()) {
-            FileItem item = it.next();
-            if (!item.isFormField()) {
-                name = item.getName();
-                long size = item.getSize();
-                String type = item.getContentType();
-                if (StringUtils.isBlank(name)) {
-                    continue;
-                }
-                if (name.lastIndexOf(".") >= 0) {
-                    extName = name.substring(name.lastIndexOf("."));
-                }
-
-                try {
-                    item.write(saveFile);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            ImageIO.write(srcImage, imgType, saveImage);
         }
     }
 
@@ -342,6 +243,43 @@ public class ImageUtils {
                 newimage.close();
         }
         return null;
+    }
+
+    /**
+     * 按规定比例缩放图片
+     * @param source
+     * @param targetW
+     * @param targetH
+     * @return
+     */
+    public static BufferedImage resize(BufferedImage source, int targetW, int targetH) {
+        // targetW，targetH分别表示目标长和宽
+        int type = source.getType();
+        BufferedImage target = null;
+        double sx = (double) targetW / source.getWidth();
+        double sy = (double) targetH / source.getHeight();
+        // 这里想实现在targetW，targetH范围内实现等比缩放。如果不需要等比缩放
+        // 则将下面的if else语句注释即可
+        if (sx > sy) {
+            sx = sy;
+            targetW = (int) (sx * source.getWidth());
+        } else {
+            sy = sx;
+            targetH = (int) (sy * source.getHeight());
+        }
+        if (type == BufferedImage.TYPE_CUSTOM) { // handmade
+            ColorModel cm = source.getColorModel();
+            WritableRaster raster = cm.createCompatibleWritableRaster(targetW, targetH);
+            boolean alphaPremultiplied = cm.isAlphaPremultiplied();
+            target = new BufferedImage(cm, raster, alphaPremultiplied, null);
+        } else
+            target = new BufferedImage(targetW, targetH, type);
+        Graphics2D g = target.createGraphics();
+        // smoother than exlax:
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.drawRenderedImage(source, AffineTransform.getScaleInstance(sx, sy));
+        g.dispose();
+        return target;
     }
 
 }

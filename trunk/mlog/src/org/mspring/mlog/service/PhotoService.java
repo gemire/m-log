@@ -4,6 +4,7 @@
 package org.mspring.mlog.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,12 +48,33 @@ public interface PhotoService {
      */
     void createPhoto(HttpServletRequest request, String path, Long album) throws IOException;
 
+    /**
+     * 删除照片
+     * @param basePath
+     * @param id
+     */
     void deletePhoto(String basePath, Long id);
 
+    /**
+     * 删除照片
+     * @param basePath
+     * @param ids
+     */
     void deletePhoto(String basePath, Long[] ids);
 
+    /**
+     * 根据编号获取照片
+     * @param id
+     * @return
+     */
     Photo findPhotoById(Long id);
 
+    /**
+     * 查询照片
+     * @param page
+     * @param queryCriterion
+     * @return
+     */
     Page<Photo> queryPhoto(Page<Photo> page, QueryCriterion queryCriterion);
     
     /**
@@ -61,4 +83,21 @@ public interface PhotoService {
      * @return
      */
     boolean hasPhotoInAlbum(Long albumId);
+    
+    
+    /**
+     * 查找相册中的照片
+     * @param albumId
+     * @return
+     */
+    List<Photo> findPhotosByAlbum(Long albumId);
+    
+    /**
+     * 查找相册附近的照片
+     * @param albumId
+     * @param currentPhotoId
+     * @param length
+     * @return
+     */
+    List<Photo> findNearPhotos(Long albumId, Long currentPhotoId, int length);
 }
