@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.mspring.platform.dao.query.QueryContext;
-import org.mspring.platform.dao.query.QueryFilter;
-import org.mspring.platform.dao.query.support.SimpleQueryFilter;
+import org.mspring.platform.persistence.query.QueryContext;
+import org.mspring.platform.persistence.query.QueryFilter;
+import org.mspring.platform.persistence.query.support.SimpleQueryFilter;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.RequestUtils;
 
