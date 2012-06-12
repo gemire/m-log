@@ -4,7 +4,7 @@
 package org.mspring.mlog.dao;
 
 import org.mspring.mlog.entity.Option;
-import org.mspring.platform.dao.BaseDao;
+import org.mspring.platform.persistence.hibernate.dao.BaseDao;
 
 /**
  * @author Gao Youbo

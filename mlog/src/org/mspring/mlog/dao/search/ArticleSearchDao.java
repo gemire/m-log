@@ -4,8 +4,8 @@
 package org.mspring.mlog.dao.search;
 
 import org.mspring.mlog.entity.Article;
-import org.mspring.platform.dao.BaseSearchDao;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.search.BaseSearchDao;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author Gao Youbo

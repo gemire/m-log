@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.mspring.mlog.entity.Category;
 import org.mspring.mlog.web.action.manage.AbstractManageAction;
-import org.mspring.platform.dao.support.Page;
-import org.mspring.platform.dao.support.Sort;
+import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.model.field.ColumnField;
 
 /**

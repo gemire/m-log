@@ -6,7 +6,7 @@ package org.mspring.mlog.web.action.web;
 import java.io.UnsupportedEncodingException;
 
 import org.mspring.mlog.entity.Article;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
 
 /**

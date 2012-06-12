@@ -6,8 +6,8 @@ package org.mspring.mlog.dao.search.impl;
 import org.apache.lucene.search.Query;
 import org.mspring.mlog.dao.search.ArticleSearchDao;
 import org.mspring.mlog.entity.Article;
-import org.mspring.platform.dao.support.AbstractSearchDao;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.search.AbstractSearchDao;
+import org.mspring.platform.persistence.support.Page;
 import org.springframework.stereotype.Repository;
 
 /**

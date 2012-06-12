@@ -5,7 +5,7 @@ package org.mspring.mlog.dao.security.impl;
 
 import org.mspring.mlog.dao.security.RoleAuthorityDao;
 import org.mspring.mlog.entity.security.RoleAuthority;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

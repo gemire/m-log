@@ -4,7 +4,7 @@
 package org.mspring.mlog.dao.security;
 
 import org.mspring.mlog.entity.security.User;
-import org.mspring.platform.dao.BaseDao;
+import org.mspring.platform.persistence.hibernate.dao.BaseDao;
 
 /**
  * @author Gao Youbo

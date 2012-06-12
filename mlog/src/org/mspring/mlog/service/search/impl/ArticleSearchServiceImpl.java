@@ -9,7 +9,7 @@ import org.mspring.mlog.dao.ArticleDao;
 import org.mspring.mlog.dao.search.ArticleSearchDao;
 import org.mspring.mlog.entity.Article;
 import org.mspring.mlog.service.search.ArticleSearchService;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.support.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

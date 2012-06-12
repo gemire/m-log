@@ -9,7 +9,7 @@ import org.mspring.mlog.common.Const;
 import org.mspring.mlog.common.MenuType;
 import org.mspring.mlog.dao.MenuDao;
 import org.mspring.mlog.entity.Menu;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

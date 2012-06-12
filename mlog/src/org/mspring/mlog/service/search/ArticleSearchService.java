@@ -4,7 +4,7 @@
 package org.mspring.mlog.service.search;
 
 import org.mspring.mlog.entity.Article;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author Gao Youbo

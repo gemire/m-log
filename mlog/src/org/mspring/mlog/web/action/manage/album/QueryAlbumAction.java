@@ -5,8 +5,8 @@ package org.mspring.mlog.web.action.manage.album;
 
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.web.action.manage.AbstractManageAction;
-import org.mspring.platform.dao.support.Page;
-import org.mspring.platform.dao.support.Sort;
+import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 
 /**
  * @author Gao Youbo (http://www.mspring.org)

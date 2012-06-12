@@ -13,7 +13,7 @@ import org.mspring.mlog.common.ConfigTokens;
 import org.mspring.mlog.entity.cache.CacheEntity;
 import org.mspring.mlog.web.action.manage.AbstractManageAction;
 import org.mspring.mlog.web.cache.CacheTokens;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.ListUtils;
 
 /**

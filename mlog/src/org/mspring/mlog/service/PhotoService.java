@@ -9,8 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.entity.Photo;
-import org.mspring.platform.dao.query.QueryCriterion;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author Gao Youbo

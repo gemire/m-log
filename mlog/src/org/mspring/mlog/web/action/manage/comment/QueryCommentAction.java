@@ -11,9 +11,9 @@ import java.util.Map;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.web.action.manage.AbstractManageAction;
 import org.mspring.mlog.web.action.manage.comment.query.CommentQueryCriterion;
-import org.mspring.platform.dao.query.QueryCriterion;
-import org.mspring.platform.dao.support.Page;
-import org.mspring.platform.dao.support.Sort;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.model.field.ColumnField;
 import org.mspring.platform.web.xwork.interceptor.QueryParameterAware;
 

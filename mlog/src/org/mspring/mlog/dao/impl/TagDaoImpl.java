@@ -9,7 +9,7 @@ import java.util.List;
 import org.mspring.mlog.dao.ArticleTagDao;
 import org.mspring.mlog.dao.TagDao;
 import org.mspring.mlog.entity.Tag;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

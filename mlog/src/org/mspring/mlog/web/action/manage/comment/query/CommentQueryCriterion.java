@@ -3,11 +3,10 @@
  */
 package org.mspring.mlog.web.action.manage.comment.query;
 
-import java.util.Date;
 import java.util.Map;
 
-import org.mspring.platform.dao.query.AbstractQueryCriterion;
-import org.mspring.platform.dao.query.QueryBuilder;
+import org.mspring.platform.persistence.query.AbstractQueryCriterion;
+import org.mspring.platform.persistence.query.QueryBuilder;
 
 /**
  * @author Gao Youbo
@@ -25,13 +24,7 @@ public class CommentQueryCriterion extends AbstractQueryCriterion {
     public CommentQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder queryBuilder = new QueryBuilder(queryParams);
-        whereString = queryBuilder.startBuild()
-        .buildLike("comment.author", "comment.author")
-        .buildLike("comment.content", "comment.content")
-        .buildGE("comment.createTime", "comment.createTime.begVal")
-        .buildLE("comment.createTime", "comment.createTime.endVal")
-        .buildEqual("comment.status", "comment.status", Integer.class)
-        .endBuild();
+        whereString = queryBuilder.startBuild().buildLike("comment.author", "comment.author").buildLike("comment.content", "comment.content").buildGE("comment.createTime", "comment.createTime.begVal").buildLE("comment.createTime", "comment.createTime.endVal").buildEqual("comment.status", "comment.status", Integer.class).endBuild();
 
         countString = "select count(*) from Comment comment " + whereString;
         queryString = "select comment from Comment comment " + whereString;

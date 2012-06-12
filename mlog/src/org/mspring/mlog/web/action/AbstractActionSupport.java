@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.mspring.mlog.common.Const;
 import org.mspring.mlog.entity.security.User;
-import org.mspring.platform.dao.query.QueryCriterion;
+import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.web.xwork.action.AbstractAction;
 
 /**
