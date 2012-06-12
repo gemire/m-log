@@ -6,7 +6,7 @@ package org.mspring.mlog.dao;
 import java.util.List;
 
 import org.mspring.mlog.entity.Menu;
-import org.mspring.platform.dao.BaseDao;
+import org.mspring.platform.persistence.hibernate.dao.BaseDao;
 
 /**
  * @author Gao Youbo

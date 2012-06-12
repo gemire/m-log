@@ -5,8 +5,8 @@ package org.mspring.mlog.web.action.manage.linktype.query;
 
 import java.util.Map;
 
-import org.mspring.platform.dao.query.AbstractQueryCriterion;
-import org.mspring.platform.dao.query.QueryBuilder;
+import org.mspring.platform.persistence.query.AbstractQueryCriterion;
+import org.mspring.platform.persistence.query.QueryBuilder;
 
 /**
  * @author Gao Youbo

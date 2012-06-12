@@ -5,7 +5,7 @@ package org.mspring.mlog.dao.impl;
 
 import org.mspring.mlog.dao.ArticleCategoryDao;
 import org.mspring.mlog.entity.ArticleCategory;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

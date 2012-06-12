@@ -6,8 +6,8 @@ package org.mspring.mlog.service;
 import java.util.List;
 
 import org.mspring.mlog.entity.Link;
-import org.mspring.platform.dao.query.QueryCriterion;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author Gao Youbo(http://www.mspring.org)

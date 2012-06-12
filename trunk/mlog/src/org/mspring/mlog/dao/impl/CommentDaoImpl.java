@@ -8,7 +8,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.mspring.mlog.dao.CommentDao;
 import org.mspring.mlog.entity.Comment;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

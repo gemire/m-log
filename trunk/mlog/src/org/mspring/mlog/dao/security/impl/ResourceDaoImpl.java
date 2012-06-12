@@ -5,7 +5,7 @@ package org.mspring.mlog.dao.security.impl;
 
 import org.mspring.mlog.dao.security.ResourceDao;
 import org.mspring.mlog.entity.security.Resource;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

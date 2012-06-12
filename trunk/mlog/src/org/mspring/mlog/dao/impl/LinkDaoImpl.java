@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.mspring.mlog.dao.LinkDao;
 import org.mspring.mlog.entity.Link;
-import org.mspring.platform.dao.support.AbstractHibernateDao;
+import org.mspring.platform.persistence.hibernate.dao.AbstractHibernateDao;
 import org.springframework.stereotype.Repository;
 
 /**

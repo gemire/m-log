@@ -3,8 +3,8 @@ package org.mspring.mlog.service;
 import java.util.List;
 
 import org.mspring.mlog.entity.Article;
-import org.mspring.platform.dao.query.QueryCriterion;
-import org.mspring.platform.dao.support.Page;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author gaoyb(www.mspring.org)

@@ -5,8 +5,8 @@ package org.mspring.mlog.web.action.manage.article.query;
 
 import java.util.Map;
 
-import org.mspring.platform.dao.query.AbstractQueryCriterion;
-import org.mspring.platform.dao.query.QueryBuilder;
+import org.mspring.platform.persistence.query.AbstractQueryCriterion;
+import org.mspring.platform.persistence.query.QueryBuilder;
 
 /**
  * @author Gao Youbo
@@ -43,10 +43,9 @@ public class ArticleQueryCriterion extends AbstractQueryCriterion {
 
         queryBuilder.startBuild();
         if (queryParams.get("article.category.id") != null && "0".equals(queryParams.get("article.category.id").toString().trim())) {
-            //处理未分类文章
+            // 处理未分类文章
             queryBuilder.buildString(" and categories.id is null ");
-        }
-        else {
+        } else {
             queryBuilder.buildEqual("categories.id", "article.category.id", Long.class);
         }
         queryBuilder.buildEqual("tags.id", "article.tag.id", Long.class);
