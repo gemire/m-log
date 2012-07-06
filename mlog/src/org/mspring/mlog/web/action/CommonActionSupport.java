@@ -10,6 +10,7 @@ import org.mspring.mlog.service.ArticleService;
 import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CategoryService;
 import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.service.CommonService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.service.MailService;
@@ -49,6 +50,7 @@ public class CommonActionSupport extends AbstractActionSupport {
     protected ThemeService themeService;
     protected MailService mailService;
     protected CacheService cacheService;
+    protected CommonService commonService;
     protected Map<String, String> config;
 
     @Autowired
@@ -134,6 +136,11 @@ public class CommonActionSupport extends AbstractActionSupport {
     @Autowired
     public void setMailService(MailService mailService) {
         this.mailService = mailService;
+    }
+
+    @Autowired
+    public void setCommonService(CommonService commonService) {
+        this.commonService = commonService;
     }
 
     public void setConfig(Map<String, String> config) {

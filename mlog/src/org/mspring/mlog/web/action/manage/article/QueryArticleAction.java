@@ -86,6 +86,8 @@ public class QueryArticleAction extends AbstractManageAction implements QueryPar
             Sort sort = new Sort("article.id", Sort.DESC);
             articlePage.setSort(sort);
         }
+        
+        articlePage.setSortEnable(false);
 
         queryCriterion = new ArticleQueryCriterion(queryParameters);
         articlePage = articleService.queryArticle(articlePage, queryCriterion);

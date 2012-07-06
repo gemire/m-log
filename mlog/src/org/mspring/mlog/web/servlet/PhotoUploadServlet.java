@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.mspring.mlog.common.ServiceFactory;
-import org.mspring.mlog.service.PhotoService;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.servlet.renderer.JSONRenderer;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Gao Youbo
@@ -56,7 +56,10 @@ public class PhotoUploadServlet extends HttpServlet {
             if (!StringUtils.isBlank(album)) {
                 String path = this.getServletConfig().getServletContext().getRealPath("") + File.separator;
                 ServiceFactory.getPhotoService().createPhoto(request, path, new Long(album));
-                JSONRenderer renderer = new JSONRenderer("succeed: {\"success\":true}");
+                //JSONRenderer renderer = new JSONRenderer("succeed: {\"success\":true}");
+                JSONObject res = new JSONObject();
+                res.put("success", true);
+                JSONRenderer renderer = new JSONRenderer(res);
                 renderer.render(response);
             }
         } catch (Exception e) {

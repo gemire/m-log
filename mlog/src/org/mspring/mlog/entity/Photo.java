@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Photo entity.
  * 
@@ -30,13 +32,20 @@ public class Photo implements java.io.Serializable {
      */
     private static final long serialVersionUID = -1776070953172107621L;
 
+    @Expose
     private Long photoId;
+    @Expose
     private String name;
     private Album album;
+    @Expose
     private Integer width;
+    @Expose
     private Integer height;
+    @Expose
     private String fileName;
+    @Expose
     private String url;
+    @Expose
     private String previewUrl;
     private Short photoYear;
     private Short photoMonth;

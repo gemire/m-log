@@ -32,7 +32,7 @@ public class ParameterUtils {
         return null;
     }
 
-    public static Long[] splitTOLongArray(String str) {
+    public static Long[] splitToLongArray(String str) {
         return splitToLongArray(str, DEFAULT_SPLIT_CHAR);
     }
 
