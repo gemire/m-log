@@ -65,7 +65,9 @@ public class JSONRenderer extends AbstractResponseRenderer {
     /*
      * (non-Javadoc)
      * 
-     * @see org.mspring.platform.web.servlet.renderer.AbstractResponseRenderer#render(javax.servlet.http.HttpServletResponse)
+     * @see
+     * org.mspring.platform.web.servlet.renderer.AbstractResponseRenderer#render
+     * (javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void render(HttpServletResponse response) {
@@ -77,10 +79,17 @@ public class JSONRenderer extends AbstractResponseRenderer {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         try {
-            String JSON = JSONUtils.toJson(content, excludesFieldsWithoutExpose);
+            String JSON = "";
+            if (content instanceof String) {
+                JSON = content.toString();
+            }
+            else {
+                JSON = JSONUtils.toJson(content, excludesFieldsWithoutExpose);
+            }
             PrintWriter writer = response.getWriter();
             writer.println(JSON);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // TODO: handle exception
             log.warn("JSON renders error", e);
         }

@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -62,38 +63,36 @@ public class JSONUtils {
      * @return 目标对象的 {@code JSON} 格式的字符串。
      */
     public static String toJson(Object target, Type targetType, boolean isSerializeNulls, Double version, String datePattern, boolean excludesFieldsWithoutExpose) {
-        if (target == null)
-            return EMPTY_JSON;
+        if (target == null) return EMPTY_JSON;
         GsonBuilder builder = new GsonBuilder();
-        if (isSerializeNulls)
-            builder.serializeNulls();
-        if (version != null)
-            builder.setVersion(version.doubleValue());
-        if (isEmpty(datePattern))
-            datePattern = DEFAULT_DATE_PATTERN;
+        if (isSerializeNulls) builder.serializeNulls();
+        if (version != null) builder.setVersion(version.doubleValue());
+        if (isEmpty(datePattern)) datePattern = DEFAULT_DATE_PATTERN;
         builder.setDateFormat(datePattern);
-        if (excludesFieldsWithoutExpose)
-            builder.excludeFieldsWithoutExposeAnnotation();
+        if (excludesFieldsWithoutExpose) builder.excludeFieldsWithoutExposeAnnotation();
         String result = EMPTY;
         Gson gson = builder.create();
         try {
             if (targetType != null) {
                 result = gson.toJson(target, targetType);
-            } else {
+            }
+            else {
                 result = gson.toJson(target);
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             log.warn("目标对象 " + target.getClass().getName() + " 转换 JSON 字符串时，发生异常！", ex);
             if (target instanceof Collection || target instanceof Iterator || target instanceof Enumeration || target.getClass().isArray()) {
                 result = EMPTY_JSON_ARRAY;
-            } else
-                result = EMPTY_JSON;
+            }
+            else result = EMPTY_JSON;
         }
         return result;
     }
 
     /**
-     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean} 对象。</strong>
+     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean}
+     * 对象。</strong>
      * <ul>
      * <li>该方法只会转换标有 {@literal @Expose} 注解的字段；</li>
      * <li>该方法不会转换 {@code null} 值字段；</li>
@@ -108,9 +107,10 @@ public class JSONUtils {
     public static String toJson(Object target) {
         return toJson(target, null, false, null, null, false);
     }
-    
+
     /**
-     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean} 对象。</strong>
+     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean}
+     * 对象。</strong>
      * <ul>
      * <li>该方法只会转换标有 {@literal @Expose} 注解的字段；</li>
      * <li>该方法不会转换 {@code null} 值字段；</li>
@@ -128,7 +128,8 @@ public class JSONUtils {
     }
 
     /**
-     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean} 对象。</strong>
+     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean}
+     * 对象。</strong>
      * <ul>
      * <li>该方法只会转换标有 {@literal @Expose} 注解的字段；</li>
      * <li>该方法不会转换 {@code null} 值字段；</li>
@@ -146,7 +147,8 @@ public class JSONUtils {
     }
 
     /**
-     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean} 对象。</strong>
+     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean}
+     * 对象。</strong>
      * <ul>
      * <li>该方法不会转换 {@code null} 值字段；</li>
      * <li>该方法会转换所有未标注或已标注 {@literal @Since} 的字段；</li>
@@ -164,7 +166,8 @@ public class JSONUtils {
     }
 
     /**
-     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean} 对象。</strong>
+     * 将给定的目标对象转换成 {@code JSON} 格式的字符串。<strong>此方法只用来转换普通的 {@code JavaBean}
+     * 对象。</strong>
      * <ul>
      * <li>该方法不会转换 {@code null} 值字段；</li>
      * <li>该方法转换时使用默认的 日期/时间 格式化模式 - {@code yyyy-MM-dd HH:mm:ss SSS}；</li>
@@ -275,7 +278,7 @@ public class JSONUtils {
      *            日期格式模式。
      * @return 给定的 {@code JSON} 字符串表示的指定的类型对象。
      */
-    public static <T> T fromJson(String json, TypeToken<T> token, String datePattern) {
+    public static Object fromJson(String json, TypeToken token, String datePattern) {
         if (isEmpty(json)) {
             return null;
         }
@@ -286,7 +289,8 @@ public class JSONUtils {
         Gson gson = builder.create();
         try {
             return gson.fromJson(json, token.getType());
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             log.error(json + " 无法转换为 " + token.getRawType().getName() + " 对象!", ex);
             return null;
         }
@@ -303,7 +307,7 @@ public class JSONUtils {
      *            {@code com.google.gson.reflect.TypeToken} 的类型指示类对象。
      * @return 给定的 {@code JSON} 字符串表示的指定的类型对象。
      */
-    public static <T> T fromJson(String json, TypeToken<T> token) {
+    public static Object fromJson(String json, TypeToken token) {
         return fromJson(json, token, null);
     }
 
@@ -332,7 +336,8 @@ public class JSONUtils {
         Gson gson = builder.create();
         try {
             return gson.fromJson(json, clazz);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             log.error(json + " 无法转换为 " + clazz.getName() + " 对象!", ex);
             return null;
         }
