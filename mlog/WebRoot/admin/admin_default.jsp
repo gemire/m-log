@@ -13,20 +13,22 @@
 		<link rel="stylesheet" type="text/css" href="<%=path %>/script/extjs/resources/css/ext-all.css" />
   		<link rel="stylesheet" type="text/css" href="<%=path %>/admin/resources/main.css" />
   		
+  		<script type="text/javascript" src="<%=path %>/common/scriptVariable.action"></script>
 	    <script type="text/javascript" src="<%=path %>/script/extjs/adapter/ext/ext-base.js"></script>
 	    <script type="text/javascript" src="<%=path %>/script/extjs/ext-all.js"></script>
 	    <script type="text/javascript" src="<%=path %>/script/extjs/ux/TabCloseMenu.js"></script>
 	    
-	    <script type="text/javascript" src="<%=path %>/admin/js/TreePanelState.js"></script>
-		<script type="text/javascript" src="<%=path %>/admin/js/tree-loader.js"></script>
-		<script type="text/javascript" src="<%=path %>/admin/js/frame.js"></script>
+	    <script type="text/javascript" src="<%=path %>/script/extjs/ux/TreePanelState.js"></script>
+	    <script type="text/javascript" src="<%=path %>/script/extjs/ux/miframe.js"></script>
+	    
+	    <script type="text/javascript" src="<%=path %>/admin/js/MSpring.js"></script>
   	
 	    <script type="text/javascript">
 		    Ext.onReady(function(){
 				Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 				Ext.QuickTips.init();//开启提示功能
 				
-				initUI();
+				MSpring.initUI();
 		    });
 	    </script>
 	</head>

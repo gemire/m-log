@@ -8,7 +8,7 @@
 	<body>
 		<div id="divMain">
 			<div class="Header">
-				<span class="nav">
+				<span class="navigate">
 					<ss:text name="linkedit.createtitle" />
 				<span>
 			</div>

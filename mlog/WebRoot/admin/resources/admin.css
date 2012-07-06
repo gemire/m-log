@@ -258,34 +258,34 @@ div.Header {
 	font-weight: bold;
 }
 
-div.Header span.nav {
+div.Header span.navigate {
 	font-size: 12px;
 	font-weight: normal;
 	cursor: pointer;
 }
 
-div.Header span.nav a {
+div.Header span.navigate a {
 	font-size: 15px;
 	text-decoration: none;
 	color: #0066CC;
 }
 
-div.Header span.nav a:visited {
+div.Header span.navigate a:visited {
 	color: #0066CC;
 	text-decoration: none;
 }
 
-div.Header span.nav a:hover {
+div.Header span.navigate a:hover {
 	color: #FF7F50;
 	text-decoration: underline;
 }
 
-div.Header span.nav a:active {
+div.Header span.navigate a:active {
 	color: #FF7F50;
 	text-decoration: underline;
 }
 
-div.Header span.nav a.current {
+div.Header span.navigate a.current {
 	font-size: 15px;
 	text-decoration: none;
 	font-weight: bold;
@@ -476,4 +476,66 @@ input.error {
 
 .plugin {
 	background-image: url(images/plugin.png) !important;
+}
+
+
+.pictureDataViewDiv .x-panel-body{
+	background: white;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+.pictureDataViewDiv .thumb{
+	#position:relative;
+	#top:-50%;
+	#left:-50%;
+}
+.pictureDataViewDiv .thumb img{
+	padding: 2px;
+	border: solid 1px #d0d0d0;
+}
+.pictureDataViewDiv .thumb-subwrap{
+	display:table-cell;
+	vertical-align:middle;
+	#position:absolute;
+	#top:50%;
+}
+.pictureDataViewDiv .thumb-wrap{
+	#position:relative;
+	display:table;
+	overflow:hidden;
+	float: left;
+	margin: 4px;
+	margin-right: 0;
+	padding: 5px;
+	width: 175px;
+	height: 175px;
+	text-align: center;
+}
+.pictureDataViewDiv .thumb-wrap span{
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+.pictureDataViewDiv .x-view-over{
+    border:1px solid #d0d0d0;
+    background: #efefef;
+	padding: 4px;
+}
+
+.pictureDataViewDiv .x-view-selected{
+	background: #efefef;
+	border:1px solid #d0d0d0;
+	padding: 4px;
+}
+.pictureDataViewDiv .x-view-selected .thumb{
+	background:transparent;
+}
+
+.pictureDataViewDiv .loading-indicator {
+	font-size:11px;
+	background-image:url('image/loading.gif');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left:20px;
+	margin:10px;
 }

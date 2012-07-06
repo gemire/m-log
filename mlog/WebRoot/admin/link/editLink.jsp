@@ -9,7 +9,7 @@
 		<div id="divMain">
 			<div class="Header">
 				<!-- <ss:text name="linkedit.edittitle"></ss:text> -->
-				<span class="nav">
+				<span class="navigate">
 					<a href="<%=path %>/admin/queryLink.action"><ss:text name="linklist.title" /></a>&gt;&gt;
 					<a href="javascript:void(0);" class="current"><ss:text name="linkedit.edittitle" /></a>
 				<span>

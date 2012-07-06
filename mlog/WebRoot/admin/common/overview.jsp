@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@page import="org.mspring.mlog.common.Const"%>
+<%@page import="org.mspring.mlog.entity.security.User"%>
 <%@include file="../includes/header.jsp" %>
 	<body>
 		<div id="divMain">
@@ -26,13 +28,13 @@
 							当前用户
 						</td>
 						<td width="30%">
-							gaoyoubo (管理员)
+							<%=((User)session.getAttribute(Const.SESSION_LOGINUSER)).getName() %>
 						</td>
 						<td width="20%">
 							当前版本
 						</td>
 						<td width="30%">
-							1.8 Walle Build 91204
+							1.0
 						</td>
 					</tr>
 					<tr>
@@ -40,13 +42,13 @@
 							文章总数
 						</td>
 						<td width="30%">
-							89
+							<ss:property value="overviewMap.articleCount"/>
 						</td>
 						<td width="20%">
 							评论总数
 						</td>
 						<td width="30%">
-							6
+							<ss:property value="overviewMap.commentCount"/>
 						</td>
 					</tr>
 					<tr>
@@ -68,13 +70,13 @@
 							Tags总数
 						</td>
 						<td width="30%">
-							7
+							<ss:property value="overviewMap.tagCount"/>
 						</td>
 						<td width="20%">
 							分类总数
 						</td>
 						<td width="30%">
-							1
+							<ss:property value="overviewMap.categoryCount"/>
 						</td>
 					</tr>
 					<tr>
@@ -82,7 +84,7 @@
 							当前主题/当前样式
 						</td>
 						<td width="30%">
-							简单黑白主题 / black
+							<ss:property value="overviewMap.currentTheme"/>
 						</td>
 						<td width="20%">
 							用户总数
@@ -96,7 +98,7 @@
 							MetaWeblog API
 						</td>
 						<td colspan="3" width="80%">
-							http://localhost/xml-rpc/index.asp
+							http://localhost:8080/mlog/metaweblog.action
 						</td>
 					</tr>
 				</table>

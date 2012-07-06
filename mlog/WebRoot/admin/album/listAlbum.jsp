@@ -51,7 +51,7 @@
 								<table cellpadding="0" cellspacing="0">
 									<tr>
 										<td>
-											<a href="<%=path%>/admin/photo/queryPhoto.action?photo.album.id=<ss:property value="id" />"
+											<a href="<%=path%>/admin/photo/queryPhoto.action?albumId=<ss:property value="id" />"
 												alt="进入 <ss:property value="name" />"><img
 													src="<%=path%>/admin/resources/images/noface.jpg"
 													border="0" />
@@ -60,7 +60,7 @@
 									</tr>
 									<tr>
 										<td class="photo_name">
-											<a href="<%=path%>/admin/photo/queryPhoto.action?photo.album.id=<ss:property value="id" />" alt="进入 <ss:property value="name" />"><ss:property value="name" />
+											<a href="<%=path%>/admin/photo/queryPhoto.action?albumId=<ss:property value="id" />" alt="进入 <ss:property value="name" />"><ss:property value="name" />
 											<a href="<%=path %>/admin/photo/deleteAlbum.action?id=<ss:property value="id" />">删除</a>
 											</a>
 										</td>
