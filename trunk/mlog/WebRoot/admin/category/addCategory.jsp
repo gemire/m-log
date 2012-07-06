@@ -9,7 +9,7 @@
 	<body>
 		<div id="divMain">
 			<div class="Header">
-				<span class="nav"><a href="<%=path %>/admin/category/queryCategory.action"><ss:text name="categorylist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="categoryedit.createtitle" /></a><span>
+				<span class="navigate"><a href="<%=path %>/admin/category/queryCategory.action"><ss:text name="categorylist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="categoryedit.createtitle" /></a><span>
 			</div>
 			<div class="SubMenu"></div>
 			<div id="divMain2">

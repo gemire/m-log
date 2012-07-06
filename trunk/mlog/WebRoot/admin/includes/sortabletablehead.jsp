@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
-<%@page import="com.opensymphony.xwork2.util.ValueStack"%>
-<%@page import="org.mspring.platform.dao.support.Page"%>
+<%@page import="org.mspring.platform.persistence.support.Page"%>
 <%@taglib prefix="ss" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();

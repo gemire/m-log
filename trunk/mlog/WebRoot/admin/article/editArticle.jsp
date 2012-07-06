@@ -372,7 +372,7 @@
 	<body>
 		<div id="divMain">
 			<div class="Header">
-				<span class="nav"><a href="<%=path %>/admin/article/queryArticle.action"><ss:text name="articlelist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="articleedit.edittitle" /></a><span>
+				<span class="navigate"><a href="<%=path %>/admin/article/queryArticle.action"><ss:text name="articlelist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="articleedit.edittitle" /></a><span>
 			</div>
 			<div class="SubMenu"></div>
 			<div class="form">

@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@page import="org.mspring.mlog.common.Const"%>
 <%@ taglib prefix="ss" uri="/struts-tags" %>
 <%
 	String path = request.getContextPath();
@@ -23,25 +22,14 @@
 			}
 		</style>
 		
-		<script type="text/javascript">
-			if(window.top.document != document){
-	    		window.top.location = document.location;
-	    	}
-			<%
-	    	if(session.getAttribute(Const.SESSION_LOGINUSER) != null){
-		        %>
-		        window.top.location = "admin_default.jsp";
-		        <%
-		    }
-		    %>
-	    </script>
 	</head>
 	<body style="background:#fbfbfb!important;">
 		<div id="login">
-			<h1><a href="#" title="">M-LOG 管理登录</a></h1> 
-			<form accept-charset="utf-8" action="<%=path %>/admin/login.action" method="post">
+			<h1><a href="#" title="">M-log 2.0管理登录</a></h1> 
+			<form accept-charset="utf-8" action="<%=path %>/admin/j_spring_security_check" method="post">
 				<p>
 					<label>帐号：</label>
+					<!-- <input class="input" name="username" size="20" type="text" value="${SPRING_SECURITY_LAST_USERNAME}" /> -->
 					<input class="input" name="username" size="20" type="text" value="gaoyoubo" />
 				</p>
 				<p>
@@ -54,11 +42,8 @@
 				</p>
 				<p>
 					<img style="border: 1px solid black" src="<%=path %>/common/validateCode.action" />
-					<input type="checkbox" name="remember" value="true" />记住登录信息
+					<font color="red">${SPRING_SECURITY_LAST_EXCEPTION.message}</font>
 				</p>
-				<ss:if test="message != null">
-					<font color="red"><ss:property value="message" /></font>
-				</ss:if>
 				<p class="submit">
 					<input class="button-primary" name="commit" type="submit" value="登录" />
 				</p>

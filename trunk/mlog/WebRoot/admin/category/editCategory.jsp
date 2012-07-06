@@ -11,7 +11,7 @@
 		<div id="divMain">
 			<div class="Header">
 				<ss:text name="categoryedit.edittitle" />
-				<span class="nav"><a href="<%=path %>/admin/category/queryCategory.action"><ss:text name="categorylist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="categoryedit.edittitle" /></a><span>
+				<span class="navigate"><a href="<%=path %>/admin/category/queryCategory.action"><ss:text name="categorylist.title" /></a>&gt;&gt;<a href="javascript:void(0);"><ss:text name="categoryedit.edittitle" /></a><span>
 			</div>
 			<div class="SubMenu">
 			</div>

@@ -4,7 +4,7 @@
 	<body>
 		<div id="divMain">
 			<div class="Header">
-				<span class="nav"><a href="<%=path %>/admin/menu/queryMenu.action">菜单管理</a>&gt;&gt;编辑菜单<span>
+				<span class="navigate"><a href="<%=path %>/admin/menu/queryMenu.action">菜单管理</a>&gt;&gt;编辑菜单<span>
 			</div>
 			<div class="SubMenu"></div>
 			<div id="divMain2">

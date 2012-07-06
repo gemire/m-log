@@ -8,7 +8,7 @@
 	<body>
 		<div id="divMain">
 			<div class="Header">
-				<span class="nav">
+				<span class="navigate">
 					<a href="<%=path %>/admin/linktype/queryLinkType.action"><ss:text name="linktypelist.title" /></a>&gt;&gt;
 					<a href="javascript:void(0);" class="current">编辑链接分类</a>
 				<span>

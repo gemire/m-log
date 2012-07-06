@@ -6,254 +6,235 @@
 		.album_list li {width:140px;height:140px;float:left;text-align:center;position:relative}
 		.album_list li table img{width:120px;height:100px;border:1px solid #ddd;padding:5px;background:#f0f0f0;}
 	</style>
-	
+	<link rel="stylesheet" type="text/css" href="<%=path %>/script/extjs/ux/css/fileuploadfield.css" />
 	<script type="text/javascript" src="<%=path %>/script/extjs/ux/Reorderer.js"></script>
 	<script type="text/javascript" src="<%=path %>/script/extjs/ux/ToolbarReorderer.js"></script>
+	
 	<script type="text/javascript" src="<%=path %>/script/swfupload/swfupload.js"></script>
+	<script type="text/javascript" src="<%=path %>/script/swfupload/swfupload.queue.js"></script>
+	<script type="text/javascript" src="<%=path %>/script/swfupload/swfupload.speed.js"></script>
+	<script type="text/javascript" src="<%=path %>/script/swfupload/fileprogress.js"></script>
 	
-	<script type="text/javascript" src="<%=path %>/admin/js/uploaderPanel.js"></script>
-	
+	<script type="text/javascript" src="<%=path %>/script/extjs/ux/FileUploadField.js"></script>
+	<script type="text/javascript" src="<%=path %>/script/extjs/ux/DataView-more.js"></script>
+		
 	<script type="text/javascript">
 		Ext.onReady(function() {
 			Ext.QuickTips.init();
 			
-			var enable_edit_button = "enableEditButton";
-			var disable_edit_button = "disableEditButton";
-			var delete_button = "deleteButton";
-			var selectall_button = "selectallButton";
-			var selectother_button = "selectotherButton";
-
-			var enableEditAction = "enableEdit";
-			var disableEditAction = "disableEdit";
-			var deleteAction = "delete";
-			var selectAllAction = "selectAll";
-			var selectOtherAction = "selectOther";
-			var uploadPhotoAction = "uploadPhoto";
+		   	var albumId = '<ss:property value="album.id" />';
+		   	var pageSize = 15;
+		   	var totalCount = '<ss:property value="photoPage.totalCount" />';
+			var baseParams = {'photo.album.id':albumId};
 			
-			var handleAction = function(action){
-				switch (action) {
-					case enableEditAction: //启用编辑模式
-						enableEdit();
-					break;
-					case disableEditAction: //退出编辑模式
-						disableEdit();
-					break;
-					case deleteAction:
-						deletePhoto();
-					break;
-					case selectAllAction: 
-						selectAll();
-					break;
-					case selectOtherAction:
-						selectOther();
-					break;
-					case uploadPhotoAction: 
-						showUploadPhotoDialog();
-					break;
+			//图片查看框的大小
+			var galleryWinWidth = $(window.top.document).width() * 0.8;
+			var galleryWinHeight = $(window.top.document).height() * 0.8;
+			
+			//当前选中的图片编号
+			var pictureIds = '';
+			
+			//图片数据源
+			var pictureListStore = new Ext.data.JsonStore({
+				url : '<%=path %>/photo/listPhoto.action',
+				root : 'datas',
+				totalProperty: 'totalCount',
+		        fields: ['photoId', 'name', 'url', 'previewUrl'],
+		        sortInfo: {
+		            field    : 'photoId',
+		            direction: 'DESC'
+		        },
+		       	baseParams: baseParams,
+		        pruneModifiedRecords: true,
+		        autoLoad: true
+			});
+			
+			
+			//工具栏
+			var pictureListToolbar = new Ext.Toolbar({
+				renderTo: 'pictureListToolBarDiv',
+		    	items: [
+					'当前：<ss:property value="album.name" />',
+					'-',
+				    new Ext.Button({
+					    id: 'pictureList-upload-button',
+						text: '本地上传',
+						iconCls: 'upload',
+						handler: showUploadPhotoDialog
+					}),
+					new Ext.Button({
+					    id: 'pictureList-grab-button',
+						text: '网络图片',
+						iconCls: 'picture_link'
+					}),
+					'-',
+					new Ext.Button({
+					    id: 'pictureList-save-button',
+					    text: '保存',
+						iconCls: 'picture_save'
+					}),
+					new Ext.Button({
+					    id: 'pictureList-delete-button',
+					    text: '删除',
+						iconCls: 'picture_delete',
+						handler: deletePhoto
+					}),
+					new Ext.Button({
+					    id: 'pictureList-move-button',
+					    text: '移动',
+						iconCls: 'picture_go'
+					}),
+					'-',
+					new Ext.Button({
+					    id: 'pictureList-view-button',
+					    text: '查看',
+						iconCls: 'picture'
+					}),
+					new Ext.Button({
+					    id: 'pictureList-gallery-button',
+					    text: '幻灯片',
+						iconCls: 'pictures'
+					})
+				]
+			});
+			
+			// 分页工具栏
+			var pictureListBottomBar = new Ext.PagingToolbar({
+				pageSize: pageSize,
+				store: pictureListStore,
+				displayInfo: true,
+				displayMsg: MSpring.PAGINGTOOLBAR_DISPLAYMSG,
+				emptyMsg: MSpring.PAGINGTOOLBAR_EMPTYMSG,
+				doLoad: function(start){
+					//baseParams.start = start;
+					alert(start);
+					this.store.load({params: baseParams});
 				}
-			}
+	        });
 			
-		    var toolbar = new Ext.Toolbar({
-		    	renderTo: document.getElementById("SubMenu"),
-		        plugins : [
-		            new Ext.ux.ToolbarReorderer({
-		                defaultReorderable: true
-		            })
-		        ],
-		        items : [
-		        	{
-		        		text:'返回相册列表',
-		        		handler:function(){
-		        			window.location = "<%=path %>/admin/queryAlbum.action";
-		        		}
-		        	},'-',
-		            {
-						id: enable_edit_button,
-		                text: '启用编辑模式',
-		                iconCls: 'edit',
-		                handler: handleAction.createCallback(enableEditAction)
-		            },
-					{
-						id: disable_edit_button,
-						text: '退出编辑模式',
-						iconCls: 'turn_left',
-						hidden: true,
-		                handler: handleAction.createCallback(disableEditAction)
-					},'-',
-		            {
-						id: delete_button,
-		                text: '删除',
-		                iconCls: 'delete',
-		                reorderable: true,
-		                disabled:true,
-						handler: handleAction.createCallback(deleteAction)
-		            },
-					{
-						id: selectall_button,
-						text: '全选',
-						disabled:true,
-						handler: handleAction.createCallback(selectAllAction)
-					},
-					{
-						id:selectother_button,
-						text: '反选',
-						disabled:true,
-						handler: handleAction.createCallback(selectOtherAction)
-					},'->',
-					{
-						text: '上传照片',
-						handler: handleAction.createCallback(uploadPhotoAction)
-					}
-		        ]
+			
+			// 图片显示模板
+			var tpl = new Ext.XTemplate(
+				'<tpl for=".">',
+		            '<div class="thumb-wrap" id="picture_{photoId}">',
+			            '<div class="thumb-subwrap">',
+						    '<div class="thumb" id="preview_{photoId}">',
+						    	'<img src="<%=path %>/{previewUrl}" title="{name}">',
+						    	'<span class="x-editable">{name}</span>',
+						    '</div>',
+						'</div>',
+				    '</div>',
+		        '</tpl>',
+		        '<div class="x-clear"></div>'
+			);
+			
+			// 图片显示DataView
+			var pictureDataView = new Ext.DataView({
+				id: 'pictureDataView',
+	            store: pictureListStore,
+	            loadingText: '加载中...',
+	            tpl: tpl,
+	            multiSelect: true,
+	            autoScroll  : true,
+	            overClass:'x-view-over',
+	            itemSelector:'div.thumb-wrap',
+	            plugins: [
+	                new Ext.DataView.DragSelector(),
+	                new Ext.DataView.LabelEditor({dataIndex: 'name'})
+	            ],
+	            prepareData: function(data){
+	                data.shortName = Ext.util.Format.ellipsis(data.pictureName, 12);
+	                return data;
+	            },
+	            listeners: {
+	            	selectionchange: function(dv,nodes){
+	            		pictureIds = '';
+						for(i=0;i<nodes.length;i++){
+							var node = nodes[i];
+							var pictureId = node.id.substring(node.id.indexOf('_')+1);
+							pictureIds = pictureIds + pictureId + ',';
+						}
+	            	},
+	            	dblclick: function(dv, index, node){
+		            	//showGalleryWin(index);
+		            }
+	            }
+	        });
+			// 图片显示panel
+			var pictureListPanel = new Ext.Panel({
+				id: 'pictureListPanel',
+				renderTo: 'pictureListPanelDiv',
+				layout: 'fit',
+				border: false,
+				items: pictureDataView,
+				bbar: pictureListBottomBar
 		    });
 		    
-		    //启用编辑模式
-		    function enableEdit(){
-		    	Ext.getCmp(delete_button).setDisabled(false);
-				Ext.getCmp(selectall_button).setDisabled(false);
-				Ext.getCmp(selectother_button).setDisabled(false);
-
-				Ext.getCmp(enable_edit_button).hide();
-				Ext.getCmp(disable_edit_button).show();
-
-				var checkboxes = document.getElementsByName("photoItems");
-				for(var i = 0; i < checkboxes.length; i++){
-					checkboxes[i].disabled = "";
-					checkboxes[i].style.display = "";
-				}
-		    }
-		    
-		    //退出编辑模式
-		    function disableEdit(){
-		    	Ext.getCmp(delete_button).setDisabled(true);
-				Ext.getCmp(selectall_button).setDisabled(true);
-				Ext.getCmp(selectother_button).setDisabled(true);
-
-				Ext.getCmp(enable_edit_button).show();
-				Ext.getCmp(disable_edit_button).hide();
-
-				var checkboxes = document.getElementsByName("photoItems");
-				for(var i = 0; i < checkboxes.length; i++){
-					checkboxes[i].disabled = "disabled";
-					checkboxes[i].style.display = "none";
-				}
+		    // 设置Grid高度和宽度
+			MSpring.resizeGridTo("pictureListPanel", 0, 56);
+			
+			//上传照片
+			function showUploadPhotoDialog(){
+		    	var _baseParams = {album:'<ss:property value="album.id" />'};
+		    	MSpring.uploadFile({
+					baseParams: _baseParams,
+					action: '/admin/uploadPhoto',
+					title: '图片上传',
+					fileTypes: '*.jpg;*.jpeg;*.png;',
+					fileSize: '5MB',
+					fileCount: 100,
+					minTargetId: 'minUploadWinDiv',
+					callback: function(baseParams){
+						//刷新相册列表...
+						pictureListStore.reload({
+	    					params: baseParams
+		    			});
+					}
+				});
 		    }
 		    
 		    //删除照片
 		    function deletePhoto(){
-		    	document.photoForm.submit();
+		    	if(pictureIds != ''){
+		    		Ext.Msg.confirm("警告", "确定删除吗？", function(btn){
+		    			if(btn == 'yes'){
+		    				MSpring.ajaxRequest({
+		    					baseParams: {photoItems:pictureIds,albumId:albumId},
+		    					action: '/photo/deletePhoto.action',
+		    					callback:function(jsonResult){
+		    						pictureListStore.reload();
+		    					},
+		    					showWaiting: true,
+		    					failureMsg: '删除失败。'
+		    				});
+		    			}
+		    		});
+		    	}
+		    	else {
+		    		MSpring.alert("请选择图片");
+		    	}
 		    }
-		    
-		    //全选
-		    function selectAll(){
-		    	var checkboxes = document.getElementsByName("photoItems");
-				for(var i = 0; i < checkboxes.length; i++){
-					checkboxes[i].checked = "checked";
-				}
-		    }
-		    
-		    //反选
-		    function selectOther(){
-		    	var checkboxes = document.getElementsByName("photoItems");
-				for(var i = 0; i < checkboxes.length; i++){
-					if(checkboxes[i].checked)
-						checkboxes[i].checked = "";
-					else
-						checkboxes[i].checked = "checked";
-				}
-		    }
-		    
-		    //显示上传照片对话框
-		    function showUploadPhotoDialog(){
-		    	new Ext.Window({
-					width : 650,
-					title : 'swfUpload demo',
-					height : 300,
-					layout : 'fit',
-					items : [
-						{
-							xtype:'uploadPanel',
-							border : false,
-							fileSize : 1024*550,//限制文件大小
-							uploadUrl : '<%=path %>/admin/uploadPhoto',
-							flashUrl : '<%=path%>/script/swfupload/swfupload.swf',
-							filePostName : 'file', //后台接收参数
-							fileTypes : '*.*',//可上传文件类型
-							postParams : {album:getAlbum()}
-						}
-					]
-				}).show();
-		    }
-		    
-		    //得到当前相册编号
-		    function getAlbum(){
-				return document.getElementById("albumId").value;
-			}
 		});
 	</script>
 
 	<body>
-		<div id="divMain">
-			<div class="Header">
-				<span class="nav">
-					<a href="<%=path %>/admin/album/queryAlbum.action">相册管理</a>&gt;&gt;
-					<a href="javascript:void(0);" class="current"><ss:property value="album.name" /></a>
-				<span>
-			</div>
-			<div class="SubMenu" id="SubMenu">
-				
-			</div>
-			<div id="divMain2">
-				<form name="photoForm" action="<%=path %>/admin/deletePhoto.action" method="post">
-					<input type="hidden" id="albumId" name="albumId" value="<ss:property value="photo.album.id" />" />
-					<div class="album_list">
-						<ul>
-							<ss:iterator id="photo" value="photoPage.result">
-								<li>
-									<table cellpadding="0" cellspacing="0" class="photoTable">
-										<tr>
-											<td>
-												<img src="<%=path %>/<ss:property value="previewUrl" />" border="0"/>
-											</td>
-										</tr>
-										<tr>
-											<td class="photo_name">
-												<input type="checkbox" name="photoItems" style="display:none;" value="<ss:property value="photoId" />" title="<ss:property value="name" />" />
-												<ss:property value="name" />
-											</td>
-										</tr>
-									</table>
-								</li>
-							</ss:iterator>
-						</ul>
-					</div>
-				</form>
+		<input type="hidden" id="albumId" name="albumId" value='<ss:property value="album.id" />' />
+		<div id="pictureListDiv">
+			<div id="pictureListToolBarDiv"></div>
+			<div id="pictureListPanelDiv" class="pictureDataViewDiv" style="width:100%;height:100%;">
 			</div>
 		</div>
+		<div id="mapPic" class="x-hidden">
+			<div class="nav">
+				<div class="up" id="up"></div>
+				<div class="right" id="right"></div>
+				<div class="down" id="down"></div>
+				<div class="left" id="left"></div>
+				<div class="zoom" id="zoom"></div>
+				<div class="in" id="in"></div>
+				<div class="out" id="out"></div>
+			</div>
+			<img id='image' src='' border='0' style="cursor: url(images/openhand_8_8.cur), default;" >
+		</div>
 	</body>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//斑马线
-			var tables=document.getElementsByTagName("table");
-			var b=false;
-			for (var j = 0; j < tables.length; j++){
-		
-				var cells = tables[j].getElementsByTagName("tr");
-		
-				//cells[0].className="color3";
-				b=false;
-				for (var i = 0; i < cells.length; i++){
-					if(b){
-						cells[i].className="color2";
-						b=false;
-					}
-					else{
-						cells[i].className="color3";
-						b=true;
-					};
-				};
-			}
-		
-		});
-	</script>
 <%@include file="../includes/footer.jsp" %>
