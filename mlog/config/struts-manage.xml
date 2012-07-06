@@ -18,6 +18,9 @@
 		<action name="overview" class="org.mspring.mlog.web.action.manage.common.OverviewAction">
 			<result name="success" type="dispatcher">/admin/common/overview.jsp</result>
 		</action>
+		<action name="scriptVariable" class="org.mspring.mlog.web.action.manage.common.ScriptVariableAction">
+			<result name="success" type="freemarker">/common/scriptVariable.ftl</result>
+		</action>
 		<action name="setSessionAttribute" class="org.mspring.mlog.web.action.manage.common.SessionAction" method="setSessionAttribute"></action>
 		<action name="getSessionAttribute" class="org.mspring.mlog.web.action.manage.common.SessionAction" method="getSessionAttribute"></action>
 	</package>
@@ -227,9 +230,8 @@
 		<action name="queryPhoto" class="org.mspring.mlog.web.action.manage.photo.QueryPhotoAction">
 			<result name="success" type="dispatcher">/admin/photo/listPhoto.jsp</result>
 		</action>
-		<action name="deletePhoto" class="org.mspring.mlog.web.action.manage.photo.DeletePhotoAction">
-			<result name="success" type="redirect">queryPhoto.action?photo.album.id=${albumId}</result>
-		</action>
+		<action name="listPhoto" class="org.mspring.mlog.web.action.manage.photo.ListPhotoAction"></action>
+		<action name="deletePhoto" class="org.mspring.mlog.web.action.manage.photo.DeletePhotoAction"></action>
 	</package>
 	
 	<package name="theme" extends="admin">
