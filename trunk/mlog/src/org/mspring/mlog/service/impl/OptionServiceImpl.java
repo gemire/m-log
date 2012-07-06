@@ -157,7 +157,7 @@ public class OptionServiceImpl implements OptionService {
         // TODO Auto-generated method stub
         String json = getOption(key);
         if (!StringUtils.isBlank(json)) {
-            return JSONUtils.fromJson(json, new TypeToken<List<KeyValue>>(){});
+            return (List<KeyValue>) JSONUtils.fromJson(json, new TypeToken(){});
         }
         return null;
     }

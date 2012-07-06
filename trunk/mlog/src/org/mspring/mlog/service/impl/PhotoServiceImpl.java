@@ -13,7 +13,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -132,7 +131,7 @@ public class PhotoServiceImpl implements PhotoService {
                 BufferedImage sourceImage = ImageIO.read(originalImage);
 
                 Photo photo = new Photo();
-                
+
                 // 限制图片最大大小
                 boolean isLimit = "1".equals(optionService.getOption(ConfigTokens.mspring_album_islimit_size));
                 if (isLimit) {
@@ -143,10 +142,11 @@ public class PhotoServiceImpl implements PhotoService {
 
                     // 图片大小超过限定范围，调整图片大小
                     if (sourceImage.getWidth() > MAX_WIDTH && sourceImage.getHeight() > MAX_HEIGHT) {
-                        //targetImage = ImageUtils.resize(sourceImage, MAX_WIDTH, MAX_HEIGHT);
+                        // targetImage = ImageUtils.resize(sourceImage,
+                        // MAX_WIDTH, MAX_HEIGHT);
                         ImageUtils.saveImage(originalImage, originalImage, MAX_WIDTH, MAX_HEIGHT);
-                        
-                        //重新读取图片
+
+                        // 重新读取图片
                         sourceImage = ImageIO.read(originalImage);
                     }
                 }
@@ -157,10 +157,10 @@ public class PhotoServiceImpl implements PhotoService {
                 photo.setName(originalImage.getName().substring(0, originalImage.getName().lastIndexOf(".")));
                 photo.setUrl(imageAbstractUrl);
                 photo.setPreviewUrl(previewImageAbstractUrl);
-                
-                //创建缩略图
+
+                // 创建缩略图
                 ImageUtils.saveImage(originalImage, new File(previewImagePath), PREVIEW_WIDTH, PREVIEW_HEIGHT);
-                //图片信息插入数据库
+                // 图片信息插入数据库
                 insertPhotoToDB(photo, originalImagePath, autoRotate);
             }
         }
@@ -285,7 +285,9 @@ public class PhotoServiceImpl implements PhotoService {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.mspring.mlog.service.PhotoService#findPhotosByAlbum(java.lang.Long)
      */
     @Override
@@ -294,8 +296,11 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDao.find(" select photo from Photo photo where photo.album.id = ? ", albumId);
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.PhotoService#findNearPhotos(java.lang.Long, java.lang.Long, int)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PhotoService#findNearPhotos(java.lang.Long,
+     *      java.lang.Long, int)
      */
     @Override
     public List<Photo> findNearPhotos(Long albumId, Long currentPhotoId, int length) {
@@ -303,22 +308,24 @@ public class PhotoServiceImpl implements PhotoService {
         List<Photo> result = new ArrayList<Photo>();
         List<Photo> allPhotosInAlbum = findPhotosByAlbum(albumId);
         Photo currentPhoto = findPhotoById(currentPhotoId);
-        int currentPoint = allPhotosInAlbum.indexOf(currentPhoto);
-        
-        int startIndex, endIndex;
-        if ((length / 2) >= currentPoint) {
-            startIndex = 0;
-            endIndex = length;
-        }
-        else {
-            startIndex = currentPoint - (length / 2);
-            endIndex = currentPoint + (length / 2) + 1;
-            if (endIndex > (allPhotosInAlbum.size() - 1)) {
-                startIndex = allPhotosInAlbum.size() - length;
-                endIndex = allPhotosInAlbum.size();
+        if (currentPhoto != null) {
+            int currentPoint = allPhotosInAlbum.indexOf(currentPhoto);
+            if (currentPoint > 0) {
+                int startIndex, endIndex;
+                if ((length / 2) >= currentPoint) {
+                    startIndex = 0;
+                    endIndex = length;
+                } else {
+                    startIndex = currentPoint - (length / 2);
+                    endIndex = currentPoint + (length / 2) + 1;
+                    if (endIndex > (allPhotosInAlbum.size() - 1)) {
+                        startIndex = allPhotosInAlbum.size() - length;
+                        endIndex = allPhotosInAlbum.size();
+                    }
+                }
+                result = allPhotosInAlbum.subList(startIndex, endIndex);
             }
         }
-        result = allPhotosInAlbum.subList(startIndex, endIndex);
         return result;
     }
 }

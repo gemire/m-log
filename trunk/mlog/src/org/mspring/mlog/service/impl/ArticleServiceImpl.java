@@ -203,8 +203,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article createArticle(Article article, String categories, String tags) {
         // TODO Auto-generated method stub
-        Long[] category_arr = ParameterUtils.splitTOLongArray(categories);
-        Long[] tag_arr = ParameterUtils.splitTOLongArray(tags);
+        Long[] category_arr = ParameterUtils.splitToLongArray(categories);
+        Long[] tag_arr = ParameterUtils.splitToLongArray(tags);
 
         Set<Category> categorySet = new HashSet<Category>();
         if (category_arr != null && category_arr.length > 0) {
@@ -246,8 +246,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void updateArticle(Article article, String categories, String tags) {
         // TODO Auto-generated method stub
-        Long[] category_arr = ParameterUtils.splitTOLongArray(categories);
-        Long[] tag_arr = ParameterUtils.splitTOLongArray(tags);
+        Long[] category_arr = ParameterUtils.splitToLongArray(categories);
+        Long[] tag_arr = ParameterUtils.splitToLongArray(tags);
 
         Set<Category> categorySet = new HashSet<Category>();
 

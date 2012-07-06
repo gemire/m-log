@@ -26,6 +26,7 @@ public class PhotoQueryCriterion extends AbstractQueryCriterion {
         QueryBuilder queryBuilder = new QueryBuilder(queryParams);
         whereString = queryBuilder.startBuild()
         .buildEqual("photo.album.id", "photo.album.id", Long.class)
+        .buildLike("photo.name", "photo.name")
         .endBuild();
 
         queryString = "select photo from Photo as photo";

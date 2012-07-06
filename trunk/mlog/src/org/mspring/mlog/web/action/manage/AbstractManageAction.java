@@ -54,7 +54,8 @@ public abstract class AbstractManageAction extends CommonActionSupport {
     protected void addRebuildTabScript(String tabId) {
         if (!StringUtils.isBlank(tabId)) {
             Tree item = treeService.findTreeItemById(tabId, getCurrentUser());
-            addScript("window.top.rebuildPanel('" + item.getId() + "', '" + item.getUrl() + "', '" + item.getText() + "', '" + item.getQtip() + "');");
+            //addScript("window.top.rebuildPanel('" + item.getId() + "', '" + item.getUrl() + "', '" + item.getText() + "', '" + item.getQtip() + "');");
+            addScript("window.top.MSpring.reloadTab('" + item.getId() + "', '" + item.getText() + "', '" + item.getUrl() + "');");
         }
 
     }

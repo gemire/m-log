@@ -14,9 +14,15 @@ import org.mspring.platform.utils.CookieUtils;
  * @since Apr 28, 2012
  */
 public class LoginAction extends AbstractManageAction {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -384765007397194847L;
+
     private String username;
     private String password;
     private String validateCode;
+    private Boolean remember = false;
     private String message;
 
     public String getUsername() {
@@ -41,6 +47,14 @@ public class LoginAction extends AbstractManageAction {
 
     public void setValidateCode(String validateCode) {
         this.validateCode = validateCode;
+    }
+
+    public Boolean isRemember() {
+        return remember;
+    }
+
+    public void setRemember(Boolean remember) {
+        this.remember = remember;
     }
 
     public String getMessage() {
@@ -70,6 +84,7 @@ public class LoginAction extends AbstractManageAction {
         setSessionAttribute(Const.SESSION_LOGINUSER, user);
         CookieUtils.setCookie(ServletActionContext.getResponse(), Const.MSPRING_COOKIE_USERNAME, username, 365);
         CookieUtils.setCookie(ServletActionContext.getResponse(), Const.MSPRING_COOKIE_PASSWORD, password, 365);
+        CookieUtils.setCookie(ServletActionContext.getResponse(), Const.MSPRING_COOKIE_REMEMBER, remember.toString(), 365);
         return SUCCESS;
     }
 }

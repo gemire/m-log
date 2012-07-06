@@ -27,6 +27,7 @@ public class Const {
     // Cookie保存名字
     public static final String MSPRING_COOKIE_USERNAME = "mspring_cookie_username";
     public static final String MSPRING_COOKIE_PASSWORD = "mspring_cookie_password";
+    public static final String MSPRING_COOKIE_REMEMBER = "mspring_cookie_remember";
     
     public static final String MSPRING_COOKIE_COMMENT_AUTHOR = "mspring_cookie_comment_author";
     public static final String MSPRING_COOKIE_COMMENT_EMAIL = "mspring_cookie_comment_email";
