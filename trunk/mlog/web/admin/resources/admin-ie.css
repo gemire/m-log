@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+div.SubMenu li ul {
+	position: absolute;
+	left: -999em;
+	width: 150px;
+	border-width: 1px 1px 0px;
+	z-index: 999;
+	margin: 0px 0px 0px 2px;
+}

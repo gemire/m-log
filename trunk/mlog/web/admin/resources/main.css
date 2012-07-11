@@ -1,0 +1,48 @@
+html, body {
+	font:normal 12px verdana;
+	margin:0;
+	padding:0;
+	border:0 none;
+	overflow:hidden;
+	height:100%;
+}
+p {
+	margin:5px;
+}
+
+.icon-first {
+	background-image: url(images/000.png) !important;
+}
+
+.settings {
+	background-image:url(images/folder_go.png);
+}
+.nav {
+	background-image:url(images/folder_go.png);
+}
+
+.icon-home {
+	background-image: url(images/house.png) !important;
+}
+.icon-expand-all {
+	background-image: url(images/expand-all.png) !important;
+}
+.icon-tree {
+	background-image: url(images/cog.png) !important;
+}
+.icon-close-all {
+	background-image: url(images/close-all.png) !important;
+}
+#header{
+   border:0 none;
+   background:#1E4176 url(images/hd-bg.gif) repeat-x 0 0;
+   padding-top:3px;
+   padding-left:3px;
+}
+#header .top-title {
+    font:bold 16px tahoma, sans-serif;
+    color:white;
+    margin:5px;
+}
+#bottom{
+}
