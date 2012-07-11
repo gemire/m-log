@@ -6,7 +6,7 @@
 	
 	<property name="config.dir" value="${basedir}/config" />
 	<property name="lib.dir" value="${basedir}/lib" />
-	<property name="web.dir" value="${basedir}/WebRoot" />
+	<property name="web.dir" value="${basedir}/web" />
 	
 	<path id="project.class.path">
 		<pathelement location="${web.dir}/WEB-INF/classes"/>
