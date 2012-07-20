@@ -1,7 +1,7 @@
 <#import "/META-INF/spring.ftl" as spring />
-<form class="form" action="${base}/admin/catalog/doCreate">
+<form class="form" action="${base}/admin/catalog/doCreate" method="POST">
 	<@spring.bind "catalog"/>
-	<table class="formtable" action="${base}/admin/catalog/doCreate">
+	<table class="formtable">
 		<tr>
 			<td class="fieldlabel">编号</td>
 			<td>
@@ -20,12 +20,7 @@
 				<@spring.formInput path="catalog.createTime" attributes='class="textinput" disabled="disabled"' defaultValue="当前时间" />
 			</td>
 		</tr>
-		<tr>
-			<td class="fieldlabel">修改时间</td>
-			<td>
-				<@spring.formInput path="catalog.modifyTime" attributes='class="textinput"' />
-			</td>
-		</tr>
+		
 		<tr>
 			<td class="fieldlabel">排序</td>
 			<td>
@@ -41,7 +36,7 @@
 		<tr>
 			<td></td>
 			<td>
-				<input type="button" class="btn" value=" 提交 " />
+				<input type="submit" class="btn" value=" 提交 " />
 			</td>
 		</tr>
 	</table>

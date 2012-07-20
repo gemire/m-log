@@ -15,7 +15,7 @@ import org.mspring.platform.persistence.support.Page;
  */
 public interface CatalogService {
     public Catalog createCatalog(Catalog catalog);
-    public void removeCatalog(Long... idArray);
+    public void deleteCatalog(Long... idArray);
     public Page<Catalog> findCatalog(Page<Catalog> page, String queryString, Object... params);
     public Page<Catalog> findCatalog(Page<Catalog> page, String queryString);
     public Page<Catalog> findCatalog(Page<Catalog> page, QueryCriterion criterion);

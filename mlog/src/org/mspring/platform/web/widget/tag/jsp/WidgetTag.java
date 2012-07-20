@@ -14,8 +14,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.mspring.platform.utils.StringUtils;
 
-import net.sf.ehcache.constructs.web.GenericResponseWrapper;
-
 /**
  * @author Gao Youbo
  * @since 2012-7-17
@@ -49,7 +47,7 @@ public class WidgetTag extends TagSupport {
     @Override
     public int doEndTag() throws JspException {
         // TODO Auto-generated method stub
-        //验证path信息是否为空
+        // 验证path信息是否为空
         if (StringUtils.isBlank(path)) {
             try {
                 pageContext.getOut().write(errorInfo());
@@ -60,14 +58,16 @@ public class WidgetTag extends TagSupport {
             }
             return EVAL_PAGE;
         }
-        
+
         StringBuffer buffer = new StringBuffer();
         Object value = null;
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         final HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
         try {
-            pageContext.getRequest().getRequestDispatcher(path).include(request, new GenericResponseWrapper(response, baos));
+            // pageContext.getRequest().getRequestDispatcher(path).include(request,
+            // new GenericResponseWrapper(response, baos));
+            pageContext.getRequest().getRequestDispatcher(path).include(request, response);
             value = (baos.toString("UTF-8"));
         }
         catch (ServletException e) {
@@ -92,9 +92,8 @@ public class WidgetTag extends TagSupport {
         }
         return EVAL_PAGE;
     }
-    
-    
-    private String errorInfo(){
+
+    private String errorInfo() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<div style='font-size:12px;color:blue;'>");
         buffer.append("path can't be null");

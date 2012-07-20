@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
 import org.mspring.platform.web.widget.stereotype.Widget;
@@ -51,8 +53,13 @@ public class CatalogWidget {
      * @param model
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping({"/list", "/", ""})
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (catalogPage == null) {
+            catalogPage = new Page<Catalog>();
+        }
+        catalogPage.setSort(new Sort("id", Sort.DESC));
+        
         catalogPage = catalogService.findCatalog(catalogPage, "select c from Catalog c");
         
         List<Field> columnfields = new ArrayList<Field>();
@@ -66,6 +73,14 @@ public class CatalogWidget {
         model.addAttribute("columnfields", columnfields);
         
         return "/admin/catalog/listCatalog";
+    }
+    
+    @RequestMapping("/delete")
+    public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model){
+        if (id != null && id.length > 0) {
+            catalogService.deleteCatalog(id);
+        }
+        return "redirect:/admin/catalog/list";
     }
     
     

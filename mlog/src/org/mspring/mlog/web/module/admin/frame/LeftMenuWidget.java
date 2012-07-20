@@ -11,7 +11,6 @@ import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Gao Youbo
@@ -30,7 +29,7 @@ public class LeftMenuWidget {
         this.treeItemService = treeItemService;
     }
 
-    @RequestMapping(value = "/leftMenu", method = RequestMethod.GET)
+    @RequestMapping(value = "/leftMenu")
     public String execute(Model model) {
         List<TreeItem> items = treeItemService.findAllItems();
         model.addAttribute("items", items);

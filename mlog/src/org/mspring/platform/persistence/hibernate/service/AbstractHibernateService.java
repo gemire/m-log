@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.persistence.NoResultException;
 
@@ -17,75 +16,57 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.mspring.platform.persistence.hibernate.DefaultHibernateTemplate;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author Gao Youbo
  * @since Jun 10, 2012
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AbstractHibernateService extends HibernateDaoSupport {
     private static final Logger log = Logger.getLogger(AbstractHibernateService.class);
 
-    // @Resource(name = "sessionFactory")
-    // public void setSuperSessionFactory(SessionFactory sessionFactory) {
-    // super.setSessionFactory(sessionFactory);
-    // }
-
-    private SessionFactory mySessionFactory;
-
-    @Resource
-    public void setMySessionFactory(SessionFactory mySessionFactory) {
-        this.mySessionFactory = mySessionFactory;
-    }
-
-    @PostConstruct
-    public void injectSessionFactory() {
-        super.setSessionFactory(mySessionFactory);
-    }
-
-    @Override
-    protected final HibernateTemplate createHibernateTemplate(SessionFactory sessionFactory) {
-        // TODO Auto-generated method stub
-        return new DefaultHibernateTemplate(sessionFactory);
-    }
-
-    public final DefaultHibernateTemplate getDefaultHibernateTemplate() {
-        return (DefaultHibernateTemplate) getHibernateTemplate();
+    @Resource(name = "sessionFactory")
+    public void setSuperSessionFactory(SessionFactory sessionFactory) {
+        super.setSessionFactory(sessionFactory);
     }
 
     public <PK extends Serializable> Object get(Class clazz, PK paramPK) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().get(clazz, paramPK);
+        return this.getHibernateTemplate().get(clazz, paramPK);
     }
 
     public <PK extends Serializable> Object get(String entityName, PK paramPK) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().get(entityName, paramPK);
+        return this.getHibernateTemplate().get(entityName, paramPK);
     }
 
     public Serializable save(Object object) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().save(object);
+        return this.getHibernateTemplate().save(object);
     }
 
     public void update(Object object) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().update(object);
+        this.getHibernateTemplate().update(object);
     }
 
     public void executeUpdate(String queryString) {
         // TODO Auto-generated method stub
+        if (StringUtils.isBlank(queryString)) {
+            return;
+        }
         executeUpdate(queryString, null);
     }
 
     public void executeUpdate(String queryString, Object... value) {
         // TODO Auto-generated method stub
+        if (StringUtils.isBlank(queryString)) {
+            return;
+        }
         Query query = getSession().createQuery(queryString);
         setParametersToQuery(query, value);
         query.executeUpdate();
@@ -93,7 +74,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
 
     public void delete(Object object) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().delete(object);
+        this.getHibernateTemplate().delete(object);
     }
 
     public <PK extends Serializable> void delete(Class clazz, PK... paramPK) {
@@ -101,7 +82,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         if (paramPK != null && paramPK.length > 0) {
             for (int i = 0; i < paramPK.length; i++) {
                 Object entity = get(clazz, paramPK[i]);
-                this.getDefaultHibernateTemplate().delete(entity);
+                this.getHibernateTemplate().delete(entity);
             }
         }
     }
@@ -111,7 +92,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         if (paramPK != null && paramPK.length > 0) {
             for (int i = 0; i < paramPK.length; i++) {
                 Object entity = get(entityName, paramPK[i]);
-                this.getDefaultHibernateTemplate().delete(entity);
+                this.getHibernateTemplate().delete(entity);
             }
         }
     }
@@ -194,17 +175,17 @@ public class AbstractHibernateService extends HibernateDaoSupport {
 
     public List find(String queryString) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString);
+        return this.getHibernateTemplate().find(queryString);
     }
 
     public List find(String queryString, Object values) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString, values);
+        return this.getHibernateTemplate().find(queryString, values);
     }
 
     public List find(String queryString, Object[] values) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString, values);
+        return this.getHibernateTemplate().find(queryString, values);
     }
 
     public long count(QueryCriterion queryCriterion) {
@@ -243,12 +224,12 @@ public class AbstractHibernateService extends HibernateDaoSupport {
 
     public Object merge(Object object) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().merge(object);
+        return this.getHibernateTemplate().merge(object);
     }
 
     public void saveOrUpdate(Object object) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().saveOrUpdate(object);
+        this.getHibernateTemplate().saveOrUpdate(object);
     }
 
     protected void setParametersToQuery(Query query, Object[] values) {

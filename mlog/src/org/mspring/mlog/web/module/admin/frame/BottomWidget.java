@@ -7,7 +7,6 @@ import org.mspring.mlog.Application;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Gao Youbo
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Widget
 @RequestMapping("/admin")
 public class BottomWidget {
-    @RequestMapping(value = "/bottom", method = RequestMethod.GET)
+    @RequestMapping(value = "/bottom")
     public String execute(Model model) {
         model.addAttribute("app", Application.getInstance());
         return "/admin/frame/bottom";

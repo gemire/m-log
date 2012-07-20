@@ -305,11 +305,7 @@ input.readonly {
 	padding-bottom: 2px;
 	padding-top: 2px;
 	border: 1px solid #cccccc;
-	background: expression(this.readOnly ?         "#efefef" :         this.disabled ?
-		     
-		  "#efefef" :   
-		
-		    "#ffffff");
+	background: expression(this.readOnly ? "#efefef" :this.disabled ?"#efefef":"#ffffff");
 }
 
 .textinput_gv {
@@ -319,11 +315,7 @@ input.readonly {
 	padding-top: 2px;
 	border: 0px;
 	width: 100%;
-	background: expression(this.readOnly ?         "#efefef" :         this.disabled ?
-		     
-		  "#efefef" :   
-		
-		    "#ffff77");
+	background: expression(this.readOnly ?"#efefef" : this.disabled ? "#efefef" :  "#ffff77");
 }
 
 .textinput1 {
@@ -357,27 +349,6 @@ input.readonly {
 }
 
 .btn_1 {
-	BORDER-RIGHT: #7b9ebd 1px solid;
-	PADDING-RIGHT: 2px;
-	BORDER-TOP: #7b9ebd 1px solid;
-	PADDING-LEFT: 2px;
-	FONT-SIZE: 12px;
-	FILTER: progid :       DXImageTransform.Microsoft.Gradient (     
-		 GradientType =       0, StartColorStr =       #ffffff, EndColorStr =
-		    
-		 #cecfde );
-	background: -moz-linear-gradient(top, #ffffff, #cecfde);
-	background: -o-linear-gradient(top, #ffffff, #cecfde);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff),
-		to(#cecfde) );
-	CURSOR: hand;
-	COLOR: black;
-	PADDING-TOP: 2px;
-	BORDER-LEFT: #7b9ebd 1px solid;
-	BORDER-BOTTOM: #7b9ebd 1px solid
-}
-
-.btn_2 {
 	padding: 2 4 0 4;
 	font-size: 12px;
 	height: 23;

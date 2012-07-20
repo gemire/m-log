@@ -16,11 +16,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.mspring.platform.persistence.hibernate.DefaultHibernateTemplate;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -41,17 +39,6 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
         super.setSessionFactory(sessionFactory);
     }
 
-
-    @Override
-    protected final HibernateTemplate createHibernateTemplate(SessionFactory sessionFactory) {
-        // TODO Auto-generated method stub
-        return new DefaultHibernateTemplate(sessionFactory);
-    }
-
-    public final DefaultHibernateTemplate getDefaultHibernateTemplate() {
-        return (DefaultHibernateTemplate) getHibernateTemplate();
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -60,7 +47,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public <PK extends Serializable> T get(PK paramPK) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().get(this.entityClass, paramPK);
+        return this.getHibernateTemplate().get(this.entityClass, paramPK);
     }
 
     /*
@@ -71,7 +58,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public Serializable save(T paramT) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().save(paramT);
+        return this.getHibernateTemplate().save(paramT);
     }
 
     /*
@@ -82,7 +69,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public void update(T paramT) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().update(paramT);
+        this.getHibernateTemplate().update(paramT);
     }
 
     @Override
@@ -95,7 +82,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#executeUpdate(java.lang.Object,
-     *      java.lang.Object[])
+     * java.lang.Object[])
      */
     @Override
     public void executeUpdate(String queryString, Object... value) {
@@ -113,7 +100,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public void delete(T paramT) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().delete(paramT);
+        this.getHibernateTemplate().delete(paramT);
     }
 
     /*
@@ -127,7 +114,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
         if (paramPK != null && paramPK.length > 0) {
             for (int i = 0; i < paramPK.length; i++) {
                 T entity = get(paramPK[i]);
-                this.getDefaultHibernateTemplate().delete(entity);
+                this.getHibernateTemplate().delete(entity);
             }
         }
     }
@@ -142,7 +129,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#findUnique(java.lang.String,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public T findUnique(String queryString, Object value) {
@@ -154,7 +141,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#findUnique(java.lang.String,
-     *      java.lang.Object[])
+     * java.lang.Object[])
      */
     @Override
     public T findUnique(String queryString, Object[] values) {
@@ -166,9 +153,9 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
         T t = null;
         try {
             List<T> list = query.list();
-            if (list != null && list.size() > 0)
-                t = list.get(0);
-        } catch (NoResultException e) {
+            if (list != null && list.size() > 0) t = list.get(0);
+        }
+        catch (NoResultException e) {
             logger.warn(e.getMessage());
         }
         return t;
@@ -200,8 +187,9 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     /*
      * (non-Javadoc)
      * 
-     * @see org.mspring.platform.dao.BaseDao#findPage(org.mspring.platform.dao.support
-     *      .Page, java.lang.String, java.lang.Object[])
+     * @see
+     * org.mspring.platform.dao.BaseDao#findPage(org.mspring.platform.dao.support
+     * .Page, java.lang.String, java.lang.Object[])
      */
     @Override
     public Page<T> findPage(Page<T> page, String queryString, Object[] values) {
@@ -241,31 +229,31 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public List<T> find(String queryString) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString);
+        return this.getHibernateTemplate().find(queryString);
     }
 
     /*
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#find(java.lang.String,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public List<T> find(String queryString, Object values) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString, values);
+        return this.getHibernateTemplate().find(queryString, values);
     }
 
     /*
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#find(java.lang.String,
-     *      java.lang.Object[])
+     * java.lang.Object[])
      */
     @Override
     public List<T> find(String queryString, Object[] values) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().find(queryString, values);
+        return this.getHibernateTemplate().find(queryString, values);
     }
 
     @Override
@@ -282,7 +270,7 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
      * (non-Javadoc)
      * 
      * @see org.mspring.platform.dao.BaseDao#count(java.lang.String,
-     *      java.lang.Object[])
+     * java.lang.Object[])
      */
     @Override
     public Long count(String queryString, Object... values) {
@@ -317,13 +305,13 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     @Override
     public T merge(T object) {
         // TODO Auto-generated method stub
-        return this.getDefaultHibernateTemplate().merge(object);
+        return this.getHibernateTemplate().merge(object);
     }
 
     @Override
     public void saveOrUpdate(T object) {
         // TODO Auto-generated method stub
-        this.getDefaultHibernateTemplate().saveOrUpdate(object);
+        this.getHibernateTemplate().saveOrUpdate(object);
     }
 
     protected void setParametersToQuery(Query query, Object[] values) {
@@ -360,7 +348,8 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
         if (queryString.toLowerCase().indexOf("order by") > -1) {
             // TODO queryString 中含有 order by using regular pattern, just return
             return queryString;
-        } else {
+        }
+        else {
             return new StringBuffer(queryString).append(" order by ").append(sort.getField()).append(" ").append(sort.getOrder()).toString();
         }
     }
@@ -386,9 +375,11 @@ public abstract class AbstractBaseDao<T> extends HibernateDaoSupport implements 
     protected void applyNamedParameterToQuery(Query queryObject, String paramName, Object value) {
         if (value instanceof Collection) {
             queryObject.setParameterList(paramName, (Collection) value);
-        } else if (value instanceof Object[]) {
+        }
+        else if (value instanceof Object[]) {
             queryObject.setParameterList(paramName, (Object[]) (Object[]) value);
-        } else {
+        }
+        else {
             queryObject.setParameter(paramName, value);
         }
     }

@@ -39,12 +39,19 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
      * (non-Javadoc)
      * 
      * @see
-     * org.mspring.mlog.service.CatalogService#removeCatalog(java.lang.Long[])
+     * org.mspring.mlog.service.CatalogService#deleteCatalog(java.lang.Long[])
      */
     @Override
-    public void removeCatalog(Long... idArray) {
+    public void deleteCatalog(Long... idArray) {
         // TODO Auto-generated method stub
-        delete(Catalog.class, idArray);
+        //delete(Catalog.class, idArray);
+        if (idArray != null && idArray.length > 0) {
+            String hql = "delete from Catalog c where c.id = ?";
+            for (int i = 0; i < idArray.length; i++) {
+                executeUpdate(hql, idArray[i]);
+            }
+        }
+        
     }
 
     /*
