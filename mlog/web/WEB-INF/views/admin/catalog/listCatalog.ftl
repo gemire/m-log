@@ -30,14 +30,24 @@
 	}
 	
 	$(document).ready(function(){
-		var tabs = $("#tab").find("ul li a");
+		var tabs = $(".tab").find("ul li a");
 		$(tabs).each(function(i){
-			var id = this.attr("id");
+			var id = $(this).attr("id");
+			var _class = $(this).attr("class");
+			
 			//如果是一个叶签项
 			if(id && id.endWith("-tab")){
-				
+				var viewId = id.substring(0, id.lastIndexOf("-tab")) + "-view"
+				var view = document.getElementById(viewId);
+				if(_class != "here" && view){ //不过不是当前叶签,且当前叶签对应的面板存在, 那么隐藏该面板
+					view.style.display = "none";
+				}
 			}
 		});
+		
+		function changeTab(){
+			
+		}
 	});
 	</script>
 	<div class="ui-layout-east">
@@ -50,7 +60,7 @@
 				<@widget.placeholder path="/admin/catalog/create" />
 			</div>
 			<div id="modify-view">
-				asdfasdf
+				asdfasdfsadf
 			</div>
 		</div>
 	</div>
