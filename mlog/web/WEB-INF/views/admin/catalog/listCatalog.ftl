@@ -44,31 +44,20 @@
 				}
 			}
 		});
-		
-		
 	});
-	
-	function changeTab(_this){
-		//如果已经是当前叶签,那么不坐操作
-		if($(_this).attr("class") == "here"){
-			return;
-		}
-		
-		$(_this).attr("class", "here");
-	}
 	</script>
 	<div class="ui-layout-east">
 		<div class="tab">
 			<ul>
-			    <li><a href="javascript:changeTab(this);" id="add-tab" class="here">增加</a></li>
-			    <li><a href="javascript:changeTab(this);" id="modify-tab">修改</a></li>
+			    <li><a href="javascript:void(0);" id="add-tab" class="here">增加</a></li>
+			    <li><a href="javascript:void(0);" id="modify-tab">修改</a></li>
 			</ul>
-			<div id="add-view">
-				<@widget.placeholder path="/admin/catalog/create" />
-			</div>
-			<div id="modify-view">
-				asdfasdfsadf
-			</div>
+		</div>
+		<div id="add-view">
+			<@widget.placeholder path="/admin/catalog/create" />
+		</div>
+		<div id="modify-view">
+			asdfasdfsadf
 		</div>
 	</div>
 	<div class="ui-layout-center">
