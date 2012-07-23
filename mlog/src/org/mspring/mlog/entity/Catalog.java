@@ -8,9 +8,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +35,7 @@ public class Catalog implements Serializable {
 
     private Long id;
     private String name;
+    private User owner;
     private Date createTime;
     private Date modifyTime;
     private Long order;
@@ -69,6 +73,23 @@ public class Catalog implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the owner
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = User.class)
+    @JoinColumn(name = "owner")
+    public User getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner
+     *            the owner to set
+     */
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     /**

@@ -11,44 +11,29 @@
 		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
 		memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="DEFAULT_CACHE" maxElementsInMemory="10000"
-		eternal="false" diskPersistent="true" diskSpoolBufferSizeMB="60"
-		timeToIdleSeconds="300000" timeToLiveSeconds="600000"
-		overflowToDisk="true" />
-		
-	
+	<cache name="DEFAULT_CACHE" maxElementsInMemory="10000" eternal="false"
+		diskPersistent="true" diskSpoolBufferSizeMB="60" timeToIdleSeconds="300000"
+		timeToLiveSeconds="600000" overflowToDisk="true" />
+
+	<!-- Widget Cache -->
+    <cache name="widgetCache"
+            maxElementsInMemory="10"
+            eternal="false"
+            timeToIdleSeconds="5"
+            timeToLiveSeconds="10"
+            overflowToDisk="false"
+            />
+
 	<!-- tld标签库缓存 -->
-	<cache name="TemplateModelCache"
-		maxElementsInMemory="10"
-		eternal="false"
-		overflowToDisk="true"
-		diskSpoolBufferSizeMB="60"
-		timeToIdleSeconds="300000" 
-		timeToLiveSeconds="600000">
-	</cache>
-		
-	<cache name="PageCachingFilter" maxElementsInMemory="10"
-		eternal="false" timeToIdleSeconds="10000" timeToLiveSeconds="10000"
-		overflowToDisk="true">
+	<cache name="TemplateModelCache" maxElementsInMemory="10"
+		eternal="false" overflowToDisk="true" diskSpoolBufferSizeMB="60"
+		timeToIdleSeconds="300000" timeToLiveSeconds="600000">
 	</cache>
 
-	<!-- 
-	<cache name="SimplePageCachingFilter" maxElementsInMemory="10"
-		eternal="false" timeToIdleSeconds="10000" timeToLiveSeconds="10000"
-		overflowToDisk="true">
+	<cache name="PageCachingFilter" maxElementsInMemory="10" eternal="false"
+		timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="true">
 	</cache>
 
-	<cache name="SimplePageFragmentCachingFilter"
-		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="1"
-		timeToLiveSeconds="1" overflowToDisk="false" diskPersistent="false"
-		memoryStoreEvictionPolicy="LRU">
-	</cache>
-
-	<cache name="SimpleCachingHeadersTimeoutPageCachingFilter"
-		maxElementsInMemory="100" eternal="false" timeToIdleSeconds="10000"
-		timeToLiveSeconds="10000" overflowToDisk="true">
-	</cache>
-	-->
 
 	<cache name="userCache" maxElementsInMemory="100000" eternal="false"
 		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="false"
@@ -62,10 +47,6 @@
 	<cache name="org.hibernate.cache.StandardQueryCache"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
 		timeToLiveSeconds="600" overflowToDisk="false" />
-
-	<cache name="org.mspring.mlog.entity.Article" eternal="true"
-		maxElementsInMemory="2000" overflowToDisk="true"
-		timeToIdleSeconds="3600" timeToLiveSeconds="3600" />
 
 
 </ehcache>

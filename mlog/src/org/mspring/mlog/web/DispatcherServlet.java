@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
 
-import org.mspring.platform.utils.CacheUtils;
 import org.mspring.platform.web.Keys;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,11 +31,14 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
     private static final long serialVersionUID = -6829172243642413052L;
     private static final String TEMPLATE_MODEL_CACHE_NAME = "TemplateModelCache";
     private static final String TEMPLATE_MODEL_CACHE_KEY = "TEMPLATE_MODEL_CACHE_KEY";
-    
-    
 
-    /* (non-Javadoc)
-     * @see org.mspring.platform.web.servlet.DispatcherServlet#render(org.springframework.web.servlet.ModelAndView, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.platform.web.servlet.DispatcherServlet#render(org.springframework
+     * .web.servlet.ModelAndView, javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
      */
     @Override
     protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {

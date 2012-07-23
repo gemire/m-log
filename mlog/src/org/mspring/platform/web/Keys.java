@@ -13,4 +13,6 @@ public class Keys {
     public static final String REQUEST_KEY_BASE = "base";
     
     public static final String WIDGET_KEY = "widget";
+    
+    public static final String WIDGET_CACHE_KEY = "widgetCache";
 }

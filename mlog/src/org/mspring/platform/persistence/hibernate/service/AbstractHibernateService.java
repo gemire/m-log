@@ -4,6 +4,7 @@
 package org.mspring.platform.persistence.hibernate.service;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -14,11 +15,14 @@ import javax.persistence.NoResultException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -62,14 +66,25 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         executeUpdate(queryString, null);
     }
 
-    public void executeUpdate(String queryString, Object... value) {
+    public void executeUpdate(final String queryString, final Object... value) {
         // TODO Auto-generated method stub
         if (StringUtils.isBlank(queryString)) {
             return;
         }
-        Query query = getSession().createQuery(queryString);
-        setParametersToQuery(query, value);
-        query.executeUpdate();
+        // Query query = getSession().createQuery(queryString);
+        // setParametersToQuery(query, value);
+        // query.executeUpdate();
+
+        this.getHibernateTemplate().execute(new HibernateCallback() {
+            @Override
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                Query query = session.createQuery(queryString);
+                setParametersToQuery(query, value);
+                query.executeUpdate();
+                return null;
+            }
+        });
     }
 
     public void delete(Object object) {
@@ -107,37 +122,51 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return findUnique(queryString, new Object[] { value });
     }
 
-    public Object findUnique(String queryString, Object[] values) {
+    public Object findUnique(final String queryString, final Object[] values) {
         // TODO Auto-generated method stub
-        Query query = this.getSession().createQuery(queryString);
-        if (values != null && values.length > 0) {
-            setParametersToQuery(query, values);
-        }
-        Object object = null;
-        try {
-            List list = query.list();
-            if (list != null && list.size() > 0) object = list.get(0);
-        }
-        catch (NoResultException e) {
-            logger.warn(e.getMessage());
-        }
-        return object;
+        return this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
+
+            @Override
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                Query query = session.createQuery(queryString);
+                if (values != null && values.length > 0) {
+                    setParametersToQuery(query, values);
+                }
+                Object object = null;
+                try {
+                    List list = query.list();
+                    if (list != null && list.size() > 0) object = list.get(0);
+                }
+                catch (NoResultException e) {
+                    logger.warn(e.getMessage());
+                }
+                return object;
+            }
+        });
     }
 
-    public Page findPage(Page page, QueryCriterion queryCriterion) {
+    public Page findPage(final Page page, final QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
-        if (page.isAutoCount()) {
-            page.setTotalCount(count(queryCriterion));
-            page.setAutoCount(false);
-        }
-        String queryString = queryCriterion.getQueryString();
-        if (page.isSortEnable() && page.getSort() != null) {
-            queryString = applySort(queryString, page.getSort());
-        }
-        Query queryObject = this.getSession().createQuery(queryString);
-        applyQueryCriteriaToQuery(queryObject, queryCriterion);
-        applyPage(queryObject, page);
-        return page.setResult(queryObject.list());
+        return this.getHibernateTemplate().execute(new HibernateCallback<Page>() {
+
+            @Override
+            public Page doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                if (page.isAutoCount()) {
+                    page.setTotalCount(count(queryCriterion));
+                    page.setAutoCount(false);
+                }
+                String queryString = queryCriterion.getQueryString();
+                if (page.isSortEnable() && page.getSort() != null) {
+                    queryString = applySort(queryString, page.getSort());
+                }
+                Query queryObject = session.createQuery(queryString);
+                applyQueryCriteriaToQuery(queryObject, queryCriterion);
+                applyPage(queryObject, page);
+                return page.setResult(queryObject.list());
+            }
+        });
     }
 
     public Page findPage(Page page, String queryString) {
@@ -165,12 +194,19 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return page.setResult(query.list());
     }
 
-    public List find(QueryCriterion queryCriterion) {
+    public List find(final QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
-        String queryString = queryCriterion.getQueryString();
-        Query queryObject = this.getSession().createQuery(queryString);
-        applyQueryCriteriaToQuery(queryObject, queryCriterion);
-        return queryObject.list();
+        return this.getHibernateTemplate().execute(new HibernateCallback<List>() {
+
+            @Override
+            public List doInHibernate(Session paramSession) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                String queryString = queryCriterion.getQueryString();
+                Query queryObject = paramSession.createQuery(queryString);
+                applyQueryCriteriaToQuery(queryObject, queryCriterion);
+                return queryObject.list();
+            }
+        });
     }
 
     public List find(String queryString) {
@@ -188,13 +224,20 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return this.getHibernateTemplate().find(queryString, values);
     }
 
-    public long count(QueryCriterion queryCriterion) {
+    public long count(final QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
-        String countString = queryCriterion.getCountString();
-        countString = applyCount(countString);
-        Query countQuery = this.getSession().createQuery(countString);
-        applyQueryCriteriaToQuery(countQuery, queryCriterion);
-        return new Long(countQuery.uniqueResult().toString());
+        return this.getHibernateTemplate().execute(new HibernateCallback<Long>() {
+
+            @Override
+            public Long doInHibernate(Session paramSession) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                String countString = queryCriterion.getCountString();
+                countString = applyCount(countString);
+                Query countQuery = paramSession.createQuery(countString);
+                applyQueryCriteriaToQuery(countQuery, queryCriterion);
+                return new Long(countQuery.uniqueResult().toString());
+            }
+        });
     }
 
     public Long count(String queryString, Object... values) {

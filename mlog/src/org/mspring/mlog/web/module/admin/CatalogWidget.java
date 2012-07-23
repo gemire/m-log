@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.mspring.mlog.entity.Catalog;
+import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.web.GlobalUtils;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -53,39 +55,39 @@ public class CatalogWidget {
      * @param model
      * @return
      */
-    @RequestMapping({"/list", "/", ""})
+    @RequestMapping({ "/list", "/", "" })
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
         }
         catalogPage.setSort(new Sort("id", Sort.DESC));
-        
+
         catalogPage = catalogService.findCatalog(catalogPage, "select c from Catalog c");
-        
+
         List<Field> columnfields = new ArrayList<Field>();
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("name", "名称"));
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
         columnfields.add(new ColumnField("order", "排序"));
-        
+
         model.addAttribute("catalogPage", catalogPage);
         model.addAttribute("columnfields", columnfields);
-        
+
         return "/admin/catalog/listCatalog";
     }
-    
+
     @RequestMapping("/delete")
-    public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             catalogService.deleteCatalog(id);
         }
         return "redirect:/admin/catalog/list";
     }
-    
-    
+
     /**
      * 创建分类页面
+     * 
      * @param catalog
      * @param request
      * @param response
@@ -93,12 +95,13 @@ public class CatalogWidget {
      * @return
      */
     @RequestMapping("/create")
-    public String createCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String createCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/catalog/createCatalog";
     }
-    
+
     /**
      * 创建分类
+     * 
      * @param catalog
      * @param request
      * @param response
@@ -106,9 +109,13 @@ public class CatalogWidget {
      * @return
      */
     @RequestMapping("/doCreate")
-    public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
+        }
+        if (catalog.getOwner() == null) {
+            User user = GlobalUtils.getCurrentUser(request);
+            catalog.setOwner(user);
         }
         catalogService.createCatalog(catalog);
         return "redirect:/admin/catalog/list";

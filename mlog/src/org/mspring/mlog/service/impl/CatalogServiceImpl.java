@@ -3,6 +3,8 @@
  */
 package org.mspring.mlog.service.impl;
 
+import java.util.List;
+
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.platform.core.AbstractServiceSupport;
@@ -44,14 +46,14 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public void deleteCatalog(Long... idArray) {
         // TODO Auto-generated method stub
-        //delete(Catalog.class, idArray);
+        // delete(Catalog.class, idArray);
         if (idArray != null && idArray.length > 0) {
             String hql = "delete from Catalog c where c.id = ?";
             for (int i = 0; i < idArray.length; i++) {
                 executeUpdate(hql, idArray[i]);
             }
         }
-        
+
     }
 
     /*
@@ -117,6 +119,19 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     public void updateCatalog(Catalog catalog) {
         // TODO Auto-generated method stub
         update(catalog);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CatalogService#findCatalogByUser(java.lang.Long)
+     */
+    @Override
+    public List<Catalog> findCatalogByUser(Long userId) {
+        // TODO Auto-generated method stub
+        String queryString = "select c from Catalog c where c.owner.id = ?";
+        return find(queryString, userId);
     }
 
 }
