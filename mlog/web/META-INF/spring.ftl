@@ -217,6 +217,7 @@
  * @param attributes any additional attributes for the element (such as class
  *    or CSS styles or size
 -->
+<#--
 <#macro formSingleSelect path options attributes="">
     <@bind path/>
     <select id="${status.expression}" name="${status.expression}" ${attributes}>
@@ -227,6 +228,22 @@
         <#else> 
             <#list options as value>
             <option value="${value?html}"<@checkSelected value/>>${value?html}</option>
+            </#list>
+        </#if>
+    </select>
+</#macro>
+-->
+<#-- modify by Gao Youbo -->
+<#macro formSingleSelect path options valueAttr="id" textAttr="name" attributes="">
+    <@bind path/>
+    <select id="${status.expression}" name="${status.expression}" ${attributes}>
+        <#if options?is_hash>
+            <#list options?keys as value>
+            <option value="${value?html}"<@checkSelected value/>>${options[value]?html}</option>
+            </#list>
+        <#else>
+            <#list options as value>
+            <option value="${value['${valueAttr}']?html}"<@checkSelected value/>>${value['${textAttr}']?html}</option>
             </#list>
         </#if>
     </select>

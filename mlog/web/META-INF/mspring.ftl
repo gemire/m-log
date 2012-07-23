@@ -4,8 +4,13 @@
 // @Revision: 1.1 $, $Date: 2012/07/20 11:24:03 $
 //******************************************************************** 
 -->
+
+<#--
+/*
+ *分页条
+ */
+-->
 <#macro pagingnavigator page="" form_id="" >
-	
 	<div class="pagger">
 		<span>共${page.getTotalCount()}条</span>
 		<span>第${page.getPageNo()}/${page.getTotalPages()}页</span>
@@ -54,4 +59,22 @@
 		    changePage(formId, pageNumber);
 		}
 	</script>
+</#macro>
+
+<#--
+列循环时获取属性值
+-->
+<#macro fieldValue value attribute="" >
+	<#assign currentElement = value />
+	
+	<#list attribute?split(".") as x>
+		<#if x?exists>
+			<#if x_has_next>
+				<#assign currentElement=value['${x}'] />
+			<#else>
+				${currentElement['${x}']!""}
+			</#if>
+		</#if>
+	</#list>
+	
 </#macro>
