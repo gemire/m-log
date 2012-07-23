@@ -1,6 +1,6 @@
 <#import "/META-INF/spring.ftl" as spring />
 <form class="form" action="${base}/admin/catalog/doCreate" method="POST">
-	<@spring.bind "catalog"/>
+	
 	<table class="formtable">
 		<tr>
 			<td class="fieldlabel">编号</td>
