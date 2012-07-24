@@ -53,7 +53,7 @@
 								</#list>
 							</#if>
 							<td class="${tdClass}">
-								<a href="#">修改</a>
+								<a href="${base}/admin/post/edit?id=${item.id}">修改</a>
 							</td>
 						</tr>
 					</#list>

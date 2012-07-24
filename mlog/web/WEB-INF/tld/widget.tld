@@ -16,5 +16,9 @@
 			<name>path</name>
 			<required>true</required>
 		</attribute>
+		<attribute>
+			<name>cache</name>
+			<required>false</required>
+		</attribute>
 	</tag>
 </taglib>

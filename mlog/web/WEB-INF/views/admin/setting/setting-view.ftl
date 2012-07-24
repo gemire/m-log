@@ -19,7 +19,6 @@
 }
 
 #slide dd{
-	/*border:solid 1px red;*/
 	height:100%;
 }
 </style>
@@ -28,9 +27,9 @@
 	<form id="configForm" method="post" action="${base}/admin/setting/saveSetting">
 		<div id="slide">
 			<h1>信息配置</h1>
-		  	<div><@widget.placeholder path="/admin/setting/info" /></div>
+		  	<div><@widget.placeholder path="/admin/setting/info" cache=false /></div>
 		  	<h2>皮肤设置</h2>
-		  	<div><@widget.placeholder path="/admin/setting/skin" /></div>
+		  	<div><@widget.placeholder path="/admin/setting/skin" cache=false /></div>
 		</div>
 		<div style="text-align:center; margin-top:10px;">
 			<input type="submit" class="btn" value=" 提 交 " />
