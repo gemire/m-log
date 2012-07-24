@@ -260,7 +260,6 @@ public class ValidatorUtils {
                 return false;
             }
         }
-
         return true;
     }
 

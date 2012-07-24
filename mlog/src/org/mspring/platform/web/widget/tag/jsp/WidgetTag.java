@@ -18,10 +18,8 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.constructs.web.GenericResponseWrapper;
 
 import org.apache.log4j.Logger;
-import org.mspring.platform.core.ContextManager;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.Keys;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 /**
  * @author Gao Youbo

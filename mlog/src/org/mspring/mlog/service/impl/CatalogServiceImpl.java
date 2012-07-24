@@ -125,13 +125,12 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
      * (non-Javadoc)
      * 
      * @see
-     * org.mspring.mlog.service.CatalogService#findCatalogByUser(java.lang.Long)
+     * org.mspring.mlog.service.CatalogService#findAllCatalog()
      */
     @Override
-    public List<Catalog> findCatalogByUser(Long userId) {
+    public List<Catalog> findAllCatalog() {
         // TODO Auto-generated method stub
-        String queryString = "select c from Catalog c where c.owner.id = ?";
-        return find(queryString, userId);
+        return findAll(Catalog.class);
     }
 
 }

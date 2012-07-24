@@ -20,7 +20,7 @@ public interface CatalogService {
 
     public void deleteCatalog(Long... idArray);
 
-    public List<Catalog> findCatalogByUser(Long userId);
+    public List<Catalog> findAllCatalog();
 
     public Page<Catalog> findCatalog(Page<Catalog> page, String queryString, Object... params);
 

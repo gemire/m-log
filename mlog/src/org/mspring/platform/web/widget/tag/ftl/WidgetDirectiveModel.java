@@ -47,7 +47,6 @@ public class WidgetDirectiveModel implements TemplateDirectiveModel {
             env.getOut().append("<div style='font-size:12px; color:blue;'>path can't be null</div>");
             return;
         }
-        
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         
     }
