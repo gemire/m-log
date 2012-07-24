@@ -11,6 +11,79 @@
  */
 -->
 <#macro pagingnavigator page="" form_id="" >
+	<style type="text/css">
+	/* 分页栏样式 */
+	div.pagger {
+		PADDING-RIGHT: 3px;
+		PADDING-LEFT: 3px;
+		PADDING-BOTTOM: 3px;
+		MARGIN: 3px;
+		PADDING-TOP: 3px;
+		TEXT-ALIGN: center;
+		FONT-SIZE: 12px;
+		FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+		PADDING-LEFT: 25px;
+		float: right;
+	}
+	
+	div.pagger A {
+		BORDER-RIGHT: #eee 1px solid;
+		PADDING-RIGHT: 5px;
+		BORDER-TOP: #eee 1px solid;
+		PADDING-LEFT: 5px;
+		PADDING-BOTTOM: 2px;
+		MARGIN: 2px;
+		BORDER-LEFT: #eee 1px solid;
+		COLOR: #036cb4;
+		PADDING-TOP: 2px;
+		BORDER-BOTTOM: #eee 1px solid;
+		TEXT-DECORATION: none
+	}
+	
+	div.pagger A:hover {
+		BORDER-RIGHT: #999 1px solid;
+		BORDER-TOP: #999 1px solid;
+		BORDER-LEFT: #999 1px solid;
+		COLOR: #666;
+		BORDER-BOTTOM: #999 1px solid
+	}
+	
+	div.pagger A:active {
+		BORDER-RIGHT: #999 1px solid;
+		BORDER-TOP: #999 1px solid;
+		BORDER-LEFT: #999 1px solid;
+		COLOR: #666;
+		BORDER-BOTTOM: #999 1px solid
+	}
+	
+	div.pagger .current {
+		BORDER-RIGHT: #036cb4 1px solid;
+		PADDING-RIGHT: 5px;
+		BORDER-TOP: #036cb4 1px solid;
+		PADDING-LEFT: 5px;
+		FONT-WEIGHT: bold;
+		PADDING-BOTTOM: 2px;
+		MARGIN: 2px;
+		BORDER-LEFT: #036cb4 1px solid;
+		COLOR: #fff;
+		PADDING-TOP: 2px;
+		BORDER-BOTTOM: #036cb4 1px solid;
+		BACKGROUND-COLOR: #036cb4
+	}
+	
+	div.pagger .disabled {
+		BORDER-RIGHT: #eee 1px solid;
+		PADDING-RIGHT: 5px;
+		BORDER-TOP: #eee 1px solid;
+		PADDING-LEFT: 5px;
+		PADDING-BOTTOM: 2px;
+		MARGIN: 2px;
+		BORDER-LEFT: #eee 1px solid;
+		COLOR: #ddd;
+		PADDING-TOP: 2px;
+		BORDER-BOTTOM: #eee 1px solid
+	}
+	</style>
 	<div class="pagger">
 		<span>共${page.getTotalCount()}条</span>
 		<span>第${page.getPageNo()}/${page.getTotalPages()}页</span>
