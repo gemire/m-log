@@ -26,7 +26,7 @@ public interface TagService {
      * @param name
      * @return
      */
-    List<Tag> findUniqueByName(String name);
+    Tag findUniqueByName(String name);
 
     /**
      * 创建tag对象

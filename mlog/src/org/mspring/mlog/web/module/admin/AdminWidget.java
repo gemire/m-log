@@ -15,8 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Widget
 @RequestMapping("/admin")
 public class AdminWidget {
+    /**
+     * 后台首页
+     * @return
+     */
     @RequestMapping(value = { "/admin/index" ,"/admin", "/admin/" })
-    public String route() {
+    public String index() {
         return "/admin/index";
+    }
+    
+    @RequestMapping("/about")
+    public String about(){
+        return "/admin/about";
+    }
+    
+    @RequestMapping("/about")
+    public String contact(){
+        return "/admin/contact";
     }
 }

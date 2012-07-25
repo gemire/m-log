@@ -7,9 +7,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Gao Youbo
@@ -17,7 +19,13 @@ import javax.persistence.Id;
  * @Description
  * @TODO
  */
+@Entity
+@Table(name = "tag")
 public class Tag implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8479918430075598009L;
     private Long id;
     private String name;
     private Date createTime;

@@ -43,10 +43,12 @@
 		        </bean>
 	        </list>
 	    </property>
+	    <property name="formatters">
+	    	<list>
+	    		<bean class="org.mspring.mlog.web.formatter.factory.TagFormatAnnotationFormatterFactory"></bean>
+	    	</list>
+	    </property>
 	</bean>
-	
-		
-		
 	
     <bean id="freemarkerConfigurer"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

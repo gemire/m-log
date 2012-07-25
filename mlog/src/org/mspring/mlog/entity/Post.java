@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,10 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.mspring.mlog.web.formatter.stereotype.TagFormat;
 
 /**
  * @author Gao Youbo
@@ -253,20 +258,19 @@ public class Post implements Serializable {
     /**
      * @return the tags
      */
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Tag.class)
-    @JoinColumn(name = "tag")
+    @ManyToMany(targetEntity = Tag.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @JoinTable(name = "post_tag", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    @TagFormat
     public List<Tag> getTags() {
         return tags;
     }
 
     /**
-     * @param tags the tags to set
+     * @param tags
+     *            the tags to set
      */
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
-    
-    
-    
 
 }

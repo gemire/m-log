@@ -41,10 +41,10 @@ public class TagServiceImpl extends AbstractServiceSupport implements TagService
      * org.mspring.mlog.service.TagService#findUniqueByName(java.lang.String)
      */
     @Override
-    public List<Tag> findUniqueByName(String name) {
+    public Tag findUniqueByName(String name) {
         // TODO Auto-generated method stub
         String queryString = "select tag from Tag tag where tag.name = ?";
-        return (List<Tag>) super.findUnique(queryString, name);
+        return (Tag) super.findUnique(queryString, name);
     }
 
     /*

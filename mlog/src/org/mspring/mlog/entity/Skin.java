@@ -12,6 +12,10 @@ import java.io.Serializable;
  * @TODO
  */
 public class Skin implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6890120461548339409L;
     private String name;
     private String folder;
     private String description;
