@@ -12,7 +12,7 @@
 			<span class="submitted">作者：${post.author.alias!post.author.name} 时间:${post.createTime}</span>
 		
 			<div class="content">
-				<#-- ${post.content} -->
+				${post.content}
 			</div>
 			<div class="clear-block clear">
 				<div class="links">
@@ -23,7 +23,11 @@
 							</#if>
 						</li>
 						<li>
-							tag...
+							<#if post.tags?exists>
+								<#list post.tags as tag>
+									${tag.name!""}
+								</#list>
+							</#if>
 						</li>
 					</ul>
 				</div>

@@ -368,3 +368,23 @@ input.readonly {
 .color3 {
 	background: #FFFFFF;
 }
+
+
+.infotable{
+	width:98%;
+	font-size:14px;
+	line-height: 21px;
+	margin:10px;
+	border:1px solid #cfdfef;
+}
+
+.infotable .partition {
+	font-weight:bold;
+	padding: 5px;
+	background: url(../images/bg_repx_hc.gif) repeat-x 0 -40px;
+}
+
+.infotable a, .infotable a:VISITED{
+	text-decoration: none;
+	color: blue;
+}
