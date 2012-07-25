@@ -29,6 +29,12 @@
                 }
             }
         });
+        
+        $(function(){
+        	$("#postForm").find('input.tag').tagedit({
+				autocompleteURL: 'server/autocomplete.php'
+			});
+        });
 	</script>
 	<div class="ui-layout-center">
 		<div class="tab">
@@ -58,7 +64,9 @@
 					</td>
 					<td class="fieldlabel">标签</td>
 					<td>
-						<#-- <@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;"' /> -->
+						<@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' />
+						<#-- <@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' /> -->
+						<#-- <input type="text" class="textinput" style="width:98%" name="tags" id="tags" class="tag" value="asdf" /> -->
 					</td>
 				</tr>
 				<tr>
