@@ -9,26 +9,6 @@
 	<script type="text/javascript" src="${base}/script/jquery.ui.all.js"></script>
 	<script type="text/javascript" src="${base}/script/lhgdialog/lhgdialog.min.js"></script>
 	<script type="text/javascript" src="${base}/script/common.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('body').layout({
-			north__closable:false,
-			north__size:62,
-			north__resizable:false,
-			south__closable:false,
-			south__size:50,
-			south__resizable:false,
-			togglerTip_open : "关闭",
-			togglerTip_closed : "打开",
-			resizerTip:"调整宽度",
-			resizerClass: 'ui-state-default',
-			//west__spacing_closed:10,
-			west__onresize: function (pane, $Pane) {  
-                
-            }
-		});
-	});
-	</script>
 </head>
 <body>
 	<div class="ui-layout-north"><@widget.placeholder path="/admin/top"/></div>

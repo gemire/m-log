@@ -29,12 +29,6 @@
                 }
             }
         });
-        
-        $(function(){
-        	$("#postForm").find('input.tag').tagedit({
-				autocompleteURL: 'server/autocomplete.php'
-			});
-        });
 	</script>
 	<div class="ui-layout-center">
 		<div class="tab">
@@ -83,26 +77,46 @@
 			</table>
 		</form>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//斑马线
-			var tables=document.getElementsByTagName("table");
-			var b=false;
-			for (var j = 0; j < tables.length; j++){
-				var cells = tables[j].getElementsByTagName("tr");
-				//cells[0].className="color3";
-				b=false;
-				for (var i = 0; i < cells.length; i++){
-					if(b){
-						cells[i].className="color2";
-						b=false;
-					}
-					else{
-						cells[i].className="color3";
-						b=true;
-					};
+<script type="text/javascript">
+	$(document).ready(function(){
+		//斑马线
+		var tables=document.getElementsByTagName("table");
+		var b=false;
+		for (var j = 0; j < tables.length; j++){
+			var cells = tables[j].getElementsByTagName("tr");
+			//cells[0].className="color3";
+			b=false;
+			for (var i = 0; i < cells.length; i++){
+				if(b){
+					cells[i].className="color2";
+					b=false;
+				}
+				else{
+					cells[i].className="color3";
+					b=true;
 				};
-			}
-		});
-	</script>
+			};
+		}
+	});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('body').layout({
+		north__closable:false,
+		north__size:62,
+		north__resizable:false,
+		south__closable:false,
+		south__size:50,
+		south__resizable:false,
+		togglerTip_open : "关闭",
+		togglerTip_closed : "打开",
+		resizerTip:"调整宽度",
+		resizerClass: 'ui-state-default',
+		//west__spacing_closed:10,
+		west__onresize: function (pane, $Pane) {  
+            
+        }
+	});
+});
+</script>
 <#include "../inc/footer.ftl" />
