@@ -8,11 +8,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.Validate;
 import org.mspring.mlog.entity.Catalog;
+import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.web.module.web.AbstractWebWidget;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
@@ -28,19 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping("/widget")
-public class SystemWidget {
-    private CatalogService catalogService;
-    private PostService postService;
-
-    @Autowired
-    public void setCatalogService(CatalogService catalogService) {
-        this.catalogService = catalogService;
-    }
-
-    @Autowired
-    public void setPostService(PostService postService) {
-        this.postService = postService;
-    }
+public class SystemWidget extends AbstractWebWidget {
 
     /**
      * 分类列表
@@ -67,5 +56,17 @@ public class SystemWidget {
         List<Post> posts = postService.getRecentPost(num);
         model.addAttribute("posts", posts);
         return "/widget/recentPost";
+    }
+
+    @RequestMapping("recentComment")
+    public String recentComment(HttpServletRequest request, HttpServletResponse response, Model model) {
+        int num = 20;
+        String numStr = request.getParameter("num");
+        if (!StringUtils.isBlank(numStr) && ValidatorUtils.isNumber(numStr)) {
+            num = Integer.parseInt(numStr);
+        }
+        List<Comment> comments = commentService.getRecentComment(num);
+        model.addAttribute("comments", comments);
+        return "/widget/recentComment";
     }
 }

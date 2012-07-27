@@ -9,28 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author Gao Youbo
  * @since 2012-7-18
- * @Description 
- * @TODO 
+ * @Description
+ * @TODO
  */
 @Widget
 @RequestMapping("/admin")
 public class AdminWidget {
     /**
      * 后台首页
+     * 
      * @return
      */
-    @RequestMapping(value = { "/admin/index" ,"/admin", "/admin/" })
+    @RequestMapping({"/index", "/", ""})
     public String index() {
         return "/admin/index";
-    }
-    
-    @RequestMapping("/about")
-    public String about(){
-        return "/admin/about";
-    }
-    
-    @RequestMapping("/about")
-    public String contact(){
-        return "/admin/contact";
     }
 }

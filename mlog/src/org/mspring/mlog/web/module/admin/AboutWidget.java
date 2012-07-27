@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.admin.common;
+package org.mspring.mlog.web.module.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,33 +18,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @TODO
  */
 @Widget
-@RequestMapping("/admin/common")
+@RequestMapping("/admin")
 public class AboutWidget {
+    
     /**
-     * 关于我
+     * 关于页面
+     * @return
+     */
+    @RequestMapping("/about")
+    public String about(){
+        return "/admin/about";
+    }
+    /**
+     * 关于我 widget
      * 
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping("/about")
+    @RequestMapping("/widget/about")
     public String about(HttpServletRequest request, HttpServletResponse response, Model model) {
         Application app = Application.getInstance();
         model.addAttribute("app", app);
-        return "/admin/common/about";
+        return "/admin/widget/about";
     }
     
-    /**
-     * 联系方式
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequestMapping("/contact")
-    public String contact(HttpServletRequest request, HttpServletResponse response, Model model) {
-        Application app = Application.getInstance();
-        model.addAttribute("app", app);
-        return "/admin/contact";
-    }
+    
 }

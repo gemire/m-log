@@ -7,15 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.xmlrpc.util.HttpUtil;
-import org.mspring.platform.core.ContextManager;
-import org.mspring.platform.utils.HttpUtils;
 import org.mspring.platform.utils.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -48,7 +40,6 @@ public class WidgetDirectiveModel implements TemplateDirectiveModel {
             return;
         }
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        
     }
 
 }

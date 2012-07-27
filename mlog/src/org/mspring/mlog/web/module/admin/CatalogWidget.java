@@ -77,6 +77,15 @@ public class CatalogWidget {
         return "/admin/catalog/listCatalog";
     }
 
+    /**
+     * 删除
+     * 
+     * @param id
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
     @RequestMapping("/delete")
     public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
@@ -113,11 +122,40 @@ public class CatalogWidget {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
         }
-        if (catalog.getOwner() == null) {
-            User user = GlobalUtils.getCurrentUser(request);
-            catalog.setOwner(user);
-        }
         catalogService.createCatalog(catalog);
+        return "redirect:/admin/catalog/list";
+    }
+
+    /**
+     * 修改页面
+     * 
+     * @param catalog
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/edit")
+    public String editCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+        String idString = request.getParameter("id");
+        catalog = catalogService.getCatalogById(new Long(idString));
+        model.addAttribute("catalog", catalog);
+        return "/admin/catalog/editCatalog";
+    }
+
+    /**
+     * 执行修改操作
+     * 
+     * @param catalog
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/doEdit")
+    public String doEditCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+        catalog.setModifyTime(new Date());
+        catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";
     }
 }

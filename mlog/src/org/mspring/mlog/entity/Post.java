@@ -58,6 +58,21 @@ public class Post implements Serializable {
     private Long commentCount;
 
     /**
+     * 
+     */
+    public Post() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param id
+     */
+    public Post(Long id) {
+        super();
+        this.id = id;
+    }
+
+    /**
      * @return the id
      */
     @Id

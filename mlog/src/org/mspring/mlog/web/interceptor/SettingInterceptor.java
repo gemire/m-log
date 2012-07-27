@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.service.OptionService;
-import org.mspring.mlog.service.SkinService;
 import org.mspring.mlog.web.OptionKeys;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver;

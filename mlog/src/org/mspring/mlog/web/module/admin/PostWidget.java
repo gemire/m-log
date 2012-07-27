@@ -19,6 +19,8 @@ import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -105,12 +107,15 @@ public class PostWidget {
     }
 
     @RequestMapping("/edit")
-    public String editPostView(@RequestParam Long id, @ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        post = postService.getPostById(id);
-        List<Catalog> catalogs = catalogService.findAllCatalog();
-        
-        model.addAttribute("post", post);
-        model.addAttribute("catalogs", catalogs);
+    public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+        String idString = request.getParameter("id");
+        if (!StringUtils.isBlank(idString) && ValidatorUtils.isNumber(idString)) {
+            post = postService.getPostById(new Long(idString));
+            List<Catalog> catalogs = catalogService.findAllCatalog();
+
+            model.addAttribute("post", post);
+            model.addAttribute("catalogs", catalogs);
+        }
         return "/admin/post/editPost";
     }
 

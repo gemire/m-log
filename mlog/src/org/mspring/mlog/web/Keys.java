@@ -19,4 +19,9 @@ public class Keys {
     public static final String USERNAME_COOKIE = "MLOG__USERNAME_COOKIE__";
     
     public static final String PASSWORD_COOKIE = "MLOG__PASSWORD_COOKIE__";
+    
+    /**
+     * 主题配置文件名称
+     */
+    public static final String SKIN_PROPERTIES_NAME = "skin.properties";
 }
