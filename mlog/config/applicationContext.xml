@@ -113,10 +113,27 @@
 	</bean>
 
 	<!-- Freemarker Configuration -->
+	<bean id="freemarkerConfigurer" class="org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer">
+		<property name="templateLoaderPaths">
+			<array>
+				<value>/</value>
+				<value>/WEB-INF/template/</value>
+			</array>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="number_format">0.######</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="template_update_delay">1</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 
 	<bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
    		<property name="templateLoaderPath" value="/WEB-INF/template"/>
    		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
+	-->
 
 	<!-- Java Mail Sender -->
 	<!-- 

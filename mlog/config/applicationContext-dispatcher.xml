@@ -49,32 +49,7 @@
 	    	</list>
 	    </property>
 	</bean>
-	
-    <bean id="freemarkerConfigurer"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPaths">
-			<array>
-				<value>/</value>
-				<value>/WEB-INF/template/</value>
-			</array>
-		</property>
-		<property name="freemarkerSettings">
-			<props>
-				<prop key="number_format">0.######</prop>
-				<prop key="defaultEncoding">UTF-8</prop>
-				<prop key="template_update_delay">1</prop>
-			</props>
-		</property>
-		<property name="freemarkerVariables">
-        	<map>
-        		<entry key="widget">
-					<bean class="org.mspring.platform.web.widget.tag.ftl.WidgetDirectiveModel" />        		    
-        		</entry>
-        	</map>
-        </property>
-	</bean>
 
-	<!-- <bean id="ftlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"> -->
 	<bean id="ftlViewResolver" class="org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".ftl" />
