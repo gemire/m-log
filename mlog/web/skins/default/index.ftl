@@ -1,9 +1,9 @@
 <#include "header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
+
 <#if postPage?exists && postPage.result?exists>
 	<#list postPage.result as post>
-		<!-- post node -->
 		<div id="node-${post.id}" class="node">
 			<h2>
 				<a href="${base}/${post.id}.html" title="${post.title}">${post.title}</a>
@@ -12,7 +12,7 @@
 			<span class="submitted">作者：${post.author.alias!post.author.name} 时间:${post.createTime}</span>
 		
 			<div class="content">
-				${post.content}
+				<@get_postcontent />
 			</div>
 			<div class="clear-block clear">
 				<div class="links">

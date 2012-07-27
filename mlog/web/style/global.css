@@ -357,19 +357,7 @@ input.readonly {
 }
 
 
-.color1 {
-	background: #DAE2E8;
-}
-
-.color2 {
-	background: #F1F4F7;
-}
-
-.color3 {
-	background: #FFFFFF;
-}
-
-
+/* 信息窗体 */
 .infotable{
 	width:98%;
 	font-size:14px;
@@ -387,4 +375,49 @@ input.readonly {
 .infotable a, .infotable a:VISITED{
 	text-decoration: none;
 	color: blue;
+}
+
+.color1 {
+	background: #DAE2E8;
+}
+
+.color2 {
+	background: #F1F4F7;
+}
+
+.color3 {
+	background: #FFFFFF;
+}
+
+
+
+/* 主题列表 */
+.skinItem {
+    background-color: #FAFAFA;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px #333333;
+    line-height: 16px;
+    margin: 24px 12px;
+    padding: 10px 5px;
+    text-align: center;
+    width: 306px;
+}
+.skinItem.selected {
+    background-color: #ff9999;
+}
+.skinItem:hover {
+    background-color: #EEE;
+}
+.skinItem .metadata{
+	margin-top:5px;
+}
+.skinItem .metadata a, .skinItem .metadata a:VISITED{
+	text-decoration: none;
+	color: blue;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
 }

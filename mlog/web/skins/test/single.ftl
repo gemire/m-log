@@ -34,7 +34,7 @@
 	</div>
 	<br />
 	<div>
-		<#include "comment.ftl">
+		<#-- <#include "comment.ftl"> -->
 	</div>
 <#else>
 	<h2>文章未找到</h2>

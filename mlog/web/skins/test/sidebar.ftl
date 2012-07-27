@@ -21,18 +21,18 @@
 		</div>
 	</div>
 	
+	<#--
 	<div class="clear-block block block-catalog">
-		<h2>最新评论</h2>
+		<h2>${recentComment}</h2>
 		<div class="content">
-			<div class="item-list" id="item-list-top">
+			<div class="item-list" id="item-list-topcomment">
 				<ul>
-					<@widget.placeholder path="/widget/recentComment" />
+					${widget("RecentCommentWidget", "20")}
 				</ul>
 			</div>
 		</div>
 	</div>
 	
-	<#--
 	<div class="clear-block block block-catalog">
 		<h2>${friendLinks}</h2>
 		<div class="content">
