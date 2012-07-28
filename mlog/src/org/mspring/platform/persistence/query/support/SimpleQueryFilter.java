@@ -5,7 +5,7 @@ package org.mspring.platform.persistence.query.support;
 
 import org.mspring.platform.persistence.query.QueryContext;
 import org.mspring.platform.persistence.query.QueryFilter;
-import org.mspring.platform.web.xwork.interceptor.QueryParameterAware;
+import org.mspring.platform.web.query.QueryParameterAware;
 
 /**
  * @author Gao Youbo

@@ -1,80 +1,62 @@
 /**
  * 
  */
-package org.mspring.platform.web.xwork.interceptor;
+package org.mspring.platform.web.query.interceptor;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.mspring.platform.persistence.query.QueryContext;
 import org.mspring.platform.persistence.query.QueryFilter;
 import org.mspring.platform.persistence.query.support.SimpleQueryFilter;
-import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.RequestUtils;
-
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.query.QueryParameterAware;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * @author Gao Youbo
- * @since Mar 21, 2012
+ * @since 2012-7-28
+ * @Description 2012-7-28
+ * @TODO 2012-7-28
  */
-public class QueryParameterInterceptor implements Interceptor {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -8541196647287106319L;
-
+public class QueryParameterInterceptor extends HandlerInterceptorAdapter {
     private static final Logger log = Logger.getLogger(QueryParameterInterceptor.class);
 
     /*
      * (non-Javadoc)
      * 
-     * @see com.opensymphony.xwork2.interceptor.Interceptor#destroy()
+     * @see
+     * org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle
+     * (javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse, java.lang.Object)
      */
     @Override
-    public void destroy() {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.opensymphony.xwork2.interceptor.Interceptor#init()
-     */
-    @Override
-    public void init() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.opensymphony.xwork2.interceptor.Interceptor#intercept(com.opensymphony.xwork2.ActionInvocation)
-     */
-    @Override
-    public String intercept(ActionInvocation invocation) throws Exception {
-        // TODO Auto-generated method stub
-        Action action = (Action) invocation.getAction();
-        if ((action instanceof QueryParameterAware)) {
-            return doIntercept(invocation, (QueryParameterAware) action);
+        if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
+            HandlerMethod method = (HandlerMethod) handler;
+            Object action = method.getBean();
+            if (action instanceof QueryParameterAware) {
+                setParameterMaps(request, (QueryParameterAware) action);
+            }
         }
-        return invocation.invoke();
+        return true;
     }
 
-    protected String doIntercept(ActionInvocation invocation, QueryParameterAware action) throws Exception {
+    protected void setParameterMaps(HttpServletRequest request, QueryParameterAware action) {
+
         if (log.isDebugEnabled()) {
             log.debug("Beging interceptor QueryParameterAware for " + action.getClass());
         }
 
-        Map requestParams = ActionContext.getContext().getParameters();
+        Map requestParams = request.getParameterMap();
         Map queryParams = new HashMap();
 
         String encodedQueryParams = RequestUtils.getRequestParameter(requestParams, "encodedQueryParams");
@@ -94,7 +76,8 @@ public class QueryParameterInterceptor implements Interceptor {
                     log.debug("Set queryParams with encodedQueryParams:[" + nameValuePairs[i] + "]");
                 }
             }
-        } else {
+        }
+        else {
             if (log.isDebugEnabled())
                 log.debug("Set QueryParameterAware's queryParams with ServletRequest's parameters");
 
@@ -119,12 +102,11 @@ public class QueryParameterInterceptor implements Interceptor {
                 log.debug("Query required for this request, dispatche to queryrequired page");
                 log.debug("End interceptor QueryParameterAware for " + action.getClass());
             }
-            return "queryrequired";
+            // return "queryrequired";
         }
 
         if (log.isDebugEnabled())
             log.debug("End interceptor QueryParameterAware for " + action.getClass());
-        return invocation.invoke();
     }
 
     private void addParam(Map queryParams, String nameValuePair) {

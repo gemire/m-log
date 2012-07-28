@@ -49,15 +49,20 @@ public class SettingWidget {
     }
 
     @RequestMapping({ "/", "" })
-    public String settingView(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String settingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        options = optionService.getOptions();
+        model.addAllAttributes(options);
         return "/admin/setting/setting-view";
     }
 
     @RequestMapping("/info")
     public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        options = optionService.getOptions();
-        model.addAllAttributes(options);
         return "/admin/setting/info-setting";
+    }
+
+    @RequestMapping("/global")
+    public String globalSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "/admin/setting/global-setting";
     }
 
     @RequestMapping("/skin")

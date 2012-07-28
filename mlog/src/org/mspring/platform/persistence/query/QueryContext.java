@@ -5,7 +5,7 @@ package org.mspring.platform.persistence.query;
 
 import java.util.Map;
 
-import org.mspring.platform.web.xwork.interceptor.QueryParameterAware;
+import org.mspring.platform.web.query.QueryParameterAware;
 
 /**
  * @author Gao Youbo

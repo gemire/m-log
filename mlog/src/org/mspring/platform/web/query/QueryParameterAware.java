@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.xwork.interceptor;
+package org.mspring.platform.web.query;
 
 import java.util.Map;
 

@@ -18,6 +18,7 @@ import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.web.query.QueryParameterAware;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -32,7 +33,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping("/admin/comment")
-public class CommentWidget {
+public class CommentWidget implements QueryParameterAware {
+
+    private Map queryParams;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.platform.web.query.QueryParameterAware#setQueryParameters
+     * (java.util.Map)
+     */
+    @Override
+    public void setQueryParameters(Map queryParameters) {
+        // TODO Auto-generated method stub
+        this.queryParams = queryParameters;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.platform.web.query.QueryParameterAware#getEncodedQueryParams
+     * ()
+     */
+    @Override
+    public String getEncodedQueryParams() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     private CommentService commentService;
 
     @Autowired
@@ -46,18 +76,8 @@ public class CommentWidget {
             commentPage = new Page<Comment>();
         }
         commentPage.setSort(new Sort("id", Sort.DESC));
-        
 
-        System.out.println(request.getParameter("comment.status"));
-        System.out.println(request.getParameter("comment.author"));
-        System.out.println(request.getParameter("comment.content"));
-        System.out.println(request.getParameter("comment.post.title"));
-        
-        Map map = request.getParameterMap();
-        Object a = map.get("comment.status");
-        System.out.println(a);
-
-        QueryCriterion queryCriterion = new CommentQueryCriterion(request.getParameterMap());
+        QueryCriterion queryCriterion = new CommentQueryCriterion(queryParams);
         commentPage = commentService.findComment(commentPage, queryCriterion);
 
         List<Field> columnfields = new ArrayList<Field>();
@@ -72,4 +92,5 @@ public class CommentWidget {
 
         return "/admin/comment/listComment";
     }
+
 }

@@ -31,6 +31,7 @@
     	<bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" />
     	<!-- skin interceptor -->
     	<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
+    	<bean class="org.mspring.platform.web.query.interceptor.QueryParameterInterceptor" />
     </mvc:interceptors>
     
     
