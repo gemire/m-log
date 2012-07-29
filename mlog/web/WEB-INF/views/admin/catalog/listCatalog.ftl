@@ -56,7 +56,7 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmDelete('catalogForm', '${base}/admin/catalog/delete');" />
+						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('catalogForm', '${base}/admin/catalog/delete');" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=catalogPage form_id="catalogForm" />

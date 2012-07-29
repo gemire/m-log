@@ -62,7 +62,7 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmDelete('postForm', '${base}/admin/post/delete');" />
+						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete');" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=postPage form_id="postForm" />

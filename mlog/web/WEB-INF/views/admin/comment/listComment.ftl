@@ -49,6 +49,9 @@
 						</#list>
 					</#if>
 					<th>
+						状态
+					</th>
+					<th>
 						操作
 					</th>
 				</tr>
@@ -70,6 +73,9 @@
 								</#list>
 							</#if>
 							<td class="${tdClass}">
+								${item.status}
+							</td>
+							<td class="${tdClass}">
 								<a href="javascript:void(0);">查看详情</a>
 							</td>
 						</tr>
@@ -79,10 +85,10 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value="审核通过" />
-						<input type="button" class="btn" value="标记为垃圾评论" />
-						<input type="button" class="btn" value="移入回收站" />
-						<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmDelete('commentForm', '${base}/admin/comment/delete');" />
+						<input type="button" class="btn" value="审核通过" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=approved', '确认审核通过？');" />
+						<input type="button" class="btn" value="标记为垃圾评论" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=spam', '确认标记为垃圾评论？');" />
+						<input type="button" class="btn" value="移入回收站" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=recycle', '确认移入回收站？');" />
+						<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/delete');" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=commentPage form_id="commentForm" />

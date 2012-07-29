@@ -28,6 +28,8 @@
 		<div id="slide">
 			<h1>信息配置</h1>
 		  	<div><@widget.placeholder path="/admin/setting/info" cache=false /></div>
+		  	<h2>全局设置</h2>
+		  	<div><@widget.placeholder path="/admin/setting/global" cache=false /></div>
 		  	<h2>皮肤设置</h2>
 		  	<div><@widget.placeholder path="/admin/setting/skin" cache=false /></div>
 		</div>
