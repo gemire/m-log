@@ -314,4 +314,28 @@ public class ValidatorUtils {
     public static boolean isPhoneNumber(String phoneNumber) {
         return isNumber(StringUtils.extractDigits(phoneNumber));
     }
+
+    /**
+     * 判断字符串是否是一个IP地址
+     * 
+     * @param addr
+     * @return
+     */
+    public static boolean isIPAddr(String addr) {
+        if (StringUtils.isBlank(addr))
+            return false;
+        String[] ips = StringUtils.split(addr, '.');
+        if (ips.length != 4)
+            return false;
+        try {
+            int ipa = Integer.parseInt(ips[0]);
+            int ipb = Integer.parseInt(ips[1]);
+            int ipc = Integer.parseInt(ips[2]);
+            int ipd = Integer.parseInt(ips[3]);
+            return ipa >= 0 && ipa <= 255 && ipb >= 0 && ipb <= 255 && ipc >= 0 && ipc <= 255 && ipd >= 0 && ipd <= 255;
+        }
+        catch (Exception e) {
+        }
+        return false;
+    }
 }

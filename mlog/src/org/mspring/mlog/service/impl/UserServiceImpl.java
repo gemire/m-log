@@ -8,7 +8,7 @@ import java.util.List;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.UserService;
 import org.mspring.platform.core.AbstractServiceSupport;
-import org.mspring.platform.utils.EncryptionDecryption;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,8 +31,8 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
     @Override
     public User login(String username, String password) {
         // TODO Auto-generated method stub
-        //密码加密
-        password = EncryptionDecryption.getMD5(password);
+        // 密码加密
+        password = StringUtils.getMD5(password);
         String queryString = "select u from User u where u.name = ? and u.password = ?";
         List list = find(queryString, new String[] { username, password });
         if (list != null && list.size() > 0) {

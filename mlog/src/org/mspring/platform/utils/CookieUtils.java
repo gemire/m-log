@@ -4,6 +4,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -12,6 +13,8 @@ import org.apache.log4j.Logger;
  */
 public class CookieUtils {
     private static final Logger logger = Logger.getLogger(CookieUtils.class);
+
+    private static final String COOKIE_SECURITY_KEY = "mspring.mlog";
 
     private CookieUtils() {
     }
@@ -23,7 +26,7 @@ public class CookieUtils {
 
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
-            System.out.println("Cookie[name=" + cookie.getName() + ", value=" + cookie.getValue() + "]");
+            logger.debug("Cookie[name=" + cookie.getName() + ", value=" + cookie.getValue() + "]");
         }
     }
 
@@ -32,12 +35,19 @@ public class CookieUtils {
     }
 
     public static void setCookie(HttpServletResponse response, String name, String value, int iExpireDays) {
-        Cookie cookie = new Cookie(name, value);
-        if (iExpireDays != 0) {
-            cookie.setMaxAge(iExpireDays * 24 * 60 * 60 * 1000);
+        try {
+            Cookie cookie = new Cookie(name, StringUtils.encodeBASE64(value));
+            if (iExpireDays != 0) {
+                cookie.setMaxAge(iExpireDays * 24 * 60 * 60 * 1000);
+            }
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            logger.debug("set cookie [" + name + "=" + value + "]");
         }
-        response.addCookie(cookie);
-        logger.debug("set cookie [" + name + "=" + value + "]");
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public static String getCookie(HttpServletRequest request, String name) {
@@ -47,8 +57,9 @@ public class CookieUtils {
 
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
-            if (name.equals(cookie.getName()))
-                return cookie.getValue();
+            if (name.equals(cookie.getName())) {
+                return new StringUtils().decodeBASE64(cookie.getValue());
+            }
         }
         return "";
     }

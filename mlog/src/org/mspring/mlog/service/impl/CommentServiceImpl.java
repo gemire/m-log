@@ -11,7 +11,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
-import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
@@ -66,8 +65,8 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public List<Comment> findCommentsByPost(Long postId) {
         // TODO Auto-generated method stub
-        String queryString = "select comment from Comment comment where comment.post.id = ?";
-        return find(queryString, postId);
+        String queryString = "select comment from Comment comment where comment.post.id = ? and comment.status = ?";
+        return find(queryString, new Object[]{postId, Comment.Status.APPROVED});
     }
 
     /*
@@ -115,13 +114,67 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         });
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.CommentService#findComment(org.mspring.platform.persistence.support.Page, org.mspring.platform.persistence.query.QueryCriterion)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CommentService#findComment(org.mspring.platform
+     * .persistence.support.Page,
+     * org.mspring.platform.persistence.query.QueryCriterion)
      */
     @Override
     public Page<Comment> findComment(Page<Comment> page, QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
         return findPage(page, queryCriterion);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.CommentService#approved(java.lang.Long[])
+     */
+    @Override
+    public void approved(Long... ids) {
+        // TODO Auto-generated method stub
+        for (Long id : ids) {
+            updateCommentStatus(id, Comment.Status.APPROVED);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.CommentService#spam(java.lang.Long[])
+     */
+    @Override
+    public void spam(Long... ids) {
+        // TODO Auto-generated method stub
+        for (Long id : ids) {
+            updateCommentStatus(id, Comment.Status.SPAM);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.CommentService#recycle(java.lang.Long[])
+     */
+    @Override
+    public void recycle(Long... ids) {
+        // TODO Auto-generated method stub
+        for (Long id : ids) {
+            updateCommentStatus(id, Comment.Status.RECYCLE);
+        }
+    }
+
+    /**
+     * 更新评论状态
+     * 
+     * @param status
+     */
+    private void updateCommentStatus(Long id, String status) {
+        String queryString = "update Comment comment set comment.status = ? where comment.id = ?";
+        executeUpdate(queryString, new Object[] { status, id });
     }
 
 }

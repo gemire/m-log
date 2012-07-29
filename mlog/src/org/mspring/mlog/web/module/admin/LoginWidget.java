@@ -54,9 +54,9 @@ public class LoginWidget {
         if (loginUser != null) {
             session.setAttribute(Keys.CURRENT_USER, loginUser);
             if (user.isRememberMe()) {
-                CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "true");
-                CookieUtils.setCookie(response, Keys.USERNAME_COOKIE, user.getName());
-                CookieUtils.setCookie(response, Keys.PASSWORD_COOKIE, user.getPassword());
+                CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "true", 365);
+                CookieUtils.setCookie(response, Keys.USERNAME_COOKIE, user.getName(), 365);
+                CookieUtils.setCookie(response, Keys.PASSWORD_COOKIE, user.getPassword(), 365);
             }
             return "redirect:/admin";
         }
@@ -67,7 +67,7 @@ public class LoginWidget {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         session.invalidate();
-        CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "false");
+        CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "false", 365);
         return "/admin/login";
     }
 }

@@ -24,4 +24,10 @@ public class Keys {
      * 主题配置文件名称
      */
     public static final String SKIN_PROPERTIES_NAME = "skin.properties";
+    
+    public static final String COMMENT_AUTHOR_COOKIE = "comment_author_cookie";
+    
+    public static final String COMMENT_EMAIL_COOKIE = "comment_email_cookie";
+    
+    public static final String COMMENT_URL_COOKIE = "comment_url_cookie";
 }

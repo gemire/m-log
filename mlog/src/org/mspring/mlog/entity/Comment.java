@@ -163,7 +163,7 @@ public class Comment implements Serializable {
     /**
      * @return the agent
      */
-    @Column(name = "agent", length = 100)
+    @Column(name = "agent", length = 1000)
     public String getAgent() {
         return agent;
     }

@@ -18,15 +18,38 @@ import org.mspring.platform.persistence.support.Page;
 public interface CommentService {
     public Comment createComment(Comment comment);
 
-    public void deleteComment(Long... idArray);
-
     public List<Comment> findCommentsByPost(Long postId);
 
     public Comment getCommentById(Long id);
 
     public Page<Comment> findComment(Page<Comment> page, String queryString, Object... params);
-    
+
     public Page<Comment> findComment(Page<Comment> page, QueryCriterion queryCriterion);
 
     public List<Comment> getRecentComment(int num);
+
+    /**
+     * 彻底删除
+     * @param ids
+     */
+    public void deleteComment(Long... ids);
+
+    /**
+     * 审核通过
+     * @param ids
+     */
+    public void approved(Long... ids);
+
+    /**
+     * 编辑为垃圾评论
+     * @param ids
+     */
+    public void spam(Long... ids);
+
+    /**
+     * 移到回收站
+     * @param ids
+     */
+    public void recycle(Long... ids);
+
 }
