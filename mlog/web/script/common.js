@@ -42,9 +42,9 @@ mspring.submitForm = function(formId, action) {
 }
 
 /**
- * 确认删除
+ * 确认提交表单
  */
-mspring.confirmDelete = function(formId, action, msg) {
+mspring.confirmSubmit = function(formId, action, msg) {
 	var default_msg = '确认删除选择项吗？';
 	if (msg) {
 		default_msg = msg;

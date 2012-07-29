@@ -22,6 +22,7 @@
 	</#list>
 </#if>
 </ul>
+
 <div class="box" id="divCommentPost">
 	<h2>发表评论</h2>
 	<div class="content">
@@ -31,21 +32,21 @@
 				<tr>
 					<td align="right" style="width:100px;"><span>作者</span></td>
 					<td align="left" >
-						<input name="author" type="text" validate="{required:true}">
+						<input name="author" type="text" value="${author!""}" validate="{required:true}">
             		</td>
             		<td align="left"></td>
 				</tr>
 				<tr>
 					<td align="right" style="width:100px;"><span>邮箱</span></td>
 					<td align="left" >
-						<input name="email" type="text" validate="{required:true,email:true}">
+						<input name="email" type="text" value="${email!""}" validate="{required:true,email:true}">
             		</td>
             		<td align="left"></td>
 				</tr>
 				<tr>
 					<td align="right" style="width:100px;"><span>主页</span></td>
 					<td align="left" >
-						<input name="url" type="text" validate="{required:true,url:true}">
+						<input name="url" type="text" value="${url!""}" validate="{required:true,url:true}">
             		</td>
             		<td align="left"></td>
 				</tr>
@@ -59,7 +60,7 @@
 				<tr>
 					<td></td>
 					<td style="text-align: center;">
-						<input type="submit" name="btnSumbit" id="btn_postcomment" class="submitbutton" value=' 发 表 '/>
+						<input type="submit" name="btnSumbit" id="btn_postcomment" class="submitbutton" value=' 发   表 '/>
 					</td>
 					<td></td>
 				</tr>

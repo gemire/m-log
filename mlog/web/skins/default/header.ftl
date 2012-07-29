@@ -8,6 +8,7 @@
 		<link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 		<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 		<link rel="shortcut icon" href="${template_url}/images/favicon.ico" />
+		<script type="text/javascript" src="${base}/script/custom.js"></script>
 	</head>
 	<body class="multi default">
 		<!-- Layout -->
