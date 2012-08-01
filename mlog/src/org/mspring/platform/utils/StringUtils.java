@@ -3,14 +3,10 @@
  */
 package org.mspring.platform.utils;
 
-import java.security.Key;
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import javax.crypto.Cipher;
 
 /**
  * @author Gao Youbo
@@ -60,11 +56,9 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
      * @return
      */
     public static String getFileExtend(String fn) {
-        if (isEmpty(fn))
-            return null;
+        if (isEmpty(fn)) return null;
         int idx = fn.lastIndexOf('.') + 1;
-        if (idx == 0 || idx >= fn.length())
-            return null;
+        if (idx == 0 || idx >= fn.length()) return null;
         return fn.substring(idx);
     }
 
@@ -85,8 +79,7 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
      * @return
      */
     public static List stringToList(String tags, String ch) {
-        if (tags == null)
-            return null;
+        if (tags == null) return null;
         ArrayList tagList = new ArrayList();
         StringTokenizer st = new StringTokenizer(tags, ch);
         while (st.hasMoreElements()) {
@@ -337,58 +330,5 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
         }
         int offset = (highByte - 0xB0) * (0xFE - 0xA0) + (lowByte - 0xA1);
         return Constants.gb2312StrokeCount[offset];
-    }
-
-    /**
-     * 该方法返回一个字符串的拼音，对于要做敏感字 检查时应该一个字一个字来获取其拼音以免无法 得知每个字对应的拼音。
-     * 
-     * @param word
-     * @return String
-     */
-    public static String getPinyin(String word) {
-        String pinyin = "";
-        for (int i = 0; i < word.length(); i++)
-            pinyin += getPinyin2(getCode(word.charAt(i)));
-        return pinyin;
-    }
-
-    /**
-     * 该方法返回一个字符的DBCS编码值
-     * 
-     * @param cc
-     * @return int
-     */
-    protected static int getCode(char cc) {
-        byte[] bs = String.valueOf(cc).getBytes();
-        int code = (bs[0] << 8) | (bs[1] & 0x00FF);
-        if (bs.length < 2)
-            code = (int) cc;
-        bs = null;
-        return code;
-    }
-
-    /**
-     * 该方法通过DBCS的编码值到哈希表中查询得到对应的拼音串
-     * 
-     * @param hz
-     * @return String
-     */
-    protected static String getPinyin2(int hz) {
-        String py = "";
-        if (hz > 0 && hz < 160)
-            py += hz;
-        // else if (hz < -20319 || hz > -10247);
-        else if (hz <= -10247 && hz >= -20319) {
-            PinyinCode pc = null;
-            int i = Constants.pinyin.size() - 1;
-            for (; i >= 0; i--) {
-                pc = (PinyinCode) Constants.pinyin.get(i);
-                if (pc.code <= hz)
-                    break;
-            }
-            if (i >= 0)
-                py = pc.pinyin;
-        }
-        return py;
     }
 }
