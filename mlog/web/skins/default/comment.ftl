@@ -2,7 +2,7 @@
 <#if (comments?exists && comments?size > 0)>
 	<#list comments as comment >
 		<li>
-			<a id="cmt${comment.id}"></a>
+			<a id="comment-${comment.id}"></a>
 			<div class="comment even">
 	  			<div class="clear-block">
 	      			<span class="submitted">@${comment.createTime!""}&nbsp;by&nbsp;<a href="${comment.url}" target="_blank" >${comment.author}</a></span>
@@ -27,7 +27,7 @@
 	<h2>发表评论</h2>
 	<div class="content">
 		<form id="comment-form" target="_self" method="post" action="${base}/comment/post">
-			<input type="hidden" name="postId" value="${post.id}" />
+			<input type="hidden" name="postId" value="${postId}" />
 			<table cellpadding="10" cellspacing="10">
 				<tr>
 					<td align="right" style="width:100px;"><span>作者</span></td>
@@ -60,7 +60,7 @@
 				<tr>
 					<td></td>
 					<td style="text-align: center;">
-						<input type="submit" name="btnSumbit" id="btn_postcomment" class="submitbutton" value=' 发   表 '/>
+						<input type="submit" name="btnSumbit" id="btn_postcomment" class="button" value=' 发   表 '/>
 					</td>
 					<td></td>
 				</tr>

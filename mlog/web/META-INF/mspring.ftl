@@ -145,7 +145,12 @@
 			<#if x_has_next>
 				<#assign currentElement=value['${x}'] />
 			<#else>
-				${currentElement['${x}']!""}
+				<#assign currentElement=currentElement['${x}']!"" />
+				<#if currentElement?is_boolean>
+					${currentElement?string('是','否')}
+				<#else>
+					${currentElement}
+				</#if>
 			</#if>
 		</#if>
 	</#list>

@@ -2,33 +2,19 @@
 <#import "/META-INF/spring.ftl" as spring />
 	<script type="text/javascript" src="${base}/script/tiny_mce/tiny_mce.js" charset="utf-8"></script>
 	<script type="text/javascript">
-		tinyMCE.init({
-            // General options
-            language: 'zh-cn',
-            mode : "exact",
-            elements : "content",
-            theme : "advanced",
-            plugins : "autosave,style,advhr,advimage,advlink,preview,inlinepopups,media,paste,fullscreen,syntaxhl",
-
-            // Theme options
-            theme_advanced_buttons1 : "forecolor,backcolor,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontselect,fontsizeselect",
-            theme_advanced_buttons2 : "bullist,numlist,outdent,indent,|,undo,redo,|,sub,sup,blockquote,charmap,image,iespell,media,|,advhr,link,unlink,anchor,cleanup,|,pastetext,pasteword,code,preview,fullscreen,syntaxhl",
-            theme_advanced_buttons3 : "",
-            theme_advanced_toolbar_location : "top",
-            theme_advanced_toolbar_align : "left",
-            theme_advanced_resizing : true,
-
-            extended_valid_elements: "pre[name|class],iframe[src|width|height|name|align]",
-
-            valid_children : "+body[style]",
-            relative_urls: false,
-            remove_script_host: false,
-            oninit : function () {
-                if (typeof(fun) === "function") {
-                    fun();
-                }
-            }
-        });
+		$(document).ready(function(){
+			mspring.editor.init({
+				id: 'content',
+				type: 'all'
+			});
+			
+			mspring.editor.init({
+				id: 'summary',
+				type: 'simple'
+			});
+			
+			mspring.validateForm("postForm");
+		});
 	</script>
 	<div class="ui-layout-center">
 		<div class="tab">
@@ -42,31 +28,47 @@
 			<@spring.bind "post" />
 			<table class="formtable" style="width:100%;">
 				<tr>
-					<td class="fieldlabel" style="width:50px;">编号</td>
+					<td class="fieldlabel" style="width:60px;">标题</td>
 					<td>
-						<@spring.formInput path="post.id" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="自定生成"  />
+						<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;" validate="{required:true, messages:{required:\'文章标题不能为空\'}}"' />
 					</td>
-					<td class="fieldlabel">标题</td>
+					<td class="fieldlabel" style="width:60px;">分类</td>
 					<td>
-						<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;"' />
+						<@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;" validate="{required:true, messages:{required:\'请选择文章分类\'}}"' />
 					</td>
 				</tr>
 				<tr>
-					<td class="fieldlabel" style="width:50px;">分类</td>
-					<td>
-						<@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;"' />
-					</td>
 					<td class="fieldlabel">标签</td>
 					<td>
 						<@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' />
-						<#-- <@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' /> -->
-						<#-- <input type="text" class="textinput" style="width:98%" name="tags" id="tags" class="tag" value="asdf" /> -->
+					</td>
+					
+					<td class="fieldlabel">链接</td>
+					<td>
+						<@spring.formInput path="post.url" attributes='class="textinput" style="width:98%;"' />
+					</td>
+				</tr>
+				<tr>
+					<td class="fieldlabel">访问密码</td>
+					<td>
+						<@spring.formInput path="post.password" attributes='class="textinput" style="width:98%;"' />
+					</td>
+					
+					<td class="fieldlabel">允许评论</td>
+					<td style="font-size:12px;">
+						<@spring.formRadioButtons path="post.commentStatus" options=commentStatus defaultValue="open" separator="&nbsp;" />
 					</td>
 				</tr>
 				<tr>
 					<td class="fieldlabel">内容</td>
 					<td colspan="3">
-						<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;"' />
+						<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;" validate="{required:true, messages:{required:\'文章内容不能为空\'}}"' />
+					</td>
+				</tr>
+				<tr>
+					<td class="fieldlabel">摘要</td>
+					<td colspan="3">
+						<@spring.formTextarea path="post.summary" attributes='style="height:150px;width:100%;"' />
 					</td>
 				</tr>
 				<tr>

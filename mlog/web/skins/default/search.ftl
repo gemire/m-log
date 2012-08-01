@@ -1,6 +1,12 @@
 <#include "header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
+<div id="search-div" style="text-align: center;">
+	<form method="get">
+		<input type="text" name="s" style="width:300px;" value="${s!""}" />
+		<input type="submit" value=' 搜  索 '/>
+	</form>
+</div>
 
 <#if postPage?exists && postPage.result?exists>
 	<#list postPage.result as post>

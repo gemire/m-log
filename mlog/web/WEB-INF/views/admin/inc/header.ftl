@@ -7,6 +7,8 @@
 	<script type="text/javascript" src="${base}/script/jquery.js"></script>
 	<script type="text/javascript" src="${base}/script/jquery.layout.js"></script>
 	<script type="text/javascript" src="${base}/script/jquery.ui.all.js"></script>
+	<script type="text/javascript" src="${base}/script/jquery-validation/jquery.validate.js"></script>
+	<script type="text/javascript" src="${base}/script/jquery-validation/jquery.metadata.js"></script>
 	<script type="text/javascript" src="${base}/script/lhgdialog/lhgdialog.min.js"></script>
 	<script type="text/javascript" src="${base}/script/common.js"></script>
 </head>

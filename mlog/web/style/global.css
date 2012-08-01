@@ -299,6 +299,11 @@ input.readonly {
 	font-size: 12px;
 }
 
+span.error {
+	font-size:12px;
+	color:red;
+}
+
 .textinput {
 	padding-right: 1px;
 	padding-left: 1px;

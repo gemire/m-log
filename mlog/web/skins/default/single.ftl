@@ -35,7 +35,7 @@
 	<br />
 	<div>
 		<#-- <#include "comment.ftl"> -->
-		<#-- <@widget.placeholder path="${base}/comment?post=${post.id}" /> -->
+		<@widget.placeholder path="/comment?post=${post.id}" />
 	</div>
 <#else>
 	<h2>文章未找到</h2>

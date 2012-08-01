@@ -32,16 +32,14 @@
 		</div>
 	</div>
 	
-	<#--
 	<div class="clear-block block block-catalog">
-		<h2>${friendLinks}</h2>
+		<h2>链接</h2>
 		<div class="content">
 			<div class="item-list" id="item-list-topcomment">
 				<ul>
-					${widget("LinkListWidget")}
+					<@widget.placeholder path="/widget/links" />
 				</ul>
 			</div>
 		</div>
 	</div>
-	-->
 </div>

@@ -23,7 +23,7 @@
 					</div>
 					<div id="primary-menu">
 						<ul class="links primary-links">
-							
+							<@widget.placeholder path="/widget/menus" cache=false />
 						</ul>
 					</div>
 				</div>

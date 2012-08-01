@@ -282,12 +282,19 @@
  * @param attributes any additional attributes for the element (such as class
  *    or CSS styles or size
 -->
-<#macro formRadioButtons path options separator attributes="">
+<#macro formRadioButtons path options separator defaultValue="" attributes="">
     <@bind path/>
     <#list options?keys as value>
-    <#assign id="${status.expression}${value_index}">
-    <input type="radio" id="${id}" name="${status.expression}" value="${value?html}"<#if stringStatusValue == value> checked="checked"</#if> ${attributes}<@closeTag/>
-    <label for="${id}">${options[value]?html}</label>${separator}
+    	<#assign id="${status.expression}${value_index}">
+    	<#assign radio_checked="" />
+    	<#if stringStatusValue?exists && stringStatusValue?has_content>
+    		<#if stringStatusValue == value><#assign radio_checked='checked="checked"' /></#if>
+    	<#else>
+    		<#if defaultValue == value><#assign radio_checked='checked="checked"' /></#if>
+    	</#if>
+    	<input type="radio" id="${id}" name="${status.expression}" value="${value?html}" ${radio_checked} ${attributes}<@closeTag/>
+    	<#-- <input type="radio" id="${id}" name="${status.expression}" value="${value?html}"<#if stringStatusValue == value> checked="checked"</#if> ${attributes}<@closeTag/> -->
+    	<label for="${id}">${options[value]?html}</label>${separator}
     </#list>
 </#macro>
 
