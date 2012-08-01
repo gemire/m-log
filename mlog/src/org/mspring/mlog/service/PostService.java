@@ -28,10 +28,13 @@ public interface PostService {
 
     Post getPostById(Long postId);
 
+    Post getPostByTitle(String title);
+
     void updatePost(Post post);
-    
+
     /**
      * 最新发表文章
+     * 
      * @param nums
      * @return
      */

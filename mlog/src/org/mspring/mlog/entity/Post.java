@@ -22,6 +22,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
 import org.mspring.mlog.web.formatter.stereotype.TagFormat;
 
 /**
@@ -32,6 +38,7 @@ import org.mspring.mlog.web.formatter.stereotype.TagFormat;
  */
 @Entity
 @Table(name = "post")
+@Indexed(index = "post")
 public class Post implements Serializable {
     /**
      * 
@@ -56,6 +63,7 @@ public class Post implements Serializable {
     private String password;
     private String commentStatus;
     private Long commentCount;
+    private String url;
 
     /**
      * 
@@ -78,6 +86,7 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false, length = 30)
+    @DocumentId
     public Long getId() {
         return id;
     }
@@ -94,6 +103,7 @@ public class Post implements Serializable {
      * @return the title
      */
     @Column(name = "title", nullable = false, length = 200)
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getTitle() {
         return title;
     }
@@ -111,6 +121,7 @@ public class Post implements Serializable {
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Catalog.class)
     @JoinColumn(name = "catalog")
+    @IndexedEmbedded
     public Catalog getCatalog() {
         return catalog;
     }
@@ -127,6 +138,7 @@ public class Post implements Serializable {
      * @return the summary
      */
     @Column(name = "summary", length = 4000)
+    @Field(index = Index.TOKENIZED, store = Store.NO)
     public String getSummary() {
         return summary;
     }
@@ -143,6 +155,7 @@ public class Post implements Serializable {
      * @return the content
      */
     @Column(name = "content", nullable = false, columnDefinition = "text")
+    @Field(index = Index.TOKENIZED, store = Store.NO)
     public String getContent() {
         return content;
     }
@@ -194,6 +207,7 @@ public class Post implements Serializable {
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "post_user")
+    @IndexedEmbedded
     public User getAuthor() {
         return author;
     }
@@ -286,6 +300,22 @@ public class Post implements Serializable {
      */
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    /**
+     * @return the url
+     */
+    @Column(name = "url", nullable = false, unique = true, length = 500)
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url
+     *            the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

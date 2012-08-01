@@ -13,6 +13,8 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.Keys;
 import org.mspring.platform.utils.CookieUtils;
+import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +48,8 @@ public class CommentWidget extends AbstractWebWidget {
         model.addAttribute("email", email);
         model.addAttribute("url", url);
         model.addAttribute("comments", comments);
-
-        return "skin:/comment.ftl";
+        model.addAttribute("postId", postId);
+        return "skin:/comment";
     }
 
     @RequestMapping("/post")
@@ -60,6 +62,35 @@ public class CommentWidget extends AbstractWebWidget {
 
         String ip = request.getRemoteAddr();
         String agent = request.getHeader("user-agent");
+
+        /**
+         * 验证评论发布人
+         */
+        if (StringUtils.isBlank(author)) {
+            return prompt(model, "评论发表失败，发布人不能为空");
+        }
+
+        /**
+         * 验证评论内容不能为空
+         */
+        if (StringUtils.isBlank(content)) {
+            return prompt(model, "评论发表失败，评论内容不能为空");
+        }
+
+        /**
+         * 验证email地址， email地址为非必填项，如果填写，那么验证email格式是否正确
+         */
+        if (StringUtils.isNotBlank(email) && !ValidatorUtils.isEmailAddress(email)) {
+            return prompt(model, "评论发表失败，email格式填写不正确");
+        }
+
+        /**
+         * 验证URL， URL地址为非必填项，如果填写，那么验证URL格式是否正确
+         * 
+         */
+        if (StringUtils.isNotBlank(url) && !ValidatorUtils.isUrl(url)) {
+            return prompt(model, "评论发表失败，主页地址格式填写不正确");
+        }
 
         Comment comment = new Comment();
         comment.setAuthor(author);
@@ -82,6 +113,6 @@ public class CommentWidget extends AbstractWebWidget {
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
         model.addAttribute("comment", comment);
-        return String.format("redirect:/%s.html", postId);
+        return String.format("redirect:/post/%s", comment.getPost().getTitle());
     }
 }

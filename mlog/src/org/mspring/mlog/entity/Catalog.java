@@ -15,6 +15,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * @author Gao Youbo
  * @since 2012-7-12
@@ -23,6 +29,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "catalog")
+@Indexed(index = "catalog")
 public class Catalog implements Serializable {
 
     /**
@@ -43,6 +50,7 @@ public class Catalog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false, length = 30)
+    @DocumentId
     public Long getId() {
         return id;
     }
@@ -59,6 +67,7 @@ public class Catalog implements Serializable {
      * @return the name
      */
     @Column(name = "name", nullable = false, length = 100)
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getName() {
         return name;
     }
@@ -125,6 +134,7 @@ public class Catalog implements Serializable {
      * @return the description
      */
     @Column(name = "description", columnDefinition = "text")
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getDescription() {
         return description;
     }

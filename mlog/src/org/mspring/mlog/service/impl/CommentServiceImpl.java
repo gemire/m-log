@@ -107,8 +107,9 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
             @Override
             public List<Comment> doInHibernate(Session session) throws HibernateException, SQLException {
                 // TODO Auto-generated method stub
-                Query query = session.createQuery("select comment from Comment comment order by comment.createTime desc");
+                Query query = session.createQuery("select comment from Comment comment where comment.status = :status order by comment.createTime desc");
                 query.setMaxResults(num);
+                query.setString("status", Comment.Status.APPROVED);
                 return query.list();
             }
         });

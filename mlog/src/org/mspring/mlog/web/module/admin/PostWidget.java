@@ -4,7 +4,9 @@
 package org.mspring.mlog.web.module.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.web.GlobalUtils;
+import org.mspring.mlog.web.validator.PostValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -24,6 +27,7 @@ import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,14 +86,33 @@ public class PostWidget {
     }
 
     @RequestMapping("/create")
-    public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model, BindingResult result) {
+        // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
         model.addAttribute("catalogs", catalogs);
+
+        // 是否开启评论
+        Map<String, String> commentStatus = new HashMap<String, String>();
+        commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
+        commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
+        model.addAttribute("commentStatus", commentStatus);
         return "/admin/post/createPost";
     }
 
     @RequestMapping("/doCreate")
-    public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model, BindingResult result) {
+        if (result.hasErrors()) {
+            List<Catalog> catalogs = catalogService.findAllCatalog();
+            model.addAttribute("catalogs", catalogs);
+
+            // 是否开启评论
+            Map<String, String> commentStatus = new HashMap<String, String>();
+            commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
+            commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
+            model.addAttribute("commentStatus", commentStatus);
+            return "/admin/post/createPost";
+        }
+
         User user = GlobalUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
             post.setAuthor(user);
@@ -99,7 +122,7 @@ public class PostWidget {
     }
 
     @RequestMapping("/delete")
-    public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String deleteCatalog(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             postService.deletePost(id);
         }
@@ -110,11 +133,19 @@ public class PostWidget {
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         String idString = request.getParameter("id");
         if (!StringUtils.isBlank(idString) && ValidatorUtils.isNumber(idString)) {
+            // 文章
             post = postService.getPostById(new Long(idString));
-            List<Catalog> catalogs = catalogService.findAllCatalog();
-
             model.addAttribute("post", post);
+
+            // 文章分类
+            List<Catalog> catalogs = catalogService.findAllCatalog();
             model.addAttribute("catalogs", catalogs);
+
+            // 是否开启评论
+            Map<String, String> commentStatus = new HashMap<String, String>();
+            commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
+            commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
+            model.addAttribute("commentStatus", commentStatus);
         }
         return "/admin/post/editPost";
     }

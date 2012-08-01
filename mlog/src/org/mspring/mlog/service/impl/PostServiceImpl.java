@@ -4,6 +4,7 @@
 package org.mspring.mlog.service.impl;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,11 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         if (StringUtils.isBlank(post.getStatus())) {
             post.setStatus(Post.POST_STATUS_PUBLISH);
+        }
+        if (StringUtils.isBlank(post.getUrl())) {
+            Calendar cal = Calendar.getInstance();
+            String url = String.format("/post/%s/%s/%s/%s.html", new Object[] { cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.getTimeInMillis() });
+            post.setUrl(url);
         }
         Long id = (Long) super.save(post);
         return getPostById(id);
@@ -123,6 +129,20 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     public void updatePost(Post post) {
         // TODO Auto-generated method stub
         post.setModifyTime(new Date());
+        if (post.getCreateTime() == null) {
+            post.setCreateTime(new Date());
+        }
+        if (StringUtils.isBlank(post.getCommentStatus())) {
+            post.setCommentStatus(Post.COMMENT_STATUS_OPEN);
+        }
+        if (StringUtils.isBlank(post.getStatus())) {
+            post.setStatus(Post.POST_STATUS_PUBLISH);
+        }
+        if (StringUtils.isBlank(post.getUrl())) {
+            Calendar cal = Calendar.getInstance();
+            String url = String.format("/post/%s/%s/%s/%s.html", new Object[] { cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.getTimeInMillis() });
+            post.setUrl(url);
+        }
         super.update(post);
     }
 
@@ -144,6 +164,19 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
                 return query.list();
             }
         });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
+     */
+    @Override
+    public Post getPostByTitle(String title) {
+        // TODO Auto-generated method stub
+        String queryString = "select post from Post post where post.title = ?";
+        return (Post) findUnique(queryString, title);
     }
 
 }

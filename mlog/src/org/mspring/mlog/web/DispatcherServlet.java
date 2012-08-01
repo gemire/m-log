@@ -10,7 +10,6 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-import org.mspring.mlog.web.freemarker.directive.PostContentDirectiveModel;
 import org.mspring.platform.web.Keys;
 import org.springframework.web.servlet.ModelAndView;
 
