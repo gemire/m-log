@@ -139,7 +139,6 @@
 -->
 <#macro fieldValue value attribute="" >
 	<#assign currentElement = value />
-	
 	<#list attribute?split(".") as x>
 		<#if x?exists>
 			<#if x_has_next>
@@ -154,5 +153,17 @@
 			</#if>
 		</#if>
 	</#list>
-	
+</#macro>
+
+
+<#macro show_errors >
+	<#if (errors?exists && errors.errors?exists && errors.errors?size > 0)>
+		<#assign msg = "" />
+		<#list errors.errors as error>
+			<#assign msg = msg + error.message + "<br />" />
+		</#list>
+		<#if (msg?exists && msg?length > 0)>
+			<script type="text/javascript">mspring.tip('${msg}');</script>
+		</#if>
+	</#if>
 </#macro>

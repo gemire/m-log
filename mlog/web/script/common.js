@@ -58,24 +58,38 @@ mspring.validateForm = function(formId, callback) {
 	var form = document.getElementById(formId);
 	if (form) {
 		$.metadata.setType("attr", "validate");
+		/**
+		 * 自定义check方法,该方法用于做ajax检测
+		 * @param value 当前验证表单元素的值
+		 * @param element 当前验证表单元素
+		 * @param param 当前验证传递的参数
+		 */
 		$.validator.addMethod("ajaxCheck", function(value, element, param) {
-			if (param.length == 0) {
-				return true;
+			try{
+				if (param.length == 0) {
+					return true;
+				}
+				var url = param[0];
+				var param_name = param[1];
+				if (param_name) {
+					url += "?" + param_name + "=" + value;
+				}
+				var text = $.ajax({
+					url : url,
+					async : false
+				}).responseText;
+				
+				var validationResult = eval('('+text+')');
+				$.validator.messages["ajaxCheck"] = validationResult.message != undefined ? validationResult.message : $.validator.messages["ajaxCheck"];
+				var result = false;
+				if(validationResult.result === true){
+					result = true;
+				}
+				return result;
 			}
-			var url = "";
-			var action = param[0];
-			var param_name = param[1];
-
-			url += action;
-			if (param_name) {
-				url += "?" + param_name + "=" + value
+			catch(e){
+				mspring.tip("<font color='red'>Validator error:" + e.message + "</font>");
 			}
-			var result = $.ajax({
-				url : url,
-				async : false
-			}).responseText;
-			var flag = result == "true" ? true : false;
-			return flag;
 		});
 		$(form).validate({
 			success : callback,
@@ -115,31 +129,7 @@ mspring.validateForm = function(formId, callback) {
 					msg += (v.message + "<br />");
 				});
 				if (msg) {
-					$.dialog({
-						// title: "验证消息",
-						title : false,
-						content : "<font color='red'>" + msg + "</font>",
-						time : 2,
-						min : false,
-						max : false,
-						icon : 'error.gif',
-						// cancel: function(){},
-						close : function() {
-							var duration = 400, /* 动画时长 */
-							api = this, opt = api.config, wrap = api.DOM.wrap, top = $(
-									window).scrollTop()
-									- wrap[0].offsetHeight;
-
-							wrap.animate({
-								top : top + 'px',
-								opacity : 0
-							}, duration, function() {
-								opt.close = $.noop;
-								api.close();
-							});
-							return false;
-						}
-					});
+					mspring.tip("<font color='red'>" + msg + "</font>");
 				}
 			},
 			// 失去焦点时不验证
@@ -150,6 +140,37 @@ mspring.validateForm = function(formId, callback) {
 			onclick : false
 		});
 	}
+}
+
+/**
+ * tip消息
+ */
+mspring.tip = function(msg){
+	$.dialog({
+		// title: "验证消息",
+		title : false,
+		content : msg,
+		time : 2,
+		min : false,
+		max : false,
+		icon : 'error.gif',
+		// cancel: function(){},
+		close : function() {
+			var duration = 400, /* 动画时长 */
+			api = this, opt = api.config, wrap = api.DOM.wrap, top = $(window).scrollTop() - wrap[0].offsetHeight;
+			wrap.animate(
+				{
+					top : top + 'px',
+					opacity : 0
+				}, 
+				duration, function() {
+					opt.close = $.noop;
+					api.close();
+				}
+			);
+			return false;
+		}
+	});
 }
 
 mspring.editor = {
@@ -216,6 +237,10 @@ mspring.editor = {
                         if (typeof(conf.fun) === "function") {
                             conf.fun();
                         }
+                    },
+                    //处理jquery-validation的异常，在每次tinyMCE内容改变是，都执行triggerSave()操作
+                    onchange_callback : function(){
+                    	tinyMCE.triggerSave();
                     }
                 });
             } catch (e) {
