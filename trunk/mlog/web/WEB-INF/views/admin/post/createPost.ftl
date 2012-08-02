@@ -1,5 +1,6 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
+<#import "/META-INF/mspring.ftl" as mspring />
 	<script type="text/javascript" src="${base}/script/tiny_mce/tiny_mce.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -13,7 +14,7 @@
 				type: 'simple'
 			});
 			
-			mspring.validateForm("postForm");
+			//mspring.validateForm("postForm");
 		});
 	</script>
 	<div class="ui-layout-center">
@@ -26,15 +27,16 @@
 		</div>
 		<form id="postForm" name="postForm" action="${base}/admin/post/doCreate" method="POST">
 			<@spring.bind "post" />
+			<@mspring.show_errors />
 			<table class="formtable" style="width:100%;">
 				<tr>
 					<td class="fieldlabel" style="width:60px;">标题</td>
 					<td>
-						<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;" validate="{required:true, messages:{required:\'文章标题不能为空\'}}"' />
+						<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;"' />
 					</td>
 					<td class="fieldlabel" style="width:60px;">分类</td>
 					<td>
-						<@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;" validate="{required:true, messages:{required:\'请选择文章分类\'}}"' />
+						<@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;"' />
 					</td>
 				</tr>
 				<tr>
@@ -62,7 +64,7 @@
 				<tr>
 					<td class="fieldlabel">内容</td>
 					<td colspan="3">
-						<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;" validate="{required:true, messages:{required:\'文章内容不能为空\'}}"' />
+						<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;"' />
 					</td>
 				</tr>
 				<tr>
