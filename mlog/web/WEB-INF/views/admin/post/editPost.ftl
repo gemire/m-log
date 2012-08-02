@@ -1,5 +1,6 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
+<#import "/META-INF/mspring.ftl" as mspring />
 	<script type="text/javascript" src="${base}/script/tiny_mce/tiny_mce.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -24,10 +25,10 @@
 		</div>
 		<form id="postForm" name="postForm" action="${base}/admin/post/doEdit" method="POST">
 			<@spring.bind "post" />
+			<@mspring.show_errors />
 			<@spring.formHiddenInput path="post.id" />
 			<@spring.formHiddenInput path="post.author.id" />
 			<@spring.formHiddenInput path="post.createTime" />
-			<@spring.formHiddenInput path="post.password" />
 			<@spring.formHiddenInput path="post.status" />
 			<@spring.formHiddenInput path="post.commentCount" />
 			<table class="formtable" style="width:100%;">
