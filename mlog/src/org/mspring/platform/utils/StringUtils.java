@@ -3,6 +3,7 @@
  */
 package org.mspring.platform.utils;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -330,5 +331,16 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
         }
         int offset = (highByte - 0xB0) * (0xFE - 0xA0) + (lowByte - 0xA1);
         return Constants.gb2312StrokeCount[offset];
+    }
+    
+    /**
+     * 转换字符串编码
+     * @param value
+     * @param formChartSet
+     * @param toChartSet
+     * @return
+     */
+    public static String encoding(String value, String formChartSet, String toChartSet){
+        return new String(value.getBytes(Charset.forName(formChartSet)), Charset.forName(toChartSet));
     }
 }

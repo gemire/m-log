@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.service.search.PostSearchService;
-import org.mspring.platform.core.ContextManager;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.web.widget.stereotype.Widget;

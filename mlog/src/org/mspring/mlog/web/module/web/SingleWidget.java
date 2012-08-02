@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Post;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.resolver.stereotype.UrlVariable;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping({ "/", "" })
+@SuppressWarnings("unused")
 public class SingleWidget extends AbstractWebWidget {
 
-    @RequestMapping("/post/{title}")
-    private String single(@PathVariable String title, HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (StringUtils.isNotBlank(title)) {
+    @RequestMapping("/{url:.*}")
+    private String single(@PathVariable String url, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (StringUtils.isNotBlank(url)) {
+            url = "/" + url;
             // 文章信息
-            Post post = postService.getPostByTitle(title);
+            Post post = postService.getPostByUrl(url);
             model.addAttribute("post", post);
         }
         return "skin:/single";
     }
-
 }

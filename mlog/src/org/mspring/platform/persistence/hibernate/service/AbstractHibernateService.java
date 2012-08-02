@@ -55,12 +55,17 @@ public class AbstractHibernateService extends HibernateDaoSupport {
 
     public void update(Object object) {
         // TODO Auto-generated method stub
+        if (object == null) {
+            log.warn("update entity failure, entity is null.");
+            return;
+        }
         this.getHibernateTemplate().update(object);
     }
 
     public void executeUpdate(String queryString) {
         // TODO Auto-generated method stub
         if (StringUtils.isBlank(queryString)) {
+            log.warn("execute update failure, queryString is blank.");
             return;
         }
         executeUpdate(queryString, null);
@@ -69,6 +74,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
     public void executeUpdate(final String queryString, final Object... value) {
         // TODO Auto-generated method stub
         if (StringUtils.isBlank(queryString)) {
+            log.warn("execute update failure, queryString is blank.");
             return;
         }
         this.getHibernateTemplate().execute(new HibernateCallback() {
@@ -83,13 +89,20 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         });
     }
 
-    public void delete(Object object) {
+    public <Entity extends Serializable> void delete(Entity object) {
         // TODO Auto-generated method stub
+        if (object == null) {
+            log.warn("delete entity failure, entity is null.");
+            return;
+        }
         this.getHibernateTemplate().delete(object);
     }
 
     public <PK extends Serializable> void delete(Class clazz, PK... paramPK) {
         // TODO Auto-generated method stub
+        if (paramPK == null || paramPK.length == 0) {
+            return;
+        }
         if (paramPK != null && paramPK.length > 0) {
             for (int i = 0; i < paramPK.length; i++) {
                 Object entity = get(clazz, paramPK[i]);
@@ -100,6 +113,9 @@ public class AbstractHibernateService extends HibernateDaoSupport {
 
     public <PK extends Serializable> void delete(String entityName, PK... paramPK) {
         // TODO Auto-generated method stub
+        if (paramPK == null || paramPK.length == 0) {
+            return;
+        }
         if (paramPK != null && paramPK.length > 0) {
             for (int i = 0; i < paramPK.length; i++) {
                 Object entity = get(entityName, paramPK[i]);
@@ -118,28 +134,13 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return findUnique(queryString, new Object[] { value });
     }
 
-    public Object findUnique(final String queryString, final Object[] values) {
+    public Object findUnique(final String queryString, final Object... values) {
         // TODO Auto-generated method stub
-        return this.getHibernateTemplate().execute(new HibernateCallback<Object>() {
-
-            @Override
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                // TODO Auto-generated method stub
-                Query query = session.createQuery(queryString);
-                if (values != null && values.length > 0) {
-                    setParametersToQuery(query, values);
-                }
-                Object object = null;
-                try {
-                    List list = query.list();
-                    if (list != null && list.size() > 0) object = list.get(0);
-                }
-                catch (NoResultException e) {
-                    logger.warn(e.getMessage());
-                }
-                return object;
-            }
-        });
+        List list = find(queryString, values);
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 
     public Page findPage(final Page page, final QueryCriterion queryCriterion) {
@@ -170,7 +171,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return findPage(page, queryString, null);
     }
 
-    public Page findPage(final Page page, String queryString, final Object[] values) {
+    public Page findPage(final Page page, String queryString, final Object... values) {
         // TODO Auto-generated method stub
         if (page.isAutoCount()) {
             Long totalCount = count(queryString, values);
@@ -220,12 +221,7 @@ public class AbstractHibernateService extends HibernateDaoSupport {
         return this.getHibernateTemplate().find(queryString);
     }
 
-    public List find(String queryString, Object values) {
-        // TODO Auto-generated method stub
-        return this.getHibernateTemplate().find(queryString, values);
-    }
-
-    public List find(String queryString, Object[] values) {
+    public List find(String queryString, Object... values) {
         // TODO Auto-generated method stub
         return this.getHibernateTemplate().find(queryString, values);
     }

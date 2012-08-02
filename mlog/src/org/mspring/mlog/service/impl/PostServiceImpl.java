@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +16,7 @@ import org.mspring.mlog.service.PostService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -177,6 +177,70 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         // TODO Auto-generated method stub
         String queryString = "select post from Post post where post.title = ?";
         return (Post) findUnique(queryString, title);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#getPostByUrl(java.lang.String)
+     */
+    @Override
+    public Post getPostByUrl(String url) {
+        // TODO Auto-generated method stub
+        String queryString = "select post from Post post where post.url = ?";
+        return (Post) findUnique(queryString, url);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#titleExists(java.lang.String ,
+     * java.lang.Long)
+     */
+    @Override
+    public boolean titleExists(String title, Long postId) {
+        // TODO Auto-generated method stub
+        Long count = null;
+        if (postId == null) {
+            String queryString = "select count(*) from Post post where post.title = ?";
+            count = count(queryString, title);
+        }
+        else {
+            String queryString = "select count(*) from Post post where post.title = ? and post.id <> ?";
+            count = count(queryString, new Object[] { title, postId });
+        }
+        if (count > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#urlExists(java.lang.String,
+     * java.lang.Long)
+     */
+    @Override
+    public boolean urlExists(String url, Long postId) {
+        // TODO Auto-generated method stub
+        Long count = null;
+        if (postId == null) {
+            String queryString = "select count(*) from Post post where post.url = ?";
+            count = count(queryString, url);
+        }
+        else {
+            String queryString = "select count(*) from Post post where post.url = ? and post.id <> ?";
+            count = count(queryString, new Object[] { url, postId });
+        }
+        if (count > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
