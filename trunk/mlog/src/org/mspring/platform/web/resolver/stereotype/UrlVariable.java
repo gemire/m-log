@@ -1,8 +1,9 @@
 /**
  * 
  */
-package org.mspring.mlog.web.formatter.stereotype;
+package org.mspring.platform.web.resolver.stereotype;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,12 +11,13 @@ import java.lang.annotation.Target;
 
 /**
  * @author Gao Youbo
- * @since 2012-7-25
+ * @since 2012-8-2
  * @Description
  * @TODO
  */
-@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
+@Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TagFormat {
+@Documented
+public @interface UrlVariable {
 
 }

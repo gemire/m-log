@@ -10,12 +10,12 @@ import java.lang.annotation.Target;
 
 /**
  * @author Gao Youbo
- * @since 2012-7-25
+ * @since 2012-8-1
  * @Description
  * @TODO
  */
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TagFormat {
-
+public @interface EncodingFormat {
+    String encoding() default "UTF-8";
 }

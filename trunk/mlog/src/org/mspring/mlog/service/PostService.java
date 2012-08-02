@@ -30,6 +30,8 @@ public interface PostService {
 
     Post getPostByTitle(String title);
 
+    Post getPostByUrl(String url);
+
     void updatePost(Post post);
 
     /**
@@ -39,4 +41,22 @@ public interface PostService {
      * @return
      */
     List<Post> getRecentPost(int nums);
+
+    /**
+     * 验证文章标题是否存在
+     * 
+     * @param title
+     * @param postId
+     * @return
+     */
+    boolean titleExists(String title, Long postId);
+
+    /**
+     * 验证URL是否存在
+     * 
+     * @param url
+     * @param postId
+     * @return
+     */
+    boolean urlExists(String url, Long postId);
 }

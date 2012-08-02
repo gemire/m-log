@@ -41,7 +41,7 @@ public class RememberMeInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO Auto-generated method stub
-        if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
+        if (handler.getClass().getName().startsWith("org.mspring.mlog.web.module.admin")) {
             resolveRememberme(request, response);
         }
         return true;

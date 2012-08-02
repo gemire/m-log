@@ -24,10 +24,10 @@ import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
+import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,23 +43,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PostWidget {
     private PostService postService;
     private CatalogService catalogService;
+    private PostValidator postValidator;
 
-    /**
-     * @param postService
-     *            the postService to set
-     */
     @Autowired
     public void setPostService(PostService postService) {
         this.postService = postService;
     }
 
-    /**
-     * @param catalogService
-     *            the catalogService to set
-     */
     @Autowired
     public void setCatalogService(CatalogService catalogService) {
         this.catalogService = catalogService;
+    }
+
+    @Autowired
+    public void setPostValidator(PostValidator postValidator) {
+        this.postValidator = postValidator;
     }
 
     @RequestMapping({ "/list", "/", "" })
@@ -75,6 +73,7 @@ public class PostWidget {
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("title", "标题"));
         columnfields.add(new ColumnField("catalog.name", "分类"));
+        columnfields.add(new ColumnField("url", "链接"));
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
         columnfields.add(new ColumnField("author.alias", "作者"));
@@ -86,7 +85,7 @@ public class PostWidget {
     }
 
     @RequestMapping("/create")
-    public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model, BindingResult result) {
+    public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
         model.addAttribute("catalogs", catalogs);
@@ -96,23 +95,18 @@ public class PostWidget {
         commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
         commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
         model.addAttribute("commentStatus", commentStatus);
+
+        // model.addAttribute("errors", errors);
         return "/admin/post/createPost";
     }
 
     @RequestMapping("/doCreate")
-    public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model, BindingResult result) {
-        if (result.hasErrors()) {
-            List<Catalog> catalogs = catalogService.findAllCatalog();
-            model.addAttribute("catalogs", catalogs);
-
-            // 是否开启评论
-            Map<String, String> commentStatus = new HashMap<String, String>();
-            commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
-            commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
-            model.addAttribute("commentStatus", commentStatus);
-            return "/admin/post/createPost";
+    public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Errors errors = postValidator.validate(post);
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return createPostView(post, request, response, model);
         }
-
         User user = GlobalUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
             post.setAuthor(user);
@@ -152,8 +146,12 @@ public class PostWidget {
 
     @RequestMapping("/doEdit")
     public String doEditPost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Errors errors = postValidator.validate(post);
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return editPostView(post, request, response, model);
+        }
         postService.updatePost(post);
         return "redirect:/admin/post/list";
     }
-
 }
