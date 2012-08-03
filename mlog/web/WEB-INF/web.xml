@@ -63,7 +63,7 @@
 	
 	<filter>
 		<filter-name>PermalinkFilter</filter-name>
-		<filter-class>org.mspring.mlog.web.filter.ParamLinkFilter</filter-class>
+		<filter-class>org.mspring.mlog.web.filter.PermaLinkFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>PermalinkFilter</filter-name>
