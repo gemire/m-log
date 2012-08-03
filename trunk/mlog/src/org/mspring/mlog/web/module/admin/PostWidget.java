@@ -16,7 +16,7 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
-import org.mspring.mlog.web.GlobalUtils;
+import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.validator.PostValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
