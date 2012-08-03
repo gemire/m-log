@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -51,8 +52,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             post.setStatus(Post.POST_STATUS_PUBLISH);
         }
         if (StringUtils.isBlank(post.getUrl())) {
-            Calendar cal = Calendar.getInstance();
-            String url = String.format("/post/%s/%s/%s/%s.html", new Object[] { cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.getTimeInMillis() });
+            String url = PermaLinkUtils.getDefaultPostURL();
             post.setUrl(url);
         }
         Long id = (Long) super.save(post);
@@ -139,8 +139,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             post.setStatus(Post.POST_STATUS_PUBLISH);
         }
         if (StringUtils.isBlank(post.getUrl())) {
-            Calendar cal = Calendar.getInstance();
-            String url = String.format("/post/%s/%s/%s/%s.html", new Object[] { cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), cal.getTimeInMillis() });
+            String url = PermaLinkUtils.getDefaultPostURL();
             post.setUrl(url);
         }
         super.update(post);
@@ -215,6 +214,17 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         else {
             return false;
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#urlExists(java.lang.String)
+     */
+    @Override
+    public boolean urlExists(String url) {
+        // TODO Auto-generated method stub
+        return urlExists(url, null);
     }
 
     /*

@@ -14,10 +14,6 @@
     <mvc:resources location="/style/**" mapping="/style/**"/>
     <mvc:resources location="/skins/**" mapping="/skins/**"/>
 	
-
-
-	<!-- <mvc:annotation-driven conversion-service="conversionService" /> -->
-	
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"> 
   		<property name="useDefaultSuffixPattern" value="false" />
   		<property name="interceptors">
@@ -47,11 +43,13 @@
 				-->
 			</list>
 		</property>
+		<!-- 
 		<property name="customArgumentResolvers">
 			<list>
 				<bean class="org.mspring.platform.web.resolver.UrlVariableMethodArgumentResolver" />
 			</list>
 		</property>
+		-->
 		
 		<property name="webBindingInitializer">
 			<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
@@ -80,17 +78,6 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- 
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="webBindingInitializer">
-			<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-				<property name="conversionService" ref="conversionService"/>
-			</bean>
-		</property>
-	</bean>
-	-->
-	
 
 	<bean id="ftlViewResolver"
 		class="org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver">

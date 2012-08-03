@@ -55,6 +55,14 @@ public interface PostService {
      * 验证URL是否存在
      * 
      * @param url
+     * @return
+     */
+    boolean urlExists(String url);
+
+    /**
+     * 验证URL是否存在
+     * 
+     * @param url
      * @param postId
      * @return
      */

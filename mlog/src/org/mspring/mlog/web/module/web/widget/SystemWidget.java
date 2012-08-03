@@ -17,14 +17,11 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.module.web.AbstractWebWidget;
-import org.mspring.platform.utils.FreemarkerUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import freemarker.template.Template;
 
 /**
  * @author Gao Youbo

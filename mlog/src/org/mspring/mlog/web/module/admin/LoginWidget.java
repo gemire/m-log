@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.UserService;
-import org.mspring.mlog.web.GlobalUtils;
+import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.Keys;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
