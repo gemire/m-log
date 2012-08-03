@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -29,7 +29,8 @@ import org.hibernate.search.annotations.Store;
  */
 @Entity
 @Table(name = "catalog")
-@Indexed(index = "catalog")
+// @Indexed(index = "catalog")
+@Embeddable
 public class Catalog implements Serializable {
 
     /**
@@ -50,7 +51,6 @@ public class Catalog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false, length = 30)
-    @DocumentId
     public Long getId() {
         return id;
     }
