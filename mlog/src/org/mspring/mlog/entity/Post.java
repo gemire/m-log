@@ -315,7 +315,9 @@ public class Post implements Serializable {
      *            the url to set
      */
     public void setUrl(String url) {
-        this.url = url;
+        if (url != null) { //剔除链接中的空格
+            this.url = url.trim();
+        }
     }
 
 }

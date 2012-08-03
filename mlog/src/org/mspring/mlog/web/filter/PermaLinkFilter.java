@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PermaLinkUtils;
+import org.mspring.platform.utils.StringUtils;
 
 /**
  * @author Gao Youbo
@@ -52,7 +53,7 @@ public class PermaLinkFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String requestURI = request.getPathInfo();
+        String requestURI = StringUtils.encoding(request.getPathInfo(), "ISO-8859-1", "UTF-8");
 
         log.debug("Request URI [" + requestURI + "]");
 

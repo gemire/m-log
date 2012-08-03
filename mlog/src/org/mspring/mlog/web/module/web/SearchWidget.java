@@ -29,6 +29,7 @@ public class SearchWidget extends AbstractWebWidget {
         if (postPage == null) {
             postPage = new Page<Post>();
         }
+        s = StringUtils.encoding(s, "ISO-8859-1", "UTF-8");
         if (StringUtils.isNotBlank(s)) {
             postSearchService.search(postPage, s);
         }

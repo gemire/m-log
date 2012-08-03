@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 /**
  * @author Gao Youbo
  * @since 2012-7-23
@@ -125,10 +127,12 @@ public class PostWidget {
 
     @RequestMapping("/edit")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        String idString = request.getParameter("id");
+        String idString = request.getParameter("postId");
         if (!StringUtils.isBlank(idString) && ValidatorUtils.isNumber(idString)) {
             // 文章
-            post = postService.getPostById(new Long(idString));
+            if (post == null || post.getId() == null) { //这里处理是为了防止在提交表单后，为验证通过时，返回页面，页面之前填写的信息丢失的问题
+                post = postService.getPostById(new Long(idString));
+            }
             model.addAttribute("post", post);
 
             // 文章分类

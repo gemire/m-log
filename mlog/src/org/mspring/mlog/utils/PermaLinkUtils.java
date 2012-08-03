@@ -25,10 +25,12 @@ public class PermaLinkUtils {
     /**
      * 系统保留的链接
      */
-    public static final String[] RESERVED_LINKS = { 
-        "/", "/admin", "/admin/*", "/widget", "/widget/*", "/post", 
-        "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", 
-        "*.js", "*.png", "*.gif", "*.jpg", "*.bmp" };
+    public static final String[] RESERVED_LINKS = { "/", "/admin", "/admin/*", "/widget", "/widget/*", "/post", "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", "*.js", "*.png", "*.gif", "*.jpg", "*.bmp", "*." };
+    
+    /**
+     * 链接非法字符
+     */
+    public static final String[] ILLEGAL_CHARS = new String[] { " ", "//", "\\", "/.", "\\.", "*", "?", "#", "%", "!", "@", "$", "^", "&", "(", ")", "-", "+", "=", "|"};
 
     /**
      * 判断是否是系统默认的固定链接格式 <br>
@@ -73,6 +75,11 @@ public class PermaLinkUtils {
             return true;
         }
 
+        // 用户自定义链接必须以"/"开头，否则判断为无效
+        if (!link.startsWith("/")) {
+            return true;
+        }
+
         // //判定如果链接中存在超过一个"/"，那么这个链接就为非法的用户自定义链接
         // int slashCnt = 0;
         // for (int i = 0; i < link.length(); i++) {
@@ -83,6 +90,22 @@ public class PermaLinkUtils {
         // return true;
         // }
         // }
+        return false;
+    }
+
+    /**
+     * 非法字符验证
+     * 
+     * @return
+     */
+    public static boolean hasIllegalCharacter(String link) {
+        if (StringUtils.isNotBlank(link)) {
+            for (String c : ILLEGAL_CHARS) {
+                if (link.indexOf(c) > 0) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
