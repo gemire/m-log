@@ -6,6 +6,7 @@ package org.mspring.mlog.web.validator;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.validation.AbstractValidator;
 import org.mspring.platform.web.validation.Errors;
@@ -62,7 +63,16 @@ public class PostValidator extends AbstractValidator {
         if (postService.titleExists(post.getTitle(), post.getId())) {
             errors.addErrors("title", "文章标题已经存在");
         }
-        if (postService.urlExists(post.getUrl(), post.getId())) {
+        // 验证链接是否存在非法字符串
+        if (PermaLinkUtils.hasIllegalCharacter(post.getUrl())) {
+            errors.addErrors("url", "链接含有非法字符串");
+        }
+        // 当填写链接地址时，验证
+        if (StringUtils.isNotBlank(post.getUrl()) && PermaLinkUtils.invalidParamLink(post.getUrl())) {
+            errors.addErrors("url", "链接不合法");
+        }
+        // 当填写链接地址时，验证
+        if (StringUtils.isNotBlank(post.getUrl()) && postService.urlExists(post.getUrl(), post.getId())) {
             errors.addErrors("url", "文章链接已经存在");
         }
         return errors;

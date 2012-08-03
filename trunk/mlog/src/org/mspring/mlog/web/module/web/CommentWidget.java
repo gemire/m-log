@@ -113,6 +113,6 @@ public class CommentWidget extends AbstractWebWidget {
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
         model.addAttribute("comment", comment);
-        return String.format("redirect:/post/%s", comment.getPost().getTitle());
+        return String.format("redirect:%s", comment.getPost().getUrl());
     }
 }

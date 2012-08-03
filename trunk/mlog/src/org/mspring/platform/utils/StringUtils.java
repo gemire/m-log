@@ -341,6 +341,9 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
      * @return
      */
     public static String encoding(String value, String formChartSet, String toChartSet){
+        if (value == null) {
+            return "";
+        }
         return new String(value.getBytes(Charset.forName(formChartSet)), Charset.forName(toChartSet));
     }
 }
