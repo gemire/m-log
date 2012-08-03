@@ -31,7 +31,7 @@ public class SearchWidget extends AbstractWebWidget {
         }
         s = StringUtils.encoding(s, "ISO-8859-1", "UTF-8");
         if (StringUtils.isNotBlank(s)) {
-            postSearchService.search(postPage, s);
+            postPage = postSearchService.search(postPage, s);
         }
         model.addAttribute("postPage", postPage);
         model.addAttribute("s", s);

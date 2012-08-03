@@ -121,7 +121,7 @@ public class Post implements Serializable {
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Catalog.class)
     @JoinColumn(name = "catalog")
-    @IndexedEmbedded
+    @IndexedEmbedded(depth = 1, targetElement = Catalog.class)
     public Catalog getCatalog() {
         return catalog;
     }
@@ -315,7 +315,7 @@ public class Post implements Serializable {
      *            the url to set
      */
     public void setUrl(String url) {
-        if (url != null) { //剔除链接中的空格
+        if (url != null) { // 剔除链接中的空格
             this.url = url.trim();
         }
     }
