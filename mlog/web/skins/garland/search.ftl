@@ -12,7 +12,7 @@
 	<#list postPage.result as post>
 		<div id="node-${post.id}" class="node">
 			<h2>
-				<a href="${base}/post/${post.title}" title="${post.title}">${post.title}</a>
+				<a href="${base}${post.url}" title="${post.title}">${post.title}</a>
 			</h2>
 		
 			<span class="submitted">作者：${post.author.alias!post.author.name} 时间:${post.createTime}</span>
