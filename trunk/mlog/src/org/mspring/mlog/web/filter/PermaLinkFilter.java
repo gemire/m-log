@@ -24,7 +24,7 @@ import org.mspring.mlog.utils.PermaLinkUtils;
  * @Description
  * @TODO
  */
-public class ParamLinkFilter implements Filter {
+public class PermaLinkFilter implements Filter {
 
     /*
      * (non-Javadoc)
