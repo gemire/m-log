@@ -6,14 +6,22 @@ package org.mspring.mlog.web.module.web;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringEscapeUtils;
+import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.platform.support.feed.atom.Category;
+import org.mspring.platform.support.feed.atom.Entry;
 import org.mspring.platform.support.feed.atom.Feed;
+import org.mspring.platform.web.servlet.renderer.AtomRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -43,7 +51,8 @@ public class FeedControler {
     }
 
     @RequestMapping("atom.xml")
-    public String atom() {
+    @ResponseBody
+    public String atom(HttpServletRequest request, HttpServletResponse response) {
         final Feed feed = new Feed();
         String blogname = optionService.getOption("blogname");
         String blogSubtitle = optionService.getOption("blogsubname");
@@ -57,39 +66,33 @@ public class FeedControler {
         feed.setId(blogurl);
 
         List<Post> posts = postService.getRecentPost(20);
-        
-        for (int i = 0; i < articles.size(); i++) {
-            final Article article = articles.get(i);
+
+        for (int i = 0; i < posts.size(); i++) {
+            final Post post = posts.get(i);
             final Entry entry = new Entry();
 
-            final String title = StringEscapeUtils.escapeXml(article.getTitle());
+            final String title = StringEscapeUtils.escapeXml(post.getTitle());
             entry.setTitle(title);
-            final String summary = StringEscapeUtils.escapeXml(article.getIntro());
+            final String summary = StringEscapeUtils.escapeXml(post.getSummary());
             entry.setSummary(summary);
-            final Date updated = article.getCreateTime();
+            final Date updated = post.getCreateTime();
             entry.setUpdated(updated);
 
-            final String link = blogHost + "/post/" + article.getId() + ".html";
+            final String link = blogurl + "/post/" + post.getId() + ".html";
             entry.setLink(link);
             entry.setId(link);
 
-            final String authorName = StringEscapeUtils.escapeXml(article.getAuthor());
+            final String authorName = StringEscapeUtils.escapeXml(post.getAuthor().getAlias());
             entry.setAuthor(authorName);
 
-            final Set<org.mspring.mlog.entity.Category> categories = article.getCategories();
-            for (org.mspring.mlog.entity.Category category : categories) {
-                final Category cat = new Category();
-                final String categoryString = category.getName();
-                cat.setTerm(categoryString);
-                entry.addCatetory(cat);
-
-            }
+            Catalog catalog = post.getCatalog();
+            Category cat = new Category();
+            cat.setTerm(catalog.getName());
+            entry.addCatetory(cat);
             feed.addEntry(entry);
         }
-
-        AtomRenderer renderer = new AtomRenderer(feed.toString());
-        renderer.render(ServletActionContext.getResponse());
-
-        return "";
+        response.setContentType("application/atom+xml");
+        response.setCharacterEncoding("UTF-8");
+        return feed.toString();
     }
 }
