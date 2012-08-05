@@ -13,7 +13,7 @@
 				<div class="terms">
 					<ul class="links inline">
 						<#if (post.catalog?exists)>
-							<a href="${base}/category/${post.catalog.id}">${post.catalog.name}</a>
+							<a href="${base}/category/${post.catalog.name}">${post.catalog.name}</a>
 						</#if>
 					</ul>
 				</div>

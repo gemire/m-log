@@ -24,7 +24,7 @@
 					<ul class="links inline">
 						<li class="first blog_usernames_blog">
 							<#if (post.catalog?exists)>
-								<a href="${base}/catalog/${post.catalog.id}">${post.catalog.name}</a>
+								<a href="${base}/catalog/${post.catalog.name}">${post.catalog.name}</a>
 							</#if>
 						</li>
 						<li class="last comment_add">发表评论</li>
