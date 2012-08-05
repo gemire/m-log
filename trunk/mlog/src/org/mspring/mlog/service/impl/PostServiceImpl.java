@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.PermaLinkUtils;
@@ -55,6 +56,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             String url = PermaLinkUtils.getDefaultPostURL();
             post.setUrl(url);
         }
+        post.setCommentCount(new Long(0));
         Long id = (Long) super.save(post);
         return getPostById(id);
     }
@@ -250,6 +252,25 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         else {
             return false;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.PostService#updatePostCommentCount(java.lang
+     * .Long)
+     */
+    @Override
+    public void updatePostCommentCount(Long postId) {
+        // TODO Auto-generated method stub
+        if (postId != null) {
+            // Long count = (Long)
+            // findUnique("select count(*) from Comment comment where comment.status = ? and comment.post.id = ?",
+            // new Object[] { Comment.Status.APPROVED, postId });
+            // executeUpdate("update Post set commentCount = ?", count);
+            executeUpdate(" update Post set commentCount = (select count(*) from Comment comment where comment.status = ? and comment.post.id = ?) ", new Object[] { Comment.Status.APPROVED, postId });
         }
     }
 

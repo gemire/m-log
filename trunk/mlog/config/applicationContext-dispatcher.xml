@@ -43,13 +43,13 @@
 				-->
 			</list>
 		</property>
-		<!-- 
 		<property name="customArgumentResolvers">
 			<list>
-				<bean class="org.mspring.platform.web.resolver.UrlVariableMethodArgumentResolver" />
+				<bean class="org.mspring.mlog.web.resolver.QueryParamWebArgumentResolver">
+					<property name="conversionService" ref="conversionService"></property>
+				</bean>
 			</list>
 		</property>
-		-->
 		
 		<property name="webBindingInitializer">
 			<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">

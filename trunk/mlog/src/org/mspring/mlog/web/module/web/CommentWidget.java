@@ -104,10 +104,19 @@ public class CommentWidget extends AbstractWebWidget {
 
         // 判断评论审核功能是否开启
         String is_comment_audit = optionService.getOption("comment_audit");
-        comment.setStatus("true".equals(is_comment_audit) ? Comment.Status.WAIT_FOR_APPROVE : Comment.Status.APPROVED);
-
+        if ("true".equals(is_comment_audit)) { //如果开启评论审核
+            comment.setStatus(Comment.Status.WAIT_FOR_APPROVE);
+        }
+        else {
+            comment.setStatus(Comment.Status.APPROVED);
+        }
         comment = commentService.createComment(comment);
-
+        
+        if (!("true".equals(is_comment_audit))) { //如果没有开启评论审核
+            //更新文章评论数量
+            postService.updatePostCommentCount(new Long(postId.trim()));
+        }
+        
         // 将评论作者的信息保存到cookie中
         CookieUtils.setCookie(response, Keys.COMMENT_AUTHOR_COOKIE, author, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
