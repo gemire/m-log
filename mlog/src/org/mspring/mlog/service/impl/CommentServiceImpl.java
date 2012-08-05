@@ -12,9 +12,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.service.PostService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +31,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CommentServiceImpl extends AbstractServiceSupport implements CommentService {
+
+    private PostService postService;
+
+    @Autowired
+    public void setPostService(PostService postService) {
+        this.postService = postService;
+    }
 
     /*
      * (non-Javadoc)
@@ -66,7 +76,7 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     public List<Comment> findCommentsByPost(Long postId) {
         // TODO Auto-generated method stub
         String queryString = "select comment from Comment comment where comment.post.id = ? and comment.status = ?";
-        return find(queryString, new Object[]{postId, Comment.Status.APPROVED});
+        return find(queryString, new Object[] { postId, Comment.Status.APPROVED });
     }
 
     /*
@@ -174,8 +184,15 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
      * @param status
      */
     private void updateCommentStatus(Long id, String status) {
+        // 更新评论状态
         String queryString = "update Comment comment set comment.status = ? where comment.id = ?";
         executeUpdate(queryString, new Object[] { status, id });
+
+        // 更新文章数量
+        Object postId = findUnique("select comment.post.id from Comment comment where comment.id = ?", id);
+        if (postId != null && StringUtils.isNotBlank(postId.toString())) {
+            postService.updatePostCommentCount(new Long(postId.toString()));
+        }
     }
 
 }

@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.web.module.admin.query.CommentQueryCriterion;
+import org.mspring.mlog.web.resolver.QueryParam;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -36,37 +37,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/comment")
-public class CommentWidget implements QueryParameterAware {
+public class CommentWidget {
 
     private static final Logger log = Logger.getLogger(CommentWidget.class);
-
-    private Map queryParams;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.platform.web.query.QueryParameterAware#setQueryParameters
-     * (java.util.Map)
-     */
-    @Override
-    public void setQueryParameters(Map queryParameters) {
-        // TODO Auto-generated method stub
-        this.queryParams = queryParameters;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.platform.web.query.QueryParameterAware#getEncodedQueryParams
-     * ()
-     */
-    @Override
-    public String getEncodedQueryParams() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     private CommentService commentService;
 
@@ -76,7 +49,7 @@ public class CommentWidget implements QueryParameterAware {
     }
 
     @RequestMapping("/list")
-    public String listComment(@ModelAttribute Page<Comment> commentPage, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String listComment(@ModelAttribute Page<Comment> commentPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (commentPage == null) {
             commentPage = new Page<Comment>();
         }

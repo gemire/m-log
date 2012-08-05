@@ -17,7 +17,6 @@ import org.mspring.mlog.service.PostService;
 import org.mspring.platform.support.feed.atom.Category;
 import org.mspring.platform.support.feed.atom.Entry;
 import org.mspring.platform.support.feed.atom.Feed;
-import org.mspring.platform.web.servlet.renderer.AtomRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,12 +72,14 @@ public class FeedControler {
 
             final String title = StringEscapeUtils.escapeXml(post.getTitle());
             entry.setTitle(title);
+
             final String summary = StringEscapeUtils.escapeXml(post.getSummary());
             entry.setSummary(summary);
+
             final Date updated = post.getCreateTime();
             entry.setUpdated(updated);
 
-            final String link = blogurl + "/post/" + post.getId() + ".html";
+            String link = blogurl + post.getUrl();
             entry.setLink(link);
             entry.setId(link);
 

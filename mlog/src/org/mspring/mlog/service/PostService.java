@@ -67,4 +67,10 @@ public interface PostService {
      * @return
      */
     boolean urlExists(String url, Long postId);
+    
+    /**
+     * 更新文章评论数量
+     * @param postId
+     */
+    void updatePostCommentCount(Long postId);
 }
