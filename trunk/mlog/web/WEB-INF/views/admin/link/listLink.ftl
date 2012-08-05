@@ -67,7 +67,6 @@
 				<tr>
 					<td>
 						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('linkForm', '${base}/admin/link/delete');" />
-						<input type="button" class="btn" value=" 创建 " onclick="createlinkView();" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=linkPage form_id="linkForm" />
