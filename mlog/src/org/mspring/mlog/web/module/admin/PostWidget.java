@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 /**
  * @author Gao Youbo
  * @since 2012-7-23
@@ -74,7 +72,7 @@ public class PostWidget {
         List<Field> columnfields = new ArrayList<Field>();
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("title", "标题"));
-        columnfields.add(new ColumnField("catalog.name", "分类"));
+        columnfields.add(new ColumnField("catalogs", "分类"));
         columnfields.add(new ColumnField("url", "链接"));
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
@@ -113,6 +111,7 @@ public class PostWidget {
         if (post.getAuthor() == null) {
             post.setAuthor(user);
         }
+        post.setPostIp(request.getRemoteAddr());
         postService.createPost(post);
         return "redirect:/admin/post/list";
     }
@@ -130,7 +129,7 @@ public class PostWidget {
         String idString = request.getParameter("postId");
         if (!StringUtils.isBlank(idString) && ValidatorUtils.isNumber(idString)) {
             // 文章
-            if (post == null || post.getId() == null) { //这里处理是为了防止在提交表单后，为验证通过时，返回页面，页面之前填写的信息丢失的问题
+            if (post == null || post.getId() == null) { // 这里处理是为了防止在提交表单后，为验证通过时，返回页面，页面之前填写的信息丢失的问题
                 post = postService.getPostById(new Long(idString));
             }
             model.addAttribute("post", post);

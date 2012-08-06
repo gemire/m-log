@@ -54,10 +54,10 @@ public class IndexWidget extends AbstractWebWidget {
             postPage = new Page<Post>();
         }
         if (postPage.getSort() == null) {
-            postPage.setSort(new Sort("id", Sort.DESC));
+            postPage.setSort(new Sort("postCatalog.PK.post.id", Sort.DESC));
         }
         if (StringUtils.isNotBlank(catalog)) {
-            postService.findPost(postPage, "select post from Post post where post.catalog.name = ?", catalog.trim());
+            postService.findPost(postPage, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.name = ?", catalog.trim());
             model.addAttribute("postPage", postPage);
         }
         return "skin:/index";

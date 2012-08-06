@@ -30,5 +30,7 @@ public interface CatalogService {
 
     public Catalog getCatalogById(Long catalogId);
 
+    public Catalog getCatalogByName(String name);
+
     public void updateCatalog(Catalog catalog);
 }

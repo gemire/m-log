@@ -52,6 +52,9 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (StringUtils.isBlank(post.getStatus())) {
             post.setStatus(Post.POST_STATUS_PUBLISH);
         }
+        if (post.getCommentCount() == null) {
+            post.setCommentCount(new Long(0));
+        }
         if (StringUtils.isBlank(post.getUrl())) {
             String url = PermaLinkUtils.getDefaultPostURL();
             post.setUrl(url);
@@ -139,6 +142,9 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         if (StringUtils.isBlank(post.getStatus())) {
             post.setStatus(Post.POST_STATUS_PUBLISH);
+        }
+        if (post.getCommentCount() == null) {
+            post.setCommentCount(new Long(0));
         }
         if (StringUtils.isBlank(post.getUrl())) {
             String url = PermaLinkUtils.getDefaultPostURL();
@@ -270,7 +276,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             // findUnique("select count(*) from Comment comment where comment.status = ? and comment.post.id = ?",
             // new Object[] { Comment.Status.APPROVED, postId });
             // executeUpdate("update Post set commentCount = ?", count);
-            executeUpdate(" update Post set commentCount = (select count(*) from Comment comment where comment.status = ? and comment.post.id = ?) ", new Object[] { Comment.Status.APPROVED, postId });
+            executeUpdate(" update Post set commentCount = (select count(*) from Comment comment where comment.status = ? and comment.post.id = ?) where id = ?", new Object[] { Comment.Status.APPROVED, postId, postId });
         }
     }
 

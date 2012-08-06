@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -29,7 +28,6 @@ import org.hibernate.search.annotations.Store;
  */
 @Entity
 @Table(name = "catalog")
-// @Indexed(index = "catalog")
 @Embeddable
 public class Catalog implements Serializable {
 

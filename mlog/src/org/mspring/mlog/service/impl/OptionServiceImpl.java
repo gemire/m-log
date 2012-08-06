@@ -7,10 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.ehcache.CacheManager;
+
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Option;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.web.Keys;
 import org.mspring.platform.core.AbstractServiceSupport;
+import org.mspring.platform.utils.CacheUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,11 +37,21 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
      * @see org.mspring.mlog.service.OptionService#getOption(java.lang.String)
      */
     @Override
-    public String getOption(String key) {
+    public String getOption(final String key) {
         // TODO Auto-generated method stub
+        // 先从缓存中获取
+        String value = getOptionCacheValue(key);
+        if (StringUtils.isNotBlank(value)) {
+            return value;
+        }
+
+        // 如果缓存中没有找到，从数据库中查询
         Object option = findUnique("select option from Option option where option.name = ?", key);
         if (option != null) {
-            return ((Option) option).getValue();
+            value = ((Option) option).getValue();
+            // 更新缓存
+            setOptionCacheValue(key, value);
+            return value;
         }
         return "";
     }
@@ -45,13 +59,28 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     /*
      * (non-Javadoc)
      * 
-     * @see org.mspring.mlog.service.OptionService#setOption(java.lang.String,
-     * java.lang.String)
+     * @see org.mspring.mlog.service.OptionService#getOptions()
      */
     @Override
-    public void setOption(String key, String value) {
+    public Map<String, String> getOptions() {
         // TODO Auto-generated method stub
-        setOption(new Option(key, value));
+        //先从缓存中查找
+        Map<String, String> cachedMap = getOptionCacheMap();
+        if (cachedMap != null) {
+            return cachedMap;
+        }
+        
+        //如果缓存中没有找到
+        Map<String, String> map = new HashMap<String, String>();
+        List<Option> options = find("select option from Option option");
+        if (options != null && options.size() > 0) {
+            for (Option option : options) {
+                map.put(option.getName(), option.getValue());
+            }
+        }
+        //更新缓存内容
+        setOptionCacheMap(map);
+        return map;
     }
 
     /*
@@ -69,6 +98,21 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
             return;
         }
         merge(option);
+
+        // 更新、新增Option缓存
+        setOptionCacheValue(option.getName(), option.getValue());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.OptionService#setOption(java.lang.String,
+     * java.lang.String)
+     */
+    @Override
+    public void setOption(String key, String value) {
+        // TODO Auto-generated method stub
+        setOption(new Option(key, value));
     }
 
     /*
@@ -97,22 +141,21 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.OptionService#getOptions()
-     */
-    @Override
-    public Map<String, String> getOptions() {
-        // TODO Auto-generated method stub
-        Map<String, String> map = new HashMap<String, String>();
-        List<Option> options = find("select option from Option option");
-        if (options != null && options.size() > 0) {
-            for (Option option : options) {
-                map.put(option.getName(), option.getValue());
-            }
-        }
-        return map;
+    private String getOptionCacheValue(String key) {
+        return CacheUtils.getStringValue(CacheManager.getInstance(), Keys.OPTION_CACHE_NAME, key);
+    }
+
+    private void setOptionCacheValue(String key, String value) {
+        CacheUtils.updateValue(CacheManager.getInstance(), Keys.OPTION_CACHE_NAME, key, value);
+    }
+
+    private Map<String, String> getOptionCacheMap() {
+        Object map = CacheUtils.getObjectValue(CacheManager.getInstance(), Keys.OPTION_CACHE_NAME, Keys.OPTION_CACHE_MAP_KEY);
+        return map != null ? (Map<String, String>)map : null;
+    }
+    
+    private void setOptionCacheMap(Map<String, String> map){
+        CacheUtils.updateValue(CacheManager.getInstance(), Keys.OPTION_CACHE_NAME, Keys.OPTION_CACHE_MAP_KEY, map);
     }
 
 }
