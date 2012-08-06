@@ -8,6 +8,8 @@
 	<!--[if lt IE 7]>
     <style type="text/css" media="all"> @import "${template_url}/style/fix-ie.css";</style>
     <![endif]-->
+    <link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
+	<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 	<title>${blogname}</title>
 </head>
 <body class="multi default">
