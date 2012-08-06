@@ -42,16 +42,19 @@
 						</#if>
 						<tr>
 							<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" onclick="checkThisCatalog(this, 'id');" /></td>
-							<#if columnfields??>
-								<#list columnfields as field>
-									<#if field??>
-										<#--<td class="${tdClass}">${item['${field.id}']!""}</td>-->
-										<td class="${tdClass}"><@mspring.fieldValue value=item attribute=field.id /></td>
-									<#else>
-										<td class="${tdClass}"><@mspring.fieldValue value=item attribute=field.id /></td>
-									</#if>
-								</#list>
-							</#if>
+							<td class="${tdClass}">${item.id}</td>
+							<td class="${tdClass}">${item.title}</td>
+							<td class="${tdClass}">
+								<#if (item.catalogs?exists && item.catalogs?size > 0)>
+									<#list item.catalogs as catalog>
+										${catalog.name}&nbsp;
+									</#list>
+								</#if>
+							</td>
+							<td class="${tdClass}">${item.url}</td>
+							<td class="${tdClass}">${item.createTime}</td>
+							<td class="${tdClass}">${item.modifyTime!""}</td>
+							<td class="${tdClass}">${item.author.alias}</td>
 							<td class="${tdClass}">
 								<a href="${base}/admin/post/edit?postId=${item.id}">修改</a>
 							</td>
