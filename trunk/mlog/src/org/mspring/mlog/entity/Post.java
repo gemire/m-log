@@ -5,7 +5,7 @@ package org.mspring.mlog.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +28,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
+import org.mspring.mlog.web.formatter.stereotype.CatalogFormat;
 import org.mspring.mlog.web.formatter.stereotype.TagFormat;
 
 /**
@@ -52,8 +53,8 @@ public class Post implements Serializable {
 
     private Long id;
     private String title;
-    private Catalog catalog;
-    private List<Tag> tags;
+    private Set<Catalog> catalogs;
+    private Set<Tag> tags;
     private String summary;
     private String content;
     private Date createTime;
@@ -64,6 +65,7 @@ public class Post implements Serializable {
     private String commentStatus;
     private Long commentCount;
     private String url;
+    private String postIp;
 
     /**
      * 
@@ -117,27 +119,9 @@ public class Post implements Serializable {
     }
 
     /**
-     * @return the catalog
-     */
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Catalog.class)
-    @JoinColumn(name = "catalog")
-    @IndexedEmbedded(depth = 1, targetElement = Catalog.class)
-    public Catalog getCatalog() {
-        return catalog;
-    }
-
-    /**
-     * @param catalog
-     *            the catalog to set
-     */
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
-
-    /**
      * @return the summary
      */
-    @Column(name = "summary", length = 4000)
+    @Column(name = "summary", columnDefinition = "text")
     @Field(index = Index.TOKENIZED, store = Store.NO)
     public String getSummary() {
         return summary;
@@ -290,7 +274,7 @@ public class Post implements Serializable {
     @ManyToMany(targetEntity = Tag.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "post_tag", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     @TagFormat
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
@@ -298,14 +282,32 @@ public class Post implements Serializable {
      * @param tags
      *            the tags to set
      */
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    /**
+     * @return the catalogs
+     */
+    @ManyToMany(targetEntity = Catalog.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @JoinTable(name = "post_catalog", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "catalog_id") })
+    @CatalogFormat
+    public Set<Catalog> getCatalogs() {
+        return catalogs;
+    }
+
+    /**
+     * @param catalogs
+     *            the catalogs to set
+     */
+    public void setCatalogs(Set<Catalog> catalogs) {
+        this.catalogs = catalogs;
     }
 
     /**
      * @return the url
      */
-    @Column(name = "url", nullable = false, unique = true, length = 500)
+    @Column(name = "url", nullable = false, unique = true, length = 300)
     public String getUrl() {
         return url;
     }
@@ -318,6 +320,22 @@ public class Post implements Serializable {
         if (url != null) { // 剔除链接中的空格
             this.url = url.trim();
         }
+    }
+
+    /**
+     * @return the postIp
+     */
+    @Column(name = "post_ip", length = 50)
+    public String getPostIp() {
+        return postIp;
+    }
+
+    /**
+     * @param postIp
+     *            the postIp to set
+     */
+    public void setPostIp(String postIp) {
+        this.postIp = postIp;
     }
 
 }

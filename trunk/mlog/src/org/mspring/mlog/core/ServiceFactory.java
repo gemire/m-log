@@ -5,8 +5,10 @@ package org.mspring.mlog.core;
 
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.TagService;
+import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
 import org.mspring.platform.core.ContextManager;
 
@@ -19,6 +21,14 @@ import freemarker.template.Configuration;
  * @TODO 该类用于获取bean对象
  */
 public class ServiceFactory {
+    public static UserService getUserService() {
+        return ContextManager.getApplicationContext().getBean(UserService.class);
+    }
+
+    public static OptionService getOptionService() {
+        return ContextManager.getApplicationContext().getBean(OptionService.class);
+    }
+
     public static TagService getTagService() {
         return ContextManager.getApplicationContext().getBean(TagService.class);
     }

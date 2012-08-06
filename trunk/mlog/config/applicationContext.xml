@@ -60,9 +60,10 @@
 				<prop key="hibernate.query.substitutions">true=1,false=0</prop>
 				<prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
 				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
-				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.use_second_level_cache">true</prop>
 				
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">${user.home}/.mlog/indexes</prop>

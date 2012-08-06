@@ -133,4 +133,14 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
         return findAll(Catalog.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.CatalogService#getCatalogByName(java.lang.String)
+     */
+    @Override
+    public Catalog getCatalogByName(String name) {
+        // TODO Auto-generated method stub
+        Object catalog = findUnique("select catalog from Catalog catalog where catalog.name = ?", name);
+        return catalog == null ? null : (Catalog)catalog;
+    }
+
 }

@@ -54,7 +54,7 @@ public class PostValidator extends AbstractValidator {
         if (StringUtils.isBlank(post.getTitle())) {
             errors.addErrors("title", "文章标题不能为空");
         }
-        if (post.getCatalog() == null || post.getCatalog().getId() == null) {
+        if (post.getCatalogs() == null || post.getCatalogs().size() == 0) {
             errors.addErrors("catalog.id", "请选择文章分类");
         }
         if (StringUtils.isBlank(post.getContent())) {

@@ -12,34 +12,36 @@ import javax.persistence.ManyToOne;
 
 /**
  * @author Gao Youbo
- * @since 2012-7-25
+ * @since 2012-8-6
  * @Description
  * @TODO
  */
 @Embeddable
-public class PostTagPK implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -893280819372052490L;
-    private Post post;
-    private Tag tag;
+public class PostCatalogPK implements Serializable {
 
     /**
      * 
      */
-    public PostTagPK() {
+    private static final long serialVersionUID = -1191581056842495920L;
+
+    private Post post;
+    private Catalog catalog;
+
+    /**
+     * 
+     */
+    public PostCatalogPK() {
         // TODO Auto-generated constructor stub
     }
 
     /**
      * @param post
-     * @param tag
+     * @param catalog
      */
-    public PostTagPK(Post post, Tag tag) {
+    public PostCatalogPK(Post post, Catalog catalog) {
         super();
         this.post = post;
-        this.tag = tag;
+        this.catalog = catalog;
     }
 
     /**
@@ -60,20 +62,20 @@ public class PostTagPK implements Serializable {
     }
 
     /**
-     * @return the tag
+     * @return the catalog
      */
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Tag.class)
-    @JoinColumn(name = "tag_id")
-    public Tag getTag() {
-        return tag;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Catalog.class)
+    @JoinColumn(name = "catalog_id")
+    public Catalog getCatalog() {
+        return catalog;
     }
 
     /**
-     * @param tag
-     *            the tag to set
+     * @param catalog
+     *            the catalog to set
      */
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
     }
 
 }

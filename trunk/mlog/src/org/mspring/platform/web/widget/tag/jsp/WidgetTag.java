@@ -92,7 +92,7 @@ public class WidgetTag extends TagSupport {
         Cache widgetCache = getWidgetCache();
         Object value = null;
         //(cache && widgetCache != null) ? widgetCache.get(path).getValue() : null;
-        if (cache) {
+        if (cache && widgetCache != null) {
             Element cacheElement = widgetCache.get(path);
             if (cacheElement != null) {
                 value = cacheElement.getValue();
