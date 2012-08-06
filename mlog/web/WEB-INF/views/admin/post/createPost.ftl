@@ -36,7 +36,14 @@
 					</td>
 					<td class="fieldlabel" style="width:60px;">分类</td>
 					<td>
-						<@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;"' />
+						<#-- <@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;"' /> -->
+						<select id="catalogs" style="width:99%;">
+							<#if (catalogs?exists && catalogs?size > 0)>
+								<#list catalogs as catalog>
+									<option value="${catalog.id}">${catalog.name}</option>
+								</#list>
+							</#if>
+						</select>
 					</td>
 				</tr>
 				<tr>
