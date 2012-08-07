@@ -12,8 +12,11 @@
 			<div class="meta">
 				<div class="terms">
 					<ul class="links inline">
-						<#if (post.catalog?exists)>
-							<a href="${base}/category/${post.catalog.name}">${post.catalog.name}</a>
+						分类:
+						<#if (post.catalogs?exists)>
+							<#list post.catalogs as catalog>
+								<a href="${base}/catalog/${catalog.name}">${catalog.name}</a>
+							</#list>
 						</#if>
 					</ul>
 				</div>
