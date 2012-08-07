@@ -14,7 +14,20 @@
 				type: 'simple'
 			});
 			
-			//mspring.validateForm("postForm");
+			$("#catalogs_select").multiselect({
+				header:false,
+				selectedList: 4,
+				click: function(event, ui){
+					var values = $("#catalogs").val();
+					if(ui.checked){
+						values += ui.value + ',';
+					}
+					else{
+						values = values.replace(ui.value + ',', '');
+					}
+					$("#catalogs").val(values);
+				}
+			});
 		});
 	</script>
 	<div class="ui-layout-center">
@@ -36,14 +49,14 @@
 					</td>
 					<td class="fieldlabel" style="width:60px;">分类</td>
 					<td>
-						<#-- <@spring.formSingleSelect path="post.catalog.id" options=catalogs valueAttr="id" textAttr="name" attributes='style="width:99%;"' /> -->
-						<select id="catalogs" style="width:99%;">
+						<select id="catalogs_select" multiple="multiple">
 							<#if (catalogs?exists && catalogs?size > 0)>
 								<#list catalogs as catalog>
 									<option value="${catalog.id}">${catalog.name}</option>
 								</#list>
 							</#if>
 						</select>
+						<input type="hidden" id="catalogs" name="catalogs" />
 					</td>
 				</tr>
 				<tr>
@@ -122,7 +135,6 @@ $(document).ready(function(){
 		togglerTip_open : "关闭",
 		togglerTip_closed : "打开",
 		resizerTip:"调整宽度",
-		resizerClass: 'ui-state-default',
 		//west__spacing_closed:10,
 		west__onresize: function (pane, $Pane) {  
             

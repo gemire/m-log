@@ -13,6 +13,21 @@
 				id: 'summary',
 				type: 'simple'
 			});
+			
+			$("#catalogs_select").multiselect({
+				header:false,
+				selectedList: 4,
+				click: function(event, ui){
+					var values = $("#catalogs").val();
+					if(ui.checked){
+						values += ui.value + ',';
+					}
+					else{
+						values = values.replace(ui.value + ',', '');
+					}
+					$("#catalogs").val(values);
+				}
+			});
 		});
 	</script>
 	
@@ -40,13 +55,23 @@
 					</td>
 					<td class="fieldlabel" style="width:60px;">分类</td>
 					<td>
-						<select id="catalog" style="width:99%;">
+						<select id="catalogs_select" multiple="multiple">
+							<#assign selected_catalogs = "" />
 							<#if (catalogs?exists && catalogs?size > 0)>
 								<#list catalogs as catalog>
-									<option value="${catalog.id}">${catalog.name}</option>
+									<#assign has_selected = "" />
+									<#list post.catalogs as selected_catalog>
+										<#if catalog.id == selected_catalog.id>
+											<#assign selected_catalogs = selected_catalogs + catalog.id + "," />
+											<#assign has_selected = 'selected="selected"' />
+											<#break />
+										</#if>
+									</#list>
+									<option value="${catalog.id}" ${has_selected}>${catalog.name}</option>
 								</#list>
 							</#if>
 						</select>
+						<input type="hidden" id="catalogs" name="catalogs" value="${selected_catalogs}" />
 					</td>
 				</tr>
 				<tr>
