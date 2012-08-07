@@ -53,4 +53,17 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         return (User) findUnique(queryString, username);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.UserService#updateUserInfo(org.mspring.mlog.
+     * entity.User)
+     */
+    @Override
+    public void updateUserInfo(User user) {
+        // TODO Auto-generated method stub
+        update(user);
+    }
+
 }
