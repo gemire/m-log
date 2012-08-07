@@ -89,7 +89,6 @@
 			togglerTip_open : "关闭",
 			togglerTip_closed : "打开",
 			resizerTip:"调整宽度",
-			resizerClass: 'ui-state-default',
 			//west__spacing_closed:10,
 			west__onresize: function (pane, $Pane) {  
                 
