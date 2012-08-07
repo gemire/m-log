@@ -1,5 +1,3 @@
-<link rel="stylesheet" type="text/css" href="${base}/script/jquery-zTree/zTreeStyle/zTreeStyle.css">
-<script type="text/javascript" src="${base}/script/jquery-zTree/jquery.ztree.all-3.2.min.js"></script>
 <script type="text/javascript">
 	var setting = {
 		view: {
