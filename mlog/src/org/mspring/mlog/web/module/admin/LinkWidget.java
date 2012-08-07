@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.platform.persistence.support.Page;
