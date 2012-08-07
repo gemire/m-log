@@ -43,7 +43,6 @@
 		timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="true">
 	</cache>
 
-
 	<cache name="userCache" maxElementsInMemory="100000" eternal="false"
 		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="false"
 		diskPersistent="false" />
