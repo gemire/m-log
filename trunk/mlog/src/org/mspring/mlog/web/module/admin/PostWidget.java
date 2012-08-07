@@ -157,9 +157,4 @@ public class PostWidget {
         postService.updatePost(post);
         return "redirect:/admin/post/list";
     }
-    
-    @RequestMapping("test")
-    public String test(){
-        return "/admin/post/test";
-    }
 }
