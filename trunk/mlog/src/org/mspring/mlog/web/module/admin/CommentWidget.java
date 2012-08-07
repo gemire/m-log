@@ -21,7 +21,6 @@ import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
 import org.mspring.platform.utils.StringUtils;
-import org.mspring.platform.web.query.QueryParameterAware;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;

@@ -4,11 +4,15 @@
 package org.mspring.mlog.web.formatter;
 
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 import org.mspring.mlog.entity.Catalog;
+import org.mspring.platform.utils.RequestUtils;
+import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.springframework.format.Formatter;
 
 /**
@@ -67,9 +71,20 @@ public class CatalogFormatter implements Formatter<Object> {
      * java.util.Locale)
      */
     @Override
-    public Object parse(String paramString, Locale paramLocale) throws ParseException {
+    public Object parse(String param, Locale locale) throws ParseException {
         // TODO Auto-generated method stub
-        return null;
+        Set<Catalog> catalogs = new HashSet<Catalog>();
+        if (StringUtils.isNotBlank(param)) {
+            String[] params = StringUtils.split(param, ",");
+            for (String p : params) {
+                if (StringUtils.isNotBlank(p) && ValidatorUtils.isNumber(p.trim())) {
+                    Catalog catalog = new Catalog();
+                    catalog.setId(new Long(p.trim()));
+                    catalogs.add(catalog);
+                }
+            }
+        }
+        return catalogs;
     }
 
 }
