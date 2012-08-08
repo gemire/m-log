@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.platform.persistence.support.Page;
@@ -83,11 +84,21 @@ public class LinkWidget {
     }
 
     @RequestMapping("/delete")
-    public String deleteCatalog(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String deleteLink(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             linkService.deleteLinks(id);
         }
         return "redirect:/admin/link/list";
     }
+    
+    
+    @RequestMapping("/edit")
+    public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+        String idString = request.getParameter("id");
+        link = linkService.getLinkById(new Long(idString));
+        model.addAttribute("link", link);
+        return "/admin/link/editCatalog";
+    }
+    
 
 }
