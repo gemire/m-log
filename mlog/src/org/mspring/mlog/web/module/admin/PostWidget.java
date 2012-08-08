@@ -17,6 +17,8 @@ import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.GlobalUtils;
+import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
+import org.mspring.mlog.web.resolver.QueryParam;
 import org.mspring.mlog.web.validator.PostValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -61,13 +63,13 @@ public class PostWidget {
     }
 
     @RequestMapping({ "/list", "/", "" })
-    public String listPost(@ModelAttribute Page<Post> postPage, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
             postPage = new Page<Post>();
         }
         postPage.setSort(new Sort("id", Sort.DESC));
 
-        postPage = postService.findPost(postPage, "select post from Post post");
+        postPage = postService.findPost(postPage, new PostQueryCriterion(queryParams));
 
         List<Field> columnfields = new ArrayList<Field>();
         columnfields.add(new ColumnField("id", "编号"));
@@ -81,6 +83,7 @@ public class PostWidget {
 
         model.addAttribute("postPage", postPage);
         model.addAttribute("columnfields", columnfields);
+        model.addAttribute("status", Post.Status.getStatusMap());
 
         return "/admin/post/listPost";
     }
