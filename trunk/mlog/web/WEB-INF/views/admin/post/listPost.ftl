@@ -55,6 +55,7 @@
 							<td class="${tdClass}">${item.createTime}</td>
 							<td class="${tdClass}">${item.modifyTime!""}</td>
 							<td class="${tdClass}">${item.author.alias}</td>
+							<td class="${tdClass}">${item.status}</td>
 							<td class="${tdClass}">
 								<a href="${base}/admin/post/edit?postId=${item.id}">修改</a>
 							</td>

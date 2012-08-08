@@ -1,10 +1,14 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-	<div class="ui-layout-east">
-		<@widget.placeholder path="/admin/catalog/create" />
-	</div>
 	<div class="ui-layout-center">
+		<div class="tab">
+			<ul>
+			    <li><a href="javascript:void(0);" class="here">列表</a></li>
+			    <li><a href="${base}/admin/catalog/create">增加</a></li>
+			    <li><a href="javascript:void(0);">修改</a></li>
+			</ul>
+		</div>
 		<form id="catalogForm" name="catalogForm" action="${base}/admin/catalog/list" method="POST">
 			<@spring.bind "catalogPage" />
 			<!-- pagination parameter -->
@@ -67,24 +71,22 @@
 	</div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('body').layout({
-			north__closable:false,
-			north__size:62,
-			north__resizable:false,
-			south__closable:false,
-			south__size:50,
-			south__resizable:false,
-			east__size:250,
-			togglerTip_open : "关闭",
-			togglerTip_closed : "打开",
-			resizerTip:"调整宽度",
-			//west__spacing_closed:10,
-			west__onresize: function (pane, $Pane) {  
-                
-            }
-		});
-		
+$(document).ready(function(){
+	$('body').layout({
+		north__closable:false,
+		north__size:62,
+		north__resizable:false,
+		south__closable:false,
+		south__size:50,
+		south__resizable:false,
+		togglerTip_open : "关闭",
+		togglerTip_closed : "打开",
+		resizerTip:"调整宽度",
+		//west__spacing_closed:10,
+		west__onresize: function (pane, $Pane) {  
+            
+        }
 	});
+});
 </script>
 <#include "../inc/footer.ftl" />
