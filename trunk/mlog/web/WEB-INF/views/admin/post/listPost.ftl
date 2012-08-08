@@ -10,6 +10,29 @@
 			</ul>
 		</div>
 		<form id="postForm" name="postForm" action="${base}/admin/post/list" method="POST">
+			<@spring.bind "post" />
+			<table class="formtable" style="width:100%">
+				<tr>
+					<td class="fieldlabel" style="width:50px;">状态</td>
+					<td>
+						<@spring.formSingleSelect path="comment.status" options=commentStatus attributes='style="width:98%"' has_default=true />
+					</td>
+					
+					<td class="fieldlabel" style="width:40px;">内容</td>
+					<td>
+						<@spring.formInput path="comment.content" attributes='class="textinput" style="width:98%"' />
+					</td>
+					
+					<td class="fieldlabel" style="width:40px;">发布人</td>
+					<td><@spring.formInput path="comment.author" attributes='class="textinput" style="width:98%"' /></td>
+					
+					<td class="fieldlabel" style="width:40px;">文章</td>
+					<td><@spring.formInput path="comment.post.title" attributes='class="textinput" style="width:98%"' /></td>
+					
+					<td><input type="submit" class="btn" value=" 查 询 " /></td>
+				</tr>
+			</table>
+			
 			<@spring.bind "postPage" />
 			<!-- pagination parameter -->
 			<@spring.formHiddenInput path="postPage.pageNo" />
