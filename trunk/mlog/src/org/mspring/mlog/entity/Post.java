@@ -6,7 +6,9 @@ package org.mspring.mlog.entity;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -340,12 +342,27 @@ public class Post implements Serializable {
         public static final String DRAFT = "draft"; // 草稿
         public static final String TRASH = "trash"; // 废弃的
         public static final List<String> STATUS = Arrays.asList(new String[] { PUBLISH, DRAFT, TRASH });
+
+        public static final Map<String, String> getStatusMap() {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(PUBLISH, "已发布");
+            map.put(DRAFT, "草稿");
+            map.put(TRASH, "回收站");
+            return map;
+        }
     }
 
     public static class CommentStatus {
         public static final String OPEN = "open"; // 允许评论
         public static final String CLOSE = "close"; // 关闭评论
         public static final List<String> COMMENT_STATUS = Arrays.asList(new String[] { OPEN, CLOSE });
+
+        public static final Map<String, String> getCommentStatusMap() {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(OPEN, "允许");
+            map.put(CLOSE, "关闭");
+            return map;
+        }
     }
 
 }
