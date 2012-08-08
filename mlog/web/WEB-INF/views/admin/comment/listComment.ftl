@@ -1,29 +1,27 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
+
 	<div class="ui-layout-center">
 		<form id="commentForm" name="commentForm" action="${base}/admin/comment/list" method="POST">
+			<@spring.bind "comment" />
 			<table class="formtable" style="width:100%">
 				<tr>
 					<td class="fieldlabel" style="width:50px;">状态</td>
 					<td>
-						<select name="comment.status" width="98%">
-							<option value="">--请选择--</option>
-							<option value="wait_for_approve">待审核</option>
-							<option value="approved">审核通过</option>
-							<option value="spam">垃圾评论</option>
-							<option value="recycle">回收站</option>
-						</select>
+						<@spring.formSingleSelect path="comment.status" options=commentStatus attributes='style="width:98%"' has_default=true />
 					</td>
 					
 					<td class="fieldlabel" style="width:40px;">内容</td>
-					<td><input type="text" class="textinput" style="width:98%" name="comment.content" /></td>
+					<td>
+						<@spring.formInput path="comment.content" attributes='class="textinput" style="width:98%"' />
+					</td>
 					
 					<td class="fieldlabel" style="width:40px;">发布人</td>
-					<td><input type="text" class="textinput" style="width:98%" name="comment.author" /></td>
+					<td><@spring.formInput path="comment.author" attributes='class="textinput" style="width:98%"' /></td>
 					
 					<td class="fieldlabel" style="width:40px;">文章</td>
-					<td><input type="text" class="textinput" style="width:98%" name="comment.post.title" /></td>
+					<td><@spring.formInput path="comment.post.title" attributes='class="textinput" style="width:98%"' /></td>
 					
 					<td><input type="submit" class="btn" value=" 查 询 " /></td>
 				</tr>

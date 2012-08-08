@@ -110,13 +110,24 @@
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align:center;">
-						<input type="submit" class="btn" value=" 提交 " />
+						<input type="button" class="btn" value=" 发布内容 " onclick="publish();" />
+						<input type="button" class="btn" value=" 保存为草稿 " onclick="draft();" />
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 <script type="text/javascript">
+	//发布
+	function publish(){
+		$("#status").val("publish");
+		mspring.submitForm("postForm");
+	}
+	//存为草稿
+	function draft(){
+		$("#status").val("draft");
+		mspring.submitForm("postForm");
+	}
 	$(document).ready(function(){
 		//斑马线
 		var tables=document.getElementsByTagName("table");
