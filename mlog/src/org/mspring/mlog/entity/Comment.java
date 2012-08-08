@@ -6,7 +6,9 @@ package org.mspring.mlog.entity;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -215,6 +217,15 @@ public class Comment implements Serializable {
         public static final String SPAM = "spam";
         public static final String RECYCLE = "recycle";
         public static final List<String> COMMENT_STATUS = Arrays.asList(new String[] { APPROVED, WAIT_FOR_APPROVE, SPAM, RECYCLE });
+
+        public static final Map<String, String> getCommentStatusMap() {
+            Map<String, String> commentStatus = new HashMap<String, String>();
+            commentStatus.put(APPROVED, "审核通过");
+            commentStatus.put(WAIT_FOR_APPROVE, "等待审核");
+            commentStatus.put(SPAM, "垃圾评论");
+            commentStatus.put(RECYCLE, "回收站");
+            return commentStatus;
+        }
     }
 
 }

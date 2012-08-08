@@ -589,10 +589,10 @@ public class MetaWeblogAPI {
         }
         String publish_str = XMLUtils.parseForString(doc, "/methodCall/params/param[" + INDEX_PUBLISH + "]/value/boolean");
         if ("1".equals(publish_str)) {
-            post.setStatus(Post.POST_STATUS_PUBLISH);
+            post.setStatus(Post.Status.PUBLISH);
         }
         else {
-            post.setStatus(Post.POST_STATUS_TRASH);
+            post.setStatus(Post.Status.DRAFT);
         }
         if (post.getCreateTime() == null) {
             post.setCreateTime(new Date());

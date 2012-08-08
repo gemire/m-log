@@ -4,7 +4,9 @@
 package org.mspring.mlog.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,11 +47,6 @@ public class Post implements Serializable {
      * 
      */
     private static final long serialVersionUID = -425742660561620768L;
-    public static final String POST_STATUS_PUBLISH = "publish"; // 已发布的
-    public static final String POST_STATUS_TRASH = "trash"; // 废弃的
-
-    public static final String COMMENT_STATUS_OPEN = "open"; // 允许评论
-    public static final String COMMENT_STATUS_CLOSE = "close"; // 关闭评论
 
     private Long id;
     private String title;
@@ -336,6 +333,19 @@ public class Post implements Serializable {
      */
     public void setPostIp(String postIp) {
         this.postIp = postIp;
+    }
+
+    public static class Status {
+        public static final String PUBLISH = "publish"; // 已发布的
+        public static final String DRAFT = "draft"; // 草稿
+        public static final String TRASH = "trash"; // 废弃的
+        public static final List<String> STATUS = Arrays.asList(new String[] { PUBLISH, DRAFT, TRASH });
+    }
+
+    public static class CommentStatus {
+        public static final String OPEN = "open"; // 允许评论
+        public static final String CLOSE = "close"; // 关闭评论
+        public static final List<String> COMMENT_STATUS = Arrays.asList(new String[] { OPEN, CLOSE });
     }
 
 }

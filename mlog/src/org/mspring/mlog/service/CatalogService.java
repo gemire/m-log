@@ -33,4 +33,6 @@ public interface CatalogService {
     public Catalog getCatalogByName(String name);
 
     public void updateCatalog(Catalog catalog);
+
+    public boolean catalogExists(String name, Long id);
 }

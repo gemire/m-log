@@ -77,6 +77,7 @@ public class PostWidget {
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
         columnfields.add(new ColumnField("author.alias", "作者"));
+        columnfields.add(new ColumnField("status", "状态"));
 
         model.addAttribute("postPage", postPage);
         model.addAttribute("columnfields", columnfields);
@@ -92,8 +93,8 @@ public class PostWidget {
 
         // 是否开启评论
         Map<String, String> commentStatus = new HashMap<String, String>();
-        commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
-        commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
+        commentStatus.put(Post.CommentStatus.OPEN, "开启");
+        commentStatus.put(Post.CommentStatus.CLOSE, "关闭");
         model.addAttribute("commentStatus", commentStatus);
 
         // model.addAttribute("errors", errors);
@@ -140,8 +141,8 @@ public class PostWidget {
 
             // 是否开启评论
             Map<String, String> commentStatus = new HashMap<String, String>();
-            commentStatus.put(Post.COMMENT_STATUS_OPEN, "开启");
-            commentStatus.put(Post.COMMENT_STATUS_CLOSE, "关闭");
+            commentStatus.put(Post.CommentStatus.OPEN, "开启");
+            commentStatus.put(Post.CommentStatus.CLOSE, "关闭");
             model.addAttribute("commentStatus", commentStatus);
         }
         return "/admin/post/editPost";

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.PermaLinkUtils;
+import org.mspring.platform.exception.BusinessException;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.validation.AbstractValidator;
 import org.mspring.platform.web.validation.Errors;
@@ -46,7 +47,7 @@ public class PostValidator extends AbstractValidator {
         // TODO Auto-generated method stub
         if (target == null) {
             log.error("validation failure, target object is null.");
-            return null;
+            throw new BusinessException("validation failure, target object is null.");
         }
         Post post = (Post) target;
         Errors errors = getErrorsInstance();

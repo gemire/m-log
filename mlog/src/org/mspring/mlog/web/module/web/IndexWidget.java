@@ -43,7 +43,7 @@ public class IndexWidget extends AbstractWebWidget {
         if (postPage.getSort() == null) {
             postPage.setSort(new Sort("id", Sort.DESC));
         }
-        postService.findPost(postPage, "select post from Post post");
+        postService.findPost(postPage, "select post from Post post where post.status = ?", Post.Status.PUBLISH);
         model.addAttribute("postPage", postPage);
         return "skin:/index";
     }
@@ -57,7 +57,7 @@ public class IndexWidget extends AbstractWebWidget {
             postPage.setSort(new Sort("postCatalog.PK.post.id", Sort.DESC));
         }
         if (StringUtils.isNotBlank(catalog)) {
-            postService.findPost(postPage, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.name = ?", catalog.trim());
+            postService.findPost(postPage, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.name = ? and postCatalog.PK.post.status = ?", new Object[] { catalog.trim(), Post.Status.PUBLISH });
             model.addAttribute("postPage", postPage);
         }
         return "skin:/index";

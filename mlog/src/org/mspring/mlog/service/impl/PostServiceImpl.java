@@ -47,10 +47,10 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             post.setCreateTime(new Date());
         }
         if (StringUtils.isBlank(post.getCommentStatus())) {
-            post.setCommentStatus(Post.COMMENT_STATUS_OPEN);
+            post.setCommentStatus(Post.CommentStatus.OPEN);
         }
         if (StringUtils.isBlank(post.getStatus())) {
-            post.setStatus(Post.POST_STATUS_PUBLISH);
+            post.setStatus(Post.Status.PUBLISH);
         }
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
@@ -138,10 +138,10 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             post.setCreateTime(new Date());
         }
         if (StringUtils.isBlank(post.getCommentStatus())) {
-            post.setCommentStatus(Post.COMMENT_STATUS_OPEN);
+            post.setCommentStatus(Post.CommentStatus.OPEN);
         }
         if (StringUtils.isBlank(post.getStatus())) {
-            post.setStatus(Post.POST_STATUS_PUBLISH);
+            post.setStatus(Post.Status.PUBLISH);
         }
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
@@ -166,7 +166,8 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             @Override
             public List<Post> doInHibernate(Session session) throws HibernateException, SQLException {
                 // TODO Auto-generated method stub
-                Query query = session.createQuery("select post from Post post order by post.createTime desc");
+                Query query = session.createQuery("select post from Post post where post.status = ? order by post.createTime desc");
+                query.setParameter(0, Post.Status.PUBLISH);
                 query.setMaxResults(nums);
                 return query.list();
             }
