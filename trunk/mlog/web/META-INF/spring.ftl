@@ -234,9 +234,12 @@
 </#macro>
 -->
 <#-- modify by Gao Youbo -->
-<#macro formSingleSelect path options valueAttr="id" textAttr="name" attributes="">
+<#macro formSingleSelect path options valueAttr="id" textAttr="name" attributes="" has_default=false>
     <@bind path/>
     <select id="${status.expression}" name="${status.expression}" ${attributes}>
+    	<#if has_default>
+    		<option value="">--请选择--</option>
+    	</#if>
         <#if options?is_hash>
             <#list options?keys as value>
             <option value="${value?html}"<@checkSelected value/>>${options[value]?html}</option>
