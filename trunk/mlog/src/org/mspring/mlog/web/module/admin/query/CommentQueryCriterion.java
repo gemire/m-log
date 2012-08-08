@@ -26,10 +26,10 @@ public class CommentQueryCriterion extends AbstractQueryCriterion {
     public CommentQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder builder = new QueryBuilder(queryParams);
-        builder.startBuild().buildEqual("comment.status", "comment.status");
-        builder.buildLike("comment.author", "comment.author");
-        builder.buildLike("comment.content", "comment.content");
-        builder.buildLike("comment.post.title", "comment.post.title");
+        builder.startBuild().buildEqual("comment.status", "status");
+        builder.buildLike("comment.author", "author");
+        builder.buildLike("comment.content", "content");
+        builder.buildLike("comment.post.title", "post.title");
         whereString = builder.endBuild();
 
         namedQueryParams = builder.getNamedQueryParams();

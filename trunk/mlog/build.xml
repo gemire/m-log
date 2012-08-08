@@ -2,7 +2,7 @@
 <project name="M-Log" default="build" basedir=".">
 	
 	<property name="project.name" value="mlog"/>
-	<property name="project.version" value="2.0.0" />
+	<property name="project.version" value="1.0" />
 	
 	<property name="config.dir" value="${basedir}/config" />
 	<property name="lib.dir" value="${basedir}/lib" />
@@ -47,7 +47,7 @@
 	<target name="build" depends="javac" description="Build this project" />
 
 	<target name="war" depends="build" description="Create a war file">
-		<zip destfile="${project.name}${project.version}" basedir="${web.dir}"/>
+		<zip destfile="${project.name}${project.version}.war" basedir="${web.dir}"/>
 	</target>
 
 	<target name="clean" description="Cleans this project">

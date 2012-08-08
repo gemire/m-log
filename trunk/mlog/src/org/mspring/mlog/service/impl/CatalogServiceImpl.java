@@ -143,4 +143,25 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
         return catalog == null ? null : (Catalog)catalog;
     }
 
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.CatalogService#catalogExists(java.lang.String, java.lang.String)
+     */
+    @Override
+    public boolean catalogExists(String name, Long id) {
+        // TODO Auto-generated method stub
+        Long count = null;
+        if (id == null) {
+            count = count("select count(*) from Catalog catalog where catalog.name = ?", name);
+        }
+        else {
+            count = count("select count(*) from Catalog catalog where catalog.name = ? and catalog.id <> ?", new Object[]{name, id});
+        }
+        if (count > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

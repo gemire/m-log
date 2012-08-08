@@ -4,6 +4,7 @@
 package org.mspring.mlog.web.module.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Comment;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.web.module.admin.query.CommentQueryCriterion;
 import org.mspring.mlog.web.resolver.QueryParam;
@@ -48,7 +50,10 @@ public class CommentWidget {
     }
 
     @RequestMapping("/list")
-    public String listComment(@ModelAttribute Page<Comment> commentPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String listComment(@ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (comment == null) {
+            comment = new Comment();
+        }
         if (commentPage == null) {
             commentPage = new Page<Comment>();
         }
@@ -66,7 +71,7 @@ public class CommentWidget {
 
         model.addAttribute("commentPage", commentPage);
         model.addAttribute("columnfields", columnfields);
-
+        model.addAttribute("commentStatus", Comment.Status.getCommentStatusMap());
         return "/admin/comment/listComment";
     }
 
