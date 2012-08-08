@@ -1,10 +1,14 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-	<div class="ui-layout-east">
-		<@widget.placeholder path="/admin/link/create" />
-	</div>
 	<div class="ui-layout-center">
+		<div class="tab">
+			<ul>
+			    <li><a href="javascript:void(0);" class="here">列表</a></li>
+			    <li><a href="${base}/admin/link/create">增加</a></li>
+			    <li><a href="javascript:void(0);">修改</a></li>
+			</ul>
+		</div>
 		<form id="linkForm" name="linkForm" action="${base}/admin/link/list" method="POST">
 			<@spring.bind "linkPage" />
 			<!-- pagination parameter -->
