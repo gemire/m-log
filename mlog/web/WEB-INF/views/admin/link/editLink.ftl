@@ -5,12 +5,14 @@
 		<div class="tab">
 			<ul>
 			    <li><a href="${base}/admin/link/list">列表</a></li>
-			    <li><a href="javascript:void(0);" class="here">增加</a></li>
-			    <li><a href="javascript:void(0);">修改</a></li>
+			    <li><a href="${base}/admin/link/create">增加</a></li>
+			    <li><a href="javascript:void(0);" class="here">修改</a></li>
 			</ul>
 		</div>
-		<@spring.bind "link" />
-		<form class="form" name="linkForm" action="${base}/admin/link/doCreate" method="POST">
+		<form class="form" name="linkForm" action="${base}/admin/link/doEdit" method="POST">
+			<@spring.bind "link" />
+			<@mspring.show_errors />
+			<@spring.formHiddenInput path="link.id" />
 			<table class="formtable" style="width:100%">
 				<tr>
 					<td class="fieldlabel" style="width:60px;">编号</td>
