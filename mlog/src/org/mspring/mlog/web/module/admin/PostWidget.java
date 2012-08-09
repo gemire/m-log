@@ -24,8 +24,6 @@ import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
-import org.mspring.platform.utils.StringUtils;
-import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +60,7 @@ public class PostWidget {
         this.postValidator = postValidator;
     }
 
+    @SuppressWarnings("rawtypes")
     @RequestMapping({ "/list", "/", "" })
     public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
@@ -130,25 +129,8 @@ public class PostWidget {
 
     @RequestMapping("/edit")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        String idString = request.getParameter("postId");
-        if (!StringUtils.isBlank(idString) && ValidatorUtils.isNumber(idString)) {
-            // 文章
-            if (post == null || post.getId() == null) { // 这里处理是为了防止在提交表单后，为验证通过时，返回页面，页面之前填写的信息丢失的问题
-                post = postService.getPostById(new Long(idString));
-            }
-            model.addAttribute("post", post);
-
-            // 文章分类
-            List<Catalog> catalogs = catalogService.findAllCatalog();
-            model.addAttribute("catalogs", catalogs);
-
-            // 是否开启评论
-            Map<String, String> commentStatus = new HashMap<String, String>();
-            commentStatus.put(Post.CommentStatus.OPEN, "开启");
-            commentStatus.put(Post.CommentStatus.CLOSE, "关闭");
-            model.addAttribute("commentStatus", commentStatus);
-        }
-        return "/admin/post/editPost";
+        post = postService.getPostById(post.getId());
+        return getEditPostView(post, model);
     }
 
     @RequestMapping("/doEdit")
@@ -156,9 +138,26 @@ public class PostWidget {
         Errors errors = postValidator.validate(post);
         if (errors.hasErrors()) {
             model.addAttribute("errors", errors);
-            return editPostView(post, request, response, model);
+            return getEditPostView(post, model);
         }
         postService.updatePost(post);
         return "redirect:/admin/post/list";
+    }
+
+    /**
+     * 获取文章编辑页面
+     * 
+     * @param post
+     * @param model
+     * @return
+     */
+    private String getEditPostView(Post post, Model model) {
+        // 文章
+        model.addAttribute("post", post);
+        // 文章分类
+        model.addAttribute("catalogs", catalogService.findAllCatalog());
+        // 是否开启评论
+        model.addAttribute("commentStatus", Post.CommentStatus.getCommentStatusMap());
+        return "/admin/post/editPost";
     }
 }

@@ -359,7 +359,7 @@ public class Post implements Serializable {
 
         public static final Map<String, String> getCommentStatusMap() {
             Map<String, String> map = new HashMap<String, String>();
-            map.put(OPEN, "允许");
+            map.put(OPEN, "开启");
             map.put(CLOSE, "关闭");
             return map;
         }

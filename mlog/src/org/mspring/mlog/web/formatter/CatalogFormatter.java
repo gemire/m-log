@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.mspring.mlog.entity.Catalog;
-import org.mspring.platform.utils.RequestUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.springframework.format.Formatter;

@@ -4,20 +4,19 @@
 package org.mspring.mlog.web.module.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.LinkService;
+import org.mspring.mlog.web.validator.LinkValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -35,10 +34,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin/link")
 public class LinkWidget {
     private LinkService linkService;
+    private LinkValidator linkValidator;
 
     @Autowired
     public void setLinkService(LinkService linkService) {
         this.linkService = linkService;
+    }
+
+    @Autowired
+    public void setLinkValidator(LinkValidator linkValidator) {
+        this.linkValidator = linkValidator;
     }
 
     @RequestMapping("/list")
@@ -64,21 +69,18 @@ public class LinkWidget {
 
     @RequestMapping("/create")
     public String createLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Map<String, String> target = new HashMap<String, String>();
-        target.put("_blank", Link.Target._BLANK);
-        target.put("_top", Link.Target._TOP);
-        target.put("_none", Link.Target._NONE);
-        model.addAttribute("target", target);
-
-        Map<String, String> visable = new HashMap<String, String>();
-        visable.put("1", "是");
-        visable.put("0", "否");
-        model.addAttribute("visable", visable);
+        model.addAttribute("target", Link.Target.getTargetMap());
+        model.addAttribute("visable", Link.Visable.getVisableMap());
         return "/admin/link/createLink";
     }
 
     @RequestMapping("/doCreate")
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Errors errors = linkValidator.validate(link);
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return createLinkView(link, request, response, model);
+        }
         linkService.createLink(link);
         return "redirect:/admin/link/list";
     }
@@ -90,15 +92,28 @@ public class LinkWidget {
         }
         return "redirect:/admin/link/list";
     }
-    
-    
+
     @RequestMapping("/edit")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
-        String idString = request.getParameter("id");
-        link = linkService.getLinkById(new Long(idString));
-        model.addAttribute("link", link);
-        return "/admin/link/editCatalog";
+        link = linkService.getLinkById(link.getId());
+        return getEditLinkView(link, model);
     }
-    
 
+    @RequestMapping("/doEdit")
+    public String doEditLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Errors errors = linkValidator.validate(link);
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return getEditLinkView(link, model);
+        }
+        linkService.updateLink(link);
+        return "redirect:/admin/link/list";
+    }
+
+    private String getEditLinkView(Link link, Model model) {
+        model.addAttribute("link", link);
+        model.addAttribute("target", Link.Target.getTargetMap());
+        model.addAttribute("visable", Link.Visable.getVisableMap());
+        return "/admin/link/editLink";
+    }
 }
