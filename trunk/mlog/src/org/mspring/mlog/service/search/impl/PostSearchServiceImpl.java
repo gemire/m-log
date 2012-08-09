@@ -33,7 +33,7 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public Page<Post> search(Page<Post> page, String queryString) {
         // TODO Auto-generated method stub
-        String[] fields = new String[] { "title", "summary", "content", "catalog.name", "author.name", "author.alias" };
+        String[] fields = new String[] { "title", "summary", "content", "author.name", "author.alias" };
         Query query = getQueryBuilder(Post.class).keyword().onFields(fields).matching(queryString).createQuery();
         return searchPage(page, query, new Class[] { Post.class, Catalog.class, User.class });
     }

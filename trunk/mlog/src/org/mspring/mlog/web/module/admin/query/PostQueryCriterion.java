@@ -23,6 +23,7 @@ public class PostQueryCriterion extends AbstractQueryCriterion {
     /**
      * 
      */
+    @SuppressWarnings("rawtypes")
     public PostQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder builder = new QueryBuilder(queryParams);

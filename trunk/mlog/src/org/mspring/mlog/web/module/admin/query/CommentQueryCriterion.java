@@ -23,6 +23,7 @@ public class CommentQueryCriterion extends AbstractQueryCriterion {
     /**
      * 
      */
+    @SuppressWarnings("rawtypes")
     public CommentQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder builder = new QueryBuilder(queryParams);
@@ -34,7 +35,7 @@ public class CommentQueryCriterion extends AbstractQueryCriterion {
 
         namedQueryParams = builder.getNamedQueryParams();
         queryParamsString = builder.getQueryParamsAsString();
-        
+
         queryString = "select comment from Comment comment " + whereString;
         countString = "select count(*) from Comment comment " + whereString;
     }

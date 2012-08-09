@@ -4,24 +4,23 @@
 package org.mspring.mlog.web.validator;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.entity.Catalog;
+import org.mspring.mlog.entity.User;
 import org.mspring.platform.exception.BusinessException;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.validation.AbstractValidator;
 import org.mspring.platform.web.validation.Errors;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Gao Youbo
- * @since 2012-8-8
+ * @since 2012-8-9
  * @Description
- * @TODO Catalog对象验证
+ * @TODO
  */
 @Component
-public class CatalogValidator extends AbstractValidator {
-
-    private static final Logger log = Logger.getLogger(CatalogValidator.class);
+public class UserInfoValidator extends AbstractValidator {
+    private static final Logger log = Logger.getLogger(UserInfoValidator.class);
 
     /*
      * (non-Javadoc)
@@ -36,13 +35,16 @@ public class CatalogValidator extends AbstractValidator {
             log.error("validation failure, target object is null.");
             throw new BusinessException("validation failure, target object is null.");
         }
+        User user = (User) target;
         Errors errors = getErrorsInstance();
-        Catalog catalog = (Catalog) target;
-        if (StringUtils.isBlank(catalog.getName())) {
-            errors.addErrors("name", "分类名称不能为空");
+        if (StringUtils.isBlank(user.getAlias())) {
+            errors.addErrors("alias", "昵称不能为空");
         }
-        if (StringUtils.isNotBlank(catalog.getName()) && ServiceFactory.getCatalogService().catalogExists(catalog.getName(), catalog.getId())) {
-            errors.addErrors("name", "分类名称已经存在");
+        if (StringUtils.isBlank(user.getEmail())) {
+            errors.addErrors("email", "E-mail地址不能为空");
+        }
+        if (StringUtils.isNotBlank(user.getEmail()) && !ValidatorUtils.isEmailAddress(user.getEmail())) {
+            errors.addErrors("email", "E-mail地址格式不正确");
         }
         return errors;
     }

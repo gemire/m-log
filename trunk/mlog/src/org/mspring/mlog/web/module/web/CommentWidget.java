@@ -55,11 +55,14 @@ public class CommentWidget extends AbstractWebWidget {
     @RequestMapping("/post")
     public String postComment(HttpServletRequest request, HttpServletResponse response, Model model) {
         String postId = request.getParameter("postId");
+        if (!Post.CommentStatus.OPEN.equals(postService.getPostById(new Long(postId)).getAuthor())) {
+            return prompt(model, "文章评论已关闭，无法发表评论");
+        }
+        
         String author = request.getParameter("author");
         String content = request.getParameter("content");
         String email = request.getParameter("email");
         String url = request.getParameter("url");
-
         String ip = request.getRemoteAddr();
         String agent = request.getHeader("user-agent");
 

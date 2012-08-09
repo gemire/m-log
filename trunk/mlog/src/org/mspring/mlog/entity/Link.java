@@ -4,6 +4,8 @@
 package org.mspring.mlog.entity;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -136,6 +138,26 @@ public class Link implements Serializable {
         public static final String _BLANK = "_blank"; // 新窗口或新标签。
         public static final String _TOP = "_top"; // 不包含框架的当前窗口或标签。
         public static final String _NONE = "_none"; // 同一窗口或标签。
+
+        public static final Map<String, String> getTargetMap() {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(_BLANK, "_blank");
+            map.put(_TOP, "_top");
+            map.put(_NONE, "_none");
+            return map;
+        }
+    }
+
+    public static class Visable {
+        public static final String VISABLE = "true";
+        public static final String HIDDEN = "false";
+
+        public static final Map<String, String> getVisableMap() {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(VISABLE, "显示");
+            map.put(HIDDEN, "不显示");
+            return map;
+        }
     }
 
 }

@@ -20,6 +20,7 @@ import org.springframework.web.context.request.NativeWebRequest;
  * @Description
  * @TODO
  */
+@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class QueryParamWebArgumentResolver implements WebArgumentResolver {
     private static final Logger log = Logger.getLogger(QueryParamWebArgumentResolver.class);
     private ConversionService conversionService;
@@ -36,11 +37,13 @@ public class QueryParamWebArgumentResolver implements WebArgumentResolver {
      * (org.springframework.core.MethodParameter,
      * org.springframework.web.context.request.NativeWebRequest)
      */
+
     @Override
     public Object resolveArgument(MethodParameter parameter, NativeWebRequest nativeWebRequest) throws Exception {
         // TODO Auto-generated method stub
         QueryParam queryParam = parameter.getParameterAnnotation(QueryParam.class);
         if (queryParam == null) {
+            log.warn("queryParameterResolver failure");
             return WebArgumentResolver.UNRESOLVED;
         }
         Map requestParams = nativeWebRequest.getParameterMap();
@@ -51,6 +54,7 @@ public class QueryParamWebArgumentResolver implements WebArgumentResolver {
             String key = (String) it.next();
             String value = RequestUtils.getRequestParameter(requestParams, key);
             queryParams.put(key, value);
+            log.debug("set queryParameter : " + key + " = " + value);
         }
         return queryParams;
     }

@@ -10,8 +10,10 @@ import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.Keys;
+import org.mspring.mlog.web.validator.UserInfoValidator;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -28,21 +30,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/user")
 public class UserWidget {
     private UserService userService;
+    private UserInfoValidator userInfoValidator;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
+    @Autowired
+    public void setUserInfoValidator(UserInfoValidator userInfoValidator) {
+        this.userInfoValidator = userInfoValidator;
+    }
+
     @RequestMapping("/userinfo")
     public String viewUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = GlobalUtils.getCurrentUser(request);
-        model.addAttribute("user", user);
-        return "/admin/user/viewUserInfo";
+        return getUserInfoView(user, model);
     }
 
     @RequestMapping("/doEditUserInfo")
     public String doEditUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Errors errors = userInfoValidator.validate(user);
+        if (errors.hasErrors()) {
+            model.addAttribute("errors", errors);
+            return getUserInfoView(user, model);
+        }
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码
             String password = StringUtils.getMD5(user.getPassword());
 
@@ -59,7 +71,11 @@ public class UserWidget {
             user = userService.getUserByName(user.getName());
             request.getSession().setAttribute(Keys.CURRENT_USER, user);
         }
-
         return "redirect:/admin/user/userinfo";
+    }
+
+    private String getUserInfoView(User user, Model model) {
+        model.addAttribute("user", user);
+        return "/admin/user/viewUserInfo";
     }
 }

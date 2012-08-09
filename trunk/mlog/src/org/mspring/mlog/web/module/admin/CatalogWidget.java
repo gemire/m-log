@@ -143,10 +143,8 @@ public class CatalogWidget {
      */
     @RequestMapping("/edit")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
-        String idString = request.getParameter("id");
-        catalog = catalogService.getCatalogById(new Long(idString));
-        model.addAttribute("catalog", catalog);
-        return "/admin/catalog/editCatalog";
+        catalog = catalogService.getCatalogById(catalog.getId());
+        return getEditCatalogView(catalog, model);
     }
 
     /**
@@ -163,10 +161,15 @@ public class CatalogWidget {
         Errors errors = catalogValidator.validate(catalog);
         if (errors.hasErrors()) {
             model.addAttribute("errors", errors);
-            return editCatalogView(catalog, request, response, model);
+            return getEditCatalogView(catalog, model);
         }
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";
+    }
+
+    private String getEditCatalogView(Catalog catalog, Model model) {
+        model.addAttribute("catalog", catalog);
+        return "/admin/catalog/editCatalog";
     }
 }
