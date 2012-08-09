@@ -18,7 +18,7 @@
 			<span class="submitted">作者：${post.author.alias!post.author.name} 时间:${post.createTime}</span>
 		
 			<div class="content">
-				<@get_postcontent max_length="300" />
+				<@post_content max_length="300" />
 			</div>
 			<div class="clear-block clear">
 				<div class="links">

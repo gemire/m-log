@@ -1,50 +1,47 @@
 <#include "header.ftl" />
-<#if postPage?exists && postPage.result?exists>
-	<#list postPage.result as post>
-		<!-- article node -->
-		<div id="node-${post.id}" class="node">
-			<h2><a href="${base}${post.url}" title="${post.title}">${post.title}</a></h2>
-			<span class="submitted">${post.createTime} - ${post.author.alias}</span>						  
-			<div class="content">${post.content}</div>
-			<div class="clear-block clear">
-				<div class="meta">
-					<div class="terms">
-						<ul class="links inline">
-							<li class="first last taxonomy_term_2">
-								<#if post.tags?exists>
-									<#list post.tags as tag>
-										${tag.name!""}
-									</#list>
-								</#if>
-							</li>
-						</ul>
-					</div>
-				</div>
-			    <div class="links">
+<@list_post>
+	<div id="node-<@post_id />" class="node">
+		<h2><a href="<@post_url />" title="<@post_title />"><@post_title /></a></h2>
+		<span class="submitted"><@post_time /> - <@post_author_alias /></span>						  
+		<div class="content"><@post_content /></div>
+		<div class="clear-block clear">
+			<div class="meta">
+				<div class="terms">
 					<ul class="links inline">
-						<li class="first blog_usernames_blog">
-							<#if (post.catalogs?exists)>
-								<#list post.catalogs as catalog>
-									<a href="${base}/catalog/${catalog.name}">${catalog.name}</a>
-								</#list>
-							</#if>
+						<li class="first last taxonomy_term_2">
+							Tags:
+							<@list_post_tag>
+								<a href="<@tag_url />"><@tag_name /></a>
+							</@list_post_tag>
 						</li>
-						<li class="last comment_add">发表评论</li>
 					</ul>
 				</div>
 			</div>
-		</div>
-		<#if (postPage.totalPages > 1)>
-			<div class="pager">
-				<span class="pager-list">
-					<form id="postForm" name="postForm">
-						<@spring.bind "postPage" />
-						<@spring.formHiddenInput path="postPage.pageNo" />
-						<@mspring.pagingnavigator page=postPage form_id="postForm" />
-					</form>
-				</span>
+		    <div class="links">
+				<ul class="links inline">
+					<li class="first blog_usernames_blog">
+						分类:
+						<@list_post_catalog>
+							<a href="<@catalog_url />"><@catalog_name /></a>
+						</@list_post_catalog>
+					</li>
+					<li class="last comment_add">发表评论</li>
+				</ul>
 			</div>
-		</#if>
-	</#list>
-</#if>
+		</div>
+	</div>
+	<#--
+	<#if (postPage.totalPages > 1)>
+		<div class="pager">
+			<span class="pager-list">
+				<form id="postForm" name="postForm">
+					<@spring.bind "postPage" />
+					<@spring.formHiddenInput path="postPage.pageNo" />
+					<@mspring.pagingnavigator page=postPage form_id="postForm" />
+				</form>
+			</span>
+		</div>
+	</#if>
+	-->
+</@list_post>
 <#include "footer.ftl" />

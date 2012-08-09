@@ -1,11 +1,11 @@
 <#include "header.ftl" />
 <!-- article node -->
 <#if post?exists>
-	<div id="node-${post.id}" class="node">
-		<h2>${post.title}</h2>
-		<span class="submitted">${post.createTime} - ${post.author.alias ! post.author.name}</span>
+	<div id="node-<@post_id />" class="node">
+		<h2><@post_title /></h2>
+		<span class="submitted"><@post_time /> - <@post_author_alias /></span>
 		<div class="content">
-			${post.content}
+			<@post_content />
 		</div>
 		
 		<div class="clear-block clear">
@@ -13,11 +13,9 @@
 				<div class="terms">
 					<ul class="links inline">
 						分类:
-						<#if (post.catalogs?exists)>
-							<#list post.catalogs as catalog>
-								<a href="${base}/catalog/${catalog.name}">${catalog.name}</a>
-							</#list>
-						</#if>
+						<@list_post_catalog>
+							<a href="<@catalog_url />"><@catalog_name /></a>
+						</@list_post_catalog>
 					</ul>
 				</div>
 			</div>
@@ -29,7 +27,7 @@
 						</li>
 					</li>
 					<li class="last comment_add">
-						<a id="p_comments${post.id}"  title='发表评论' href="#divCommentPost">${post.commentCount!"0"}条评论</a>
+						<a id="p_comments<@post_id />"  title='发表评论' href="#divCommentPost"><@post_comment_count />条评论</a>
 					</li>
 				</ul>
 			</div>
