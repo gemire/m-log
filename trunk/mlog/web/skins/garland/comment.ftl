@@ -1,28 +1,27 @@
 <ul>
-<#if (comments?exists && comments?size > 0)>
-	<#list comments as comment >
-		<li>
-			<a id="comment-${comment.id}"></a>
-			<div class="comment even">
-	  			<div class="clear-block">
-	      			<span class="submitted">@${comment.createTime!""}&nbsp;by&nbsp;<a href="${comment.url}" target="_blank" >${comment.author}</a></span>
-	      			<div class="content">
-	      				<p>${comment.content!""}</p>
-	    			</div>
-	  			</div>
-	  			<div class="links">
-	  				<ul class="links">
-	  					<li class="first last comment_reply">
-	  						<a href="#divCommentPost" onclick="RevertComment('${comment.id}')" class="comment_reply"></a>
-	  					</li>
-					</ul>
-				</div>
-	  		</div>
-  		</li>
-	</#list>
-</#if>
+<@list_comment>
+	<li>
+		<a id="comment-<@comment_id />"></a>
+		<div class="comment even">
+  			<div class="clear-block">
+      			<span class="submitted">@<@comment_time />&nbsp;by&nbsp;<a href="<@comment_author_url />" target="_blank" ><@comment_author /></a></span>
+      			<div class="content">
+      				<p><@comment_content /></p>
+    			</div>
+  			</div>
+  			<div class="links">
+  				<ul class="links">
+  					<li class="first last comment_reply">
+  						<a href="#divCommentPost" onclick="RevertComment('${comment.id}')" class="comment_reply">回复</a>
+  					</li>
+				</ul>
+			</div>
+  		</div>
+	</li>
+</@list_comment>
 </ul>
 
+<#if post.commentStatus == "open">
 <div class="box" id="divCommentPost">
 	<h2>发表评论</h2>
 	<div class="content">
@@ -68,3 +67,6 @@
 		</form>
 	</div>
 </div>
+<#else>
+<h2>评论已关闭</h2>
+</#if>
