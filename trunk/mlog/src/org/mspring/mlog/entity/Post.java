@@ -43,7 +43,7 @@ import org.mspring.mlog.web.formatter.stereotype.TagFormat;
  */
 @Entity
 @Table(name = "post")
-@Indexed(index = "post")
+@Indexed
 public class Post implements Serializable {
     /**
      * 

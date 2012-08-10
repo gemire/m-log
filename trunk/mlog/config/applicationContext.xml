@@ -17,10 +17,7 @@
 		<property name="ignoreResourceNotFound" value="false" />
 		<property name="locations">
 			<list>
-				<!-- 标准配置 -->
 				<value>classpath:application.properties</value>
-				<!-- 服务器生产环境配置 -->
-				<!-- <value>file:${user.home}/.mlog/application.properties</value> -->
 			</list>
 		</property>
 	</bean>
