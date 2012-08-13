@@ -6,7 +6,9 @@ package org.mspring.mlog.web.module.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
@@ -24,17 +26,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget
 @RequestMapping("/search")
 public class SearchWidget extends AbstractWebWidget {
+    private static final Logger log = Logger.getLogger(SearchWidget.class);
+
     @RequestMapping({ "/", "" })
-    public String searchView(@ModelAttribute Page<Post> postPage, @RequestParam(required = false) String s, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String searchView(@ModelAttribute Page<Post> postPage, @RequestParam(required = false) String keyword, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
             postPage = new Page<Post>();
         }
-        s = StringUtils.encoding(s, "ISO-8859-1", "UTF-8");
-        if (StringUtils.isNotBlank(s)) {
-            postPage = postSearchService.search(postPage, s);
+        keyword = StringUtils.encoding(keyword, "ISO-8859-1", "UTF-8");
+        keyword = keyword.trim();
+        if (StringUtils.isNotBlank(keyword)) {
+            try {
+                postPage = postSearchService.search(postPage, keyword);
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                log.debug(String.format("search for keyword [%s] failure!", keyword));
+            }
         }
-        model.addAttribute("postPage", postPage);
-        model.addAttribute("s", s);
+        model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
+        model.addAttribute(FreemarkerVariableNames.SEARCH_KEYWORD, keyword);
         return "skin:/search";
     }
 }

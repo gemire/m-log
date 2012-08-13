@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class SingleWidget extends AbstractWebWidget {
     private String single(HttpServletRequest request, HttpServletResponse response, Model model) {
         Object postObj = request.getAttribute("post");
         if (postObj != null) {
-            model.addAttribute("post", postObj);
+            model.addAttribute(FreemarkerVariableNames.POST, postObj);
         }
         return "skin:/single";
     }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.Keys;
+import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -124,7 +125,7 @@ public class CommentWidget extends AbstractWebWidget {
         CookieUtils.setCookie(response, Keys.COMMENT_AUTHOR_COOKIE, author, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
-        model.addAttribute("comment", comment);
+        model.addAttribute(FreemarkerVariableNames.COMMENT, comment);
         return String.format("redirect:%s", comment.getPost().getUrl());
     }
 }
