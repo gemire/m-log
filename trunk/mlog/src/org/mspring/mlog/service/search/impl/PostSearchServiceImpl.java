@@ -4,6 +4,11 @@
 package org.mspring.mlog.service.search.impl;
 
 import org.apache.lucene.search.Query;
+import org.hibernate.Session;
+import org.hibernate.search.FullTextQuery;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
@@ -33,7 +38,7 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public Page<Post> search(Page<Post> page, String queryString) {
         // TODO Auto-generated method stub
-        String[] fields = new String[] { "title", "summary", "content", "author.name", "author.alias" };
+        String[] fields = new String[] { "title", "summary", "content" };
         Query query = getQueryBuilder(Post.class).keyword().onFields(fields).matching(queryString).createQuery();
         return searchPage(page, query, new Class[] { Post.class, Catalog.class, User.class });
     }

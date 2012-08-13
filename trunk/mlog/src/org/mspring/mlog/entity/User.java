@@ -16,10 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Store;
-
 /**
  * @author Gao Youbo
  * @since 2012-7-12
@@ -64,7 +60,6 @@ public class User implements Serializable {
      * @return the name
      */
     @Column(name = "name", unique = true, nullable = false, length = 100)
-    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getName() {
         return name;
     }
@@ -81,7 +76,6 @@ public class User implements Serializable {
      * @return the alias
      */
     @Column(name = "alias", unique = true, nullable = false, length = 100)
-    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getAlias() {
         return alias;
     }
@@ -114,7 +108,6 @@ public class User implements Serializable {
      * @return the email
      */
     @Column(name = "email", length = 200, nullable = false)
-    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getEmail() {
         return email;
     }

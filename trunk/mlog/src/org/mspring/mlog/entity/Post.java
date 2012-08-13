@@ -30,7 +30,6 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 import org.mspring.mlog.web.formatter.stereotype.CatalogFormat;
 import org.mspring.mlog.web.formatter.stereotype.TagFormat;
@@ -190,7 +189,6 @@ public class Post implements Serializable {
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "post_user")
-    @IndexedEmbedded
     public User getAuthor() {
         return author;
     }
