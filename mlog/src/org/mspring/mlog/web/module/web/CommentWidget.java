@@ -56,7 +56,7 @@ public class CommentWidget extends AbstractWebWidget {
     @RequestMapping("/post")
     public String postComment(HttpServletRequest request, HttpServletResponse response, Model model) {
         String postId = request.getParameter("postId");
-        if (!Post.CommentStatus.OPEN.equals(postService.getPostById(new Long(postId)).getAuthor())) {
+        if (!Post.CommentStatus.OPEN.equals(postService.getPostById(new Long(postId)).getCommentStatus())) {
             return prompt(model, "文章评论已关闭，无法发表评论");
         }
         

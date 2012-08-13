@@ -59,9 +59,12 @@ public class ListCommentDirectiveModel extends AbstractDirectiveModel {
             return;
         }
         List<Comment> comments = (List<Comment>) commentListObj;
+        int i = 0;
         for (Comment comment : comments) {
+            env.__setitem__("list_index", i);
             env.__setitem__(FreemarkerVariableNames.COMMENT, comment);
             body.render(env.getOut());
+            i++;
         }
     }
 

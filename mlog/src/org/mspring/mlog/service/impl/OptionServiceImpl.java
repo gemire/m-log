@@ -147,6 +147,7 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
 
     private void setOptionCacheValue(String key, String value) {
         CacheUtils.updateValue(CacheManager.getInstance(), Keys.OPTION_CACHE_NAME, key, value);
+        setOptionCacheMap(null);
     }
 
     private Map<String, String> getOptionCacheMap() {
