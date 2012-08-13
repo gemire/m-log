@@ -34,8 +34,6 @@
 	<classpathentry kind="lib" path="lib/hibernate-core-3.6.2.Final.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-ehcache-3.6.2.Final.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-search-3.3.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-search-analyzers-3.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-validator-4.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/htmlparser.jar"/>
 	<classpathentry kind="lib" path="lib/java-image-scaling-0.8.5.jar"/>
@@ -47,8 +45,6 @@
 	<classpathentry kind="lib" path="lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-analyzers-3.0.3.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-core-3.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/mail-1.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/metadata-extractor-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.15.jar"/>
@@ -83,5 +79,9 @@
 	<classpathentry kind="lib" path="lib/xmlrpc-client-3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/xmlrpc-common-3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/xmlrpc-server-3.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-analyzers-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-search-3.4.2.Final.jar"/>
+	<classpathentry kind="lib" path="lib/IKAnalyzer3.2.0Stable.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
