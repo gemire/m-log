@@ -1,3 +1,6 @@
+<#import "/META-INF/spring.ftl" as spring />
+<#import "/META-INF/mspring.ftl" as mspring />
+
 <#include "header.ftl" />
 <@list_post>
 	<div id="node-<@post_id />" class="node">
@@ -30,18 +33,16 @@
 			</div>
 		</div>
 	</div>
-	<#--
-	<#if (postPage.totalPages > 1)>
-		<div class="pager">
-			<span class="pager-list">
-				<form id="postForm" name="postForm">
-					<@spring.bind "postPage" />
-					<@spring.formHiddenInput path="postPage.pageNo" />
-					<@mspring.pagingnavigator page=postPage form_id="postForm" />
-				</form>
-			</span>
-		</div>
-	</#if>
-	-->
 </@list_post>
+<#if (postPage.totalPages > 1)>
+<div class="pager">
+	<span class="pager-list">
+		<form id="postForm" name="postForm">
+			<@spring.bind "postPage" />
+			<@spring.formHiddenInput path="postPage.pageNo" />
+			<@mspring.pagingnavigator page=postPage form_id="postForm" />
+		</form>
+	</span>
+</div>
+</#if>
 <#include "footer.ftl" />
