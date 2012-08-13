@@ -4,7 +4,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="Content-Language" content="zh_CN" />
 	<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/style.css" type="text/css" media="screen" />
-	<#-- <link rel="stylesheet" rev="stylesheet" href="<#ZC_BLOG_HOST#>css/print.css" type="text/css" media="print" /> -->
 	<!--[if lt IE 7]>
     <style type="text/css" media="all"> @import "${template_url}/style/fix-ie.css";</style>
     <![endif]-->

@@ -395,7 +395,11 @@ span.error {
     margin: 24px 12px;
     padding: 10px 5px;
     text-align: center;
-    width: 306px;
+    width: 200px;
+}
+.skinItem img {
+	border:none;
+	width: 180px;
 }
 .skinItem.selected {
     background-color: #ff9999;
@@ -405,6 +409,7 @@ span.error {
 }
 .skinItem .metadata{
 	margin-top:5px;
+	color: blue;
 }
 .skinItem .metadata a, .skinItem .metadata a:VISITED{
 	text-decoration: none;
