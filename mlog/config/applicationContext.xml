@@ -64,7 +64,7 @@
 				
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">${user.home}/.mlog/indexes</prop>
-				<prop key="hibernate.search.analyzer">org.apache.lucene.analysis.cn.ChineseAnalyzer</prop>
+				<prop key="hibernate.search.analyzer">org.wltea.analyzer.lucene.IKAnalyzer</prop>
 				
 				<!-- debug -->
 				<prop key="hibernate.generate_statistics">true</prop>
