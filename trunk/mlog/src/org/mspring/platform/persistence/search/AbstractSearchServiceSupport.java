@@ -8,11 +8,12 @@ import org.hibernate.search.SearchFactory;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.support.Page;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class AbstractSearchServiceSupport extends AbstractServiceSupport {
 
     protected FullTextSession getFullTextSession() {
-        return Search.getFullTextSession(super.getSessionFactory().openSession());
+        return Search.getFullTextSession(getHibernateTemplate().getSessionFactory().openSession());
     }
 
     protected SearchFactory getSearchFactory() {
@@ -39,7 +40,7 @@ public class AbstractSearchServiceSupport extends AbstractServiceSupport {
         // TODO Auto-generated method stub
         FullTextQuery fullTextQuery = getFullTextSession().createFullTextQuery(query, clazz);
 
-        if (!page.isAutoCount()) {
+        if (page.isAutoCount()) {
             page.setTotalCount(fullTextQuery.getResultSize());
             page.setAutoCount(false);
         }

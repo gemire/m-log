@@ -17,4 +17,5 @@ public class FreemarkerVariableNames {
     public static final String TAG = "tag";
     public static final String COMMENT = "comment";
     public static final String COMMENTS = "comments";
+    public static final String SEARCH_KEYWORD = "keyword";
 }

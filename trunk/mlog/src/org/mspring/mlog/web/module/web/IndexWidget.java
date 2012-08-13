@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.web.widget.stereotype.Widget;
@@ -44,7 +45,7 @@ public class IndexWidget extends AbstractWebWidget {
             postPage.setSort(new Sort("id", Sort.DESC));
         }
         postService.findPost(postPage, "select post from Post post where post.status = ?", Post.Status.PUBLISH);
-        model.addAttribute("postPage", postPage);
+        model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
         return "skin:/index";
     }
 
@@ -58,7 +59,7 @@ public class IndexWidget extends AbstractWebWidget {
         }
         if (StringUtils.isNotBlank(catalog)) {
             postService.findPost(postPage, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.name = ? and postCatalog.PK.post.status = ?", new Object[] { catalog.trim(), Post.Status.PUBLISH });
-            model.addAttribute("postPage", postPage);
+            model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
         }
         return "skin:/index";
     }
