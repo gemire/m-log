@@ -9,10 +9,9 @@
 			<#assign divClass = "left skinItem selected" />
 		</#if>
 		<div id="skin_${s.folder}" name="skindiv" title='${s.name}' class="${divClass}" onclick="selectTheme(this, '${s.folder}');">
-			<img class="skinPreview" src='${template_url}/preview.png'>
+			<img class="skinPreview" src='${base}/skins/${s.folder}/preview.png'>
 			<div class="metadata">
 				${s.name}
-				<a href="#">使用该主题</a>
 			</div>
 		</div>
 	</#list>
