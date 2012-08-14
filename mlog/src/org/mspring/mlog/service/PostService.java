@@ -73,4 +73,10 @@ public interface PostService {
      * @param postId
      */
     void updatePostCommentCount(Long postId);
+    
+    /**
+     * 更新文章点击
+     * @param postId
+     */
+    void updatePostViewCount(Long postId);
 }

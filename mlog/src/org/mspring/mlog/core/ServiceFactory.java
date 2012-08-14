@@ -7,6 +7,7 @@ import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
@@ -43,6 +44,10 @@ public class ServiceFactory {
 
     public static CommentService getCommentService() {
         return ContextManager.getApplicationContext().getBean(CommentService.class);
+    }
+
+    public static StatService getStatService() {
+        return ContextManager.getApplicationContext().getBean(StatService.class);
     }
 
     public static ExtendsFreeMarkerConfigurer getExtendsFreeMarkerConfigurer() {

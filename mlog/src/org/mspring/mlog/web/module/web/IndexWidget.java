@@ -46,6 +46,14 @@ public class IndexWidget extends AbstractWebWidget {
         }
         postService.findPost(postPage, "select post from Post post where post.status = ?", Post.Status.PUBLISH);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
+        
+        //更新浏览量
+        new Runnable() {
+            public void run() {
+                statService.updateClickCount();
+            }
+        }.run();
+        
         return "skin:/index";
     }
 

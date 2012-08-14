@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Gao Youbo
  * @since Feb 20, 2012
@@ -332,18 +334,49 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
         int offset = (highByte - 0xB0) * (0xFE - 0xA0) + (lowByte - 0xA1);
         return Constants.gb2312StrokeCount[offset];
     }
-    
+
     /**
      * 转换字符串编码
+     * 
      * @param value
      * @param formChartSet
      * @param toChartSet
      * @return
      */
-    public static String encoding(String value, String formChartSet, String toChartSet){
+    public static String encoding(String value, String formChartSet, String toChartSet) {
         if (value == null) {
             return "";
         }
         return new String(value.getBytes(Charset.forName(formChartSet)), Charset.forName(toChartSet));
+    }
+
+    /**
+     * 获取IP地址
+     * 
+     * @param request
+     * @return
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
+
+    public static String getUserAgent(HttpServletRequest request) {
+        return request.getHeader("user-agent");
     }
 }

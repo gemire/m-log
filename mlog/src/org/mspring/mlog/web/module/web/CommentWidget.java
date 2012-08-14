@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.web.Keys;
+import org.mspring.mlog.web.common.Keys;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -59,13 +59,13 @@ public class CommentWidget extends AbstractWebWidget {
         if (!Post.CommentStatus.OPEN.equals(postService.getPostById(new Long(postId)).getCommentStatus())) {
             return prompt(model, "文章评论已关闭，无法发表评论");
         }
-        
+
         String author = request.getParameter("author");
         String content = request.getParameter("content");
         String email = request.getParameter("email");
         String url = request.getParameter("url");
-        String ip = request.getRemoteAddr();
-        String agent = request.getHeader("user-agent");
+        String ip = StringUtils.getIpAddr(request);
+        String agent = StringUtils.getUserAgent(request);
 
         /**
          * 验证评论发布人
@@ -108,19 +108,19 @@ public class CommentWidget extends AbstractWebWidget {
 
         // 判断评论审核功能是否开启
         String is_comment_audit = optionService.getOption("comment_audit");
-        if ("true".equals(is_comment_audit)) { //如果开启评论审核
+        if ("true".equals(is_comment_audit)) { // 如果开启评论审核
             comment.setStatus(Comment.Status.WAIT_FOR_APPROVE);
         }
         else {
             comment.setStatus(Comment.Status.APPROVED);
         }
         comment = commentService.createComment(comment);
-        
-        if (!("true".equals(is_comment_audit))) { //如果没有开启评论审核
-            //更新文章评论数量
+
+        if (!("true".equals(is_comment_audit))) { // 如果没有开启评论审核
+            // 更新文章评论数量
             postService.updatePostCommentCount(new Long(postId.trim()));
         }
-        
+
         // 将评论作者的信息保存到cookie中
         CookieUtils.setCookie(response, Keys.COMMENT_AUTHOR_COOKIE, author, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);

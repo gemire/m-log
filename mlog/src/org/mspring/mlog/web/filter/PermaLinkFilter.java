@@ -72,12 +72,19 @@ public class PermaLinkFilter implements Filter {
         dispatchToPostPage(request, response, post);
     }
 
-    private void dispatchToPostPage(HttpServletRequest request, HttpServletResponse response, Post post) throws ServletException, IOException {
+    private void dispatchToPostPage(HttpServletRequest request, HttpServletResponse response, final Post post) throws ServletException, IOException {
         if (post != null) {
             request.setAttribute("post", post);
             request.setAttribute("requestURI", "/post");
             request.setAttribute("method", "GET");
             request.getRequestDispatcher("/post").forward(request, response);
+
+            // 更新post点击
+            new Runnable() {
+                public void run() {
+                    ServiceFactory.getPostService().updatePostViewCount(post.getId());
+                }
+            }.run();
         }
     }
 
