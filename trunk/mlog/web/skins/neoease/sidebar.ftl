@@ -6,8 +6,14 @@
     </div>
     </#if>
     <div>
+        <h4>分类目录</h4>
+        <ul class="side-li">
+            <@widget.placeholder path="/widget/listCatalog" />
+        </ul>
+    </div>
+    <div>
         <h4>最新文章</h4>
-        <ul class="recent-comments">
+        <ul class="side-li">
             <@widget.placeholder path="/widget/recentPost" />
         </ul>
     </div>

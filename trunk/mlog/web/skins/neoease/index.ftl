@@ -25,10 +25,10 @@
 			    </div>
 			    <div class="right article-element">
 			        <a rel="nofollow" href="<@post_url />#comments">
-			            1 评论
+			            <@post_comment_count />&nbsp;&nbsp;评论
 			        </a>&nbsp;&nbsp;
 			        <a rel="nofollow" href="<@post_url />">
-			            19 浏览
+			            <@post_view_count />&nbsp;&nbsp;浏览
 			        </a>
 			    </div>
 			    <div class="clear"></div>

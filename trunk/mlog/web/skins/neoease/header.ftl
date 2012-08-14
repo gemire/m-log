@@ -10,6 +10,10 @@
 		<link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 		<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 		<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/neoease.css" type="text/css" media="screen" />
+		
+		<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
+		<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
+		<script type="text/javascript" src="${template_url}/script/neoease.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -37,15 +41,13 @@
 		            <#--<span class="translate-ico" onclick="goTranslate()"></span>-->
 		            <div class="right">
 						浏览次数：
-		                <span class="tip">1000</span>
+		                <span class="tip"><@stat_click_count /></span>
 		                &nbsp;&nbsp;
 						文章数量：
-		                <span class="tip">100</span>
+		                <span class="tip"><@stat_post_count /></span>
 		                &nbsp;&nbsp;
 						评论数量：
-		                <span class="tip">
-		                    5
-		                </span>
+		                <span class="tip"><@stat_comment_count /></span>
 		            </div>
 		        </div>
 		        <div class="clear"></div>

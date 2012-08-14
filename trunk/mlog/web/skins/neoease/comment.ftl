@@ -7,7 +7,7 @@
 <div id="comments">
     <@list_comment>
     <div id="<@comment_id />" class="<#if list_index % 2 == 0>comment-even<#else>comment-odd</#if>">
-        <img class="comment-header" title="<@comment_author />" alt="<@comment_author />" src=""/>
+        <img class="comment-header" title="<@comment_author />" alt="<@comment_author />" src="<@comment_gravatar />"/>
         <div class="comment-panel">
             <div class="left">
                 <a href="<@comment_author_url />" target="_blank"><@comment_author /></a>
@@ -51,21 +51,21 @@
 	            </tr>
 	            <tr>
 	                <td id="emotions" colspan="2">
-	                    <span class="em00" title=""></span>
-	                    <span class="em01" title=""></span>
-	                    <span class="em02" title=""></span>
-	                    <span class="em03" title=""></span>
-	                    <span class="em04" title=""></span>
-	                    <span class="em05" title=""></span>
-	                    <span class="em06" title=""></span>
-	                    <span class="em07" title=""></span>
-	                    <span class="em08" title=""></span>
-	                    <span class="em09" title=""></span>
-	                    <span class="em10" title=""></span>
-	                    <span class="em11" title=""></span>
-	                    <span class="em12" title=""></span>
-	                    <span class="em13" title=""></span>
-	                    <span class="em14" title=""></span>
+	                    <span class="em00" title="微笑"></span>
+	                    <span class="em01" title="大笑"></span>
+	                    <span class="em02" title="高兴"></span>
+	                    <span class="em03" title="悲伤"></span>
+	                    <span class="em04" title="哭泣"></span>
+	                    <span class="em05" title="无语"></span>
+	                    <span class="em06" title="烦躁"></span>
+	                    <span class="em07" title="生气"></span>
+	                    <span class="em08" title="我瞅"></span>
+	                    <span class="em09" title="惊讶"></span>
+	                    <span class="em10" title="酷"></span>
+	                    <span class="em11" title="顽皮"></span>
+	                    <span class="em12" title="爱心"></span>
+	                    <span class="em13" title="心碎"></span>
+	                    <span class="em14" title="魔鬼"></span>
 	                </td>
 	            </tr>
 	            <tr>
@@ -93,4 +93,12 @@
 	    </table>
 	</form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载
+		mlog.load();
+		//将评论文本中的表情标识，替换成图片
+		mlog.replaceCommentsEm("#comments .article-body");
+	});
+</script>
 </#if>
