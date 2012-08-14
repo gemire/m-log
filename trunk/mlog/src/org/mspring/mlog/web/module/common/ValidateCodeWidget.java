@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.web.Keys;
+import org.mspring.mlog.web.common.Keys;
 import org.mspring.platform.utils.ImageUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;

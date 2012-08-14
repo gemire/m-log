@@ -83,5 +83,6 @@
 	<classpathentry kind="lib" path="lib/lucene-core-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-search-3.4.2.Final.jar"/>
 	<classpathentry kind="lib" path="lib/IKAnalyzer3.2.0Stable.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

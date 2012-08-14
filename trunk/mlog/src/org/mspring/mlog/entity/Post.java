@@ -64,6 +64,7 @@ public class Post implements Serializable {
     private Long commentCount;
     private String url;
     private String postIp;
+    private Long viewCount;
 
     /**
      * 
@@ -333,6 +334,22 @@ public class Post implements Serializable {
      */
     public void setPostIp(String postIp) {
         this.postIp = postIp;
+    }
+
+    /**
+     * @return the viewCount
+     */
+    @Column(name = "view_count", length = 20)
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    /**
+     * @param viewCount
+     *            the viewCount to set
+     */
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
     }
 
     public static class Status {

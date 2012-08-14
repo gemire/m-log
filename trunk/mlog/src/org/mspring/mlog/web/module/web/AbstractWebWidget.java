@@ -8,6 +8,7 @@ import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public abstract class AbstractWebWidget {
     protected OptionService optionService;
     protected LinkService linkService;
     protected PostSearchService postSearchService;
+    protected StatService statService;
 
     @Autowired
     public void setPostService(PostService postService) {
@@ -56,38 +58,54 @@ public abstract class AbstractWebWidget {
     public void setPostSearchService(PostSearchService postSearchService) {
         this.postSearchService = postSearchService;
     }
-    
-    
+
+    @Autowired
+    public void setStatService(StatService statService) {
+        this.statService = statService;
+    }
+
     /**
      * 提示消息
-     * @param model 参数存放的model对象
-     * @param message 消息内容
+     * 
+     * @param model
+     *            参数存放的model对象
+     * @param message
+     *            消息内容
      * @return
      */
-    protected String prompt(Model model, String message){
+    protected String prompt(Model model, String message) {
         return prompt(model, null, message);
     }
-    
+
     /**
      * 提示消息
-     * @param model 参数存放的model对象
-     * @param title 消息提示框标题
-     * @param message 消息内容
+     * 
+     * @param model
+     *            参数存放的model对象
+     * @param title
+     *            消息提示框标题
+     * @param message
+     *            消息内容
      * @return
      */
-    protected String prompt(Model model, String title, String message){
+    protected String prompt(Model model, String title, String message) {
         return prompt(model, title, message, null);
     }
-    
+
     /**
      * 提示消息
-     * @param model 参数存放的model对象
-     * @param title 消息提示框标题
-     * @param message 消息内容
-     * @param dispatcher 消息提示后跳转到的页面，默认为history.go(-1);
+     * 
+     * @param model
+     *            参数存放的model对象
+     * @param title
+     *            消息提示框标题
+     * @param message
+     *            消息内容
+     * @param dispatcher
+     *            消息提示后跳转到的页面，默认为history.go(-1);
      * @return
      */
-    protected String prompt(Model model, String title, String message, String dispatcher){
+    protected String prompt(Model model, String title, String message, String dispatcher) {
         model.addAttribute("title", StringUtils.isBlank(title) ? "提示消息" : title);
         model.addAttribute("message", message);
         if (StringUtils.isNotBlank(dispatcher)) {

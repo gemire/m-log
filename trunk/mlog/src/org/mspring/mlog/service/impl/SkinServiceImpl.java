@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.SkinService;
-import org.mspring.mlog.web.Keys;
-import org.mspring.mlog.web.OptionKeys;
+import org.mspring.mlog.web.common.Keys;
+import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.PropertyUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -84,7 +84,6 @@ public class SkinServiceImpl extends AbstractServiceSupport implements SkinServi
     @Override
     public Skin getSkinByFolder(String folder) {
         // TODO Auto-generated method stub
-
         return null;
     }
 

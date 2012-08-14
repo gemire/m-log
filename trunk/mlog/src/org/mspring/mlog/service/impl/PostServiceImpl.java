@@ -4,7 +4,6 @@
 package org.mspring.mlog.service.impl;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +59,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             post.setUrl(url);
         }
         post.setCommentCount(new Long(0));
+        post.setViewCount(new Long(0));
         Long id = (Long) super.save(post);
         return getPostById(id);
     }
@@ -149,6 +149,12 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (StringUtils.isBlank(post.getUrl())) {
             String url = PermaLinkUtils.getDefaultPostURL();
             post.setUrl(url);
+        }
+        if (post.getCommentCount() == null) {
+            post.setCommentCount(new Long(0));
+        }
+        if (post.getViewCount() == null) {
+            post.setViewCount(new Long(0));
         }
         super.update(post);
     }
@@ -273,11 +279,21 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     public void updatePostCommentCount(Long postId) {
         // TODO Auto-generated method stub
         if (postId != null) {
-            // Long count = (Long)
-            // findUnique("select count(*) from Comment comment where comment.status = ? and comment.post.id = ?",
-            // new Object[] { Comment.Status.APPROVED, postId });
-            // executeUpdate("update Post set commentCount = ?", count);
-            executeUpdate(" update Post set commentCount = (select count(*) from Comment comment where comment.status = ? and comment.post.id = ?) where id = ?", new Object[] { Comment.Status.APPROVED, postId, postId });
+            executeUpdate("update Post set commentCount = (select count(*) from Comment comment where comment.status = ? and comment.post.id = ?) where id = ?", new Object[] { Comment.Status.APPROVED, postId, postId });
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.PostService#updatePostViewCount(java.lang.Long)
+     */
+    @Override
+    public void updatePostViewCount(Long postId) {
+        // TODO Auto-generated method stub
+        if (postId != null) {
+            executeUpdate("update Post post set post.viewCount = (post.viewCount + 1) where post.id = ?", postId);
         }
     }
 

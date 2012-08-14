@@ -12,7 +12,7 @@ import net.sf.ehcache.CacheManager;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Option;
 import org.mspring.mlog.service.OptionService;
-import org.mspring.mlog.web.Keys;
+import org.mspring.mlog.web.common.Keys;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.CacheUtils;
 import org.mspring.platform.utils.StringUtils;
