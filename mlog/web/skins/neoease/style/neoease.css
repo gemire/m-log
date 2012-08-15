@@ -1,9 +1,3 @@
-/**
- * skin neoease style
- *
- * @author <a href="mailto:LLY219@gmail.com">Liyuan Li</a>
- * @version 1.0.1.6, May 14, 2012
-*/
 /* start base */
 html, body, div, ul, li, h1, h2, h3, h4, h5, h6 {
     margin: 0;
@@ -505,7 +499,6 @@ textarea, input {
 .article-title:hover {
     color: #D54E21;
 }
-
 .article .expand-ico, .article .collapse-ico {
     float: right;
     margin-top: 9px;
@@ -521,9 +514,8 @@ textarea, input {
 .article-body {
     line-height: 145%;
     overflow: hidden;
-    word-wrap: break-word;
+    /*word-wrap: break-word;*/
 }
-
 .article-body h1 {
     font-size: 2em;
     margin: .67em 0;
@@ -552,7 +544,6 @@ textarea, input {
     font-size: .75em;
     margin: 1.67em 0;
 }
-
 .article-body ol, .article-body ul {
     margin-left: 40px;
 }
@@ -569,7 +560,6 @@ textarea, input {
 .article-body p {
     line-height: 18px;
 }
-
 .pagination {
     margin-top: 30px;
     line-height: 21px;
@@ -776,40 +766,6 @@ textarea, input {
     border-color: #76B33A #98C64C #98C64C #76B33A;
     color: #074A7E;
 }
-
-
-.inputtext {
-    border-color: silver #D9D9D9 #D9D9D9;
-    border-style: solid;
-    border-width: 1px;
-    font-family: "Lucida Grande",Verdana,'微软雅黑';
-    font-size: 12px;
-    outline: medium none;
-    padding: 0 3px;
-    height: 24px;
-    line-height: 16px;
-}
-
-.inputtext:focus {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
-}
-
-.button {
-	background-color: #B4D666;
-    border-color: #B4D666 #81B840 #81B840 #B4D666;
-    border-style: solid;
-    border-width: 1px;
-    color: #2970A6;
-    height: 28px;
-    line-height: 28px;
-    padding: 0 12px;
-}
-
-.button:hover {
-    background-color: #98C64C;
-    border-color: #76B33A #98C64C #98C64C #76B33A;
-    color: #074A7E;
-}
 /* end article*/
 
 /* start tags */
@@ -914,18 +870,3 @@ textarea, input {
     background-color: #ADEb51;
 }
 /* end others */
-
-blockquote {
-	background-color:#FFF6EF;
-	border:1px dashed #EFD2C2;
-	margin:10px 20px;
-	padding:10px;
-	quotes:"“" "”";
-}
-
-.notice {
-	background-color:#FFF6EF;
-	border:1px dashed #EFD2C2;
-	padding:10px;
-	quotes:"“" "”";
-}

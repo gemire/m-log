@@ -3,13 +3,23 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="Content-Language" content="zh_CN" />
+	<title>${blogname}</title>
 	<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/style.css" type="text/css" media="screen" />
 	<!--[if lt IE 7]>
     <style type="text/css" media="all"> @import "${template_url}/style/fix-ie.css";</style>
     <![endif]-->
     <link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 	<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
-	<title>${blogname}</title>
+	<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//加载
+			mlog.load({
+				contentSelector : ".content"
+			});
+		});
+	</script>
 </head>
 <body class="multi default">
 <!-- Layout -->

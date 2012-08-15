@@ -14,6 +14,15 @@
 		<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${template_url}/script/neoease.js" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//加载
+				mlog.load({
+					contentSelector : ".article-body"
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<div class="header">
