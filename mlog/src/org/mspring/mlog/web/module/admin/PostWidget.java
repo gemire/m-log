@@ -74,7 +74,7 @@ public class PostWidget {
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("title", "标题"));
         columnfields.add(new ColumnField("catalogs", "分类"));
-        columnfields.add(new ColumnField("url", "链接"));
+        //columnfields.add(new ColumnField("url", "链接"));
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
         columnfields.add(new ColumnField("author.alias", "作者"));

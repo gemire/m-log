@@ -26,8 +26,7 @@ public class UpdateStatInfoCmd extends AbstractCommand {
     @Override
     public void execute() throws BusinessException {
         // TODO Auto-generated method stub
-        new Runnable() {
-
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
@@ -36,7 +35,7 @@ public class UpdateStatInfoCmd extends AbstractCommand {
                 log.debug("begin update comment count...");
                 ServiceFactory.getStatService().updateCommentCount();
             }
-        }.run();
+        }).start();
     }
 
 }

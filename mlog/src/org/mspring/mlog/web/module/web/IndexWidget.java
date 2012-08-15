@@ -44,16 +44,17 @@ public class IndexWidget extends AbstractWebWidget {
         if (postPage.getSort() == null) {
             postPage.setSort(new Sort("id", Sort.DESC));
         }
-        postService.findPost(postPage, "select post from Post post where post.status = ?", Post.Status.PUBLISH);
+        postService.findPost(postPage, "select post from Post post where post.status = ? order by post.createTime desc", Post.Status.PUBLISH);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
-        
-        //更新浏览量
-        new Runnable() {
+
+        // 更新浏览量
+        new Thread(new Runnable() {
+            @Override
             public void run() {
+                // TODO Auto-generated method stub
                 statService.updateClickCount();
             }
-        }.run();
-        
+        }).start();
         return "skin:/index";
     }
 
