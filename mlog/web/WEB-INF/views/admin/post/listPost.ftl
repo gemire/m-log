@@ -73,7 +73,7 @@
 									</#list>
 								</#if>
 							</td>
-							<td class="${tdClass}">${item.url}</td>
+							<#-- <td class="${tdClass}">${item.url}</td> -->
 							<td class="${tdClass}">${item.createTime}</td>
 							<td class="${tdClass}">${item.modifyTime!""}</td>
 							<td class="${tdClass}">${item.author.alias}</td>
