@@ -47,6 +47,7 @@
 			<@spring.formHiddenInput path="post.createTime" />
 			<@spring.formHiddenInput path="post.status" />
 			<@spring.formHiddenInput path="post.commentCount" />
+			<@spring.formHiddenInput path="post.viewCount" />
 			<table class="formtable" style="width:100%;">
 				<tr>
 					<td class="fieldlabel" style="width:60px;">标题</td>
