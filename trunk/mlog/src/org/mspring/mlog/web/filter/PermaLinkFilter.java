@@ -80,11 +80,14 @@ public class PermaLinkFilter implements Filter {
             request.getRequestDispatcher("/post").forward(request, response);
 
             // 更新post点击
-            new Runnable() {
+            new Thread(new Runnable() {
+
+                @Override
                 public void run() {
+                    // TODO Auto-generated method stub
                     ServiceFactory.getPostService().updatePostViewCount(post.getId());
                 }
-            }.run();
+            }).start();
         }
     }
 
