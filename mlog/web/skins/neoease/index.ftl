@@ -1,3 +1,6 @@
+<#import "/META-INF/spring.ftl" as spring />
+<#import "/META-INF/mspring.ftl" as mspring />
+
 <#include "header.ftl" />
 <div class="body">
     <div class="wrapper">
@@ -49,6 +52,15 @@
 			    </div>
 			</div>
 			</@list_post>
+			<#if (postPage.totalPages > 1)>
+				<div class="pagination">
+					<form id="postForm" name="postForm">
+						<@spring.bind "postPage" />
+						<@spring.formHiddenInput path="postPage.pageNo" />
+						<@mspring.pagingnavigator page=postPage form_id="postForm" />
+					</form>
+				</div>
+			</#if>
         </div>
         <#include "sidebar.ftl">
         <div class="clear"></div>

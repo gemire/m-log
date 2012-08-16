@@ -18,6 +18,12 @@
         </ul>
     </div>
     <div>
+        <h4>热门文章</h4>
+        <ul class="side-li">
+            <@widget.placeholder path="/widget/mostViewPost" />
+        </ul>
+    </div>
+    <div>
         <h4>最新评论</h4>
         <ul class="side-li">
             <@widget.placeholder path="/widget/recentComment" />

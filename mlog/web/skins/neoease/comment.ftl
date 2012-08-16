@@ -93,10 +93,4 @@
 	    </table>
 	</form>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//将评论文本中的表情标识，替换成图片
-		mlog.replaceCommentsEm("#comments .article-body");
-	});
-</script>
 </#if>
