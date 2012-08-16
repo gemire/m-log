@@ -18,6 +18,7 @@ import org.mspring.mlog.web.common.Keys;
 public class GlobalUtils {
     /**
      * 获取当前登录用户
+     * 
      * @param request
      * @return
      */
@@ -27,6 +28,7 @@ public class GlobalUtils {
 
     /**
      * 获取当前登录用户
+     * 
      * @param session
      * @return
      */
@@ -37,4 +39,5 @@ public class GlobalUtils {
         }
         return null;
     }
+
 }

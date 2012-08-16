@@ -41,11 +41,12 @@ public class SearchWidget extends AbstractWebWidget {
             }
             catch (Exception e) {
                 // TODO: handle exception
-                log.debug(String.format("search for keyword [%s] failure!", keyword));
+                e.printStackTrace();
+                log.debug(String.format("search for keyword [%keyword] failure!", keyword));
             }
         }
+        model.addAttribute("keyword", keyword);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
-        model.addAttribute(FreemarkerVariableNames.SEARCH_KEYWORD, keyword);
         return "skin:/search";
     }
 }
