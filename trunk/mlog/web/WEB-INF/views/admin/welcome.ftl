@@ -1,6 +1,5 @@
 <#include "inc/header.ftl" />
 	<div class="ui-layout-center"><@widget.placeholder path="/admin/top" /></div>
-
 <script type="text/javascript">
 $(document).ready(function(){
 	$('body').layout({

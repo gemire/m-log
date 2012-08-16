@@ -1,7 +1,13 @@
-<#if variables?exists>
-	<#assign vars = variables>
-	<#list vars?keys as key>
-		<#assign value = vars[key]>
-		var ${key}='${value}';
-	</#list>
-</#if>
+if(mlog === undefined) {var mlog = {};}
+mlog.variable = function(){};
+$.extend(mlog.variable,{
+	<#if variables?exists>
+		<#list variables?keys as key>
+			<#if key_has_next>
+				${key} : '${variables[key]}',
+			<#else>
+				${key} : '${variables[key]}'
+			</#if>
+		</#list>
+	</#if>
+});
