@@ -183,6 +183,27 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     /*
      * (non-Javadoc)
      * 
+     * @see org.mspring.mlog.service.PostService#getMostViewPost(int)
+     */
+    @Override
+    public List<Post> getMostViewPost(final int nums) {
+        // TODO Auto-generated method stub
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<Post>>() {
+
+            @Override
+            public List<Post> doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                Query query = session.createQuery("select post from Post post where post.status = ? order by post.viewCount desc");
+                query.setParameter(0, Post.Status.PUBLISH);
+                query.setMaxResults(nums);
+                return query.list();
+            }
+        });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see
      * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
      */

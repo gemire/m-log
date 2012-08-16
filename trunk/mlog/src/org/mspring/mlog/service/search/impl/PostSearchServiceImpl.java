@@ -35,7 +35,7 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
         // TODO Auto-generated method stub
         String[] fields = new String[] { "title", "summary", "content" };
         Query query = getQueryBuilder(Post.class).keyword().onFields(fields).matching(queryString).createQuery();
-        return searchPage(page, query, new Class[] { Post.class, Catalog.class, User.class });
+        return searchPage(page, query, new Class[] { Post.class });
     }
 
     /*

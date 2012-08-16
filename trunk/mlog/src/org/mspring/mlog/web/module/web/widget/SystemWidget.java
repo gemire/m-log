@@ -67,6 +67,25 @@ public class SystemWidget extends AbstractWebWidget {
         model.addAttribute("posts", posts);
         return "/widget/recentPost";
     }
+    
+    /**
+     * 最高点击文章
+     * @param request 
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("mostViewPost")
+    public String mostViewPost(HttpServletRequest request, HttpServletResponse response, Model model){
+        int num = 20;
+        String numStr = request.getParameter("num");
+        if (!StringUtils.isBlank(numStr) && ValidatorUtils.isNumber(numStr)) {
+            num = Integer.parseInt(numStr);
+        }
+        List<Post> posts = postService.getMostViewPost(num);
+        model.addAttribute("posts", posts);
+        return "/widget/mostViewPost";
+    }
 
     /**
      * 最近评论

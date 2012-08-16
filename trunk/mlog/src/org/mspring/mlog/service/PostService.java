@@ -43,6 +43,14 @@ public interface PostService {
     List<Post> getRecentPost(int nums);
 
     /**
+     * 最高点击率文章
+     * 
+     * @param nums
+     * @return
+     */
+    List<Post> getMostViewPost(int nums);
+
+    /**
      * 验证文章标题是否存在
      * 
      * @param title
@@ -67,15 +75,17 @@ public interface PostService {
      * @return
      */
     boolean urlExists(String url, Long postId);
-    
+
     /**
      * 更新文章评论数量
+     * 
      * @param postId
      */
     void updatePostCommentCount(Long postId);
-    
+
     /**
      * 更新文章点击
+     * 
      * @param postId
      */
     void updatePostViewCount(Long postId);

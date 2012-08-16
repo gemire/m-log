@@ -8,7 +8,6 @@ import org.hibernate.search.SearchFactory;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.support.Page;
-import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class AbstractSearchServiceSupport extends AbstractServiceSupport {
 

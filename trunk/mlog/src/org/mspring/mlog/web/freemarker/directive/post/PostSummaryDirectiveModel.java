@@ -1,12 +1,13 @@
 /**
  * 
  */
-package org.mspring.mlog.web.freemarker.directive.search;
+package org.mspring.mlog.web.freemarker.directive.post;
 
 import java.io.IOException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 
@@ -17,14 +18,14 @@ import freemarker.template.TemplateModel;
 
 /**
  * @author Gao Youbo
- * @since 2012-8-13
+ * @since 2012-8-16
  * @Description
  * @TODO
  */
-public class SearchKeywordDirectiveModel extends AbstractDirectiveModel {
-    private static final Logger log = Logger.getLogger(SearchKeywordDirectiveModel.class);
+public class PostSummaryDirectiveModel extends AbstractDirectiveModel {
+    private static final Logger log = Logger.getLogger(PostSummaryDirectiveModel.class);
 
-    public static final String KEY = "search_keyword";
+    public static final String KEY = "post_summary";
 
     /*
      * (non-Javadoc)
@@ -49,12 +50,13 @@ public class SearchKeywordDirectiveModel extends AbstractDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         // TODO Auto-generated method stub
-        Object keywork = env.__getitem__(FreemarkerVariableNames.SEARCH_KEYWORD);
-        if (keywork == null) {
-            log.warn("################key can't be found");
+        // 获取当前模板变量中的文章对象
+        Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
+        if (postObj == null || !(postObj instanceof Post)) {
+            log.warn("################post can't be found");
             return;
         }
-        env.getOut().append(keywork.toString());
+        String summary = ((Post) postObj).getSummary();
+        env.getOut().append(summary);
     }
-
 }
