@@ -766,6 +766,41 @@ textarea, input {
     border-color: #76B33A #98C64C #98C64C #76B33A;
     color: #074A7E;
 }
+
+
+.inputtext {
+    border-color: silver #D9D9D9 #D9D9D9;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Lucida Grande",Verdana,'微软雅黑';
+    font-size: 12px;
+    outline: medium none;
+    padding: 0 3px;
+    height: 24px;
+    line-height: 16px;
+}
+
+.inputtext:focus {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+}
+
+.button {
+	background-color: #B4D666;
+    border-color: #B4D666 #81B840 #81B840 #B4D666;
+    border-style: solid;
+    border-width: 1px;
+    color: #2970A6;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 12px;
+}
+
+.button:hover {
+    background-color: #98C64C;
+    border-color: #76B33A #98C64C #98C64C #76B33A;
+    color: #074A7E;
+}
+
 /* end article*/
 
 /* start tags */
@@ -870,3 +905,18 @@ textarea, input {
     background-color: #ADEb51;
 }
 /* end others */
+
+blockquote {
+	background-color:#FFF6EF;
+	border:1px dashed #EFD2C2;
+	margin:10px 20px;
+	padding:10px;
+	quotes:"“" "”";
+}
+
+.notice {
+	background-color:#FFF6EF;
+	border:1px dashed #EFD2C2;
+	padding:10px;
+	quotes:"“" "”";
+}

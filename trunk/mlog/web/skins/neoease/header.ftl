@@ -12,6 +12,7 @@
 		<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/neoease.css" type="text/css" media="screen" />
 		
 		<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
+		<script type="text/javascript" src="${base}/script_variable.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${template_url}/script/neoease.js" charset="utf-8"></script>
 		
@@ -21,6 +22,10 @@
 				mlog.load({
 					contentSelector : ".article-body"
 				});
+				
+				//将评论文本中的表情标识，替换成图片
+				mlog.replaceCommentsEm("#comments .article-body");
+				mlog.replaceCommentsEm(".side ul li");
 			});
 		</script>
 	</head>
@@ -36,7 +41,7 @@
 		            <span class="sub-title">${blogsubname}</span>
 		        </div>
 		        <form method="get" action="${base}/search">
-		            <input id="search" type="text" name="keyword" value="<@search_keyword />" />
+		            <input id="search" type="text" name="keyword" value="${keyword!""}" />
 		        </form>
 		        <div class="clear"></div>
 		    </div>

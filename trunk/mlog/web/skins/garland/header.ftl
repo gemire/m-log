@@ -10,7 +10,9 @@
     <![endif]-->
     <link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 	<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
+	
 	<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script_variable.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
