@@ -38,7 +38,7 @@
         timeToLiveSeconds="1800"
         overflowToDisk="false"
         />
-
+        
 	<cache name="PageCachingFilter" maxElementsInMemory="10" eternal="false"
 		timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="true">
 	</cache>
