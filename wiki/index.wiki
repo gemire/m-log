@@ -1,0 +1,6 @@
+#summary One-sentence summary of this page.
+
+= 介绍 =
+
+M-Log是基于JDK1.5+搭建的博客程序，底层SpringMVC + Hibernate
+支持换肤、mateweblog离线写作协议、RSS/ATOM订阅、页面缓存等一些博客的基本功能。
