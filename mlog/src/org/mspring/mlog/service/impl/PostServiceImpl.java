@@ -6,12 +6,14 @@ package org.mspring.mlog.service.impl;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
@@ -316,6 +318,32 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (postId != null) {
             executeUpdate("update Post post set post.viewCount = (post.viewCount + 1) where post.id = ?", postId);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#getRandomPost(int)
+     */
+    @Override
+    public List<Post> getRandomPost(int nums) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.PostService#getRelatedPost(org.mspring.mlog.
+     * entity.Post, int)
+     */
+    @Override
+    public List<Post> getRelatedPost(Post post, int nums) {
+        // TODO Auto-generated method stub
+        Set<Tag> tags = post.getTags();
+        
+        return null;
     }
 
 }

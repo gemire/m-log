@@ -16,22 +16,78 @@ import org.mspring.platform.persistence.support.Page;
  * @TODO
  */
 public interface PostService {
+    /**
+     * 创建文章
+     * 
+     * @param post
+     * @return
+     */
     Post createPost(Post post);
 
+    /**
+     * 删除文章
+     * 
+     * @param idArray
+     */
     void deletePost(Long... idArray);
 
+    /**
+     * 查找文章
+     * 
+     * @param page
+     * @param queryCriterion
+     * @return
+     */
     Page<Post> findPost(Page<Post> page, QueryCriterion queryCriterion);
 
+    /**
+     * 查找文章
+     * 
+     * @param page
+     * @param queryString
+     * @return
+     */
     Page<Post> findPost(Page<Post> page, String queryString);
 
+    /**
+     * 查找文章
+     * 
+     * @param page
+     * @param queryString
+     * @param queryParams
+     * @return
+     */
     Page<Post> findPost(Page<Post> page, String queryString, Object... queryParams);
 
+    /**
+     * 根据编号获取
+     * 
+     * @param postId
+     * @return
+     */
     Post getPostById(Long postId);
 
+    /**
+     * 根据标题获取
+     * 
+     * @param title
+     * @return
+     */
     Post getPostByTitle(String title);
 
+    /**
+     * 根据URL获取
+     * 
+     * @param url
+     * @return
+     */
     Post getPostByUrl(String url);
 
+    /**
+     * 更新文章
+     * 
+     * @param post
+     */
     void updatePost(Post post);
 
     /**
@@ -89,4 +145,21 @@ public interface PostService {
      * @param postId
      */
     void updatePostViewCount(Long postId);
+
+    /**
+     * 获取随机文章
+     * 
+     * @param nums
+     *            获取的文章个数
+     * @return
+     */
+    List<Post> getRandomPost(int nums);
+
+    /**
+     * 获取相关文章
+     * 
+     * @param nums
+     * @return
+     */
+    List<Post> getRelatedPost(Post post, int nums);
 }

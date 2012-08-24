@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
-import org.mspring.platform.utils.PropertyUtils;
+import org.mspring.platform.utils.PropertiesUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
@@ -51,7 +51,7 @@ public class ExtendsFreeMarkerConfigurer extends FreeMarkerConfigurer {
     @SuppressWarnings("rawtypes")
     private Map<String, Object> addVariables() {
         Map<String, Object> variables = new HashMap<String, Object>();
-        Map<String, String> map = PropertyUtils.getPropertyMap(getClass().getResourceAsStream("variables.properties"));
+        Map<String, String> map = PropertiesUtils.getPropertyMap(getClass().getResourceAsStream("variables.properties"));
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
