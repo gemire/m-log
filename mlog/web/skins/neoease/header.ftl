@@ -3,10 +3,11 @@
     <head>
         <meta charset="utf-8" />
 		<title>${blogname}</title>
-		<meta name="author" content="B3log Team" />
+		<meta name="author" content="mspring" />
 		<meta name="generator" content="mlog" />
 		<meta name="copyright" content="mlog" />
 		<meta http-equiv="Window-target" content="_top" />
+		<link rel="icon" type="image/png" href="${base}/images/favicon.ico" />
 		<link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 		<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 		<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/neoease.css" type="text/css" media="screen" />
