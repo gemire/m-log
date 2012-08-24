@@ -17,7 +17,7 @@ import org.mspring.mlog.service.SkinService;
 import org.mspring.mlog.web.common.Keys;
 import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.platform.core.AbstractServiceSupport;
-import org.mspring.platform.utils.PropertyUtils;
+import org.mspring.platform.utils.PropertiesUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +121,7 @@ public class SkinServiceImpl extends AbstractServiceSupport implements SkinServi
             for (File skinfile : skinfiles) {
                 String skin_properties_filename = skinfile.getPath() + File.separator + Keys.SKIN_PROPERTIES_NAME;
                 File skin_properties_file = new File(skin_properties_filename);
-                Map<String, String> properties = PropertyUtils.getPropertyMap(skin_properties_file);
+                Map<String, String> properties = PropertiesUtils.getPropertyMap(skin_properties_file);
                 Skin skin = new Skin();
                 skin.setFolder(skinfile.getName());
                 skin.setName(properties.get("name"));

@@ -18,8 +18,8 @@ import org.springframework.core.io.ClassPathResource;
  * @author gaoyb(www.mspring.org)
  * @since Mar 5, 2011
  */
-public class PropertyUtils {
-    private static final Logger logger = Logger.getLogger(PropertyUtils.class);
+public class PropertiesUtils {
+    private static final Logger logger = Logger.getLogger(PropertiesUtils.class);
 
     public static Properties loadProperty(String classPathFileName) {
         ClassPathResource cpr = new ClassPathResource(classPathFileName);
