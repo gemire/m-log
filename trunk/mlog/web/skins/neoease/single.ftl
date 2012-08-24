@@ -57,7 +57,9 @@
                     <div id="externalRelevantArticles"></div>
                 </div>
             </div>
-            <@widget.placeholder path="/comment?post=${post.id}" cache=false />
+            <#if post.commentStatus == 'open'>
+            	<@widget.placeholder path="/comment?post=${post.id}" cache=false />
+            </#if>
         </div>
         <#include "sidebar.ftl">
         <div class="clear"></div>

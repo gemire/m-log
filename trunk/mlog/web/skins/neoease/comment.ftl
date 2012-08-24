@@ -24,7 +24,6 @@
     </div>
     </@list_comment>
 </div>
-<#if post.commentStatus == "open">
 <div class="form">
     <h4>发表评论</h4>
     <form id="comment-form" target="_self" method="post" action="${base}/comment/post">
@@ -93,4 +92,3 @@
 	    </table>
 	</form>
 </div>
-</#if>
