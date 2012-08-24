@@ -78,8 +78,7 @@
 		</property>
 	</bean>
 
-	<bean id="ftlViewResolver"
-		class="org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver">
+	<bean id="ftlViewResolver" class="org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".ftl" />
 		<property name="skinfolder" value="/skins/" />
