@@ -32,24 +32,31 @@ public class MacroBlogController {
      */
     @RequestMapping("/authorize")
     public String authorize(HttpServletRequest request, HttpServletResponse response, Model model) {
-        //OAuthV2 oAuth = MacroBlogUtils.getOAuthV2("http://localhost:8080/mlog/t/callback");
-        OAuthV2 oAuth = MacroBlogUtils.getOAuthV2("http://www.mspring.org");
-        QHttpClient qHttpClient=new QHttpClient(2, 2, 5000, 5000, null, null);
-        OAuthV2Client.setQHttpClient(qHttpClient);
+        OAuthV2 oAuth = MacroBlogUtils.getOAuthV2("http://localhost:8080/mlog/t/callback");
+        //OAuthV2 oAuth = MacroBlogUtils.getOAuthV2("http://www.mspring.org/callback.php");
         String authorizationUrl = OAuthV2Client.generateAuthorizationURL(oAuth);
         return "redirect:" + authorizationUrl;
     }
 
     @RequestMapping("/callback")
     public String callback(@RequestParam(required = false) String code, @RequestParam(required = false) String openid, @RequestParam(required = false) String openkey, HttpServletRequest request, HttpServletResponse response, Model model) {
-        String responseData = "code=" + code + "openid=" + openid + "openkey=" + openkey;
-        System.out.println(responseData);
+        String responseData = "code=" + code + "&openid=" + openid + "&openkey=" + openkey;
+        OAuthV2 oAuth = MacroBlogUtils.getOAuthV2("http://localhost:8080/mlog/t/callback");
+        QHttpClient qHttpClient=new QHttpClient(2, 2, 5000, 5000, null, null);
+        OAuthV2Client.setQHttpClient(qHttpClient);
         
-//        if(OAuthV2Client.parseAuthorization(responseData, oAuth)){
-//            System.out.println("Parse Authorization Information Successfully");
-//        }else{
-//        }
-        model.addAttribute("response", responseData);
+        //授权
+        boolean flag = OAuthV2Client.parseAuthorization(responseData, oAuth);
+        qHttpClient.shutdownConnection();
+        
+        if (flag) { //授权成功
+            model.addAttribute("result", "true");
+            
+            //写入配置
+        }
+        else { //授权失败
+            model.addAttribute("result", "false");
+        }
         return "/t/authorize";
     }
 }
