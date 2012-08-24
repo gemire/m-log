@@ -20,6 +20,11 @@ public class MacroBlogUtils {
 
     public static final String APP_KEY_SUFFIX = "app_key";
     public static final String APP_SECRET_SUFFIX = "app_secret";
+    
+    /**
+     * 腾讯微博配置前缀
+     */
+    public static final String TENCENT_APP_KEY_PREFIX = "tencent.";
 
     /**
      * 获取OAuth2
@@ -27,10 +32,10 @@ public class MacroBlogUtils {
      * @param redirectUri
      * @return
      */
-    public static OAuthV2 getOAuthV2(String redirectUri) {
+    public static OAuthV2 getOAuthV2(String prefix, String redirectUri) {
         OAuthV2 oAuth = new OAuthV2();
-        oAuth.setClientId("801115505");
-        oAuth.setClientSecret("be1dd1410434a9f7d5a2586bab7a6829");
+        oAuth.setClientId(getAppKey(prefix));
+        oAuth.setClientSecret(getAppSecret(prefix));
         oAuth.setRedirectUri(redirectUri);
         return oAuth;
     }
@@ -62,6 +67,18 @@ public class MacroBlogUtils {
             return appSecret;
         }
         return "";
+    }
+    
+    /**
+     * 写入应用授权信息
+     */
+    public static final void setAuthorizeInfo(String prefix, String code, String openid, String openkey){
+        Map<String, String> map = getMacroBlogSetting();
+        map.put(prefix + "code", code);
+        map.put(prefix + "openid", openid);
+        map.put(prefix + "openkey", openkey);
+        
+        PropertiesUtils.setPropertyMap(MACRO_BLOG_SETTING_FILE, map);
     }
 
     private static final Map<String, String> getMacroBlogSetting() {
