@@ -1,0 +1,180 @@
+12-08-25 12:24:57 INFO [t.tencent.oauthv1.OAuthV1Client:51] requestToken queryString = oauth_callback=null&oauth_consumer_key=801115505&oauth_nonce=91177973906077948639690610687108&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868696&oauth_version=1.0&oauth_signature=r8ve%2BpFSrPBj7UqbXMF5o24K8Vw%3D
+12-08-25 12:24:57 INFO [t.tencent.utils.QHttpClient:128] QHttpClient httpGet [1] url = https://open.t.qq.com/cgi-bin/request_token?oauth_callback=null&oauth_consumer_key=801115505&oauth_nonce=91177973906077948639690610687108&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868696&oauth_version=1.0&oauth_signature=r8ve%2BpFSrPBj7UqbXMF5o24K8Vw%3D
+12-08-25 12:24:57 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:221] Get connection: HttpRoute[{s}->https://open.t.qq.com], timeout = 1000
+12-08-25 12:24:57 DEBUG [impl.conn.tsccm.ConnPoolByRoute:350] [HttpRoute[{s}->https://open.t.qq.com]] total kept alive: 0, total issued: 0, total allocated: 0 out of 2
+12-08-25 12:24:57 DEBUG [impl.conn.tsccm.ConnPoolByRoute:523] No free connections [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:24:57 DEBUG [impl.conn.tsccm.ConnPoolByRoute:369] Available capacity: 2 out of 2 [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:24:57 DEBUG [impl.conn.tsccm.ConnPoolByRoute:549] Creating new connection [HttpRoute[{s}->https://open.t.qq.com]]
+12-08-25 12:24:57 DEBUG [http.impl.conn.DefaultClientConnectionOperator:145] Connecting to open.t.qq.com:443
+12-08-25 12:24:58 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: ignoreCookies
+12-08-25 12:24:58 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
+12-08-25 12:24:58 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
+12-08-25 12:24:58 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: GET /cgi-bin/request_token?oauth_callback=null&oauth_consumer_key=801115505&oauth_nonce=91177973906077948639690610687108&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868696&oauth_version=1.0&oauth_signature=r8ve%2BpFSrPBj7UqbXMF5o24K8Vw%3D HTTP/1.1
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] >> "GET /cgi-bin/request_token?oauth_callback=null&oauth_consumer_key=801115505&oauth_nonce=91177973906077948639690610687108&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868696&oauth_version=1.0&oauth_signature=r8ve%2BpFSrPBj7UqbXMF5o24K8Vw%3D HTTP/1.1[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:268] >> GET /cgi-bin/request_token?oauth_callback=null&oauth_consumer_key=801115505&oauth_nonce=91177973906077948639690610687108&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868696&oauth_version=1.0&oauth_signature=r8ve%2BpFSrPBj7UqbXMF5o24K8Vw%3D HTTP/1.1
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 200 OK[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "Date: Sat, 25 Aug 2012 04:24:51 GMT[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "Content-Type: application/x-www-form-urlencoded[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "Content-Length: 126[\r][\n]"
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
+12-08-25 12:24:58 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 200 OK
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:252] << HTTP/1.1 200 OK
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:255] << Date: Sat, 25 Aug 2012 04:24:51 GMT
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:255] << Content-Type: application/x-www-form-urlencoded
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
+12-08-25 12:24:58 DEBUG [org.apache.http.headers:255] << Content-Length: 126
+12-08-25 12:24:58 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
+12-08-25 12:24:58 INFO [t.tencent.utils.QHttpClient:137] QHttpClient httpGet [2] StatusLine : HTTP/1.1 200 OK
+12-08-25 12:24:58 DEBUG [org.apache.http.wire:77] << "oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_token_secret=9ab4d5d83c58bc645b62fe2cacebd3e8&oauth_callback_confirmed=true"
+12-08-25 12:24:58 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:270] Released connection is reusable.
+12-08-25 12:24:58 DEBUG [impl.conn.tsccm.ConnPoolByRoute:434] Releasing connection [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:24:58 DEBUG [impl.conn.tsccm.ConnPoolByRoute:460] Pooling connection [HttpRoute[{s}->https://open.t.qq.com]][null]; keep alive indefinitely
+12-08-25 12:24:58 DEBUG [impl.conn.tsccm.ConnPoolByRoute:679] Notifying no-one, there are no waiting threads
+12-08-25 12:24:58 INFO [t.tencent.utils.QHttpClient:139] QHttpClient httpGet [3] Response = oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_token_secret=9ab4d5d83c58bc645b62fe2cacebd3e8&oauth_callback_confirmed=true
+12-08-25 12:24:58 INFO [t.tencent.oauthv1.OAuthV1Client:54] requestToken responseData = oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_token_secret=9ab4d5d83c58bc645b62fe2cacebd3e8&oauth_callback_confirmed=true
+12-08-25 12:24:58 INFO [t.tencent.oauthv1.OAuthV1Client:213] parseToken response=>> tokenArray.length = 3
+12-08-25 12:25:32 INFO [t.tencent.oauthv1.OAuthV1Client:90] parseToken response=>> tokenArray.length = 5
+12-08-25 12:25:32 INFO [t.tencent.oauthv1.OAuthV1Client:131] Getting Access Token ...... 
+ RequestToken = aa23513656c54b509ffd34f59d240a01
+OauthVerifier = 888865
+12-08-25 12:25:32 INFO [t.tencent.oauthv1.OAuthV1Client:139] accessToken queryString = oauth_consumer_key=801115505&oauth_nonce=85806648383006533621525756952150&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868732&oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_verifier=888865&oauth_version=1.0&oauth_signature=tkdDqbQyKDeS0cpT7b9YG1q%2Bg8c%3D
+12-08-25 12:25:32 INFO [t.tencent.oauthv1.OAuthV1Client:140] accessToken url = https://open.t.qq.com/cgi-bin/access_token
+12-08-25 12:25:32 INFO [t.tencent.utils.QHttpClient:128] QHttpClient httpGet [1] url = https://open.t.qq.com/cgi-bin/access_token?oauth_consumer_key=801115505&oauth_nonce=85806648383006533621525756952150&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868732&oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_verifier=888865&oauth_version=1.0&oauth_signature=tkdDqbQyKDeS0cpT7b9YG1q%2Bg8c%3D
+12-08-25 12:25:32 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:221] Get connection: HttpRoute[{s}->https://open.t.qq.com], timeout = 1000
+12-08-25 12:25:32 DEBUG [impl.conn.tsccm.ConnPoolByRoute:350] [HttpRoute[{s}->https://open.t.qq.com]] total kept alive: 1, total issued: 0, total allocated: 1 out of 2
+12-08-25 12:25:32 DEBUG [impl.conn.tsccm.ConnPoolByRoute:498] Getting free connection [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [http.impl.client.DefaultHttpClient:411] Stale connection check
+12-08-25 12:25:33 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: ignoreCookies
+12-08-25 12:25:33 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
+12-08-25 12:25:33 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: GET /cgi-bin/access_token?oauth_consumer_key=801115505&oauth_nonce=85806648383006533621525756952150&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868732&oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_verifier=888865&oauth_version=1.0&oauth_signature=tkdDqbQyKDeS0cpT7b9YG1q%2Bg8c%3D HTTP/1.1
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "GET /cgi-bin/access_token?oauth_consumer_key=801115505&oauth_nonce=85806648383006533621525756952150&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868732&oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_verifier=888865&oauth_version=1.0&oauth_signature=tkdDqbQyKDeS0cpT7b9YG1q%2Bg8c%3D HTTP/1.1[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:268] >> GET /cgi-bin/access_token?oauth_consumer_key=801115505&oauth_nonce=85806648383006533621525756952150&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868732&oauth_token=aa23513656c54b509ffd34f59d240a01&oauth_verifier=888865&oauth_version=1.0&oauth_signature=tkdDqbQyKDeS0cpT7b9YG1q%2Bg8c%3D HTTP/1.1
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 200 OK[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Date: Sat, 25 Aug 2012 04:25:26 GMT[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Content-Type: application/x-www-form-urlencoded[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Content-Length: 117[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:252] << HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Date: Sat, 25 Aug 2012 04:25:26 GMT
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Content-Type: application/x-www-form-urlencoded
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Content-Length: 117
+12-08-25 12:25:33 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
+12-08-25 12:25:33 INFO [t.tencent.utils.QHttpClient:137] QHttpClient httpGet [2] StatusLine : HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:77] << "oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_token_secret=4832326f04c62cd072cb3a95ac84f10e&name=fanghuiping1988"
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:270] Released connection is reusable.
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:434] Releasing connection [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:460] Pooling connection [HttpRoute[{s}->https://open.t.qq.com]][null]; keep alive indefinitely
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:679] Notifying no-one, there are no waiting threads
+12-08-25 12:25:33 INFO [t.tencent.utils.QHttpClient:139] QHttpClient httpGet [3] Response = oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_token_secret=4832326f04c62cd072cb3a95ac84f10e&name=fanghuiping1988
+12-08-25 12:25:33 INFO [t.tencent.oauthv1.OAuthV1Client:144] accessToken responseData = oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_token_secret=4832326f04c62cd072cb3a95ac84f10e&name=fanghuiping1988
+12-08-25 12:25:33 INFO [t.tencent.oauthv1.OAuthV1Client:213] parseToken response=>> tokenArray.length = 3
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:282] Shutting down
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:794] Closing connection [HttpRoute[{s}->https://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnection:165] Connection closed
+12-08-25 12:25:33 INFO [t.tencent.utils.QHttpClient:162] QHttpClient httpPost [1] url = http://open.t.qq.com/api/t/add?clientip=127.0.0.1&content=%E6%B5%8B%E8%AF%95%E5%8F%91%E8%A1%A8%E6%96%87%E5%AD%97%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=15833476432427491698073541583205&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868733&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&oauth_signature=cibCe6WjmrOVLHpTwTbqAIopKSY%3D
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:221] Get connection: HttpRoute[{}->http://open.t.qq.com], timeout = 5000
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:350] [HttpRoute[{}->http://open.t.qq.com]] total kept alive: 0, total issued: 0, total allocated: 0 out of 200
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:523] No free connections [HttpRoute[{}->http://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:369] Available capacity: 20 out of 20 [HttpRoute[{}->http://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:549] Creating new connection [HttpRoute[{}->http://open.t.qq.com]]
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnectionOperator:145] Connecting to open.t.qq.com:80
+12-08-25 12:25:33 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: ignoreCookies
+12-08-25 12:25:33 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
+12-08-25 12:25:33 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: POST /api/t/add?clientip=127.0.0.1&content=%E6%B5%8B%E8%AF%95%E5%8F%91%E8%A1%A8%E6%96%87%E5%AD%97%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=15833476432427491698073541583205&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868733&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&oauth_signature=cibCe6WjmrOVLHpTwTbqAIopKSY%3D HTTP/1.1
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "POST /api/t/add?clientip=127.0.0.1&content=%E6%B5%8B%E8%AF%95%E5%8F%91%E8%A1%A8%E6%96%87%E5%AD%97%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=15833476432427491698073541583205&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868733&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&oauth_signature=cibCe6WjmrOVLHpTwTbqAIopKSY%3D HTTP/1.1[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Content-Length: 356[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Content-Type: application/x-www-form-urlencoded[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:268] >> POST /api/t/add?clientip=127.0.0.1&content=%E6%B5%8B%E8%AF%95%E5%8F%91%E8%A1%A8%E6%96%87%E5%AD%97%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=15833476432427491698073541583205&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868733&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&oauth_signature=cibCe6WjmrOVLHpTwTbqAIopKSY%3D HTTP/1.1
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Content-Length: 356
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Content-Type: application/x-www-form-urlencoded
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:77] >> "clientip=127.0.0.1&content=%E6%B5%8B%E8%AF%95%E5%8F%91%E8%A1%A8%E6%96%87%E5%AD%97%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=15833476432427491698073541583205&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868733&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&oauth_signature=cibCe6WjmrOVLHpTwTbqAIopKSY%3D"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 200 OK[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Date: Sat, 25 Aug 2012 04:25:26 GMT[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Content-Type: text/html; charset=utf-8[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "Content-Length: 110[\r][\n]"
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
+12-08-25 12:25:33 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:252] << HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Date: Sat, 25 Aug 2012 04:25:26 GMT
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Content-Type: text/html; charset=utf-8
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
+12-08-25 12:25:33 DEBUG [org.apache.http.headers:255] << Content-Length: 110
+12-08-25 12:25:33 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
+12-08-25 12:25:33 INFO [t.tencent.utils.QHttpClient:176] QHttpClient httpPost [2] StatusLine = HTTP/1.1 200 OK
+12-08-25 12:25:33 DEBUG [org.apache.http.wire:77] << "{"data":{"id":"106408124089234","time":1345868726},"errcode":0,"msg":"ok","ret":0,"seqid":5780462162885096123}"
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:270] Released connection is reusable.
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:434] Releasing connection [HttpRoute[{}->http://open.t.qq.com]][null]
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:460] Pooling connection [HttpRoute[{}->http://open.t.qq.com]][null]; keep alive indefinitely
+12-08-25 12:25:33 DEBUG [impl.conn.tsccm.ConnPoolByRoute:679] Notifying no-one, there are no waiting threads
+12-08-25 12:25:33 INFO [t.tencent.utils.QHttpClient:178] QHttpClient httpPost [3] responseData = {"data":{"id":"106408124089234","time":1345868726},"errcode":0,"msg":"ok","ret":0,"seqid":5780462162885096123}
+12-08-25 12:25:39 INFO [t.tencent.utils.QHttpClient:162] QHttpClient httpPost [1] url = http://open.t.qq.com/api/t/add_pic_url?clientip=127.0.0.1&content=%E5%8F%91%E8%A1%A8%E4%B8%80%E6%9D%A1%E5%B8%A6%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=45194717151939540601114180448991&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868739&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&pic_url=E%3A%5Cworkspaces%5Cmlog%5Csrc%5Cmain%5Cresources%5Clogo_QWeibo.jpg&oauth_signature=U2OMIqUI5aHpwUptWjJyPKEaHYY%3D
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:221] Get connection: HttpRoute[{}->http://open.t.qq.com], timeout = 5000
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ConnPoolByRoute:350] [HttpRoute[{}->http://open.t.qq.com]] total kept alive: 1, total issued: 0, total allocated: 1 out of 200
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ConnPoolByRoute:498] Getting free connection [HttpRoute[{}->http://open.t.qq.com]][null]
+12-08-25 12:25:39 DEBUG [http.impl.client.DefaultHttpClient:411] Stale connection check
+12-08-25 12:25:39 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: ignoreCookies
+12-08-25 12:25:39 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
+12-08-25 12:25:39 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
+12-08-25 12:25:39 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: POST /api/t/add_pic_url?clientip=127.0.0.1&content=%E5%8F%91%E8%A1%A8%E4%B8%80%E6%9D%A1%E5%B8%A6%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=45194717151939540601114180448991&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868739&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&pic_url=E%3A%5Cworkspaces%5Cmlog%5Csrc%5Cmain%5Cresources%5Clogo_QWeibo.jpg&oauth_signature=U2OMIqUI5aHpwUptWjJyPKEaHYY%3D HTTP/1.1
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "POST /api/t/add_pic_url?clientip=127.0.0.1&content=%E5%8F%91%E8%A1%A8%E4%B8%80%E6%9D%A1%E5%B8%A6%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=45194717151939540601114180448991&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868739&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&pic_url=E%3A%5Cworkspaces%5Cmlog%5Csrc%5Cmain%5Cresources%5Clogo_QWeibo.jpg&oauth_signature=U2OMIqUI5aHpwUptWjJyPKEaHYY%3D HTTP/1.1[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "Content-Length: 468[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "Content-Type: application/x-www-form-urlencoded[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:268] >> POST /api/t/add_pic_url?clientip=127.0.0.1&content=%E5%8F%91%E8%A1%A8%E4%B8%80%E6%9D%A1%E5%B8%A6%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=45194717151939540601114180448991&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868739&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&pic_url=E%3A%5Cworkspaces%5Cmlog%5Csrc%5Cmain%5Cresources%5Clogo_QWeibo.jpg&oauth_signature=U2OMIqUI5aHpwUptWjJyPKEaHYY%3D HTTP/1.1
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:271] >> Content-Length: 468
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:271] >> Content-Type: application/x-www-form-urlencoded
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:77] >> "clientip=127.0.0.1&content=%E5%8F%91%E8%A1%A8%E4%B8%80%E6%9D%A1%E5%B8%A6%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E7%9A%84%E5%BE%AE%E5%8D%9A1&format=json&oauth_consumer_key=801115505&oauth_nonce=45194717151939540601114180448991&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1345868739&oauth_token=fa5c48a45e9444eaa18019c7b7384354&oauth_version=1.0&pic_url=E%3A%5Cworkspaces%5Cmlog%5Csrc%5Cmain%5Cresources%5Clogo_QWeibo.jpg&oauth_signature=U2OMIqUI5aHpwUptWjJyPKEaHYY%3D"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 200 OK[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "Date: Sat, 25 Aug 2012 04:25:32 GMT[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "Content-Type: text/html; charset=utf-8[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "Content-Length: 331[\r][\n]"
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
+12-08-25 12:25:39 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 200 OK
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:252] << HTTP/1.1 200 OK
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:255] << Date: Sat, 25 Aug 2012 04:25:32 GMT
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:255] << Content-Type: text/html; charset=utf-8
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
+12-08-25 12:25:39 DEBUG [org.apache.http.headers:255] << Content-Length: 331
+12-08-25 12:25:39 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
+12-08-25 12:25:39 INFO [t.tencent.utils.QHttpClient:176] QHttpClient httpPost [2] StatusLine = HTTP/1.1 200 OK
+12-08-25 12:25:39 DEBUG [org.apache.http.wire:77] << "{"data":null,"detailerrinfo":{"accesstoken":"fa5c48a45e9444eaa18019c7b7384354","apiname":"weibo.t.add_pic_url","appkey":"801115505","clientip":"110.232.47.109","cmd":0,"proctime":6,"ret1":-23,"ret2":5,"ret3":111,"ret4":2778171658,"timestamp":1345868732},"errcode":111,"msg":"download pic error","ret":5,"seqid":5780462188659811105}"
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ThreadSafeClientConnManager:270] Released connection is reusable.
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ConnPoolByRoute:434] Releasing connection [HttpRoute[{}->http://open.t.qq.com]][null]
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ConnPoolByRoute:460] Pooling connection [HttpRoute[{}->http://open.t.qq.com]][null]; keep alive indefinitely
+12-08-25 12:25:39 DEBUG [impl.conn.tsccm.ConnPoolByRoute:679] Notifying no-one, there are no waiting threads
+12-08-25 12:25:39 INFO [t.tencent.utils.QHttpClient:178] QHttpClient httpPost [3] responseData = {"data":null,"detailerrinfo":{"accesstoken":"fa5c48a45e9444eaa18019c7b7384354","apiname":"weibo.t.add_pic_url","appkey":"801115505","clientip":"110.232.47.109","cmd":0,"proctime":6,"ret1":-23,"ret2":5,"ret3":111,"ret4":2778171658,"timestamp":1345868732},"errcode":111,"msg":"download pic error","ret":5,"seqid":5780462188659811105}
