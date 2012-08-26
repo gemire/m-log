@@ -51,6 +51,7 @@
 	</target>
 
 	<target name="clean" description="Cleans this project">
+		<delete dir="${basedir}/bin" failonerror="false" />
 		<delete dir="${web.dir}/WEB-INF/classes" failonerror="false" />
 		<delete dir="${web.dir}/WEB-INF/lib" failonerror="false" />
 	</target>
