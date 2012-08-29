@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="lib/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-jci-fam-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar" sourcepath="d:/m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool-1.5.4.jar"/>
 	<classpathentry kind="lib" path="lib/compass-2.1.1.jar"/>
@@ -88,5 +88,6 @@
 	<classpathentry kind="lib" path="lib/httpclient-cache-4.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.1.4.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jettison-1.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
