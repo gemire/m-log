@@ -26,7 +26,8 @@ public class PropertiesUtils {
         File file = null;
         try {
             file = cpr.getFile();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             logger.warn("can not find file [" + classPathFileName + "] in classpath");
             e.printStackTrace();
@@ -41,11 +42,13 @@ public class PropertiesUtils {
             inStream = new FileInputStream(file);
             props = loadProperty(inStream);
             inStream.close();
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             logger.warn("can not find file [" + file.getAbsolutePath() + "]", e);
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             logger.warn("read file [" + file.getAbsolutePath() + "] in classpath", e);
             e.printStackTrace();
@@ -57,7 +60,8 @@ public class PropertiesUtils {
         Properties props = new Properties();
         try {
             props.load(inStream);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -116,7 +120,8 @@ public class PropertiesUtils {
         File file = null;
         try {
             file = cpr.getFile();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             logger.warn("read file [" + classPathFileName + "] in classpath", e);
             e.printStackTrace();
@@ -128,11 +133,13 @@ public class PropertiesUtils {
         try {
             OutputStream out = new FileOutputStream(file);
             props.store(out, "");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             logger.warn("can not find file [" + file.getAbsolutePath() + "]", e);
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             logger.warn("read file [" + file.getAbsolutePath() + "]", e);
             e.printStackTrace();
@@ -144,22 +151,34 @@ public class PropertiesUtils {
         try {
             File file = cpr.getFile();
             saveProperties(props, file);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        // Map<String,String> map = getPropertyMap("config.properties");
-        // System.out.println(map.entrySet().size());
-        // for (Map.Entry entry : map.entrySet()) {
-        // System.out.println("key=" + entry.getKey() + " , value=" +
-        // entry.getValue());
-        // }
+    /**
+     * 获取properties
+     * 
+     * @param key
+     * @param propertiesInClassPath
+     */
+    public static String getProperty(String key, String propertiesInClassPath) {
+        Properties p = loadProperty(propertiesInClassPath);
+        String value = p.getProperty(key);
+        return value == null ? "" : value;
+    }
 
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("test", "hello world!");
-        setPropertyMap("config.properties", map);
+    /**
+     * 设置
+     * @param key
+     * @param value
+     * @param propertiesInClassPath
+     */
+    public static void setProperties(String key, String value, String propertiesInClassPath) {
+        Properties p = loadProperty(propertiesInClassPath);
+        p.setProperty(key, value);
+        saveProperties(p, propertiesInClassPath);
     }
 }
