@@ -7,12 +7,12 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -268,7 +268,7 @@ public class JSONUtils {
     /**
      * 将给定的 {@code JSON} 字符串转换成指定的类型对象。
      * 
-     * @param <T>
+     * @param <Weibo>
      *            要转换的目标类型。
      * @param json
      *            给定的 {@code JSON} 字符串。
@@ -299,7 +299,7 @@ public class JSONUtils {
     /**
      * 将给定的 {@code JSON} 字符串转换成指定的类型对象。
      * 
-     * @param <T>
+     * @param <Weibo>
      *            要转换的目标类型。
      * @param json
      *            给定的 {@code JSON} 字符串。
