@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.amber.oauth2.client.response.OAuthAuthzResponse;
 import org.apache.amber.oauth2.common.exception.OAuthProblemException;
+import org.mspring.mlog.web.api.t.common.TConfigTokens;
 import org.mspring.mlog.web.api.t.model.OAuthParams;
 import org.mspring.mlog.web.api.t.utils.TConfigUtils;
 import org.mspring.mlog.web.api.t.utils.TUtils;
@@ -34,6 +35,14 @@ public class CallbackController {
             // Create the response wrapper
             OAuthAuthzResponse oar = null;
             oar = OAuthAuthzResponse.oauthCodeAuthzResponse(request);
+            
+            if (TConfigTokens.APP_TENCENT.equals(app)) {
+                String openid = oar.getParam("openid");
+                String openkey = oar.getParam("openkey");
+                TConfigUtils.setOpenid(app, openid);
+                TConfigUtils.setOpenkey(app, openkey);
+            }
+            
 
             // Get Authorization Code
             String code = oar.getCode();
@@ -46,7 +55,7 @@ public class CallbackController {
             String redirectUri = TConfigUtils.getRedirectURI();
             String scope = TConfigUtils.getScope(app);
 
-            oauthParams.setAuthzCode(code);
+            oauthParams.setCode(code);
             oauthParams.setClientId(clientId);
             oauthParams.setClientSecret(clientSecret);
             oauthParams.setAuthzEndpoint(authzEndpoint);

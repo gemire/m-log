@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.api.t.utils;
+package org.mspring.mlog.web.api.t.common;
 
 /**
  * @author Gao Youbo
@@ -9,14 +9,10 @@ package org.mspring.mlog.web.api.t.utils;
  * @Description
  * @TODO
  */
-public final class TConfigKeys {
+public final class TConfigTokens {
     public static final String APP_TENCENT = "tencent";
     
     public static final String REDIRECT_URI_KEY = "redirect_uri";
-//
-//    public static final String AUTHORIZE_URI_KEY = "authorize_uri";
-//
-//    public static final String TOKEN_URI_KEY = "token_uri";
 
     public static final String CLIENT_ID_KEY = "client_id";
     
@@ -27,4 +23,10 @@ public final class TConfigKeys {
     public static final String TOKEN_ENDPOINT_KEY = "tokenn_endpoint";
 
     public static final String SCOPE_KEY = "scope";
+    
+    public static final String ACCESS_TOKEN_KEY = "access_token";
+    
+    public static final String OPEN_ID = "openid";
+    
+    public static final String OPEN_KEY = "openkey";
 }

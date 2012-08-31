@@ -7,7 +7,7 @@ package org.mspring.mlog.web.api.t.model;
  * @author Gao Youbo
  * @since 2012-8-29
  * @Description
- * @TODO
+ * @TODO OAuth授权相关参数
  */
 public class OAuthParams {
     private String clientId;
@@ -15,7 +15,6 @@ public class OAuthParams {
     private String redirectUri;
     private String authzEndpoint;
     private String tokenEndpoint;
-    private String authzCode;
     private String accessToken;
     private long expiresIn;
     private String refreshToken;
@@ -23,6 +22,9 @@ public class OAuthParams {
     private String resourceUrl;
     private String resource;
     private String application;
+    private String code;
+    private String openId;
+    private String openKey;
 
     private String errorMessage;
 
@@ -64,14 +66,6 @@ public class OAuthParams {
 
     public void setTokenEndpoint(String tokenEndpoint) {
         this.tokenEndpoint = tokenEndpoint;
-    }
-
-    public String getAuthzCode() {
-        return authzCode;
-    }
-
-    public void setAuthzCode(String authzCode) {
-        this.authzCode = authzCode;
     }
 
     public String getErrorMessage() {
@@ -141,4 +135,50 @@ public class OAuthParams {
     public void setApplication(String application) {
         this.application = application;
     }
+
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code
+     *            the code to set
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * @return the openId
+     */
+    public String getOpenId() {
+        return openId;
+    }
+
+    /**
+     * @param openId
+     *            the openId to set
+     */
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    /**
+     * @return the openKey
+     */
+    public String getOpenKey() {
+        return openKey;
+    }
+
+    /**
+     * @param openKey
+     *            the openKey to set
+     */
+    public void setOpenKey(String openKey) {
+        this.openKey = openKey;
+    }
+
 }

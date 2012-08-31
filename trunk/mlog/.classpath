@@ -17,7 +17,6 @@
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-fileupload-1.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-jci-fam-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar" sourcepath="d:/m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar"/>
