@@ -3,6 +3,7 @@
  */
 package org.mspring.mlog.web.api.t.utils;
 
+import org.mspring.mlog.web.api.t.common.TConfigTokens;
 import org.mspring.platform.utils.PropertiesUtils;
 
 /**
@@ -20,33 +21,57 @@ public final class TConfigUtils {
      * @return
      */
     public static final String getRedirectURI() {
-        return getProperty(TConfigKeys.REDIRECT_URI_KEY);
+        return getProperty(TConfigTokens.REDIRECT_URI_KEY);
     }
 
     public static final String getClientId(String app) {
-        return getProperty(app + "." + TConfigKeys.CLIENT_ID_KEY);
+        return getProperty(app + "." + TConfigTokens.CLIENT_ID_KEY);
     }
 
     public static final String getClientSecret(String app) {
-        return getProperty(app + "." + TConfigKeys.CLIENT_SECRET_KEY);
+        return getProperty(app + "." + TConfigTokens.CLIENT_SECRET_KEY);
     }
-    
-    public static final String getAuthzEndpoint(String app){
-        return getProperty(app + "." + TConfigKeys.AUTHZ_ENDPOINT_KEY);
+
+    public static final String getAuthzEndpoint(String app) {
+        return getProperty(app + "." + TConfigTokens.AUTHZ_ENDPOINT_KEY);
     }
-    
-    public static final String getTokenEndpoint(String app){
-        return getProperty(app + "." + TConfigKeys.TOKEN_ENDPOINT_KEY);
+
+    public static final String getTokenEndpoint(String app) {
+        return getProperty(app + "." + TConfigTokens.TOKEN_ENDPOINT_KEY);
     }
-    
-    public static final String getScope(String app){
-        return getProperty(app + "." + TConfigKeys.SCOPE_KEY);
+
+    public static final String getScope(String app) {
+        return getProperty(app + "." + TConfigTokens.SCOPE_KEY);
     }
-    
-    public static final void setScope(String app, String value){
-        setProperty(app + "." + TConfigKeys.SCOPE_KEY, value);
+
+    public static final void setScope(String app, String value) {
+        setProperty(app + "." + TConfigTokens.SCOPE_KEY, value);
     }
-    
+
+    public static final String getAccessToken(String app) {
+        return getProperty(app + "." + TConfigTokens.ACCESS_TOKEN_KEY);
+    }
+
+    public static final void setAccessToken(String app, String value) {
+        setProperty(app + "." + TConfigTokens.ACCESS_TOKEN_KEY, value);
+    }
+
+    public static final String getOpenid(String app) {
+        return getProperty(app + "." + TConfigTokens.OPEN_ID);
+    }
+
+    public static final void setOpenid(String app, String value) {
+        setProperty(app + "." + TConfigTokens.OPEN_ID, value);
+    }
+
+    public static final String getOpenkey(String app) {
+        return getProperty(app + "." + TConfigTokens.OPEN_KEY);
+    }
+
+    public static final void setOpenkey(String app, String value) {
+        setProperty(app + "." + TConfigTokens.OPEN_KEY, value);
+    }
+
     private static String getProperty(String key) {
         return PropertiesUtils.getProperty(key, T_PROPERTIES);
     }

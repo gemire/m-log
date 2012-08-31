@@ -3,9 +3,8 @@
  */
 package org.mspring.mlog.web.api.t.service;
 
+import org.mspring.mlog.web.api.t.common.TConfigTokens;
 import org.mspring.mlog.web.api.t.service.impl.TencentService;
-import org.mspring.mlog.web.api.t.service.impl.UnrealizedService;
-import org.mspring.mlog.web.api.t.utils.TConfigKeys;
 
 /**
  * @author Gao Youbo
@@ -15,9 +14,9 @@ import org.mspring.mlog.web.api.t.utils.TConfigKeys;
  */
 public class TServiceFactory {
     public TService createService(String app) {
-        if (TConfigKeys.APP_TENCENT.equals(app)) {
+        if (TConfigTokens.APP_TENCENT.equals(app)) {
             return new TencentService();
         }
-        return new UnrealizedService();
+        return null;
     }
 }

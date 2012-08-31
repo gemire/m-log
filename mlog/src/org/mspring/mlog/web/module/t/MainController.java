@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.web.api.t.common.TConfigTokens;
 import org.mspring.mlog.web.api.t.model.OAuthParams;
-import org.mspring.mlog.web.api.t.utils.TConfigKeys;
 import org.mspring.mlog.web.api.t.utils.TConfigUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
@@ -31,7 +31,7 @@ public class MainController {
         boolean selected = false;
         OAuthParams oauthParams = new OAuthParams();
         // OAuthRegParams oauthRegParams = null;
-        if (TConfigKeys.APP_TENCENT.equals(app)) {
+        if (TConfigTokens.APP_TENCENT.equals(app)) {
             selected = true;
             oauthParams.setAuthzEndpoint(TConfigUtils.getAuthzEndpoint(app));
             oauthParams.setTokenEndpoint(TConfigUtils.getTokenEndpoint(app));

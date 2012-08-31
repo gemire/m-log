@@ -16,9 +16,10 @@ import org.apache.amber.oauth2.common.exception.OAuthProblemException;
 import org.apache.amber.oauth2.common.exception.OAuthSystemException;
 import org.apache.amber.oauth2.common.message.types.GrantType;
 import org.mspring.mlog.web.api.t.MacroBlogException;
+import org.mspring.mlog.web.api.t.common.TConfigTokens;
 import org.mspring.mlog.web.api.t.model.OAuthParams;
 import org.mspring.mlog.web.api.t.response.TencentTokenResponse;
-import org.mspring.mlog.web.api.t.utils.TConfigKeys;
+import org.mspring.mlog.web.api.t.utils.TConfigUtils;
 import org.mspring.mlog.web.api.t.utils.TUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
@@ -38,17 +39,16 @@ public class TokenController {
     @RequestMapping("/{app}/get_token")
     public String authorize(@ModelAttribute("oauthParams") OAuthParams oauthParams, @PathVariable String app, HttpServletRequest req, Model model) throws OAuthSystemException, IOException {
         try {
-
             TUtils.validateTokenParams(oauthParams);
 
-            OAuthClientRequest request = OAuthClientRequest.tokenLocation(oauthParams.getTokenEndpoint()).setClientId(oauthParams.getClientId()).setClientSecret(oauthParams.getClientSecret()).setRedirectURI(oauthParams.getRedirectUri()).setCode(oauthParams.getAuthzCode()).setGrantType(GrantType.AUTHORIZATION_CODE).buildQueryMessage();
+            OAuthClientRequest request = OAuthClientRequest.tokenLocation(oauthParams.getTokenEndpoint()).setClientId(oauthParams.getClientId()).setClientSecret(oauthParams.getClientSecret()).setRedirectURI(oauthParams.getRedirectUri()).setCode(oauthParams.getCode()).setGrantType(GrantType.AUTHORIZATION_CODE).buildQueryMessage();
 
             OAuthClient client = new OAuthClient(new URLConnectionClient());
 
             OAuthAccessTokenResponse oauthResponse = null;
             Class<? extends OAuthAccessTokenResponse> cl = OAuthJSONAccessTokenResponse.class;
 
-            if (TConfigKeys.APP_TENCENT.equals(app)) {
+            if (TConfigTokens.APP_TENCENT.equals(app)) {
                 cl = TencentTokenResponse.class;
             }
 
@@ -59,8 +59,11 @@ public class TokenController {
             oauthParams.setRefreshToken(TUtils.isIssued(oauthResponse.getRefreshToken()));
 
             model.addAttribute("oauthParams", oauthParams);
-            return "/t/get_resource";
 
+            // 保存access token信息
+            TConfigUtils.setAccessToken(app, oauthResponse.getAccessToken());
+
+            return "/t/get_resource";
         }
         catch (MacroBlogException e) {
             oauthParams.setErrorMessage(e.getMessage());

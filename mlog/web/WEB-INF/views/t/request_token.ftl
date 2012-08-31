@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td>Authorization Code:</td>
-            <td><@spring.formInput path="oauthParams.authzCode" attributes='readonly="true" size="70"'/></td>
+            <td><@spring.formInput path="oauthParams.code" attributes='readonly="true" size="70"'/></td>
         </tr>
         <tr>
             <td>End-User Authorization URL:</td>
