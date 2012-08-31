@@ -63,7 +63,7 @@ public class TokenController {
             // 保存access token信息
             TConfigUtils.setAccessToken(app, oauthResponse.getAccessToken());
 
-            return "/t/get_resource";
+            return "/t/token_success";
         }
         catch (MacroBlogException e) {
             oauthParams.setErrorMessage(e.getMessage());

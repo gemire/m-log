@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Widget
 @RequestMapping("/t")
 public class MainController {
-    private static final Logger log = Logger.getLogger(MainController.class);
+    //private static final Logger log = Logger.getLogger(MainController.class);
 
     @RequestMapping("/{app}")
     public String authorize(@PathVariable("app") String app, HttpServletRequest request, HttpServletResponse response, Model model) {

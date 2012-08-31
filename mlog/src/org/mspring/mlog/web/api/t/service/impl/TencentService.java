@@ -3,16 +3,13 @@
  */
 package org.mspring.mlog.web.api.t.service.impl;
 
-import java.util.List;
+import net.sf.ezmorph.bean.MorphDynaBean;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
-import org.mspring.mlog.web.api.t.common.ParamArrayList;
-import org.mspring.mlog.web.api.t.common.TConfigTokens;
-import org.mspring.mlog.web.api.t.common.TencentTokens;
-import org.mspring.mlog.web.api.t.model.OAuthV2RequestParams;
+import org.mspring.mlog.web.api.t.original.TencentAPI;
 import org.mspring.mlog.web.api.t.service.TService;
-import org.mspring.mlog.web.api.t.utils.TConfigUtils;
-import org.mspring.mlog.web.api.t.utils.THttpUtils;
-import org.mspring.mlog.web.api.t.utils.TUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Gao Youbo
@@ -20,37 +17,18 @@ import org.mspring.mlog.web.api.t.utils.TUtils;
  * @Description
  * @TODO
  */
+@Service
 public class TencentService implements TService {
+
     /*
      * (non-Javadoc)
      * 
-     * @see org.mspring.mlog.web.api.t.service.TService#add()
+     * @see org.mspring.mlog.web.api.t.service.TService#add(java.lang.String)
      */
     @Override
     public String add(String content) {
         // TODO Auto-generated method stub
-        ParamArrayList params = new ParamArrayList();
-        params.add("oauth_consumer_key", TConfigUtils.getClientId(TConfigTokens.APP_TENCENT));
-        params.add("access_token", TConfigUtils.getAccessToken(TConfigTokens.APP_TENCENT));
-        params.add("openid", TConfigUtils.getOpenid(TConfigTokens.APP_TENCENT));
-        params.add("oauth_version", OAuthV2RequestParams.OAUTH_V2_VERSION);
-        params.add("scope", "all");
-        params.add("format", "json");
-        params.add("clientip", "127.0.0.1");
-
-        params.add("syncflag", "0");
-        params.add("content", content);
-
-        String queryString = TUtils.getQueryString(params);
-        String response = "";
-        try {
-            response = THttpUtils.httpPost(TencentTokens.ADD_URL, queryString);
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return response;
+        return TencentAPI.t_add(content);
     }
 
     /*
@@ -59,70 +37,34 @@ public class TencentService implements TService {
      * @see org.mspring.mlog.web.api.t.service.TService#list()
      */
     @Override
-    public List<String> list() {
+    public String list() {
         // TODO Auto-generated method stub
-        ParamArrayList params = new ParamArrayList();
-        params.add("oauth_consumer_key", TConfigUtils.getClientId(TConfigTokens.APP_TENCENT));
-        params.add("access_token", TConfigUtils.getAccessToken(TConfigTokens.APP_TENCENT));
-        params.add("openid", TConfigUtils.getOpenid(TConfigTokens.APP_TENCENT));
-        params.add("oauth_version", OAuthV2RequestParams.OAUTH_V2_VERSION);
-        params.add("scope", "all");
-        params.add("format", "json");
-        params.add("clientip", "127.0.0.1");
-
-        params.add("ids", "83179096184071,16880093593589");
-
-        String queryString = TUtils.getQueryString(params);
-        String response = "";
-        
-        try {
-            response = THttpUtils.httpGet(TencentTokens.LIST_URL, queryString);
+        String json = TencentAPI.statuses_broadcast_timeline_ids("0", "30", "3", "0", "0", "0");
+        JSONObject jsonObject = JSONObject.fromObject(json);
+        JSONArray infos = jsonObject.getJSONObject("data").getJSONArray("info");
+        String ids = "";
+        for (int i = 0; i < infos.size(); i++) {
+            JSONObject info = infos.getJSONObject(i);
+            ids += info.getString("id");
+            if (i < infos.size() - 1) {
+                ids += ",";
+            }
         }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+        String listJson = TencentAPI.t_list(ids);
+        JSONArray weiboArray = JSONObject.fromObject(listJson).getJSONObject("data").getJSONArray("info");
+        for (int i = 0; i < weiboArray.size(); i++) {
+            JSONObject weiboJson = weiboArray.getJSONObject(i);
+            Object obj = JSONObject.toBean(weiboJson);
+            if (obj instanceof MorphDynaBean) {
+                MorphDynaBean bean = (MorphDynaBean) obj;
+                Object video = bean.get("video");
+                if (video != null) {
+                    System.out.println(video.getClass());
+                }
+            }
         }
-        System.out.println(response);
         return null;
-    }
-    
-    public String broadcast_timeline_ids(){
-        ParamArrayList params = new ParamArrayList();
-        params.add("oauth_consumer_key", TConfigUtils.getClientId(TConfigTokens.APP_TENCENT));
-        params.add("access_token", TConfigUtils.getAccessToken(TConfigTokens.APP_TENCENT));
-        params.add("openid", TConfigUtils.getOpenid(TConfigTokens.APP_TENCENT));
-        params.add("oauth_version", OAuthV2RequestParams.OAUTH_V2_VERSION);
-        params.add("scope", "all");
-        params.add("format", "json");
-        params.add("clientip", "127.0.0.1");
-        
-        params.add("pageflag", "0");
-        params.add("reqnum", "20");
-        params.add("lastid", "0");
-        params.add("type", "3");
-        
-
-        //params.add("ids", "gaoyoubo");
-
-        String queryString = TUtils.getQueryString(params);
-        String response = "";
-        
-        //http://open.t.qq.com/api/statuses/broadcast_timeline_ids?format=json&pageflag=0&reqnum=20&pagetime=0&lastid=6843121&type=0x1&contenttype=1
-        
-        try {
-            //response = THttpUtils.httpGet(TencentTokens.LIST_URL, queryString);
-            response = THttpUtils.httpGet("http://open.t.qq.com/api/statuses/broadcast_timeline_ids", queryString);
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        return null;
-    }
-
-    public static void main(String[] args) {
-        new TencentService().list();
     }
 
 }
