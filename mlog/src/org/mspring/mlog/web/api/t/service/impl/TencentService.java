@@ -3,6 +3,9 @@
  */
 package org.mspring.mlog.web.api.t.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -37,7 +40,7 @@ public class TencentService implements TService {
      * @see org.mspring.mlog.web.api.t.service.TService#list()
      */
     @Override
-    public String list() {
+    public List<MorphDynaBean> list() {
         // TODO Auto-generated method stub
         String json = TencentAPI.statuses_broadcast_timeline_ids("0", "30", "3", "0", "0", "0");
         JSONObject jsonObject = JSONObject.fromObject(json);
@@ -52,19 +55,13 @@ public class TencentService implements TService {
         }
 
         String listJson = TencentAPI.t_list(ids);
+        List<MorphDynaBean> results = new ArrayList<MorphDynaBean>();
         JSONArray weiboArray = JSONObject.fromObject(listJson).getJSONObject("data").getJSONArray("info");
         for (int i = 0; i < weiboArray.size(); i++) {
             JSONObject weiboJson = weiboArray.getJSONObject(i);
-            Object obj = JSONObject.toBean(weiboJson);
-            if (obj instanceof MorphDynaBean) {
-                MorphDynaBean bean = (MorphDynaBean) obj;
-                Object video = bean.get("video");
-                if (video != null) {
-                    System.out.println(video.getClass());
-                }
-            }
+            results.add((MorphDynaBean) JSONObject.toBean(weiboJson));
         }
-        return null;
+        return results;
     }
 
 }
