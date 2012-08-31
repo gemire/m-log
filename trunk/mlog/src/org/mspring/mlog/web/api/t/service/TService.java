@@ -3,6 +3,10 @@
  */
 package org.mspring.mlog.web.api.t.service;
 
+import java.util.List;
+
+import net.sf.ezmorph.bean.MorphDynaBean;
+
 /**
  * @author Gao Youbo
  * @since 2012-8-29
@@ -11,5 +15,6 @@ package org.mspring.mlog.web.api.t.service;
  */
 public interface TService {
     public String add(String content);
-    public String list();
+
+    public List<MorphDynaBean> list();
 }

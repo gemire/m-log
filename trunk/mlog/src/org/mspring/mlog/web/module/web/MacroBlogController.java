@@ -27,7 +27,7 @@ public class MacroBlogController {
 
     @RequestMapping({ "", "/" })
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
-        tencentService.list();
+        model.addAttribute("weibos", tencentService.list());
         return "skin:/t";
     }
 
