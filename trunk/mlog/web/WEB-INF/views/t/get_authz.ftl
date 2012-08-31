@@ -3,13 +3,12 @@
 
 <html>
 <head>
-    <title>OAuth V2.0 Client Application</title>
+    <title>${blogname}-微博授权</title>
 </head>
 
 <body>
-<h1>Sample OAuth V2.0 Client Application</h1>
-<h2>Web Server Flow</h2>
-<h3>Step 1. Get User's Authorization</h3></p>
+<h1>${blogname} 微博授权</h1>
+<h3>第一步. Get User's Authorization</h3></p>
 
 <#if oauthParams?exists && oauthParams.errorMessage?has_content>
 <font color="red"><p>Error: ${oauthParams.errorMessage}</p></font>
