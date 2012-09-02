@@ -42,10 +42,11 @@ public class PostPageCachingFilter extends PageCachingFilter {
     @Override
     protected String calculateKey(HttpServletRequest request) {
         // TODO Auto-generated method stub
-        String postId = request.getParameter("id");
-        if (!StringUtils.isBlank(postId)) {
+        //String postId = request.getParameter("id");
+        String requestURI = StringUtils.encoding(request.getPathInfo(), "ISO-8859-1", "UTF-8");
+        if (!StringUtils.isBlank(requestURI)) {
             StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append(CacheTokens.POST_CACHE_PREFIX).append(postId);
+            stringBuffer.append(CacheTokens.POST_CACHE_PREFIX).append(requestURI);
             return stringBuffer.toString();
         }
         return null;
