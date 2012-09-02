@@ -3,6 +3,8 @@
  */
 package org.mspring.mlog.core;
 
+import net.sf.ehcache.CacheManager;
+
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.OptionService;
@@ -57,4 +59,8 @@ public class ServiceFactory {
     public static Configuration getFreemarkerConfiguration() {
         return getExtendsFreeMarkerConfigurer().getConfiguration();
     }
+
+//    public static CacheManager getCacheManager() {
+//        return ContextManager.getApplicationContext().getBean(CacheManager.class);
+//    }
 }

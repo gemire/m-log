@@ -81,7 +81,6 @@ public class PermaLinkFilter implements Filter {
 
             // 更新post点击
             new Thread(new Runnable() {
-
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
