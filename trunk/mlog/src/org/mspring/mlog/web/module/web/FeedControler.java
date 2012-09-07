@@ -44,7 +44,6 @@ public class FeedControler {
 
     @RequestMapping("rss.xml")
     public String rss(HttpServletRequest request, HttpServletResponse response, Model model) {
-        
         putRssModelInfos(model);
 
         response.setContentType("application/rss+xml");

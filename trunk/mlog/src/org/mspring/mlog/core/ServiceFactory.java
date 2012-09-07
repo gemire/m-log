@@ -12,6 +12,7 @@ import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
 import org.mspring.platform.core.ContextManager;
 
@@ -66,5 +67,9 @@ public class ServiceFactory {
 
     public static PostMetaService getPostMetaService() {
         return ContextManager.getApplicationContext().getBean(PostMetaService.class);
+    }
+
+    public static PostSearchService getPostSearchService() {
+        return ContextManager.getApplicationContext().getBean(PostSearchService.class);
     }
 }

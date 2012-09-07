@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.common.PageNames;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
@@ -45,8 +46,9 @@ public class SearchWidget extends AbstractWebWidget {
                 log.debug(String.format("search for keyword [%keyword] failure!", keyword));
             }
         }
-        model.addAttribute("keyword", keyword);
+        model.addAttribute(FreemarkerVariableNames.SEARCH_KEYWORD, keyword);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
+        setCurrnetPage(model, PageNames.SEARCH);
         return "skin:/search";
     }
 }

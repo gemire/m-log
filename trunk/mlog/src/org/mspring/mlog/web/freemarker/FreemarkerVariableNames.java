@@ -17,4 +17,11 @@ public class FreemarkerVariableNames {
     public static final String TAG = "tag";
     public static final String COMMENT = "comment";
     public static final String COMMENTS = "comments";
+    public static final String SEARCH_KEYWORD = "searchKeyword";
+    public static final String CATALOG_ARCHIVE_NAME = "catalogArchiveName";
+    
+    /**
+     * 当前页
+     */
+    public static final String CURRENT_PAGE = "currentPage";
 }

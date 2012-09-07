@@ -71,6 +71,11 @@ public class SettingWidget {
         model.addAttribute("skins", skins);
         return "/admin/setting/skin-setting";
     }
+    
+    @RequestMapping("/seo")
+    public String seoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "/admin/setting/seo-setting";
+    }
 
     @RequestMapping("/saveSetting")
     public String saveSetting(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {

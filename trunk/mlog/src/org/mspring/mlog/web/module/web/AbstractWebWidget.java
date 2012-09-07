@@ -10,6 +10,7 @@ import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.search.PostSearchService;
+import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -112,6 +113,10 @@ public abstract class AbstractWebWidget {
             model.addAttribute("dispatcher", dispatcher);
         }
         return "/common/prompt";
+    }
+
+    protected void setCurrnetPage(Model model, String currentPage) {
+        model.addAttribute(FreemarkerVariableNames.CURRENT_PAGE, currentPage);
     }
 
 }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-		<title>${blogname}</title>
+		<title><@mlog_title /></title>
 		<meta name="author" content="mspring" />
 		<meta name="generator" content="mlog" />
 		<meta name="copyright" content="mlog" />

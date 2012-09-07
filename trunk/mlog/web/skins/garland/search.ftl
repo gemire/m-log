@@ -4,13 +4,13 @@
 <#include "header.ftl" />
 <div id="search-div" style="text-align: center;">
 	<form method="get">
-		<input type="text" name="keyword" style="width:300px;" value="${keyword!""}" />
+		<input type="text" name="keyword" style="width:300px;" value="${searchKeyword!""}" />
 		<input type="submit" value=' 搜  索 '/>
 	</form>
 </div>
 
-<#if (keyword?has_content && postPage.result?size == 0)>
-<h3>未找到于关键字 <font color="red">${keyword!""}</font> 相关的结果</h3>
+<#if (searchKeyword?has_content && postPage.result?size == 0)>
+<h3>未找到于关键字 <font color="red">${searchKeyword!""}</font> 相关的结果</h3>
 </#if>
 
 <@list_post>
@@ -49,7 +49,7 @@
 	<span class="pager-list">
 		<form id="postForm" name="postForm">
 			<@spring.bind "postPage" />
-			<input type="hidden" name="keyword" style="width:300px;" value="${keyword!""}" />
+			<input type="hidden" name="keyword" style="width:300px;" value="${searchKeyword!""}" />
 			<@spring.formHiddenInput path="postPage.pageNo" />
 			<@mspring.pagingnavigator page=postPage form_id="postForm" />
 		</form>

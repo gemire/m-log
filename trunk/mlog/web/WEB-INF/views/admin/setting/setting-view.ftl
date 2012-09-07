@@ -32,6 +32,8 @@
 		  	<div><@widget.placeholder path="/admin/setting/global" cache=false /></div>
 		  	<h2>皮肤设置</h2>
 		  	<div><@widget.placeholder path="/admin/setting/skin" cache=false /></div>
+		  	<h2>SEO设置</h2>
+		  	<div><@widget.placeholder path="/admin/setting/seo" cache=false /></div>
 		</div>
 		<div style="text-align:center; margin-top:10px;">
 			<input type="submit" class="btn" value=" 提 交 " />
