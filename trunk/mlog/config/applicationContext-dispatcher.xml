@@ -13,6 +13,7 @@
     <mvc:resources location="/script/**" mapping="/script/**"/>
     <mvc:resources location="/style/**" mapping="/style/**"/>
     <mvc:resources location="/skins/**" mapping="/skins/**"/>
+    <mvc:resources location="/uploads/**" mapping="/uploads/**"/>
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"> 
   		<property name="useDefaultSuffixPattern" value="false" />

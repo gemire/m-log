@@ -24,6 +24,7 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.UserService;
@@ -52,6 +53,7 @@ public class MetaWeblogAPI {
     private CatalogService catalogService = ServiceFactory.getCatalogService();
     private PostService postService = ServiceFactory.getPostService();
     private OptionService optionService = ServiceFactory.getOptionService();
+    private FileService fileService = ServiceFactory.getFileService();
 
     /**
      * Method name: "blogger.getUsersBlogs".
@@ -81,6 +83,11 @@ public class MetaWeblogAPI {
      * Method name: "blogger.deletePost".
      */
     private static final String METHOD_DELETE_POST = "blogger.deletePost";
+
+    /**
+     * Method name: "metaWeblog.newMediaObject"
+     */
+    private static final String METHOD_NEW_MEDIA_OBJECT = "metaWeblog.newMediaObject";
 
     /**
      * Argument "username" index.
@@ -129,7 +136,6 @@ public class MetaWeblogAPI {
                 log.warn("request xml is null");
                 return;
             }
-
             Reader reader = new StringReader(xml);
             Document doc = XMLUtils.parse(reader);
 
@@ -198,6 +204,12 @@ public class MetaWeblogAPI {
                 }
                 final StringBuilder stringBuilder = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><params><param><value><boolean>").append(true).append("</boolean></value></param></params></methodResponse>");
                 responseContent = stringBuilder.toString();
+            }
+            // 插入媒体文件
+            else if (METHOD_NEW_MEDIA_OBJECT.equals(methodName)) {
+                final String type = XMLUtils.parseForString(doc, "/methodCall/params/param[4]/value/struct/member[2]/value/string");
+                final String base64Data = XMLUtils.parseForString(doc, "/methodCall/params/param[4]/value/struct/member[3]/value/base64");
+                responseContent = newMediaObject(request, type, base64Data);
             }
             // 方法未实现
             else {
@@ -523,6 +535,33 @@ public class MetaWeblogAPI {
         result.append("         </param>");
         result.append("     </params>");
         result.append("</methodResponse>");
+        return result.toString();
+    }
+
+    /**
+     * 发表媒体文件
+     * 
+     * @param request
+     * @param type
+     * @param base64Data
+     * @return
+     */
+    public String newMediaObject(HttpServletRequest request, String type, String base64Data) {
+        // String path = request.getRealPath("/uploads");
+        // if (!new File(path).exists()) {
+        // new File(path).mkdirs();
+        // }
+        // String fileName = new Date().getTime() + ".png";
+        // String filePath = path + "/" + fileName;
+        // ImageUtils.saveBase64AsImage(base64Data, filePath);
+        // String url = optionService.getOption("blogurl") + "/uploads/" +
+        // fileName;
+        String url = fileService.saveBase64Image(request, base64Data, "png");
+
+        StringBuffer result = new StringBuffer();
+        result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><params><param><value><struct><member><name>url</name><value><string>");
+        result.append(StringEscapeUtils.escapeXml(url));
+        result.append("</string></value></member></struct></value></param></params></methodResponse>");
         return result.toString();
     }
 

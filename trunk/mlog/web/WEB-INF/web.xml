@@ -62,6 +62,7 @@
 	</filter-mapping>
 	
 	
+	<!-- 
 	<filter>
 		<filter-name>PostPageCachingFilter</filter-name>
 		<filter-class>
@@ -80,6 +81,7 @@
 		<filter-name>PostPageCachingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	-->
 	
 	<filter>
 		<filter-name>PermalinkFilter</filter-name>

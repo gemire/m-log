@@ -18,7 +18,6 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
 import com.mortennobel.imagescaling.AdvancedResizeOp;
@@ -40,7 +39,8 @@ public class ImageUtils {
     public static void resize(File originalFile, File thumnailFile, int newWidth, int newHeight, String format) {
         try {
             resize(new FileInputStream(originalFile), new FileOutputStream(thumnailFile), newWidth, newHeight, format);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -58,15 +58,19 @@ public class ImageUtils {
                 BufferedImage thumbnailImage = resampleOp.filter(originalImage, null);
                 ImageIO.write(thumbnailImage, format, thumnailStream);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * 生成随机验证码
-     * @param outputStream 输出流
-     * @param allowValidateString 允许验证码中出现的字符串
+     * 
+     * @param outputStream
+     *            输出流
+     * @param allowValidateString
+     *            允许验证码中出现的字符串
      * @return
      */
     public static String validateCode(OutputStream outputStream, String allowValidateString) {
@@ -109,8 +113,7 @@ public class ImageUtils {
         for (int i = 0; i < 4; i++) {
             // 得到随机产生的验证码数字。
             int randomIndex = random.nextInt(allowValidateString.length());
-            if (randomIndex == 0)
-                randomIndex = 1;
+            if (randomIndex == 0) randomIndex = 1;
             String strRand = allowValidateString.substring(randomIndex - 1, randomIndex);
 
             // 产生随机的颜色分量来构造颜色值，这样输出的每位数字的颜色值都将不同。
@@ -127,10 +130,37 @@ public class ImageUtils {
         }
         try {
             ImageIO.write(buffImg, "jpeg", outputStream);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return randomCode.toString();
+    }
+
+    /**
+     * 将base64加密文件转换为图片,并保存
+     * 
+     * @param base64
+     * @param path
+     */
+    public static void saveBase64AsImage(String base64, String path) {
+        try {
+            // Base64解码
+            byte[] bytes = StringUtils.decodeBASE64(base64.getBytes());
+            for (int i = 0; i < bytes.length; ++i) {
+                if (bytes[i] < 0) {// 调整异常数据
+                    bytes[i] += 256;
+                }
+            }
+            // 生成jpeg图片
+            OutputStream out = new FileOutputStream(path);
+            out.write(bytes);
+            out.flush();
+            out.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

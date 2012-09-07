@@ -3,11 +3,11 @@
  */
 package org.mspring.mlog.core;
 
-import net.sf.ehcache.CacheManager;
-
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.PostMetaService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
@@ -60,7 +60,11 @@ public class ServiceFactory {
         return getExtendsFreeMarkerConfigurer().getConfiguration();
     }
 
-//    public static CacheManager getCacheManager() {
-//        return ContextManager.getApplicationContext().getBean(CacheManager.class);
-//    }
+    public static FileService getFileService() {
+        return ContextManager.getApplicationContext().getBean(FileService.class);
+    }
+
+    public static PostMetaService getPostMetaService() {
+        return ContextManager.getApplicationContext().getBean(PostMetaService.class);
+    }
 }
