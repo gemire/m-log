@@ -342,8 +342,18 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     public List<Post> getRelatedPost(Post post, int nums) {
         // TODO Auto-generated method stub
         Set<Tag> tags = post.getTags();
-        
+
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.PostService#findAll()
+     */
+    @Override
+    public List<Post> findAll() {
+        // TODO Auto-generated method stub
+        return super.findAll(Post.class);
+    }
 }

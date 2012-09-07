@@ -1,31 +1,34 @@
-12-08-30 17:31:28 DEBUG [http.impl.conn.SingleClientConnManager:212] Get connection for route HttpRoute[{s}->https://open.t.qq.com]
-12-08-30 17:31:28 DEBUG [http.impl.conn.DefaultClientConnectionOperator:145] Connecting to open.t.qq.com:443
-12-08-30 17:31:28 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: best-match
-12-08-30 17:31:28 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
-12-08-30 17:31:28 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
-12-08-30 17:31:28 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: GET /t/list?oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&oauth_version=2.a&scope=all&format=json&clientip=127.0.0.1&ids=83179096184071%2C16880093593589 HTTP/1.1
-12-08-30 17:31:28 DEBUG [org.apache.http.wire:63] >> "GET /t/list?oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&oauth_version=2.a&scope=all&format=json&clientip=127.0.0.1&ids=83179096184071%2C16880093593589 HTTP/1.1[\r][\n]"
-12-08-30 17:31:28 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
-12-08-30 17:31:28 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
-12-08-30 17:31:28 DEBUG [org.apache.http.wire:63] >> "User-Agent: Apache-HttpClient/4.1.3 (java 1.5)[\r][\n]"
-12-08-30 17:31:28 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
-12-08-30 17:31:28 DEBUG [org.apache.http.headers:268] >> GET /t/list?oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&oauth_version=2.a&scope=all&format=json&clientip=127.0.0.1&ids=83179096184071%2C16880093593589 HTTP/1.1
-12-08-30 17:31:28 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
-12-08-30 17:31:28 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
-12-08-30 17:31:28 DEBUG [org.apache.http.headers:271] >> User-Agent: Apache-HttpClient/4.1.3 (java 1.5)
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 404 Not Found[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "Date: Thu, 30 Aug 2012 09:31:25 GMT[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "Content-Type: text/html[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "Content-Length: 0[\r][\n]"
-12-08-30 17:31:29 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
-12-08-30 17:31:29 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 404 Not Found
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:252] << HTTP/1.1 404 Not Found
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:255] << Date: Thu, 30 Aug 2012 09:31:25 GMT
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:255] << Content-Type: text/html
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
-12-08-30 17:31:29 DEBUG [org.apache.http.headers:255] << Content-Length: 0
-12-08-30 17:31:29 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
-12-08-30 17:31:29 DEBUG [http.impl.conn.SingleClientConnManager:269] Releasing connection org.apache.http.impl.conn.SingleClientConnManager$ConnAdapter@1c92535
+12-08-31 10:05:17 DEBUG [http.impl.conn.SingleClientConnManager:212] Get connection for route HttpRoute[{s}->https://open.t.qq.com]
+12-08-31 10:05:17 DEBUG [http.impl.conn.DefaultClientConnectionOperator:145] Connecting to open.t.qq.com:443
+12-08-31 10:05:17 DEBUG [http.client.protocol.RequestAddCookies:132] CookieSpec selected: best-match
+12-08-31 10:05:17 DEBUG [http.client.protocol.RequestAuthCache:75] Auth cache not set in the context
+12-08-31 10:05:17 DEBUG [http.impl.client.DefaultHttpClient:645] Attempt 1 to execute request
+12-08-31 10:05:17 DEBUG [http.impl.conn.DefaultClientConnection:264] Sending request: GET /api/t/list?format=json&ids=83179096184071&oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&clientip=127.0.0.1&oauth_version=2.a&scope=all HTTP/1.1
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] >> "GET /api/t/list?format=json&ids=83179096184071&oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&clientip=127.0.0.1&oauth_version=2.a&scope=all HTTP/1.1[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] >> "Host: open.t.qq.com[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] >> "Connection: Keep-Alive[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] >> "User-Agent: Apache-HttpClient/4.1.3 (java 1.5)[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] >> "[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:268] >> GET /api/t/list?format=json&ids=83179096184071&oauth_consumer_key=801226101&access_token=98e16ec0ba40f3fe08bddb3f1bd88349&openid=DB37E277376806C7C4078A77251CE224&clientip=127.0.0.1&oauth_version=2.a&scope=all HTTP/1.1
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:271] >> Host: open.t.qq.com
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:271] >> Connection: Keep-Alive
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:271] >> User-Agent: Apache-HttpClient/4.1.3 (java 1.5)
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "HTTP/1.1 200 OK[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "Server: nginx/0.8.51[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "Date: Fri, 31 Aug 2012 02:05:13 GMT[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "Content-Type: text/html; charset=utf-8[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "Connection: keep-alive[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "UUID: 0[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "Content-Length: 923[\r][\n]"
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:63] << "[\r][\n]"
+12-08-31 10:05:17 DEBUG [http.impl.conn.DefaultClientConnection:249] Receiving response: HTTP/1.1 200 OK
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:252] << HTTP/1.1 200 OK
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << Server: nginx/0.8.51
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << Date: Fri, 31 Aug 2012 02:05:13 GMT
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << Content-Type: text/html; charset=utf-8
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << Connection: keep-alive
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << UUID: 0
+12-08-31 10:05:17 DEBUG [org.apache.http.headers:255] << Content-Length: 923
+12-08-31 10:05:17 DEBUG [http.impl.client.DefaultHttpClient:487] Connection can be kept alive indefinitely
+12-08-31 10:05:17 DEBUG [org.apache.http.wire:77] << "{"data":{"info":[{"city_code":"","count":0,"country_code":"","emotiontype":0,"emotionurl":"","from":"[0xe5][0xbe][0xae][0xe5][0x8d][0x9a][0xe5][0xbc][0x80][0xe6][0x94][0xbe][0xe5][0xb9][0xb3][0xe5][0x8f][0xb0]","fromurl":"http:\/\/wiki.open.t.qq.com\/index.php\/%E4%BA%A7%E5%93%81%E7%B1%BBFAQ#.E6.8F.90.E4.BA.A4.E5.BA.94.E7.94.A8.E6.9D.A5.E6.BA.90.E5.AD.97.E6.AE.B5.E5.AE.A1.E6.A0.B8.E8.83.BD.E5.BE.97.E5.88.B0.E4.BB.80.E4.B9.88.E5.A5.BD.E5.A4.84.EF.BC.9F\u000a","geo":"","head":"http:\/\/app.qlogo.cn\/mbloghead\/9aafd5fc6bbde55d58d4","id":"83179096184071","image":null,"isrealname":2,"isvip":0,"jing":"0","latitude":"0","location":"[0xe6][0x9c][0xaa][0xe7][0x9f][0xa5]","longitude":"0","mcount":0,"music":null,"name":"gaoyoubo","nick":"[0xe9][0xab][0x98][0xe5][0xb0][0xa4][0xe6][0xb3][0xa2]","openid":"DB37E277376806C7C4078A77251CE224","origtext":"[0xe4][0xb8][0xad][0xe6][0x96][0x87][0xe6][0xb5][0x8b][0xe8][0xaf][0x95]","province_code":"","self":1,"source":null,"status":0,"text":"[0xe4][0xb8][0xad][0xe6][0x96][0x87][0xe6][0xb5][0x8b][0xe8][0xaf][0x95]","timestamp":1346314175,"type":1,"video":null,"wei":"0"}],"user":{"gaoyoubo":"[0xe9][0xab][0x98][0xe5][0xb0][0xa4][0xe6][0xb3][0xa2]"}},"errcode":0,"msg":"ok","ret":0,"seqid":5782652540379442836}"
+12-08-31 10:05:17 DEBUG [http.impl.conn.SingleClientConnManager:269] Releasing connection org.apache.http.impl.conn.SingleClientConnManager$ConnAdapter@b0ce8f

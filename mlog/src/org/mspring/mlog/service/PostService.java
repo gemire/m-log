@@ -4,6 +4,7 @@
 package org.mspring.mlog.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mspring.mlog.entity.Post;
 import org.mspring.platform.persistence.query.QueryCriterion;
@@ -162,4 +163,10 @@ public interface PostService {
      * @return
      */
     List<Post> getRelatedPost(Post post, int nums);
+    
+    /**
+     * 查询所有
+     * @return
+     */
+    List<Post> findAll();
 }
