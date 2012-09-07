@@ -3,15 +3,15 @@
     <div class="wrapper">
         <div class="main">
         	<form method="get" style="text-align:center;">
-				<input type="text" name="keyword" value="${keyword!""}" class="inputtext" style="width:300px;" />
+				<input type="text" name="keyword" value="${searchKeyword!""}" class="inputtext" style="width:300px;" />
 				<input type="submit" value=' 搜  索 ' class="button"/>
 			</form><br />
         	<h3>
-        		<#if keyword?has_content>
+        		<#if searchKeyword?has_content>
         			<#if (postPage.result?size > 0)>
-        			关键字 <font color="red">${keyword!""}</font> 搜索结果:
+        			关键字 <font color="red">${searchKeyword!""}</font> 搜索结果:
         			<#else>
-        			未找到于关键字 <font color="red">${keyword!""}</font> 相关的结果
+        			未找到于关键字 <font color="red">${searchKeyword!""}</font> 相关的结果
         			</#if>
         		</#if>
         	</h3>

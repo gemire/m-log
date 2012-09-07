@@ -3,7 +3,7 @@
 <#include "header.ftl" />
 	<div style="text-align:center;">
 		<form method="get" id="searchform">
-			<input type="text" name="keyword" id="edtSearch" style="width:300px;" value="${keyword!""}" />
+			<input type="text" name="keyword" id="edtSearch" style="width:300px;" value="${searchKeyword!""}" />
 	    	<input type="submit" id="btnPost" name="btnPost" value="" />
 		</form>
 	</div>

@@ -21,18 +21,6 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="fieldlabel" style='width: 20%'>关键字:</td>
-		<td style='width: 80%'>
-			<input type="input" class="textinput" style="width:95%;" name="keyword" value="${keyword!""}"/>
-		</td>
-	</tr>
-	<tr>
-		<td class="fieldlabel" style='width: 20%'>描述:</td>
-		<td style='width: 80%'>
-			<textarea class="textinput" style="width:95%;height:50px;" name="description">${description!""}</textarea>
-		</td>
-	</tr>
-	<tr>
 		<td class="fieldlabel" style='width: 20%'>公告:<br />(支持HTML代码)</td>
 		<td style='width: 80%'>
 			<textarea class="textinput" style="width:95%;height:50px;" name="notice">${notice!""}</textarea>

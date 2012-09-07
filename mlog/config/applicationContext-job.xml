@@ -13,19 +13,34 @@
 	<bean id="updateStatInfoJob" class="org.springframework.scheduling.quartz.JobDetailBean">
 	    <property name="jobClass" value="org.mspring.mlog.job.UpdateStatInfoJob" />
 	</bean>
-	
 	<bean id="updateStatInfoTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 	    <property name="jobDetail" ref="updateStatInfoJob" />
-	    <!-- 这里指定的是在spring容器启动后多少时间开始执行任务，单位为毫秒 -->
 	    <property name="startDelay" value="3600"></property>
-	    <!-- 这指定的是每个多久执行一直Job任务，单位为毫秒 -->
 	    <property name="repeatInterval" value="1800000"></property>
+	</bean>
+	
+	<bean id="updateLuceneIndexJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	    <property name="jobClass" value="org.mspring.mlog.job.UpdateLuceneIndexJob" />
+	</bean>
+	<!-- 
+	<bean id="updateLuceneIndexTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	    <property name="jobDetail" ref="updateLuceneIndexJob" />
+	    <property name="startDelay" value="3600"></property>
+	    <property name="repeatInterval" value="86400000"></property>
+	</bean>
+	-->
+	<bean id="updateLuceneIndexTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail" ref="updateLuceneIndexJob"/>
+	    <property name="cronExpression">
+	        <value>0 30 0 * * ?</value>
+	    </property>
 	</bean>
 	
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	    <property name="triggers">
 	        <list>
 	            <ref bean="updateStatInfoTrigger"/>
+	            <ref bean="updateLuceneIndexTrigger"/>
 	        </list>
 	    </property>
 	    <property name="schedulerContextAsMap">

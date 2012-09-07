@@ -1,6 +1,7 @@
 package org.mspring.platform.persistence.search;
 
 import org.apache.lucene.search.Query;
+import org.hibernate.Session;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -31,8 +32,8 @@ public class AbstractSearchServiceSupport extends AbstractServiceSupport {
 
     public void index(Object paramT) {
         // TODO Auto-generated method stub
-        FullTextSession fullTextSession = getFullTextSession();
-        fullTextSession.index(paramT);
+        FullTextSession fs = Search.getFullTextSession(getSessionFactory().openSession());
+        fs.index(paramT);
     }
 
     public Page searchPage(Page page, Query query, Class... clazz) {

@@ -11,11 +11,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
 import org.mspring.mlog.web.resolver.QueryParam;
@@ -31,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -41,9 +44,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget
 @RequestMapping("/admin/post")
 public class PostWidget {
+    private static final Logger log = Logger.getLogger(PostWidget.class);
+    
     private PostService postService;
     private CatalogService catalogService;
     private PostValidator postValidator;
+    private PostSearchService postSearchService;
 
     @Autowired
     public void setPostService(PostService postService) {
@@ -60,6 +66,11 @@ public class PostWidget {
         this.postValidator = postValidator;
     }
 
+    @Autowired
+    public void setPostSearchService(PostSearchService postSearchService) {
+        this.postSearchService = postSearchService;
+    }
+
     @SuppressWarnings("rawtypes")
     @RequestMapping({ "/list", "/", "" })
     public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -74,7 +85,7 @@ public class PostWidget {
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("title", "标题"));
         columnfields.add(new ColumnField("catalogs", "分类"));
-        //columnfields.add(new ColumnField("url", "链接"));
+        // columnfields.add(new ColumnField("url", "链接"));
         columnfields.add(new ColumnField("createTime", "创建时间"));
         columnfields.add(new ColumnField("modifyTime", "修改时间"));
         columnfields.add(new ColumnField("author.alias", "作者"));
@@ -142,6 +153,25 @@ public class PostWidget {
         }
         postService.updatePost(post);
         return "redirect:/admin/post/list";
+    }
+
+    /**
+     * 更新文章索引
+     * @return
+     */
+    @RequestMapping("/updateIndex")
+    @ResponseBody
+    public String updateLuceneIndex() {
+        try {
+            //postSearchService.rebuildAllPostIndex();
+            postSearchService.rebuildPostIndex(new Long(167));
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+            log.debug("update post index failure!", e);
+            return "false";
+        }
+        return "true";
     }
 
     /**

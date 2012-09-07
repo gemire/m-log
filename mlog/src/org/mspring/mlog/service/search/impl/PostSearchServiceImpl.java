@@ -3,15 +3,16 @@
  */
 package org.mspring.mlog.service.search.impl;
 
+import java.util.List;
+
 import org.apache.lucene.search.Query;
-import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.platform.persistence.search.AbstractSearchServiceSupport;
 import org.mspring.platform.persistence.support.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Gao Youbo
@@ -20,8 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @TODO
  */
 @Service
-@Transactional
 public class PostSearchServiceImpl extends AbstractSearchServiceSupport implements PostSearchService {
+
+    @Autowired
+    private PostService postService;
 
     /*
      * (non-Javadoc)
@@ -48,7 +51,8 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public void rebuildPostIndex(Long postId) {
         // TODO Auto-generated method stub
-
+        Post post = postService.getPostById(postId);
+        index(post);
     }
 
     /*
@@ -60,6 +64,10 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public void rebuildAllPostIndex() {
         // TODO Auto-generated method stub
+        List<Post> posts = postService.findAll();
+        for (Post post : posts) {
+            index(post);
+        }
     }
 
 }

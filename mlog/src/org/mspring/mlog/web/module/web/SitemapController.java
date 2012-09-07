@@ -3,13 +3,18 @@
  */
 package org.mspring.mlog.web.module.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.platform.utils.DateUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -33,8 +38,22 @@ public class SitemapController {
     @RequestMapping("sitemap_baidu.xml")
     public String sitemap_baidu(HttpServletRequest request, HttpServletResponse response, Model model) {
         String blogurl = optionService.getOption("blogurl");
-        
-//        List<Post> posts = 
+        List<Post> posts = postService.findAll();
+        List<Map<String, String>> urlset = new ArrayList<Map<String, String>>();
+        for (Post post : posts) {
+            String loc = blogurl + post.getUrl();
+            String lastmod = post.getModifyTime() == null ? DateUtils.format(post.getCreateTime(), DateUtils.YYYY_MM_DD_HH_MM_SS) : DateUtils.format(post.getModifyTime(), DateUtils.YYYY_MM_DD_HH_MM_SS);
+            String changefreq = "daily";
+            String priority = "1";
+
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("loc", loc);
+            map.put("lastmod", lastmod);
+            map.put("changefreq", changefreq);
+            map.put("priority", priority);
+            urlset.add(map);
+        }
+        model.addAttribute("urlset", urlset);
         
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
@@ -43,9 +62,9 @@ public class SitemapController {
 
     @RequestMapping("sitemap.xml")
     public String sitemap(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-        response.setContentType("text/xml");
-        response.setCharacterEncoding("UTF-8");
-        return "";
+        return this.sitemap_baidu(request, response, model);
+        // response.setContentType("text/xml");
+        // response.setCharacterEncoding("UTF-8");
+        // return "";
     }
 }

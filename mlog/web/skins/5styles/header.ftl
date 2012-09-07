@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="Content-Language" content="zh_CN" />
-	<title>${blogname}</title>
+	<title><@mlog_title /></title>
 	<link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 	<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 	<link rel="stylesheet" rev="stylesheet" href="${template_url}/style/style.css" type="text/css" media="screen" />
