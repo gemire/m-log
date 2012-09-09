@@ -15,6 +15,7 @@ import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
 import org.mspring.platform.core.ContextManager;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import freemarker.template.Configuration;
 
@@ -71,5 +72,9 @@ public class ServiceFactory {
 
     public static PostSearchService getPostSearchService() {
         return ContextManager.getApplicationContext().getBean(PostSearchService.class);
+    }
+
+    public static JdbcTemplate getJdbcTemplate() {
+        return ContextManager.getApplicationContext().getBean(JdbcTemplate.class);
     }
 }
