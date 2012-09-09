@@ -25,12 +25,12 @@ public class PermaLinkUtils {
     /**
      * 系统保留的链接
      */
-    public static final String[] RESERVED_LINKS = { "/", "/admin", "/admin/*", "/widget", "/widget/*", "/post", "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", "*.js", "*.png", "*.gif", "*.jpg", "*.bmp", "*." };
-    
+    public static final String[] RESERVED_LINKS = { "/", "/admin", "/admin/*", "/widget", "/widget/*", "/post", "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", "*.js", "*.png", "*.gif", "*.jpg", "*.bmp", "*.", "/install", "/install/*" };
+
     /**
      * 链接非法字符
      */
-    public static final String[] ILLEGAL_CHARS = new String[] { " ", "//", "\\", "/.", "\\.", "*", "?", "#", "%", "!", "@", "$", "^", "&", "(", ")", "-", "+", "=", "|"};
+    public static final String[] ILLEGAL_CHARS = new String[] { " ", "//", "\\", "/.", "\\.", "*", "?", "#", "%", "!", "@", "$", "^", "&", "(", ")", "-", "+", "=", "|" };
 
     /**
      * 判断是否是系统默认的固定链接格式 <br>
