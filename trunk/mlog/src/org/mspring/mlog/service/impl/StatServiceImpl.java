@@ -86,7 +86,7 @@ public class StatServiceImpl extends AbstractServiceSupport implements StatServi
         Object obj = findUnique("select count(*) from Post post where post.status = ?", Post.Status.PUBLISH);
         if (obj != null && ValidatorUtils.isNumber(obj.toString())) {
             Stat stat = new Stat(Stat.Type.POST_COUNT, obj.toString());
-            save(stat);
+            create(stat);
         }
     }
 
@@ -101,7 +101,7 @@ public class StatServiceImpl extends AbstractServiceSupport implements StatServi
         Object obj = findUnique("select count(*) from Comment comment where comment.status = ?", Comment.Status.APPROVED);
         if (obj != null && ValidatorUtils.isNumber(obj.toString())) {
             Stat stat = new Stat(Stat.Type.COMMENT_COUNT, obj.toString());
-            save(stat);
+            create(stat);
         }
     }
 
@@ -119,7 +119,7 @@ public class StatServiceImpl extends AbstractServiceSupport implements StatServi
         }
         Integer value = Integer.parseInt(click) + 1;
         Stat stat = new Stat(Stat.Type.CLICK_COUNT, value.toString());
-        save(stat);
+        create(stat);
     }
 
     private Stat getSingle(final String type) {

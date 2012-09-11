@@ -1913,3 +1913,6 @@ div.grippie {
 .pager a,.pager .now-page {
 	padding:0.5em;
 }
+.copyright{
+	margin: 5px; padding: 5px; text-align: center;
+}

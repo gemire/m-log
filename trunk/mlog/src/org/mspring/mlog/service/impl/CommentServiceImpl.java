@@ -49,8 +49,8 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public Comment createComment(Comment comment) {
         // TODO Auto-generated method stub
-        Serializable s = super.save(comment);
-        return (Comment) super.get(Comment.class, s);
+        Serializable s = super.create(comment);
+        return (Comment) super.getById(Comment.class, s);
     }
 
     /*
@@ -62,7 +62,7 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public void deleteComment(Long... idArray) {
         // TODO Auto-generated method stub
-        super.delete(Comment.class, idArray);
+        super.remove(Comment.class, idArray);
     }
 
     /*
@@ -88,7 +88,7 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public Comment getCommentById(Long id) {
         // TODO Auto-generated method stub
-        return (Comment) get(Comment.class, id);
+        return (Comment) getById(Comment.class, id);
     }
 
     /*
@@ -101,7 +101,7 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public Page<Comment> findComment(Page<Comment> page, String queryString, Object... params) {
         // TODO Auto-generated method stub
-        return findPage(page, queryString, params);
+        return findPage(queryString, page, params);
     }
 
     /*
@@ -136,7 +136,7 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public Page<Comment> findComment(Page<Comment> page, QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
-        return findPage(page, queryCriterion);
+        return findPage(queryCriterion, page);
     }
 
     /*

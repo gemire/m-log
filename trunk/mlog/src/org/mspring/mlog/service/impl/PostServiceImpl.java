@@ -62,7 +62,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         post.setCommentCount(new Long(0));
         post.setViewCount(new Long(0));
-        Long id = (Long) super.save(post);
+        Long id = (Long) super.create(post);
         return getPostById(id);
     }
 
@@ -74,7 +74,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public void deletePost(Long... idArray) {
         // TODO Auto-generated method stub
-        super.delete(Post.class, idArray);
+        super.remove(Post.class, idArray);
     }
 
     /*
@@ -87,7 +87,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public Page<Post> findPost(Page<Post> page, QueryCriterion queryCriterion) {
         // TODO Auto-generated method stub
-        return super.findPage(page, queryCriterion);
+        return super.findPage(queryCriterion, page);
     }
 
     /*
@@ -99,7 +99,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public Page<Post> findPost(Page<Post> page, String queryString) {
         // TODO Auto-generated method stub
-        return super.findPage(page, queryString);
+        return super.findPage(queryString, page);
     }
 
     /*
@@ -111,7 +111,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public Page<Post> findPost(Page<Post> page, String queryString, Object... queryParams) {
         // TODO Auto-generated method stub
-        return super.findPage(page, queryString, queryParams);
+        return super.findPage(queryString, page, queryParams);
     }
 
     /*
@@ -122,7 +122,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public Post getPostById(Long postId) {
         // TODO Auto-generated method stub
-        return (Post) super.get(Post.class, postId);
+        return (Post) super.getById(Post.class, postId);
     }
 
     /*
@@ -237,7 +237,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public boolean titleExists(String title, Long postId) {
         // TODO Auto-generated method stub
-        Long count = null;
+        int count = 0;
         if (postId == null) {
             String queryString = "select count(*) from Post post where post.title = ?";
             count = count(queryString, title);
@@ -274,7 +274,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public boolean urlExists(String url, Long postId) {
         // TODO Auto-generated method stub
-        Long count = null;
+        int count = 0;
         if (postId == null) {
             String queryString = "select count(*) from Post post where post.url = ?";
             count = count(queryString, url);

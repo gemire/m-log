@@ -8,6 +8,10 @@
 		</div><!-- /container -->
 	</div>
 	<!-- /layout -->
+	<div class="copyright">
+		${copyright!""}
+		Powered By <a href="http://www.mspring.org">M-Log</a>
+	</div>
 	<div id="overlay" style="display: none;"/></div>
 </body>
 </html>
