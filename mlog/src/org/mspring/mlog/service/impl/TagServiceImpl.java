@@ -57,8 +57,8 @@ public class TagServiceImpl extends AbstractServiceSupport implements TagService
     @Override
     public Tag createTag(Tag tag) {
         // TODO Auto-generated method stub
-        Serializable id = super.save(tag);
-        return (Tag) super.get(Tag.class, id);
+        Serializable id = super.create(tag);
+        return (Tag) super.getById(Tag.class, id);
     }
 
 }

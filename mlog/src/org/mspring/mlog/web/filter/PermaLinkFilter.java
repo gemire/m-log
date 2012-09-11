@@ -78,7 +78,6 @@ public class PermaLinkFilter implements Filter {
             request.setAttribute("requestURI", "/post");
             request.setAttribute("method", "GET");
             request.getRequestDispatcher("/post").forward(request, response);
-
             // 更新post点击
             new Thread(new Runnable() {
                 @Override

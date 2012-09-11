@@ -143,49 +143,220 @@ form{
 <div id="divMain_Top">Lincese:</div>
 <div id="divMain_Center">
 <textarea id="txaContent" readonly="readonly" style="width:585px;height:220px;">
-本《Z-Blog软件最终用户许可协议》（以下简称《协议》）是您与RainbowSoft Studio之间关于下载、安装、使用、复制Z-Blog软件的法律协议。本《协议》描述RainbowSoft Studio与您之间关于Z-Blog许可使用及相关方面的权利义务。
 
-请您仔细阅读本《协议》，用户可选择不使用Z-Blog，用户使用Z-Blog的行为将被视为对本《协议》全部内容的认可，并同意接受本《协议》各项条款的约束。
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-1 知识产权声明
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-1.1	Z-Blog是由RainbowSoft Studio的Z-Blog团队开发，表情图片由2S-SPACE STUDIO友情提供。Z-Blog的一切版权等知识产权，以及与Z-Blog相关的所有信息内容，包括但不限于：文字表述及其组合、商标、图标图饰、界面设计、版面框架、有关数据、印刷材料、电子文档等均受著作权法和国际著作权条约以及其他知识产权法律法规的保护。除了任何软件作者授权许可协议所提供的明确书面许可外，拥有本Z-Blog并不赋予您任何有关这些专利、商标、版权或其它知识产权的许可。
+   1. Definitions.
 
-2 Z-Blog授权范围
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-2.1	对每份许可协议，用户可以在一台计算机、终端机、工作站或其他数字电子仪器（下简称“计算机”）上安装、使用、显示、运行本Z-Blog。
-2.2	保留权利：未明示授权的其他一切权利仍归RainbowSoft Studio所有，用户使用其他权利时须另外取得RainbowSoft Studio的书面同意。
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-3 用户使用须知
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-3.1	用户在遵守法律及本协议的前提下可依据本《协议》使用本Z-Blog。用户无权实施包括但不限于下列行为：
-3.1.1	不得删除本Z-Blog及其他副本上所有关于版权的信息、内容；
-3.1.2	对于本Z-Blog的源代码、文字、图片等相关信息，未经RainbowSoft Studio书面同意，用户不得借助Z-Blog发展与之有关的衍生产品、作品、服务，不得向任何第三方公开发布修改后的软件。
-3.1.3	用户不得利用本Z-Blog发表、传播、储存侵害他人知识产权、商业秘密权等合法权利的内容。
-3.2	本Z-Blog同大多数Blog系统一样，可能受到各种安全问题的侵扰。如：下载安装其它软件中含有“特洛伊木马”等病毒，威胁到用户计算机信息和数据的安全，继而影响本Z-Blog的正常使用等。用户应加强信息安全意识，注意加强密码保护以免遭致损失。
-3.3	用户自行下载、安装、使用非RainbowSoft Studio开发并正式发布的其它任何由本Z-Blog衍生的软件将可能导致不可预知的风险，建议用户不要轻易下载、安装、使用，由此产生的一切法律责任与纠纷一概与RainbowSoft Studio无关。
-3.4	RainbowSoft Studio保留在任何时候为您提供本Z-Blog的修改、升级版本的权利，以及为修改或升级服务收取费用的权利。
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
 
-4 法律责任与免责
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
 
-4.1	RainbowSoft Studio特别提请用户注意，RainbowSoft Studio拥有随时自行修改或中断软件授权而不需通知用户的权利，如有必要，修改或中断会以通告形式公布于RainbowSoft Studio网站重要页面上。
-4.2	用户违反本协议或相关的服务条款的规定，RainbowSoft Studio有权视用户的行为性质采取包括但不限于中断使用许可、停止提供服务、限制使用、法律追究等措施。同时，RainbowSoft Studio会视司法部门的要求，协助调查。
-4.3	使用本Z-Blog涉及到互联网服务因素，可能会受到各个环节不稳定因素的影响，存在因不可抗力、计算机病毒、黑客攻击、系统不稳定、用户所在位置、用户关机以及其他任何网络、技术、通信线路等原因造成的服务中断或不能满足用户要求的风险，用户须明白并自行承担以上风险。在适用法律允许的最大范围内，RainbowSoft Studio在任何情况下不就因使用或不能使用本Z-Blog产品及所发生的特殊的、意外的、非直接或间接的损失承担赔偿责任，即使用户已事先被RainbowSoft Studio告知该损害发生的可能性。
-4.4	用户因第三方如电信部门的通讯线路故障、技术问题、网络、电脑故障、系统不稳定性及其他各种不可抗力原因而遭受的经济损失，RainbowSoft Studio不承担责任。
-4.5	因技术故障等不可抗事件影响到服务的正常运行的，RainbowSoft Studio承诺在第一时间内与相关单位配合及时处理进行修复，但用户因此而遭受的经济损失，RainbowSoft Studio不承担责任。
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
 
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 </textarea>
 </div>
 
 <div id="divMain_Bottom">
-<input name="chkRemember" id="chkRemember" type="checkbox" onclick="if(this.checked==true){document.getElementById('btnUpt').disabled=false;document.getElementById('btnNew').disabled=false;}else{document.getElementById('btnUpt').disabled=true;document.getElementById('btnNew').disabled=true;}" /><label for="chkRemember">我已阅读并同意</label>&nbsp;&nbsp;
-<input class="button" id="btnUpt" disabled type="button" value="自动升级BLOG程序&gt;&gt;" onclick="window.location='install.asp?update'"/>
+<input name="chkRemember" id="chkRemember" type="checkbox" onclick="if(this.checked==true){document.getElementById('btnNew').disabled=false;}else{document.getElementById('btnNew').disabled=true;}" /><label for="chkRemember">我已阅读并同意</label>&nbsp;&nbsp;
 &nbsp;&nbsp;
-<input class="button" id="btnNew"  disabled type="submit" value="全新安装BLOG程序&gt;&gt;"  onclick='return window.confirm("全新安装模式将覆盖您所有已存在文件并且不进行备份，按[确定]继续安装");'/>
+<input class="button" id="btnNew"  disabled type="submit" value="全新安装BLOG程序&gt;&gt;"  
+	onclick='return window.confirm("确认安装吗?");'/>
 </div>
 
 </div>
-<div id="divFooter">Powered By <a href="http://www.rainbowsoft.org/" target="_blank" title="RainbowSoft Studio">RainbowSoft Studio</a></div>
+<div id="divFooter">Powered By <a href="http://www.mspring.org/" target="_blank" title="M-Spring">M-Spring</a></div>
 </form>
 </body>
 </html>

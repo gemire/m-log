@@ -32,7 +32,7 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public Page<Link> findLinks(Page<Link> linkPage, String queryString) {
         // TODO Auto-generated method stub
-        return findPage(linkPage, queryString);
+        return findPage(queryString, linkPage);
     }
 
     /*
@@ -44,7 +44,7 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public Page<Link> findLinks(Page<Link> linkPage, String queryString, Object... params) {
         // TODO Auto-generated method stub
-        return findPage(linkPage, queryString, params);
+        return findPage(queryString, linkPage, params);
     }
 
     /*
@@ -69,8 +69,8 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public Link createLink(Link link) {
         // TODO Auto-generated method stub
-        Serializable s = save(link);
-        return (Link) get(Link.class, s);
+        Serializable s = create(link);
+        return (Link) getById(Link.class, s);
     }
 
     /*
@@ -94,7 +94,7 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public void deleteLinks(Long... idArray) {
         // TODO Auto-generated method stub
-        delete(Link.class, idArray);
+        remove(Link.class, idArray);
     }
 
     /*
@@ -105,7 +105,7 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public Link getLinkById(Long id) {
         // TODO Auto-generated method stub
-        return (Link) get(Link.class, id);
+        return (Link) getById(Link.class, id);
     }
 
 }

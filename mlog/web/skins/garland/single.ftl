@@ -3,7 +3,7 @@
 <#if post?exists>
 	<div id="node-<@post_id />" class="node">
 		<h2><@post_title /></h2>
-		<span class="submitted"><@post_time /> - <@post_author_alias /></span>
+		<span class="submitted"><@post_time /> - <@post_author_alias /> - <@post_view_count />查看</span>
 		<div class="content">
 			<@post_content />
 		</div>
@@ -23,7 +23,6 @@
 				<ul class="links inline">
 					<li class="first blog_usernames_blog">
 						<li class="first last taxonomy_term_2">
-							
 						</li>
 					</li>
 					<li class="last comment_add">

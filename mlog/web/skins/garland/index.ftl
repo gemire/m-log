@@ -6,7 +6,7 @@
 	<@list_post>
 		<div id="node-<@post_id />" class="node">
 			<h2><a href="<@post_url />" title="<@post_title />"><@post_title /></a></h2>
-			<span class="submitted"><@post_time /> - <@post_author_alias /></span>						  
+			<span class="submitted"><@post_time /> - <@post_author_alias /> - <@post_view_count />查看</span>						  
 			<div class="content"><@post_content /></div>
 			<div class="clear-block clear">
 				<div class="meta">

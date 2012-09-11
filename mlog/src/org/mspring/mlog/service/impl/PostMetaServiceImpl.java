@@ -42,7 +42,7 @@ public class PostMetaServiceImpl extends AbstractServiceSupport implements PostM
         meta.setPostId(postId);
         meta.setKey(key);
         meta.setValue(value);
-        save(meta);
+        create(meta);
     }
 
     /*

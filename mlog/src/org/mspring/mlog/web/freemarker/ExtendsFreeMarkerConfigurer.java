@@ -51,7 +51,7 @@ public class ExtendsFreeMarkerConfigurer extends FreeMarkerConfigurer {
     @SuppressWarnings("rawtypes")
     private Map<String, Object> addVariables() {
         Map<String, Object> variables = new HashMap<String, Object>();
-        Map<String, String> map = PropertiesUtils.getPropertyMap(getClass().getResourceAsStream("variables.properties"));
+        Map<String, String> map = PropertiesUtils.getPropertyMap("variables.properties");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();

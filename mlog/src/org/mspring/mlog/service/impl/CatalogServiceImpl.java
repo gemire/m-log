@@ -33,7 +33,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public Catalog createCatalog(Catalog catalog) {
         // TODO Auto-generated method stub
-        Long id = (Long) save(catalog);
+        Long id = (Long) create(catalog);
         return getCatalogById(id);
     }
 
@@ -66,7 +66,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public Page<Catalog> findCatalog(Page<Catalog> page, String queryString, Object... params) {
         // TODO Auto-generated method stub
-        return findPage(page, queryString, params);
+        return findPage(queryString, page, params);
     }
 
     /*
@@ -79,7 +79,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public Page<Catalog> findCatalog(Page<Catalog> page, String queryString) {
         // TODO Auto-generated method stub
-        return findPage(page, queryString);
+        return findPage(queryString, page);
     }
 
     /*
@@ -93,7 +93,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public Page<Catalog> findCatalog(Page<Catalog> page, QueryCriterion criterion) {
         // TODO Auto-generated method stub
-        return findPage(page, criterion);
+        return findPage(criterion, page);
     }
 
     /*
@@ -105,7 +105,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public Catalog getCatalogById(Long catalogId) {
         // TODO Auto-generated method stub
-        return (Catalog) get(Catalog.class, catalogId);
+        return (Catalog) getById(Catalog.class, catalogId);
     }
 
     /*
@@ -124,8 +124,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.service.CatalogService#findAllCatalog()
+     * @see org.mspring.mlog.service.CatalogService#findAllCatalog()
      */
     @Override
     public List<Catalog> findAllCatalog() {
@@ -133,28 +132,36 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
         return findAll(Catalog.class);
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.CatalogService#getCatalogByName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CatalogService#getCatalogByName(java.lang.String
+     * )
      */
     @Override
     public Catalog getCatalogByName(String name) {
         // TODO Auto-generated method stub
         Object catalog = findUnique("select catalog from Catalog catalog where catalog.name = ?", name);
-        return catalog == null ? null : (Catalog)catalog;
+        return catalog == null ? null : (Catalog) catalog;
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.CatalogService#catalogExists(java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CatalogService#catalogExists(java.lang.String,
+     * java.lang.String)
      */
     @Override
     public boolean catalogExists(String name, Long id) {
         // TODO Auto-generated method stub
-        Long count = null;
+        int count = 0;
         if (id == null) {
             count = count("select count(*) from Catalog catalog where catalog.name = ?", name);
         }
         else {
-            count = count("select count(*) from Catalog catalog where catalog.name = ? and catalog.id <> ?", new Object[]{name, id});
+            count = count("select count(*) from Catalog catalog where catalog.name = ? and catalog.id <> ?", new Object[] { name, id });
         }
         if (count > 0) {
             return true;

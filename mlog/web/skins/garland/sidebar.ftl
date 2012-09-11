@@ -42,4 +42,18 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="clear-block block block-catalog">
+		<h2>Meta</h2>
+		<div class="content">
+			<div class="item-list" id="item-list-topcomment">
+				<ul>
+					<li>文章总数：<@stat_post_count /></li>
+					<li>评论总数：<@stat_comment_count /></li>
+					<li>总点击量：<@stat_click_count /></li>
+					<li><a href="${base}/admin" target="_blank">登录管理</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
