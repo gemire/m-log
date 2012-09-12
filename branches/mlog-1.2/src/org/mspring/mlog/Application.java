@@ -14,10 +14,10 @@ import org.apache.commons.lang.SystemUtils;
 public class Application {
     public static final String PRODUCT_NAME = "MLOG";
     public static final String ALIAS_NAME = "mlog";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.2";
     public static final String LICENSE = "GNU Affero Genral Public License (AGPL3)";
     public static final String HOME_PAGE = "http://www.mspring.org";
-    public static final String HOME_PAGE_NAME = "慕春博客";
+    public static final String HOME_PAGE_NAME = "M-Spring";
 
     // operating system properties
     public static final String OS_NAME = SystemUtils.OS_NAME;
