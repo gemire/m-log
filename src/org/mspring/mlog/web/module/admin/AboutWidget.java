@@ -26,22 +26,9 @@ public class AboutWidget {
      * @return
      */
     @RequestMapping("/about")
-    public String about(){
-        return "/admin/about";
-    }
-    /**
-     * 关于我 widget
-     * 
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("/widget/about")
-    public String about(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String about(HttpServletRequest request, HttpServletResponse response, Model model){
         Application app = Application.getInstance();
         model.addAttribute("app", app);
-        return "/admin/widget/about";
+        return "/admin/about";
     }
-    
-    
 }
