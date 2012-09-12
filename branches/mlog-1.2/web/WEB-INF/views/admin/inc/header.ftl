@@ -34,10 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="${base}/script/jquery-multiselect/jquery.multiselect.css">
 	<script type="text/javascript" src="${base}/script/jquery-multiselect/src/jquery.multiselect.min.js"></script>
 	
-	
 	<script type="text/javascript" src="${base}/script/common.js"></script>
 </head>
 <body>
-	<div class="ui-layout-north"><@widget.placeholder path="/admin/top"/></div>
-	<div class="ui-layout-west"><@widget.placeholder path="/admin/leftMenu"/></div>
-	<div class="ui-layout-south"><@widget.placeholder path="/admin/bottom"/></div>
+	
