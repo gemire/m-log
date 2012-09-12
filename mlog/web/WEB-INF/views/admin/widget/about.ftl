@@ -1,3 +1,4 @@
+<#import "/META-INF/spring.ftl" as spring />
 <div>
 	<table class="infotable">
 		<tr>

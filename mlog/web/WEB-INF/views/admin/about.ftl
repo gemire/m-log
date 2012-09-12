@@ -1,5 +1,5 @@
 <#include "inc/header.ftl" />
-<div class="ui-layout-center"><@widget.placeholder path="/admin/widget/about" /></div>
+<div class="ui-layout-center"><@widget.placeholder path="/admin/widget/about" cache=false /></div>
 
 <script type="text/javascript">
 $(document).ready(function(){
