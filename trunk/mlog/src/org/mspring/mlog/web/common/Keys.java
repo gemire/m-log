@@ -41,4 +41,9 @@ public class Keys {
      * 保存所有Option缓存的key
      */
     public static final String OPTION_CACHE_MAP_KEY = "OPTION_CACHE_MAP_KEY";
+    
+    /**
+     * DEFAULT_CACHE名称
+     */
+    public static final String DEFAULT_CACHE_NAME = "DEFAULT_CACHE";
 }

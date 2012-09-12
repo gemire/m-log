@@ -128,6 +128,7 @@
 				<prop key="number_format">0.######</prop>
 				<prop key="defaultEncoding">UTF-8</prop>
 				<prop key="template_update_delay">1</prop>
+				<!-- <prop key="auto_import">META-INF/spring.ftl as spring</prop> -->
 			</props>
 		</property>
 	</bean>

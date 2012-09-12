@@ -122,7 +122,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
     @Override
     public Post getPostById(Long postId) {
         // TODO Auto-generated method stub
-        return (Post) super.getById(Post.class, postId);
+        return (Post) getById(Post.class, postId);
     }
 
     /*
@@ -356,4 +356,74 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         // TODO Auto-generated method stub
         return super.findAll(Post.class);
     }
+    
+    
+//    /**
+//     * 获取以ID为标识的文章缓存KEY
+//     * 
+//     * @param postId
+//     * @return
+//     */
+//    private final String getPostCacheIdKey(Long postId) {
+//        return "POSTID:" + postId;
+//    }
+//
+//    /**
+//     * 获取以URL为标识的文章缓存KEY
+//     * 
+//     * @param url
+//     * @return
+//     */
+//    private final String getPostCacheUrlKey(String url) {
+//        return "POSTURL:" + url;
+//    }
+//
+//    /**
+//     * 根据ID获取缓存的文章
+//     * 
+//     * @return
+//     */
+//    private final Post getPostCacheById(Long postId) {
+//        if (postId == null) return null;
+//        Object obj = CacheUtils.getObjectValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheIdKey(postId));
+//        if (obj != null && obj instanceof Post) return (Post) obj;
+//        return null;
+//    }
+//
+//    /**
+//     * 根据URL获取缓存的文章
+//     * 
+//     * @return
+//     */
+//    public final Post getPostCacheByUrl(String url) {
+//        if (StringUtils.isBlank(url)) return null;
+//        Object obj = CacheUtils.getObjectValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheUrlKey(url));
+//        if (obj != null && obj instanceof Post) return (Post) obj;
+//        return null;
+//    }
+//
+//    /**
+//     * 缓存文章
+//     * 
+//     * @param post
+//     */
+//    private final void setPostCache(Post post) {
+//        if (post != null) {
+//            CacheUtils.updateValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheIdKey(post.getId()), post);
+//            CacheUtils.updateValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheUrlKey(post.getUrl()), post);
+//        }
+//    }
+//
+//    /**
+//     * 清空PostCache
+//     * 
+//     * @param post
+//     */
+//    private final void cleanPostCache(Post post) {
+//        if (post != null) {
+//            CacheUtils.invalidateValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheIdKey(post.getId()));
+//            CacheUtils.invalidateValue(cacheManager, Keys.DEFAULT_CACHE_NAME, getPostCacheUrlKey(post.getUrl()));
+//        }
+//    }
+
 }

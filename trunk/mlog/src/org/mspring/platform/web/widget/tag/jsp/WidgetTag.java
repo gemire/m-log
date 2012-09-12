@@ -37,6 +37,7 @@ public class WidgetTag extends TagSupport {
 
     private String path;
     private boolean cache = true;
+    private Long idle;
 
     /**
      * @return the path
@@ -68,6 +69,21 @@ public class WidgetTag extends TagSupport {
         this.cache = cache;
     }
 
+    /**
+     * @return the idle
+     */
+    public Long getIdle() {
+        return idle;
+    }
+
+    /**
+     * @param idle
+     *            the idle to set
+     */
+    public void setIdle(Long idle) {
+        this.idle = idle;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -91,7 +107,6 @@ public class WidgetTag extends TagSupport {
         StringBuffer buffer = new StringBuffer();
         Cache widgetCache = getWidgetCache();
         Object value = null;
-        //(cache && widgetCache != null) ? widgetCache.get(path).getValue() : null;
         if (cache && widgetCache != null) {
             Element cacheElement = widgetCache.get(path);
             if (cacheElement != null) {
@@ -119,6 +134,9 @@ public class WidgetTag extends TagSupport {
         // 添加缓存
         if (cache && value != null && StringUtils.isNotBlank((String) value)) {
             Element element = new Element(path, value);
+            if (idle != null && idle != 0) {
+                element.setTimeToIdle(idle.intValue());
+            }
             widgetCache.put(element);
         }
 
@@ -146,8 +164,8 @@ public class WidgetTag extends TagSupport {
         return buffer.toString();
     }
 
-    
     private Cache widgetCache = null;
+
     protected Cache getWidgetCache() {
         if (widgetCache == null) {
             this.widgetCache = CacheManager.getInstance().getCache(Keys.WIDGET_CACHE_KEY);
