@@ -20,5 +20,9 @@
 			<name>cache</name>
 			<required>false</required>
 		</attribute>
+		<attribute>
+			<name>idle</name>
+			<required>false</required>
+		</attribute>
 	</tag>
 </taglib>
