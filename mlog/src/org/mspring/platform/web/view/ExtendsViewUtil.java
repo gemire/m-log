@@ -3,13 +3,10 @@
  */
 package org.mspring.platform.web.view;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.Keys;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
  * @author Gao Youbo

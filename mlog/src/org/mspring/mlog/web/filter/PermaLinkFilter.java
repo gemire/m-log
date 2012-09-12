@@ -62,7 +62,6 @@ public class PermaLinkFilter implements Filter {
             chain.doFilter(servletRequest, servletResponse);
             return;
         }
-
         Post post = ServiceFactory.getPostService().getPostByUrl(requestURI);
         if (post == null) {
             log.debug("Not found post with permalink [" + requestURI + "]");

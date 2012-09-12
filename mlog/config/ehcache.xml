@@ -19,8 +19,8 @@
     <cache name="widgetCache"
             maxElementsInMemory="10"
             eternal="false"
-            timeToIdleSeconds="5"
-            timeToLiveSeconds="10"
+            timeToIdleSeconds="60"
+            timeToLiveSeconds="60"
             overflowToDisk="false"
             />
 

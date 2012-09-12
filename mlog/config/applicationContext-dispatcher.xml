@@ -88,4 +88,12 @@
 		<!-- <property name="exposeRequestAttributes" value="true" /> -->
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>resources/messageResources</value>
+			</list>
+		</property>
+	</bean>
 </beans>
