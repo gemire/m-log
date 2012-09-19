@@ -65,7 +65,7 @@
 						<tr>
 							<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" onclick="checkThisCatalog(this, 'id');" /></td>
 							<td class="${tdClass}">${item.id}</td>
-							<td class="${tdClass}">${item.title}</td>
+							<td class="${tdClass}" title="${item.title}"><@mspring.sub_string content=item.title to=20 suffix="..." /></td>
 							<td class="${tdClass}">
 								<#if (item.catalogs?exists && item.catalogs?size > 0)>
 									<#list item.catalogs as catalog>
