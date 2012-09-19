@@ -20,7 +20,7 @@ public class AdminWidget {
      * 
      * @return
      */
-    @RequestMapping({"/index", "/", ""})
+    @RequestMapping({"", "/", "/index"})
     public String index() {
         return "/admin/index";
     }
