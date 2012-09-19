@@ -13,7 +13,7 @@
 		<filter-name>login</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
-	
+ 
 	<servlet>
 		<servlet-name>SpringMVCDispatcher</servlet-name>
 		<servlet-class>org.mspring.mlog.web.DispatcherServlet</servlet-class>
@@ -31,11 +31,16 @@
 	</servlet-mapping>
 	
 	
+	<!-- 
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>
 			org.mspring.platform.web.urlrewrite.UrlRewriteFilter
 		</filter-class>
+		<init-param>
+　　　　 		<param-name>confReloadCheckInterval</param-name>
+　　　　 		<param-value>60</param-value>
+　　　 	</init-param>
 		<init-param>
 			<param-name>logLevel</param-name>
 			<param-value>INFO</param-value>
@@ -47,6 +52,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	-->
 	
 	<filter>
 		<filter-name>encoding</filter-name>
@@ -60,7 +66,6 @@
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
 	
 	<!-- 
 	<filter>
@@ -139,6 +144,7 @@
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<!-- 
 	<error-page>
 		<error-code>404</error-code>
 		<location>/errors/404</location>
@@ -147,4 +153,5 @@
 		<error-code>500</error-code>
 		<location>/errors/500</location>
 	</error-page>
+	-->
 </web-app>
