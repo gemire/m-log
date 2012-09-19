@@ -156,7 +156,7 @@
 </#macro>
 
 
-<#macro show_errors >
+<#macro show_errors>
 	<#if (errors?exists && errors.errors?exists && errors.errors?size > 0)>
 		<#assign msg = "" />
 		<#list errors.errors as error>
@@ -164,6 +164,16 @@
 		</#list>
 		<#if (msg?exists && msg?length > 0)>
 			<script type="text/javascript">mspring.tip('${msg}');</script>
+		</#if>
+	</#if>
+</#macro>
+
+<#macro sub_string content from=0 to=0 suffix="">
+	<#if (content!?length > 0 && from < content?length)>
+		<#if (to > 0 && content?length > (to + 1) )>
+			${content?substring(from, to)}${suffix}
+		<#else>
+			${content?substring(from)}
 		</#if>
 	</#if>
 </#macro>
