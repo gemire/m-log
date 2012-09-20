@@ -89,7 +89,7 @@
 				<tr>
 					<td>
 						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete');" />
-						<#--<input type="button" class="btn" value=" 更新索引 " onclick="updateLuceneIndex();" />-->
+						<input type="button" class="btn" value=" 更新索引 " onclick="updateLuceneIndex();" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=postPage form_id="postForm" />
@@ -102,7 +102,7 @@
 <script type="text/javascript">
 function updateLuceneIndex(){
 	$.get("${base}/admin/post/updateIndex", function(data){
-		if(date){
+		if(data == "true"){
 			alert("更新成功");
 		}
 		else{

@@ -3,13 +3,11 @@
  */
 package org.mspring.mlog.service.search.impl;
 
-import java.util.List;
-
 import org.apache.lucene.search.Query;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.PostSearchService;
-import org.mspring.platform.persistence.search.AbstractSearchServiceSupport;
+import org.mspring.platform.persistence.search.BaseHibernateSearchDao;
 import org.mspring.platform.persistence.support.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @TODO
  */
 @Service
-public class PostSearchServiceImpl extends AbstractSearchServiceSupport implements PostSearchService {
+public class PostSearchServiceImpl extends BaseHibernateSearchDao implements PostSearchService {
 
     @Autowired
     private PostService postService;
@@ -51,8 +49,7 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public void rebuildPostIndex(Long postId) {
         // TODO Auto-generated method stub
-        Post post = postService.getPostById(postId);
-        index(post);
+        updateIndex(Post.class, postId);
     }
 
     /*
@@ -64,10 +61,7 @@ public class PostSearchServiceImpl extends AbstractSearchServiceSupport implemen
     @Override
     public void rebuildAllPostIndex() {
         // TODO Auto-generated method stub
-        List<Post> posts = postService.findAll();
-        for (Post post : posts) {
-            index(post);
-        }
+        updateAllIndex(Post.class);
     }
 
 }
