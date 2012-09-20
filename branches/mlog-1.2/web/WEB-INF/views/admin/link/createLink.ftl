@@ -43,6 +43,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="fieldlabel" style="width:60px;">排序</td>
+					<td>
+						<@spring.formInput path="link.order" attributes='class="textinput" style="width:98%;"' />
+					</td>
+				</tr>
+				<tr>
 					<td class="fieldlabel" style="width:60px;">描述</td>
 					<td>
 						<@spring.formTextarea path="link.description" attributes='class="textinput" style="width:98%;"' />

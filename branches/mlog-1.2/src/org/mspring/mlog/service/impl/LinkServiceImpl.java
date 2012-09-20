@@ -9,6 +9,7 @@ import java.util.List;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.platform.core.AbstractServiceSupport;
+import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,7 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     @Override
     public List<Link> findVisableLinks() {
         // TODO Auto-generated method stub
-        String queryString = "select link from Link link where link.visable = true";
+        String queryString = "select link from Link link where link.visable = true order by link.order asc";
         return find(queryString);
     }
 
@@ -106,6 +107,15 @@ public class LinkServiceImpl extends AbstractServiceSupport implements LinkServi
     public Link getLinkById(Long id) {
         // TODO Auto-generated method stub
         return (Link) getById(Link.class, id);
+    }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.LinkService#findLinks(org.mspring.platform.persistence.support.Page, org.mspring.platform.persistence.query.QueryCriterion)
+     */
+    @Override
+    public Page<Link> findLinks(Page<Link> linkPage, QueryCriterion queryCriterion) {
+        // TODO Auto-generated method stub
+        return findPage(queryCriterion, linkPage);
     }
 
 }

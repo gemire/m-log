@@ -5,12 +5,16 @@ package org.mspring.mlog.web.module.admin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Link;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.LinkService;
+import org.mspring.mlog.web.module.admin.query.LinkQueryCriterion;
+import org.mspring.mlog.web.resolver.QueryParam;
 import org.mspring.mlog.web.validator.LinkValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -47,23 +51,25 @@ public class LinkWidget {
     }
 
     @RequestMapping("/list")
-    public String listLinks(@ModelAttribute Page<Link> linkPage, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String listLinks(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkPage == null) {
             linkPage = new Page<Link>();
         }
-        linkPage.setSort(new Sort("id", Sort.DESC));
+        linkPage.setSort(new Sort("order", Sort.ASC));
 
-        linkPage = linkService.findLinks(linkPage, "select link from Link link ");
+        linkPage = linkService.findLinks(linkPage, new LinkQueryCriterion(queryParams));
 
         List<Field> columnfields = new ArrayList<Field>();
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("name", "名称"));
         columnfields.add(new ColumnField("url", "地址"));
         columnfields.add(new ColumnField("target", "Target"));
+        columnfields.add(new ColumnField("order", "排序"));
         columnfields.add(new ColumnField("visable", "是否可见"));
 
         model.addAttribute("linkPage", linkPage);
         model.addAttribute("columnfields", columnfields);
+        model.addAttribute("visable", Link.Visable.getVisableMap());
         return "/admin/link/listLink";
     }
 
