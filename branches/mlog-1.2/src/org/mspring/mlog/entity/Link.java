@@ -34,6 +34,7 @@ public class Link implements Serializable {
     private String url;
     private String target;
     private String description;
+    private Long order;
     private Boolean visable;
 
     /**
@@ -116,6 +117,22 @@ public class Link implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    /**
+     * @return the order
+     */
+    @Column(name = "order", length = 30)
+    public Long getOrder() {
+        return order;
+    }
+
+    /**
+     * @param order
+     *            the order to set
+     */
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
     /**
