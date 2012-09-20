@@ -158,9 +158,9 @@ public class Link implements Serializable {
 
         public static final Map<String, String> getTargetMap() {
             Map<String, String> map = new HashMap<String, String>();
-            map.put(_BLANK, "_blank");
-            map.put(_TOP, "_top");
-            map.put(_NONE, "_none");
+            map.put(_BLANK, "新窗口或新标签");
+            map.put(_TOP, "不包含框架的当前窗口或标签");
+            map.put(_NONE, "同一窗口或标签");
             return map;
         }
     }
