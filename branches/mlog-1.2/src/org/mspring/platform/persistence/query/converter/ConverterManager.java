@@ -22,6 +22,7 @@ public class ConverterManager {
         converters.put(Date.class, new DateConverter());
         converters.put(Integer.class, new IntegerConverter());
         converters.put(Long.class, new LongConverter());
+        converters.put(Boolean.class, new BooleanConverter());
     }
 
     public static Converter lookup(Class clazz) {
