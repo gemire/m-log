@@ -6,6 +6,7 @@ package org.mspring.mlog.service;
 import java.util.List;
 
 import org.mspring.mlog.entity.Link;
+import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 
 /**
@@ -18,6 +19,8 @@ public interface LinkService {
     Page<Link> findLinks(Page<Link> linkPage, String queryString);
 
     Page<Link> findLinks(Page<Link> linkPage, String queryString, Object... params);
+    
+    Page<Link> findLinks(Page<Link> linkPage, QueryCriterion queryCriterion);
 
     List<Link> findVisableLinks();
     
