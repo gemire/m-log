@@ -163,8 +163,8 @@ public class PostWidget {
     @ResponseBody
     public String updateLuceneIndex() {
         try {
-            //postSearchService.rebuildAllPostIndex();
-            postSearchService.rebuildPostIndex(new Long(167));
+            postSearchService.rebuildAllPostIndex();
+//            postSearchService.rebuildPostIndex(new Long(167));
         }
         catch (Exception e) {
             // TODO: handle exception
