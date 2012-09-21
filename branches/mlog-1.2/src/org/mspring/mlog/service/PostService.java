@@ -4,7 +4,6 @@
 package org.mspring.mlog.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mspring.mlog.entity.Post;
 import org.mspring.platform.persistence.query.QueryCriterion;
@@ -24,6 +23,18 @@ public interface PostService {
      * @return
      */
     Post createPost(Post post);
+    
+    /**
+     * 废弃文章(将文章移入回收站)
+     * @param idArray
+     */
+    void discardPost(Long... idArray);
+    
+    /**
+     * 将文章从回收站移入已发布(从回收站恢复文章)
+     * @param idArray
+     */
+    void trash2Publish(Long... idArray);
 
     /**
      * 删除文章

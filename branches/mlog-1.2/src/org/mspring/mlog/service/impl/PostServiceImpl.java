@@ -65,6 +65,30 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         Long id = (Long) super.create(post);
         return getPostById(id);
     }
+    
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PostService#discardPost(java.lang.Long[])
+     */
+    @Override
+    public void discardPost(Long... idArray) {
+        // TODO Auto-generated method stub
+        for (Long id : idArray) {
+            String hql = "update Post post set post.status = ? where post.id = ?";
+            executeUpdate(hql, new Object[]{Post.Status.TRASH, id});
+        }
+    }
+    
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PostService#trash2Publish(java.lang.Long[])
+     */
+    @Override
+    public void trash2Publish(Long... idArray) {
+        // TODO Auto-generated method stub
+        for (Long id : idArray) {
+            String hql = "update Post post set post.status = ? where post.id = ? and post.status = ?";
+            executeUpdate(hql, new Object[]{Post.Status.PUBLISH, id, Post.Status.TRASH});
+        }
+    }
 
     /*
      * (non-Javadoc)

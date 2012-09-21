@@ -26,6 +26,7 @@ import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/post")
 public class PostWidget {
     private static final Logger log = Logger.getLogger(PostWidget.class);
-    
+
     private PostService postService;
     private CatalogService catalogService;
     private PostValidator postValidator;
@@ -78,6 +79,16 @@ public class PostWidget {
             postPage = new Page<Post>();
         }
         postPage.setSort(new Sort("id", Sort.DESC));
+        
+        //默认查看已发布的文章
+        if (post == null) {
+            post = new Post();
+        }
+        if (queryParams.get("status") == null || StringUtils.isBlank(queryParams.get("status").toString())) {
+            post.setStatus(Post.Status.PUBLISH);
+            queryParams.put("status", Post.Status.PUBLISH);
+        }
+        
 
         postPage = postService.findPost(postPage, new PostQueryCriterion(queryParams));
 
@@ -130,12 +141,58 @@ public class PostWidget {
         return "redirect:/admin/post/list";
     }
 
+    /**
+     * 将文章移入回收站
+     * 
+     * @param id
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/trash")
+    public String trashPost(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id != null && id.length > 0) {
+            postService.discardPost(id);
+        }
+        // return "redirect:/admin/post/list";
+        return listPost(postPage, post, queryParams, request, response, model);
+    }
+
+    /**
+     * 从回收站还原文章
+     * 
+     * @param id
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/trash2Publish")
+    public String trash2Publish(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id != null && id.length > 0) {
+            postService.trash2Publish(id);
+        }
+        // return "redirect:/admin/post/list";
+        return listPost(postPage, post, queryParams, request, response, model);
+    }
+
+    /**
+     * 彻底删除文章
+     * 
+     * @param id
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
     @RequestMapping("/delete")
-    public String deleteCatalog(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String deletePost(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             postService.deletePost(id);
         }
-        return "redirect:/admin/post/list";
+        //return "redirect:/admin/post/list";
+        return listPost(postPage, post, queryParams, request, response, model);
     }
 
     @RequestMapping("/edit")
@@ -157,6 +214,7 @@ public class PostWidget {
 
     /**
      * 更新文章索引
+     * 
      * @return
      */
     @RequestMapping("/updateIndex")
@@ -164,7 +222,7 @@ public class PostWidget {
     public String updateLuceneIndex() {
         try {
             postSearchService.rebuildAllPostIndex();
-//            postSearchService.rebuildPostIndex(new Long(167));
+            // postSearchService.rebuildPostIndex(new Long(167));
         }
         catch (Exception e) {
             // TODO: handle exception

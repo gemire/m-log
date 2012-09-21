@@ -88,8 +88,16 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete');" />
-						<input type="button" class="btn" value=" 更新索引 " onclick="updateLuceneIndex();" />
+						<#-- 当筛选条件为回收站 -->
+						<#if post?exists && post.status?has_content && post.status == 'trash'>
+							<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中文章吗?');" />
+							<input type="button" class="btn" value=" 恢复文章 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/trash2Publish', '你确认要彻底删除选中文章吗?');" />
+						<#elseif post?exists && post.status?has_content && post.status == 'draft'>
+							<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中草稿吗?');" />
+						<#else>
+							<input type="button" class="btn" value=" 移入回收站 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/trash', '确认要将选中文章移入回收站吗?');" />
+							<input type="button" class="btn" value=" 更新索引 " onclick="updateLuceneIndex();" />
+						</#if>
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=postPage form_id="postForm" />
