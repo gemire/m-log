@@ -4,7 +4,7 @@
 var mspring = {};
 
 /**
- * é€‰æ‹©é€‰æ‹©æ‰€æœ‰checkbox
+ * Ñ¡ÔñÑ¡ÔñËùÓĞcheckbox
  */
 mspring.checkAll = function(_this, cbName) {
 	var array = document.getElementsByName(cbName);
@@ -14,7 +14,7 @@ mspring.checkAll = function(_this, cbName) {
 }
 
 /**
- * å½“åªé€‰æ‹©å½“å‰checkboxæ—¶ï¼Œ è¿”å›å½“å‰checkboxçš„å€¼
+ * µ±Ö»Ñ¡Ôñµ±Ç°checkboxÊ±£¬ ·µ»Øµ±Ç°checkboxµÄÖµ
  */
 mspring.checkThis = function(_this, cbName) {
 	var array = document.getElementsByName(cbName);
@@ -31,7 +31,7 @@ mspring.checkThis = function(_this, cbName) {
 }
 
 /**
- * æäº¤è¡¨å•
+ * Ìá½»±íµ¥
  */
 mspring.submitForm = function(formId, action) {
 	var form = document.getElementById(formId);
@@ -42,10 +42,10 @@ mspring.submitForm = function(formId, action) {
 }
 
 /**
- * ç¡®è®¤æäº¤è¡¨å•
+ * È·ÈÏÌá½»±íµ¥
  */
 mspring.confirmSubmit = function(formId, action, msg) {
-	var default_msg = 'ç¡®è®¤åˆ é™¤é€‰æ‹©é¡¹å—ï¼Ÿ';
+	var default_msg = 'È·ÈÏÉ¾³ıÑ¡ÔñÏîÂğ£¿';
 	if (msg) {
 		default_msg = msg;
 	}
@@ -59,10 +59,10 @@ mspring.validateForm = function(formId, callback) {
 	if (form) {
 		$.metadata.setType("attr", "validate");
 		/**
-		 * è‡ªå®šä¹‰checkæ–¹æ³•,è¯¥æ–¹æ³•ç”¨äºåšajaxæ£€æµ‹
-		 * @param value å½“å‰éªŒè¯è¡¨å•å…ƒç´ çš„å€¼
-		 * @param element å½“å‰éªŒè¯è¡¨å•å…ƒç´ 
-		 * @param param å½“å‰éªŒè¯ä¼ é€’çš„å‚æ•°
+		 * ×Ô¶¨Òåcheck·½·¨,¸Ã·½·¨ÓÃÓÚ×öajax¼ì²â
+		 * @param value µ±Ç°ÑéÖ¤±íµ¥ÔªËØµÄÖµ
+		 * @param element µ±Ç°ÑéÖ¤±íµ¥ÔªËØ
+		 * @param param µ±Ç°ÑéÖ¤´«µİµÄ²ÎÊı
 		 */
 		$.validator.addMethod("ajaxCheck", function(value, element, param) {
 			try{
@@ -93,10 +93,10 @@ mspring.validateForm = function(formId, callback) {
 		});
 		$(form).validate({
 			success : callback,
-			/* é‡å†™é”™è¯¯æ˜¾ç¤ºæ¶ˆæ¯æ–¹æ³•,ä»¥alertæ–¹å¼å¼¹å‡ºé”™è¯¯æ¶ˆæ¯ */
+			/* ÖØĞ´´íÎóÏÔÊ¾ÏûÏ¢·½·¨,ÒÔalert·½Ê½µ¯³ö´íÎóÏûÏ¢ */
 			showErrors : function(errorMap, errorList) {
 
-				/* å¤„ç†é”™è¯¯è¡¨å•æ ·å¼ */
+				/* ´¦Àí´íÎó±íµ¥ÑùÊ½ */
 				for ( var i = 0; this.errorList[i]; i++) {
 					var error = this.errorList[i];
 					this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass);
@@ -121,7 +121,7 @@ mspring.validateForm = function(formId, callback) {
 				this.toHide = this.toHide.not(this.toShow);
 				this.hideErrors();
 				this.addWrapper(this.toShow).show();
-				/* end å¤„ç†é”™è¯¯è¡¨å•æ ·å¼ */
+				/* end ´¦Àí´íÎó±íµ¥ÑùÊ½ */
 
 				var msg = "";
 				$.each(errorList, function(i, v) {
@@ -132,22 +132,22 @@ mspring.validateForm = function(formId, callback) {
 					mspring.tip("<font color='red'>" + msg + "</font>");
 				}
 			},
-			// å¤±å»ç„¦ç‚¹æ—¶ä¸éªŒè¯
+			// Ê§È¥½¹µãÊ±²»ÑéÖ¤
 			onfocusout : false,
-			// è¾“å…¥æ—¶ä¸éªŒè¯
+			// ÊäÈëÊ±²»ÑéÖ¤
 			onkeyup : false,
-			// ç‚¹å‡»æ—¶ä¸éªŒè¯
+			// µã»÷Ê±²»ÑéÖ¤
 			onclick : false
 		});
 	}
 }
 
 /**
- * tipæ¶ˆæ¯
+ * tipÏûÏ¢
  */
 mspring.tip = function(msg){
 	$.dialog({
-		// title: "éªŒè¯æ¶ˆæ¯",
+		// title: "ÑéÖ¤ÏûÏ¢",
 		title : false,
 		content : msg,
 		time : 2,
@@ -156,7 +156,7 @@ mspring.tip = function(msg){
 		icon : 'error.gif',
 		// cancel: function(){},
 		close : function() {
-			var duration = 400, /* åŠ¨ç”»æ—¶é•¿ */
+			var duration = 400, /* ¶¯»­Ê±³¤ */
 			api = this, opt = api.config, wrap = api.DOM.wrap, top = $(window).scrollTop() - wrap[0].offsetHeight;
 			wrap.animate(
 				{
@@ -175,11 +175,11 @@ mspring.tip = function(msg){
 
 mspring.editor = {
 	/*
-     * @description åˆå§‹åŒ–ç¼–è¾‘å™¨
-     * @param conf ç¼–è¾‘å™¨åˆå§‹åŒ–å‚æ•°
-     * @param conf.type ç¼–è¾‘å™¨ç±»å‹
-     * @param conf.id ç¼–è¾‘å™¨æ¸²æŸ“å…ƒç´  id
-     * @param conf.fun ç¼–è¾‘å™¨é¦–æ¬¡åŠ è½½å®Œæˆåå›è°ƒå‡½æ•°
+     * @description ³õÊ¼»¯±à¼­Æ÷
+     * @param conf ±à¼­Æ÷³õÊ¼»¯²ÎÊı
+     * @param conf.type ±à¼­Æ÷ÀàĞÍ
+     * @param conf.id ±à¼­Æ÷äÖÈ¾ÔªËØ id
+     * @param conf.fun ±à¼­Æ÷Ê×´Î¼ÓÔØÍê³Éºó»Øµ÷º¯Êı
      */
     init: function (conf) {
     	var language = "zh";
@@ -238,7 +238,7 @@ mspring.editor = {
                             conf.fun();
                         }
                     },
-                    //å¤„ç†jquery-validationçš„å¼‚å¸¸ï¼Œåœ¨æ¯æ¬¡tinyMCEå†…å®¹æ”¹å˜æ˜¯ï¼Œéƒ½æ‰§è¡ŒtriggerSave()æ“ä½œ
+                    //´¦Àíjquery-validationµÄÒì³££¬ÔÚÃ¿´ÎtinyMCEÄÚÈİ¸Ä±äÊÇ£¬¶¼Ö´ĞĞtriggerSave()²Ù×÷
                     onchange_callback : function(){
                     	tinyMCE.triggerSave();
                     }
@@ -250,9 +250,9 @@ mspring.editor = {
     },
     
     /*
-     * @description è·å–ç¼–è¾‘å™¨å€¼
-     * @param {string} id ç¼–è¾‘å™¨id
-     * @returns {string} ç¼–è¾‘å™¨å€¼
+     * @description »ñÈ¡±à¼­Æ÷Öµ
+     * @param {string} id ±à¼­Æ÷id
+     * @returns {string} ±à¼­Æ÷Öµ
      */
     getContent: function (id) {
         var content = "";
@@ -265,9 +265,9 @@ mspring.editor = {
     },
     
     /*
-     * @description è®¾ç½®ç¼–è¾‘å™¨å€¼
-     * @param {string} id ç¼–è¾‘å™¨ id
-     * @param {string} content è®¾ç½®ç¼–è¾‘å™¨å€¼
+     * @description ÉèÖÃ±à¼­Æ÷Öµ
+     * @param {string} id ±à¼­Æ÷ id
+     * @param {string} content ÉèÖÃ±à¼­Æ÷Öµ
      */
     setContent: function (id, content) {
         try {
