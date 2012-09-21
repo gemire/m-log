@@ -412,6 +412,18 @@ $.extend(mlog, {
     },
     
     /**
+     * ³õÊ¼»¯±à¼­Æ÷ 
+     */
+    initEditor : function(_id){
+    	var _this = this;
+    	_this.loadJavaScript({url: mlog.variable.base + "/script/common.js"});
+    	mspring.editor.init({
+			id: _id,
+			type: 'simple'
+		});
+    },
+    
+    /**
      * »Ø¸´
      */
     reply : function(){

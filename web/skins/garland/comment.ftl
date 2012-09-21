@@ -1,27 +1,30 @@
-<ul>
-<@list_comment>
-	<li>
-		<a id="comment-<@comment_id />"></a>
-		<div class="comment even">
-  			<div class="clear-block">
-      			<span class="submitted">@<@comment_time />&nbsp;by&nbsp;<a href="<@comment_author_url />" target="_blank" ><@comment_author /></a></span>
-      			<div class="content">
-      				<p><@comment_content /></p>
-    			</div>
-  			</div>
-  			<div class="links">
-  				<ul class="links">
-  					<li class="first last comment_reply">
-  						<a href="#divCommentPost" onclick="RevertComment('${comment.id}')" class="comment_reply">回复</a>
-  					</li>
-				</ul>
+<ol class="commentlist">
+	<@list_comment>
+	<li class="comment odd alt thread-odd thread-alt" id="comment-<@comment_id />">
+		<div id="div-comment-<@comment_id />" class="comment-body">
+			<div class="comment-author vcard">
+				<img class="avatar" alt="<@comment_author />" src="<@comment_gravatar />" height="32" width="32"  /> 
+					<cite class="fn">
+						<a href="http://www.mspring.org" rel="external nofollow" class="url">慕春博客</a></cite>
+						<span class="says">说道：</span>
 			</div>
-  		</div>
+			<div class="comment-meta commentmetadata">
+				<@comment_time />
+			</div>
+
+			<p><@comment_content /></p>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="javascript:void(0);"
+					onclick="return addComment.moveForm(&quot;div-comment-3756&quot;, &quot;3756&quot;, &quot;respond&quot;, &quot;755&quot;)">回复</a>
+			</div>
+		</div>
 	</li>
-</@list_comment>
-</ul>
+	</@list_comment>
+</ol>
 
 <#if post.commentStatus == "open">
+<script type="text/javascript" src="${base}/script/tiny_mce/tiny_mce.js" charset="utf-8"></script>
 <div class="box" id="divCommentPost">
 	<h2>发表评论</h2>
 	<div class="content">
@@ -52,7 +55,7 @@
 				<tr>
 					<td align="right" style="width:100px;"><span>内容</span></td>
 					<td align="left">
-						<textarea name="content" validate="{required:true}"></textarea>
+						<textarea name="content" id="comment_content" validate="{required:true}"><font color="red">xxx</font></textarea>
             		</td>
             		<td align="left"></td>
 				</tr>
@@ -70,3 +73,6 @@
 <#else>
 <h2>评论已关闭</h2>
 </#if>
+<script>
+	mlog.initEditor("comment_content");
+</script>
