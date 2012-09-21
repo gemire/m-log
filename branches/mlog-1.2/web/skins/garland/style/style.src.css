@@ -512,99 +512,7 @@ ul.primary li.active a,ul.primary li.active a:link,ul.primary li.active a:visite
 ul.primary li.active a,ul.secondary li.active a {
 	font-weight:bold;
 }
-/**
- * Nodes & comments
- */
-.node {
-	border-bottom:1px solid #e9eff3;
-	margin:-1.5em -26px 1.5em;
-	padding:1.5em 26px;
-}
-ul.links li,ul.inline li {
-	margin-left:0;
-	margin-right:0;
-	padding-left:0;
-	padding-right:1em;
-	background-image:none;
-}
-ul.links li {
-	display:inline;
-	list-style-type:none;
-	padding:0pt 0.5em;
-}
-.node .links,.comment .links {
-	text-align:left;
-}
-.node .links ul.links li,.comment .links ul.links li {
-	}.terms ul.links li {
-	margin-left:0;
-	margin-right:0;
-	padding-right:0;
-	padding-left:1em;
-}
-.picture,.comment .submitted {
-	float:right;
-	clear:right;
-	padding-left:1em;
-}
-.new {
-	color:#ffae00;
-	font-size:0.92em;
-	font-weight:bold;
-	float:right;
-}
-.terms {
-	float:right;
-}
-.preview .node,.preview .comment,.sticky {
-	margin:0;
-	padding:0.5em 0;
-	border:0;
-	background:0;
-}
-.sticky {
-	background-color:#EBF4FA;
-	border:1px solid #E0E5FB;
-	margin-bottom:2em;
-	padding:1em;
-}
-#comment {
-	position:relative;
-	top:-1px;
-	border-bottom:1px solid #e9eff3;
-	margin:-1.5em -25px 0;
-	padding:0 25px;
-}
-#comment h2.comment {
-	margin:0 -25px;
-	padding:.5em 25px;
-	background:#fff url(../images/gradient-inner.png) repeat-x 0 0;
-}
-.comment,.quote3 {
-	margin:0 -25px;
-	padding:1.5em 25px 1.5em;
-	border-top:1px solid #e9eff3;
-}
-.quote3 {
-	margin:0 25px;
-}
-.quote3 .quote-title {
-	color:#0062A0;
-	padding-bottom:0.5em;
-}
-.quote3 .quote-title:first-letter {
-	color:#494949;
-	font-size:140%;
-}
-.indented {
-	margin-left:25px;
-}
-.comment h3 a.active {
-	color:#494949;
-}
-.node .content,.comment .content {
-	margin:0.6em 0;
-}
+
 /**
  * Aggregator.module
  */
@@ -1471,8 +1379,36 @@ ul.primary li.active a,ul.primary li.active a:link,ul.primary li.active a:visite
 ul.primary li.active a,ul.secondary li.active a {
 	font-weight:bold;
 }
+
 /**
- * Nodes & comments
+ * comment
+ */
+.commentlist {
+	list-style: none;
+	margin: 1em 0 3em;
+	padding: 0;
+}
+.commentlist .thread-alt {
+	background: #edf5fa;
+}
+.commentlist .avatar {
+	border: 1px dotted #ccc;
+	float: left;
+	margin-right: 10px;
+	padding: 2px;
+	height: 32px;
+	width: 32px;
+}
+.commentlist cite {
+	font-weight: bold;
+}
+.commentlist li {
+	list-style: none;
+	padding: 1em 2em;
+}
+
+/**
+ * Nodes
  */
 .node {
 	border-bottom:1px solid #e9eff3;
@@ -1491,17 +1427,17 @@ ul.links li {
 	list-style-type:none;
 	padding:0pt 0.5em;
 }
-.node .links,.comment .links {
+.node .links {
 	text-align:left;
 }
-.node .links ul.links li,.comment .links ul.links li {
+.node .links ul.links li{
 	}.terms ul.links li {
 	margin-left:0;
 	margin-right:0;
 	padding-right:0;
 	padding-left:1em;
 }
-.picture,.comment .submitted {
+.picture {
 	float:right;
 	clear:right;
 	padding-left:1em;
@@ -1515,7 +1451,7 @@ ul.links li {
 .terms {
 	float:right;
 }
-.preview .node,.preview .comment,.sticky {
+.preview .node,.sticky {
 	margin:0;
 	padding:0.5em 0;
 	border:0;
@@ -1527,43 +1463,7 @@ ul.links li {
 	margin-bottom:2em;
 	padding:1em;
 }
-#comment {
-	position:relative;
-	top:-1px;
-	border-bottom:1px solid #e9eff3;
-	margin:-1.5em -25px 0;
-	padding:0 25px;
-}
-#comment h2.comment {
-	margin:0 -25px;
-	padding:.5em 25px;
-	background:#fff url(../images/gradient-inner.png) repeat-x 0 0;
-}
-.comment,.quote3 {
-	margin:0 -25px;
-	padding:1.5em 25px 1.5em;
-	border-top:1px solid #e9eff3;
-}
-.quote3 {
-	margin:0 25px;
-}
-.quote3 .quote-title {
-	color:#0062A0;
-	padding-bottom:0.5em;
-}
-.quote3 .quote-title:first-letter {
-	color:#494949;
-	font-size:140%;
-}
-.indented {
-	margin-left:25px;
-}
-.comment h3 a.active {
-	color:#494949;
-}
-.node .content,.comment .content {
-	margin:0.6em 0;
-}
+
 /**
  * Aggregator.module
  */
