@@ -1,5 +1,5 @@
 /*
- * å‰å°é¡µé¢é€šç”¨JavaScriptæ–‡ä»¶
+ * Ç°Ì¨Ò³ÃæÍ¨ÓÃJavaScriptÎÄ¼ş
  * @author Gao Youbo
  * @since 2012-07-28
  * 
@@ -8,8 +8,8 @@ if(mlog === undefined){var mlog = function(){}};
 $.extend(mlog, {
 	
 	/**
-	 * åŠ è½½StyleSheet
-	 * @param url stylesheetçš„åœ°å€
+	 * ¼ÓÔØStyleSheet
+	 * @param url stylesheetµÄµØÖ·
 	 */
 	loadStyleSheet : function(url){
 		if (document.createStyleSheet) {
@@ -20,11 +20,11 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * åŠ è½½JavaScriptæ–‡ä»¶
-	 * @param setting è®¾ç½®é¡¹
-	 * @param setting.url JavaScriptåœ°å€
-	 * @param setting.async (é»˜è®¤: true) é»˜è®¤è®¾ç½®ä¸‹ï¼Œæ‰€æœ‰è¯·æ±‚å‡ä¸ºå¼‚æ­¥è¯·æ±‚
-	 * @param setting.success åŠ è½½æˆåŠŸåçš„å›è°ƒå‡½æ•°
+	 * ¼ÓÔØJavaScriptÎÄ¼ş
+	 * @param setting ÉèÖÃÏî
+	 * @param setting.url JavaScriptµØÖ·
+	 * @param setting.async (Ä¬ÈÏ: true) Ä¬ÈÏÉèÖÃÏÂ£¬ËùÓĞÇëÇó¾ùÎªÒì²½ÇëÇó
+	 * @param setting.success ¼ÓÔØ³É¹¦ºóµÄ»Øµ÷º¯Êı
 	 */
 	loadJavaScript : function(setting){
 		if(setting === undefined || setting.url === undefined)
@@ -43,7 +43,7 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * è·å–å½“å‰å…‰æ ‡æ‰€åœ¨ä½ç½®
+	 * »ñÈ¡µ±Ç°¹â±êËùÔÚÎ»ÖÃ
 	 */
 	getCursorEndPosition: function (textarea) {
         textarea.focus();
@@ -65,7 +65,7 @@ $.extend(mlog, {
     },
     
     /**
-     * è·å–Cookieå€¼
+     * »ñÈ¡CookieÖµ
      */
     getCookie : function(sName) {
     	var arr = document.cookie.match(new RegExp("(^| )" + sName + "=([^;]*)(;|$)"));
@@ -76,10 +76,10 @@ $.extend(mlog, {
     },
 
     /**
-     * è®¾ç½®cookieå€¼
-     * @param sName åå­—
-     * @param sValue å€¼
-     * @param iExpireDays cookieä¿å­˜æ—¶é—´(å•ä½ï¼šå¤©)
+     * ÉèÖÃcookieÖµ
+     * @param sName Ãû×Ö
+     * @param sValue Öµ
+     * @param iExpireDays cookie±£´æÊ±¼ä(µ¥Î»£ºÌì)
      */
     setCookie : function(sName, sValue, iExpireDays) {
     	if (iExpireDays) {
@@ -92,7 +92,7 @@ $.extend(mlog, {
     },
     
     /**
-     * è·å–cookieä¸­ä¿å­˜çš„è¯„è®ºä½œè€…
+     * »ñÈ¡cookieÖĞ±£´æµÄÆÀÂÛ×÷Õß
      * @returns
      */
     getCookieCommentAuthor : function() {
@@ -100,7 +100,7 @@ $.extend(mlog, {
     },
 
     /**
-     * è·å–cookieä¸­ä¿å­˜çš„è¯„è®ºé‚®ç®±
+     * »ñÈ¡cookieÖĞ±£´æµÄÆÀÂÛÓÊÏä
      * @returns
      */
     getCookieCommentEmail : function() {
@@ -108,7 +108,7 @@ $.extend(mlog, {
     },
 
     /**
-     * è·å–è¯„è®ºä¸­ä¿å­˜çš„è¯„è®ºä½œè€…ä¸»é¡µåœ°å€
+     * »ñÈ¡ÆÀÂÛÖĞ±£´æµÄÆÀÂÛ×÷ÕßÖ÷Ò³µØÖ·
      * @returns
      */
     getCookieCommentUrl : function() {
@@ -116,7 +116,7 @@ $.extend(mlog, {
     },
 	
 	/**
-	 * ä¸ºè¡¨æƒ…å›¾åƒç»‘å®šç‚¹å‡»äº‹ä»¶
+	 * Îª±íÇéÍ¼Ïñ°ó¶¨µã»÷ÊÂ¼ş
 	 */
 	insertEmotions : function(name){
 		var _this = this;
@@ -146,8 +146,8 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * å°†è¯„è®ºä¸­çš„è¡¨æƒ…æ ‡è¯†ï¼Œæ›¿æ¢æˆè¡¨æƒ…å›¾ç‰‡
-	 * @param selector è¢«æ›¿æ¢è¡¨æƒ…çš„å®¹å™¨
+	 * ½«ÆÀÂÛÖĞµÄ±íÇé±êÊ¶£¬Ìæ»»³É±íÇéÍ¼Æ¬
+	 * @param selector ±»Ìæ»»±íÇéµÄÈİÆ÷
 	 */
 	replaceCommentsEm : function(selector){
 		var _this = this;
@@ -159,7 +159,7 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * æ›¿æ¢è¡¨æƒ…htmlæ–‡æœ¬
+	 * Ìæ»»±íÇéhtmlÎÄ±¾
 	 */
 	replaceEmString : function(str){
 		var _this = this;
@@ -206,8 +206,8 @@ $.extend(mlog, {
     },
     
     /*
-     * @description åˆå§‹åŒ– SyantaxHighlighter
-     * @param {Array} languages éœ€è¦åŠ è½½çš„è¯­è¨€ 
+     * @description ³õÊ¼»¯ SyantaxHighlighter
+     * @param {Array} languages ĞèÒª¼ÓÔØµÄÓïÑÔ 
      */
     initSyntaxHighlighter: function(languages){
     	for(var i = 0; i < languages.length; i++){
@@ -323,9 +323,9 @@ $.extend(mlog, {
     },
     
     /*
-     * @description åŠ è½½ SyntaxHighlighter 
-     * @param {String} SHTheme SyntaxHighLighter æ ·å¼
-     * @param {String} selector SyntaxHighLighter å®¹å™¨
+     * @description ¼ÓÔØ SyntaxHighlighter 
+     * @param {String} SHTheme SyntaxHighLighter ÑùÊ½
+     * @param {String} selector SyntaxHighLighter ÈİÆ÷
      */
     loadSyntaxHighlighter : function(SHTheme, selector){
     	var cssName = SHTheme ? SHTheme : "shCoreEclipse";
@@ -335,11 +335,11 @@ $.extend(mlog, {
         
         // load js
         /**
-    	 * åŠ è½½JavaScriptæ–‡ä»¶
-    	 * @param setting è®¾ç½®é¡¹
-    	 * @param setting.url JavaScriptåœ°å€
-    	 * @param setting.async (é»˜è®¤: true) é»˜è®¤è®¾ç½®ä¸‹ï¼Œæ‰€æœ‰è¯·æ±‚å‡ä¸ºå¼‚æ­¥è¯·æ±‚
-    	 * @param setting.success åŠ è½½æˆåŠŸåçš„å›è°ƒå‡½æ•°
+    	 * ¼ÓÔØJavaScriptÎÄ¼ş
+    	 * @param setting ÉèÖÃÏî
+    	 * @param setting.url JavaScriptµØÖ·
+    	 * @param setting.async (Ä¬ÈÏ: true) Ä¬ÈÏÉèÖÃÏÂ£¬ËùÓĞÇëÇó¾ùÎªÒì²½ÇëÇó
+    	 * @param setting.success ¼ÓÔØ³É¹¦ºóµÄ»Øµ÷º¯Êı
     	 */
         _this.loadJavaScript({
         	url : mlog.variable.base + "/script/SyntaxHighlighter/scripts/shCore.js",
@@ -370,10 +370,10 @@ $.extend(mlog, {
     },
     
     /*
-     * @description è§£æè¯­æ³•é«˜äº®
-     * @param {Obj} setting è¯­æ³•é«˜äº®é…ç½®å‚æ•°
-     * @param {Obj} setting.SHTheme è¯­æ³•é«˜äº® SyntaxHighLighter æ ·å¼
-     * @param {Obj} setting.contentSelector æ–‡ç« å†…å®¹å®¹å™¨
+     * @description ½âÎöÓï·¨¸ßÁÁ
+     * @param {Obj} setting Óï·¨¸ßÁÁÅäÖÃ²ÎÊı
+     * @param {Obj} setting.SHTheme Óï·¨¸ßÁÁ SyntaxHighLighter ÑùÊ½
+     * @param {Obj} setting.contentSelector ÎÄÕÂÄÚÈİÈİÆ÷
      */
     parseLanguage: function (setting) {
         var isPrettify = false;
@@ -410,12 +410,19 @@ $.extend(mlog, {
             });
         }
     },
+    
+    /**
+     * »Ø¸´
+     */
+    reply : function(){
+    	
+    },
 	
 	/**
-	 * @description æ–‡ç« /è‡ªå®šä¹‰é¡µé¢åŠ è½½
-     * @param {Object} setting é…ç½®è®¾å®š
-     * @param {Object} setting.language ä»£ç é«˜äº®é…ç½®
-     * @param {Object} setting.contentSelector æ–‡ç« å†…å®¹å®¹å™¨,é»˜è®¤".content"
+	 * @description ÎÄÕÂ/×Ô¶¨ÒåÒ³Ãæ¼ÓÔØ
+     * @param {Object} setting ÅäÖÃÉè¶¨
+     * @param {Object} setting.language ´úÂë¸ßÁÁÅäÖÃ
+     * @param {Object} setting.contentSelector ÎÄÕÂÄÚÈİÈİÆ÷,Ä¬ÈÏ".content"
 	 */
 	load : function(setting){
 		var _this = this;
@@ -424,18 +431,18 @@ $.extend(mlog, {
 	},
 	
     /**
-     * è‡ªåŠ¨åŠ è½½
+     * ×Ô¶¯¼ÓÔØ
      */
     autoLoad : function(){
     	var _this = this;
     	
-    	//ä¸ºè¡¨æƒ…å¯¹è±¡ç»‘å®šç‚¹å‡» äº‹ä»¶
+    	//Îª±íÇé¶ÔÏó°ó¶¨µã»÷ ÊÂ¼ş
 		_this.insertEmotions();
     }
 });
 
 /**
- * è‡ªåŠ¨åŠ è½½
+ * ×Ô¶¯¼ÓÔØ
  */
 $(document).ready(function(){
 	mlog.autoLoad();
