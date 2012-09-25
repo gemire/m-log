@@ -44,7 +44,7 @@
 			<table class="dtable" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>
-						<input type="checkbox" onclick="mspring.checkAll(this, 'id');" />
+						<input type="checkbox" onclick="mlog.form.checkAll(this, 'id');" />
 					</th>
 					<#if columnfields??>
 						<#list columnfields as field>
@@ -92,7 +92,7 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value=" 删除 " onclick="mspring.confirmSubmit('linkForm', '${base}/admin/link/delete');" />
+						<input type="button" class="btn" value=" 删除 " onclick="mlog.form.confirmSubmit('linkForm', '${base}/admin/link/delete');" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=linkPage form_id="linkForm" />

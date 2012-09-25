@@ -1,17 +1,18 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-	<script type="text/javascript" src="${base}/script/tiny_mce/tiny_mce.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			mspring.editor.init({
-				id: 'content',
-				type: 'all'
+			mlog.editor.init({
+				type : "kindeditor",
+				model : "all",
+				id : "content"
 			});
-			
-			mspring.editor.init({
-				id: 'summary',
-				type: 'simple'
+			mlog.editor.init({
+				type : "kindeditor",
+				model : "simple",
+				id : "summary"
 			});
 			
 			$("#catalogs_select").multiselect({

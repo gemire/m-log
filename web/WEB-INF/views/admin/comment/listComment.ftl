@@ -39,7 +39,7 @@
 			<table class="dtable" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>
-						<input type="checkbox" onclick="mspring.checkAll(this, 'id');" />
+						<input type="checkbox" onclick="mlog.form.checkAll(this, 'id');" />
 					</th>
 					<#if columnfields??>
 						<#list columnfields as field>
@@ -83,10 +83,10 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
-						<input type="button" class="btn" value="审核通过" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=approved', '确认审核通过？');" />
-						<input type="button" class="btn" value="标记为垃圾评论" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=spam', '确认标记为垃圾评论？');" />
-						<input type="button" class="btn" value="移入回收站" onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=recycle', '确认移入回收站？');" />
-						<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('commentForm', '${base}/admin/comment/delete');" />
+						<input type="button" class="btn" value="审核通过" onclick="mlog.form.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=approved', '确认审核通过？');" />
+						<input type="button" class="btn" value="标记为垃圾评论" onclick="mlog.form.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=spam', '确认标记为垃圾评论？');" />
+						<input type="button" class="btn" value="移入回收站" onclick="mlog.form.confirmSubmit('commentForm', '${base}/admin/comment/audit?status=recycle', '确认移入回收站？');" />
+						<input type="button" class="btn" value=" 彻底删除 " onclick="mlog.form.confirmSubmit('commentForm', '${base}/admin/comment/delete');" />
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=commentPage form_id="commentForm" />

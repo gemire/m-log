@@ -4,44 +4,8 @@
  * @since 2012-07-28
  * 
  */
-if(mlog === undefined){var mlog = function(){}};
+if(typeof(mlog) === "undefined"){var mlog = function(){}};
 $.extend(mlog, {
-	
-	/**
-	 * 加载StyleSheet
-	 * @param url stylesheet的地址
-	 */
-	loadStyleSheet : function(url){
-		if (document.createStyleSheet) {
-            return document.createStyleSheet(url);
-        } else {
-            $("head").append($("<link rel='stylesheet' href='" + url + "' type='text/css' charset='utf-8' />"));
-        }
-	},
-	
-	/**
-	 * 加载JavaScript文件
-	 * @param setting 设置项
-	 * @param setting.url JavaScript地址
-	 * @param setting.async (默认: true) 默认设置下，所有请求均为异步请求
-	 * @param setting.success 加载成功后的回调函数
-	 */
-	loadJavaScript : function(setting){
-		if(setting === undefined || setting.url === undefined)
-			return;
-		
-		if(setting.async === undefined)
-			setting.async = true;
-		
-		$.ajax({
-            url: setting.url,
-            dataType: "script",
-            async : setting.async,
-            cache: true,
-            success: setting.success
-        });
-	},
-	
 	/**
 	 * 获取当前光标所在位置
 	 */
@@ -64,56 +28,6 @@ $.extend(mlog, {
         }
     },
     
-    /**
-     * 获取Cookie值
-     */
-    getCookie : function(sName) {
-    	var arr = document.cookie.match(new RegExp("(^| )" + sName + "=([^;]*)(;|$)"));
-    	if (arr != null) {
-    		return unescape(arr[2]);
-    	}
-    	return null;
-    },
-
-    /**
-     * 设置cookie值
-     * @param sName 名字
-     * @param sValue 值
-     * @param iExpireDays cookie保存时间(单位：天)
-     */
-    setCookie : function(sName, sValue, iExpireDays) {
-    	if (iExpireDays) {
-    		var dExpire = new Date();
-    		dExpire.setTime(dExpire.getTime() + parseInt(iExpireDays * 24 * 60 * 60 * 1000));
-    		document.cookie = sName + "=" + escape(sValue) + "; expires=" + dExpire.toGMTString() + "; path=/";
-    	} else {
-    		document.cookie = sName + "=" + escape(sValue) + "; path=/";
-    	}
-    },
-    
-    /**
-     * 获取cookie中保存的评论作者
-     * @returns
-     */
-    getCookieCommentAuthor : function() {
-    	return getCookie("comment_author_cookie");
-    },
-
-    /**
-     * 获取cookie中保存的评论邮箱
-     * @returns
-     */
-    getCookieCommentEmail : function() {
-    	return getCookie("comment_email_cookie");
-    },
-
-    /**
-     * 获取评论中保存的评论作者主页地址
-     * @returns
-     */
-    getCookieCommentUrl : function() {
-    	return getCookie("comment_url_cookie");
-    },
 	
 	/**
 	 * 为表情图像绑定点击事件
@@ -416,11 +330,15 @@ $.extend(mlog, {
      */
     initEditor : function(_id){
     	var _this = this;
-    	_this.loadJavaScript({url: mlog.variable.base + "/script/common.js"});
-    	mspring.editor.init({
-			id: _id,
-			type: 'simple'
-		});
+    	mlog.utils.loadJavaScript({
+    		url: mlog.variable.base + "/script/mlog.editor.js",
+    		success : function(){
+	    		mlog.editor.init({
+					id: _id,
+					model : "simple"
+				});
+    		}
+    	});
     },
     
     /**
