@@ -34,7 +34,10 @@
 	<link rel="stylesheet" type="text/css" href="${base}/script/jquery-multiselect/jquery.multiselect.css">
 	<script type="text/javascript" src="${base}/script/jquery-multiselect/src/jquery.multiselect.min.js"></script>
 	
-	<script type="text/javascript" src="${base}/script/common.js"></script>
+	<script type="text/javascript" src="${base}/script/mlog.utils.js"></script>
+	<script type="text/javascript" src="${base}/script/mlog.form.js"></script>
+	<script type="text/javascript" src="${base}/script/mlog.dialog.js"></script>
+	<script type="text/javascript" src="${base}/script/mlog.editor.js"></script>
 </head>
 <body>
 	

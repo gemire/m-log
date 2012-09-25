@@ -1,4 +1,4 @@
-if(mlog === undefined) {var mlog = {};}
+if(typeof(mlog) === "undefined") {var mlog = {};}
 mlog.variable = function(){};
 $.extend(mlog.variable,{
 	<#if variables?exists>

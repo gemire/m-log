@@ -55,7 +55,7 @@
 				<tr>
 					<td align="right" style="width:100px;"><span>内容</span></td>
 					<td align="left">
-						<textarea name="content" id="comment_content" validate="{required:true}"><font color="red">xxx</font></textarea>
+						<textarea name="content" id="comment_content" validate="{required:true}"></textarea>
             		</td>
             		<td align="left"></td>
 				</tr>
@@ -73,6 +73,7 @@
 <#else>
 <h2>评论已关闭</h2>
 </#if>
-<script>
+<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
+<script type="text/javascript">
 	mlog.initEditor("comment_content");
 </script>

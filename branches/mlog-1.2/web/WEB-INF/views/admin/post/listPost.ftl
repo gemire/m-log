@@ -45,7 +45,7 @@
 			<table class="dtable" cellspacing="0" cellpadding="0">
 				<tr>
 					<th>
-						<input type="checkbox" onclick="mspring.checkAll(this, 'id');" />
+						<input type="checkbox" onclick="mlog.form.checkAll(this, 'id');" />
 					</th>
 					<#if columnfields??>
 						<#list columnfields as field>
@@ -90,12 +90,12 @@
 					<td>
 						<#-- 当筛选条件为回收站 -->
 						<#if post?exists && post.status?has_content && post.status == 'trash'>
-							<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中文章吗?');" />
-							<input type="button" class="btn" value=" 恢复文章 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/trash2Publish', '你确认要彻底删除选中文章吗?');" />
+							<input type="button" class="btn" value=" 彻底删除 " onclick="mlog.form.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中文章吗?');" />
+							<input type="button" class="btn" value=" 恢复文章 " onclick="mlog.form.confirmSubmit('postForm', '${base}/admin/post/trash2Publish', '你确认要彻底删除选中文章吗?');" />
 						<#elseif post?exists && post.status?has_content && post.status == 'draft'>
-							<input type="button" class="btn" value=" 彻底删除 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中草稿吗?');" />
+							<input type="button" class="btn" value=" 彻底删除 " onclick="mlog.form.confirmSubmit('postForm', '${base}/admin/post/delete', '你确认要彻底删除选中草稿吗?');" />
 						<#else>
-							<input type="button" class="btn" value=" 移入回收站 " onclick="mspring.confirmSubmit('postForm', '${base}/admin/post/trash', '确认要将选中文章移入回收站吗?');" />
+							<input type="button" class="btn" value=" 移入回收站 " onclick="mlog.form.confirmSubmit('postForm', '${base}/admin/post/trash', '确认要将选中文章移入回收站吗?');" />
 							<input type="button" class="btn" value=" 更新索引 " onclick="updateLuceneIndex();" />
 						</#if>
 					</td>
