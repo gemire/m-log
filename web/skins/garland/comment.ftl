@@ -34,28 +34,28 @@
 				<tr>
 					<td align="right" style="width:100px;"><span>作者</span></td>
 					<td align="left" >
-						<input name="author" type="text" value="${author!""}" validate="{required:true}">
+						<input name="author" type="text" value="${author!""}" />
             		</td>
             		<td align="left"></td>
 				</tr>
 				<tr>
 					<td align="right" style="width:100px;"><span>邮箱</span></td>
 					<td align="left" >
-						<input name="email" type="text" value="${email!""}" validate="{required:true,email:true}">
+						<input name="email" type="text" value="${email!""}" />
             		</td>
             		<td align="left"></td>
 				</tr>
 				<tr>
 					<td align="right" style="width:100px;"><span>主页</span></td>
 					<td align="left" >
-						<input name="url" type="text" value="${url!""}" validate="{required:true,url:true}">
+						<input name="url" type="text" value="${url!""}" />
             		</td>
             		<td align="left"></td>
 				</tr>
 				<tr>
 					<td align="right" style="width:100px;"><span>内容</span></td>
 					<td align="left">
-						<textarea name="content" id="comment_content" validate="{required:true}"></textarea>
+						<textarea name="content" id="comment_content"></textarea>
             		</td>
             		<td align="left"></td>
 				</tr>

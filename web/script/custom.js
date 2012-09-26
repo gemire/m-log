@@ -330,15 +330,20 @@ $.extend(mlog, {
      */
     initEditor : function(_id){
     	var _this = this;
-    	mlog.utils.loadJavaScript({
-    		url: mlog.variable.base + "/script/mlog.editor.js",
-    		success : function(){
-	    		mlog.editor.init({
+    	if(typeof(mlog.editor) === "undefined"){
+    		mlog.utils.loader.loadJavaScript(mlog.variable.base + "/script/mlog.editor.js", function(){
+				mlog.editor.init({
 					id: _id,
 					model : "simple"
 				});
-    		}
-    	});
+			});
+    	}
+		else{
+			mlog.editor.init({
+				id: _id,
+				model : "simple"
+			});
+		}
     },
     
     /**

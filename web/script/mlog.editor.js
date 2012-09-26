@@ -18,25 +18,52 @@ $.extend(mlog.editor,{
      * @param conf.language ”Ô—‘
      */
 	init : function(conf){
+		if(conf.type != 'kindeditor' && conf.type != 'tinymce') conf.type = 'kindeditor';
+		if(conf.model != 'all' && conf.model != 'simple') conf.model = 'all';
 		if(conf.type === undefined) conf.type = 'kindeditor';
 		if(conf.model === undefined) conf.model = 'all';
 		
 		//KindEditor
 		if(conf.type === 'kindeditor'){
-			mlog.editor.KindEditor.init({
-				model : conf.model,
-				id : conf.id,
-				fun : conf.fun,
-				language : conf.language
-			});
+			if(typeof(KindEditor) === "undefined"){
+				mlog.utils.loader.loadJavaScript(mlog.variable.base + "/script/kindeditor/kindeditor.js", function(){
+					mlog.editor.KindEditor.init({
+						model : conf.model,
+						id : conf.id,
+						fun : conf.fun,
+						language : conf.language
+					});
+				});
+			}
+			else{
+				mlog.editor.KindEditor.init({
+					model : conf.model,
+					id : conf.id,
+					fun : conf.fun,
+					language : conf.language
+				});
+			}
 		}
+		//TinyMCE
 		else if(conf.type === 'tinymce'){
-			mlog.editor.TinyMCE.init({
-				model : conf.model,
-				id : conf.id,
-				fun : conf.fun,
-				language : conf.language
-			});
+			if(typeof(tinyMCE) === "undefined"){
+				mlog.utils.loader.loadJavaScript(mlog.variable.base + "/script/tinymce/tiny_mce.js", function(){
+					mlog.editor.TinyMCE.init({
+						model : conf.model,
+						id : conf.id,
+						fun : conf.fun,
+						language : conf.language
+					});
+				});
+			}
+			else{
+				mlog.editor.TinyMCE.init({
+					model : conf.model,
+					id : conf.id,
+					fun : conf.fun,
+					language : conf.language
+				});
+			}
 		}
 		else{}
 	}

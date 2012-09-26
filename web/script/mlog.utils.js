@@ -7,38 +7,26 @@ if(typeof(mlog) === "undefined"){var mlog = function(){}};
 mlog.utils = {};
 $.extend(mlog.utils, {
 	/**
-	 * 加载StyleSheet
-	 * @param url stylesheet的地址
+	 * 获取站点的根路径
+	 * 不推荐使用此方法获取网站路径,当程序安装在域名的自路径的时候会出现问题.
+	 * 推荐使用mlog.variable.base活blogurl
+	 * @return {}
 	 */
-	loadStyleSheet : function(url){
-		if (document.createStyleSheet) {
-            return document.createStyleSheet(url);
-        } else {
-            $("head").append($("<link rel='stylesheet' href='" + url + "' type='text/css' charset='utf-8' />"));
-        }
+	getWebRootPath : function(){
+		var path = location.href ; 
+		var pathArr = path.split("/"); 
+		return pathArr[0]+"//"+pathArr[2]+"/"+pathArr[3] ;
 	},
 	
 	/**
-	 * 加载JavaScript文件
-	 * @param setting 设置项
-	 * @param setting.url JavaScript地址
-	 * @param setting.async (默认: false) 默认设置下，所有请求均为同步请求
-	 * @param setting.success 加载成功后的回调函数
+	 * 获取XMLHttpRequest
 	 */
-	loadJavaScript : function(setting){
-		if(setting === undefined || setting.url === undefined)
-			return;
-		
-		//默认同步加载JS文件
-		if(setting.async === undefined) setting.async = false;
-		
-		$.ajax({
-            url: setting.url,
-            dataType: "script",
-            async : setting.async,
-            cache: true,
-            success: setting.success
-        });
+	getXMLHttpRequest : function(){
+		if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {// code for IE6, IE5
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }
 	},
 	
 	 /**
@@ -67,6 +55,78 @@ $.extend(mlog.utils, {
     		document.cookie = sName + "=" + escape(sValue) + "; path=/";
     	}
     }
+});
+
+mlog.utils.loader = {};
+$.extend(mlog.utils.loader, {
+	/**
+	 * 加载JS文件,在此严重的鄙视IE
+	 * @param {} path　JS文件的路径
+	 * @param {} callback　JS文件加载成功后的回调函数
+	 */
+    loadJavaScript : function(path, callback) {  
+        try {  
+            var script = document.createElement('script');  
+            script.src = path;  
+            script.type = "text/javascript";  
+            document.getElementsByTagName("head")[0].appendChild(script);  
+            if( script.addEventListener ) {
+                script.addEventListener("load", callback, false);  
+            } else if(script.attachEvent) {
+                script.attachEvent("onreadystatechange", function(){  
+                        if(script.readyState == 4  
+                            || script.readyState == 'complete'  
+                            || script.readyState == 'loaded') {  
+                            callback();  
+                        }
+                });  
+            }
+        } catch(e) {
+            callback();  
+        }
+    },
+    
+   	/**
+	 * 加载StyleSheet
+	 * @param url stylesheet的地址
+	 */
+	loadStyleSheet : function(url){
+		if (document.createStyleSheet) {
+            return document.createStyleSheet(url);
+        } else {
+            $("head").append($("<link rel='stylesheet' href='" + url + "' type='text/css' charset='utf-8' />"));
+        }
+	}
+	
+//	
+//	/**
+//	 * 加载JavaScript文件
+//	 * @param setting 设置项
+//	 * @param setting.url JavaScript地址
+//	 * @param setting.async (默认: false) 默认设置下，所有请求均为同步请求
+//	 * @param setting.success 加载成功后的回调函数
+//	 */
+//	loadJavaScript : function(setting){
+//		if(setting === undefined || setting.url === undefined) {
+//			return;
+//		}
+//		//默认同步加载JS文件
+//		if(setting.async === undefined) setting.async = false;
+//		
+//		//严重鄙视IE
+//		if($.browser.msie){
+//			$(document).append("<script type='text/javascript' src='" + setting.url + "'</script>"); 
+//		}
+//		else{
+//			$.ajax({
+//	            url: setting.url,
+//	            dataType: "script",
+//	            async : setting.async,
+//	            cache: true,
+//	            success: setting.success
+//	        });
+//		}
+//	},
 });
 
 
