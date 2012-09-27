@@ -67,7 +67,7 @@
 							<#assign tdClass = "even">
 						</#if>
 						<tr>
-							<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" onclick="checkThisCatalog(this, 'id');" /></td>
+							<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" /></td>
 							<#if columnfields??>
 								<#list columnfields as field>
 									<#if field??>

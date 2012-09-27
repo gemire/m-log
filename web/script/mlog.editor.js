@@ -1,21 +1,26 @@
 /**
  * @author GaoYoubo
  * @since 2012-09-25
- * formÔªËØµÄ²Ù×÷ºÍ´¦Àí
+ * formå…ƒç´ çš„æ“ä½œå’Œå¤„ç†
  */
 if(typeof(mlog) === "undefined"){var mlog = function(){}};
 
 mlog.editor = {};
+mlog.editor.ins = {};
+mlog.editor.ins.createPostEditor = {};
+mlog.editor.ins.createPostSummaryEditor = {};
+mlog.editor.ins.editPostEditor = {};
+mlog.editor.ins.editPostSummaryEditor = {};
 
 $.extend(mlog.editor,{
 	/*
-     * @description ³õÊ¼»¯±à¼­Æ÷
-     * @param conf ±à¼­Æ÷³õÊ¼»¯²ÎÊı
-     * @param conf.type ±à¼­Æ÷ÖÖÀàkindeditor/tinymce
-     * @param conf.model ±à¼­Æ÷ÏÔÊ¾Ä£Ê½simple/all
-     * @param conf.id ±à¼­Æ÷äÖÈ¾ÔªËØ id
-     * @param conf.fun ±à¼­Æ÷Ê×´Î¼ÓÔØÍê³Éºó»Øµ÷º¯Êı
-     * @param conf.language ÓïÑÔ
+     * @description åˆå§‹åŒ–ç¼–è¾‘å™¨
+     * @param conf ç¼–è¾‘å™¨åˆå§‹åŒ–å‚æ•°
+     * @param conf.type ç¼–è¾‘å™¨ç§ç±»kindeditor/tinymce
+     * @param conf.model ç¼–è¾‘å™¨æ˜¾ç¤ºæ¨¡å¼simple/all
+     * @param conf.id ç¼–è¾‘å™¨æ¸²æŸ“å…ƒç´  id
+     * @param conf.fun ç¼–è¾‘å™¨é¦–æ¬¡åŠ è½½å®Œæˆåå›è°ƒå‡½æ•°
+     * @param conf.language è¯­è¨€
      */
 	init : function(conf){
 		if(conf.type != 'kindeditor' && conf.type != 'tinymce') conf.type = 'kindeditor';
@@ -25,8 +30,9 @@ $.extend(mlog.editor,{
 		
 		//KindEditor
 		if(conf.type === 'kindeditor'){
+			var editor_ins = null; //editorå®ä¾‹
 			if(typeof(KindEditor) === "undefined"){
-				mlog.utils.loader.loadJavaScript(mlog.variable.base + "/script/kindeditor/kindeditor.js", function(){
+				editor_ins = mlog.utils.loader.loadJavaScript(mlog.variable.base + "/script/kindeditor/kindeditor.js", function(){
 					mlog.editor.KindEditor.init({
 						model : conf.model,
 						id : conf.id,
@@ -36,13 +42,14 @@ $.extend(mlog.editor,{
 				});
 			}
 			else{
-				mlog.editor.KindEditor.init({
+				editor_ins = mlog.editor.KindEditor.init({
 					model : conf.model,
 					id : conf.id,
 					fun : conf.fun,
 					language : conf.language
 				});
 			}
+			return editor_ins;
 		}
 		//TinyMCE
 		else if(conf.type === 'tinymce'){
@@ -71,18 +78,18 @@ $.extend(mlog.editor,{
 
 
 /**
- * KindEditorÀ©Õ¹
+ * KindEditoræ‰©å±•
  * @type 
  */
 mlog.editor.KindEditor = {};
 $.extend(mlog.editor.KindEditor, {
 	/*
-     * @description ³õÊ¼»¯KindEditor±à¼­Æ÷
-     * @param conf ±à¼­Æ÷³õÊ¼»¯²ÎÊı
-     * @param conf.model ±à¼­Æ÷ÏÔÊ¾Ä£Ê½simple/all
-     * @param conf.id ±à¼­Æ÷äÖÈ¾ÔªËØ id
-     * @param conf.fun ±à¼­Æ÷Ê×´Î¼ÓÔØÍê³Éºó»Øµ÷º¯Êı
-     * @param conf.language ÓïÑÔ
+     * @description åˆå§‹åŒ–KindEditorç¼–è¾‘å™¨
+     * @param conf ç¼–è¾‘å™¨åˆå§‹åŒ–å‚æ•°
+     * @param conf.model ç¼–è¾‘å™¨æ˜¾ç¤ºæ¨¡å¼simple/all
+     * @param conf.id ç¼–è¾‘å™¨æ¸²æŸ“å…ƒç´  id
+     * @param conf.fun ç¼–è¾‘å™¨é¦–æ¬¡åŠ è½½å®Œæˆåå›è°ƒå‡½æ•°
+     * @param conf.language è¯­è¨€
      */
 	init : function(conf){
 		if(typeof(KindEditor) === "undefined") return;
@@ -101,9 +108,13 @@ $.extend(mlog.editor.KindEditor, {
                 afterCreate: function () {
                     // TODO: chrome bug
                     //window.onhashchange = admin.setCurByHash;
+                	this.sync();
                     if (typeof(conf.fun) === "function") {
                         conf.fun();
                     }
+                },
+                afterChange : function(){
+                	this.sync();
                 }
             });
 		}
@@ -113,9 +124,37 @@ $.extend(mlog.editor.KindEditor, {
                 resizeType: 0, 
                 items: ["bold", "italic", "underline", "strikethrough", "|", "undo", "redo", "|", 
                 "insertunorderedlist", "insertorderedlist", "|", "emoticons"
-                ]
+                ],
+                afterCreate: function () {
+                    // TODO: chrome bug
+                    //window.onhashchange = admin.setCurByHash;
+                	this.sync();
+                    if (typeof(conf.fun) === "function") {
+                        conf.fun();
+                    }
+                },
+                afterChange : function(){
+                	this.sync();
+                }
             });
 		}
+		return this[conf.id];
+	},
+	getHtmlContent : function(editorId){
+		var content = "";
+        try {
+            content = this[editorId].html();
+        } catch (e) {
+            content = $("#" + editorId).val();
+        }
+        return content;
+	},
+	setHtmlContent : function(editorId, content){
+		try {
+            this[editorId].html(content);
+        } catch (e) {
+            $("#" + editorId).val(content);
+        }
 	}
 });
 
@@ -123,12 +162,12 @@ $.extend(mlog.editor.KindEditor, {
 mlog.editor.TinyMCE = {};
 $.extend(mlog.editor.TinyMCE, {
 	/*
-     * @description ³õÊ¼»¯KindEditor±à¼­Æ÷
-     * @param conf ±à¼­Æ÷³õÊ¼»¯²ÎÊı
-     * @param conf.model ±à¼­Æ÷ÏÔÊ¾Ä£Ê½simple/all
-     * @param conf.id ±à¼­Æ÷äÖÈ¾ÔªËØ id
-     * @param conf.fun ±à¼­Æ÷Ê×´Î¼ÓÔØÍê³Éºó»Øµ÷º¯Êı
-     * @param conf.language ÓïÑÔ
+     * @description åˆå§‹åŒ–KindEditorç¼–è¾‘å™¨
+     * @param conf ç¼–è¾‘å™¨åˆå§‹åŒ–å‚æ•°
+     * @param conf.model ç¼–è¾‘å™¨æ˜¾ç¤ºæ¨¡å¼simple/all
+     * @param conf.id ç¼–è¾‘å™¨æ¸²æŸ“å…ƒç´  id
+     * @param conf.fun ç¼–è¾‘å™¨é¦–æ¬¡åŠ è½½å®Œæˆåå›è°ƒå‡½æ•°
+     * @param conf.language è¯­è¨€
      */
 	init : function(conf){
 		if(typeof(tinyMCE) === "undefined") return;
@@ -164,7 +203,7 @@ $.extend(mlog.editor.TinyMCE, {
                         conf.fun();
                     }
                 },
-                //´¦Àíjquery-validationµÄÒì³££¬ÔÚÃ¿´ÎtinyMCEÄÚÈİ¸Ä±äÊÇ£¬¶¼Ö´ĞĞtriggerSave()²Ù×÷
+                //å¤„ç†jquery-validationçš„å¼‚å¸¸ï¼Œåœ¨æ¯æ¬¡tinyMCEå†…å®¹æ”¹å˜æ˜¯ï¼Œéƒ½æ‰§è¡ŒtriggerSave()æ“ä½œ
                 onchange_callback : function(){
                 	tinyMCE.triggerSave();
                 }

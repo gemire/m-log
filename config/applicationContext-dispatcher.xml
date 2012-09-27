@@ -26,13 +26,13 @@
 					<constructor-arg value="UTF-8" />
 				</bean>
 				<!-- 
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
 				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />  
-				<bean class="org.springframework.http.converter.StringHttpMessageConverter" />  
 				<bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />  
 				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />  
 				<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />  
-				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />  
-				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />  
 				-->
 			</list>
 		</property>

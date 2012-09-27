@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,6 +66,8 @@ public class Post implements Serializable {
     private String url;
     private String postIp;
     private Long viewCount;
+
+    private Set<Comment> comments;
 
     /**
      * 
@@ -350,6 +353,22 @@ public class Post implements Serializable {
      */
     public void setViewCount(Long viewCount) {
         this.viewCount = viewCount;
+    }
+
+    /**
+     * @return the comments
+     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, targetEntity = Comment.class, mappedBy = "post", orphanRemoval = true)
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments
+     *            the comments to set
+     */
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public static class Status {

@@ -7,9 +7,9 @@ if(typeof(mlog) === "undefined"){var mlog = function(){}};
 mlog.utils = {};
 $.extend(mlog.utils, {
 	/**
-	 * »ñÈ¡Õ¾µãµÄ¸ùÂ·¾¶
-	 * ²»ÍÆ¼öÊ¹ÓÃ´Ë·½·¨»ñÈ¡ÍøÕ¾Â·¾¶,µ±³ÌĞò°²×°ÔÚÓòÃûµÄ×ÔÂ·¾¶µÄÊ±ºò»á³öÏÖÎÊÌâ.
-	 * ÍÆ¼öÊ¹ÓÃmlog.variable.base»îblogurl
+	 * è·å–ç«™ç‚¹çš„æ ¹è·¯å¾„
+	 * ä¸æ¨èä½¿ç”¨æ­¤æ–¹æ³•è·å–ç½‘ç«™è·¯å¾„,å½“ç¨‹åºå®‰è£…åœ¨åŸŸåçš„è‡ªè·¯å¾„çš„æ—¶å€™ä¼šå‡ºç°é—®é¢˜.
+	 * æ¨èä½¿ç”¨mlog.variable.baseæ´»blogurl
 	 * @return {}
 	 */
 	getWebRootPath : function(){
@@ -19,7 +19,7 @@ $.extend(mlog.utils, {
 	},
 	
 	/**
-	 * »ñÈ¡XMLHttpRequest
+	 * è·å–XMLHttpRequest
 	 */
 	getXMLHttpRequest : function(){
 		if (window.XMLHttpRequest) {
@@ -30,7 +30,7 @@ $.extend(mlog.utils, {
 	},
 	
 	 /**
-     * »ñÈ¡CookieÖµ
+     * è·å–Cookieå€¼
      */
     getCookie : function(sName) {
     	var arr = document.cookie.match(new RegExp("(^| )" + sName + "=([^;]*)(;|$)"));
@@ -41,10 +41,10 @@ $.extend(mlog.utils, {
     },
 
     /**
-     * ÉèÖÃcookieÖµ
-     * @param sName Ãû×Ö
-     * @param sValue Öµ
-     * @param iExpireDays cookie±£´æÊ±¼ä(µ¥Î»£ºÌì)
+     * è®¾ç½®cookieå€¼
+     * @param sName åå­—
+     * @param sValue å€¼
+     * @param iExpireDays cookieä¿å­˜æ—¶é—´(å•ä½ï¼šå¤©)
      */
     setCookie : function(sName, sValue, iExpireDays) {
     	if (iExpireDays) {
@@ -60,9 +60,9 @@ $.extend(mlog.utils, {
 mlog.utils.loader = {};
 $.extend(mlog.utils.loader, {
 	/**
-	 * ¼ÓÔØJSÎÄ¼ş,ÔÚ´ËÑÏÖØµÄ±ÉÊÓIE
-	 * @param {} path¡¡JSÎÄ¼şµÄÂ·¾¶
-	 * @param {} callback¡¡JSÎÄ¼ş¼ÓÔØ³É¹¦ºóµÄ»Øµ÷º¯Êı
+	 * åŠ è½½JSæ–‡ä»¶,åœ¨æ­¤ä¸¥é‡çš„é„™è§†IE
+	 * @param {} pathã€€JSæ–‡ä»¶çš„è·¯å¾„
+	 * @param {} callbackã€€JSæ–‡ä»¶åŠ è½½æˆåŠŸåçš„å›è°ƒå‡½æ•°
 	 */
     loadJavaScript : function(path, callback) {  
         try {  
@@ -87,8 +87,8 @@ $.extend(mlog.utils.loader, {
     },
     
    	/**
-	 * ¼ÓÔØStyleSheet
-	 * @param url stylesheetµÄµØÖ·
+	 * åŠ è½½StyleSheet
+	 * @param url stylesheetçš„åœ°å€
 	 */
 	loadStyleSheet : function(url){
 		if (document.createStyleSheet) {
@@ -96,37 +96,32 @@ $.extend(mlog.utils.loader, {
         } else {
             $("head").append($("<link rel='stylesheet' href='" + url + "' type='text/css' charset='utf-8' />"));
         }
-	}
+	},
 	
-//	
-//	/**
-//	 * ¼ÓÔØJavaScriptÎÄ¼ş
-//	 * @param setting ÉèÖÃÏî
-//	 * @param setting.url JavaScriptµØÖ·
-//	 * @param setting.async (Ä¬ÈÏ: false) Ä¬ÈÏÉèÖÃÏÂ£¬ËùÓĞÇëÇó¾ùÎªÍ¬²½ÇëÇó
-//	 * @param setting.success ¼ÓÔØ³É¹¦ºóµÄ»Øµ÷º¯Êı
-//	 */
-//	loadJavaScript : function(setting){
-//		if(setting === undefined || setting.url === undefined) {
-//			return;
-//		}
-//		//Ä¬ÈÏÍ¬²½¼ÓÔØJSÎÄ¼ş
-//		if(setting.async === undefined) setting.async = false;
-//		
-//		//ÑÏÖØ±ÉÊÓIE
-//		if($.browser.msie){
-//			$(document).append("<script type='text/javascript' src='" + setting.url + "'</script>"); 
-//		}
-//		else{
-//			$.ajax({
-//	            url: setting.url,
-//	            dataType: "script",
-//	            async : setting.async,
-//	            cache: true,
-//	            success: setting.success
-//	        });
-//		}
-//	},
+	
+	/**
+	 * åŠ è½½JavaScriptæ–‡ä»¶
+	 * @param setting è®¾ç½®é¡¹
+	 * @param setting.url JavaScriptåœ°å€
+	 * @param setting.async (é»˜è®¤: false) é»˜è®¤è®¾ç½®ä¸‹ï¼Œæ‰€æœ‰è¯·æ±‚å‡ä¸ºåŒæ­¥è¯·æ±‚
+	 * @param setting.success åŠ è½½æˆåŠŸåçš„å›è°ƒå‡½æ•°
+	 */
+	loadJavaScriptByAjax : function(setting){
+		if(setting === undefined || setting.url === undefined) {
+			return;
+		}
+		//é»˜è®¤åŒæ­¥åŠ è½½JSæ–‡ä»¶
+		if(setting.async === undefined) setting.async = false;
+		
+		
+		$.ajax({
+            url: setting.url,
+            dataType: "script",
+            async : setting.async,
+            cache: true,
+            success: setting.success
+        });
+	}
 });
 
 

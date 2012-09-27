@@ -123,12 +123,12 @@
 	//发布
 	function publish(){
 		$("#status").val("publish");
-		mspring.submitForm("postForm");
+		mlog.form.submitForm("postForm");
 	}
 	//存为草稿
 	function draft(){
 		$("#status").val("draft");
-		mspring.submitForm("postForm");
+		mlog.form.submitForm("postForm");
 	}
 	$(document).ready(function(){
 		//斑马线
