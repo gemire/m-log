@@ -35,7 +35,7 @@
 		<div id="container" class="clear-block">
 	    	<div id="header">
 	        	<div id="logo-floater">
-	        		<h1><a href="${base}" title="${blogname}"><img src="${template_url}/images/logo.png" alt="${blogname}" id="logo"><span>${blogname}</span></a></h1>
+	        		<h1><a href="${blogurl}" title="${blogname}"><img src="${template_url}/images/logo.png" alt="${blogname}" id="logo"><span>${blogname}</span></a></h1>
 	        	</div>
 	         	<ul class="links primary-links"><@widget.placeholder path="/widget/menus" cache=false /></ul> 
 	      	</div><!-- /header -->
