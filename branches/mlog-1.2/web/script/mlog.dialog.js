@@ -1,7 +1,7 @@
 /**
  * @author GaoYoubo
  * @since 2012-09-25
- * form元素的操作和处理
+ * form鍏冪礌鐨勬搷浣滃拰澶勭悊
  */
 if(typeof(mlog) === "undefined"){var mlog = function(){}};
 mlog.dialog = {};
@@ -20,7 +20,7 @@ $.extend(mlog.dialog, {
 			icon : 'error.gif',
 			// cancel: function(){},
 			close : function() {
-				var duration = 400, /* 动画时长 */
+				var duration = 400, /* 鍔ㄧ敾鏃堕暱 */
 				api = this, opt = api.config, wrap = api.DOM.wrap, top = $(window).scrollTop() - wrap[0].offsetHeight;
 				wrap.animate(
 					{

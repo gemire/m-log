@@ -4,12 +4,12 @@
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			mlog.editor.init({
+			mlog.editor.ins.createPostEditor = mlog.editor.init({
 				type : "kindeditor",
 				model : "all",
 				id : "content"
 			});
-			mlog.editor.init({
+			mlog.editor.ins.createPostSummaryEditor = mlog.editor.init({
 				type : "kindeditor",
 				model : "simple",
 				id : "summary"
@@ -108,12 +108,12 @@
 	//发布
 	function publish(){
 		$("#status").val("publish");
-		mspring.submitForm("postForm");
+		mlog.form.submitForm("postForm");
 	}
 	//存为草稿
 	function draft(){
 		$("#status").val("draft");
-		mspring.submitForm("postForm");
+		mlog.form.submitForm("postForm");
 	}
 	$(document).ready(function(){
 		//斑马线

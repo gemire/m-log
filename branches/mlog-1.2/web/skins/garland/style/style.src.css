@@ -1388,8 +1388,39 @@ ul.primary li.active a,ul.secondary li.active a {
 	margin: 1em 0 3em;
 	padding: 0;
 }
-.commentlist .thread-alt {
-	background: #edf5fa;
+.commentlist li {
+	border:solid #d3e7f4;
+	border-width:1px 0;
+	list-style: none;
+	padding: 1em 2em;
+}
+.commentlist .odd {
+	background-color:#EDF5FA;
+}
+.commentlist .even {
+	background-color:#ddecf5;
+	/*background-color:#E6F1F7;*/
+}
+.commentlist .content blockquote {
+	color: #66a;
+	font-weight: bold;
+	/*font-style: italic;*/
+	quotes:"\201C""\201D""\2018""\2019";
+	background:#f9f9f9;
+	border-left:10px solid #ccc;
+	margin:1.5em 10px;
+	padding:.5em 10px;
+}
+.commentlist .content blockquote:before {
+	color:#ccc;
+	content:open-quote;
+	font-size:4em;
+	line-height:.1em;
+	margin-right:.25em;
+	vertical-align:-.4em;
+}
+.commentlist .content blockquote p {
+	display:inline;
 }
 .commentlist .avatar {
 	border: 1px dotted #ccc;
@@ -1399,12 +1430,8 @@ ul.primary li.active a,ul.secondary li.active a {
 	height: 32px;
 	width: 32px;
 }
-.commentlist cite {
+.commentlist .comment-author {
 	font-weight: bold;
-}
-.commentlist li {
-	list-style: none;
-	padding: 1em 2em;
 }
 
 /**
@@ -1649,10 +1676,7 @@ div.status {
 div.error {
 	color:#c52020;
 }
-.form-item input.error,.form-item textarea.error {
-	border:1px solid #c52020;
-	color:#494949;
-}
+
 /**
  * Watchdog.module
  */
@@ -1720,6 +1744,32 @@ form {
 .item-list ul {
 	margin:0 0 0.75em 0;
 	padding:0;
+}
+.text {
+	background-color: #FCFCFC;
+	border-width: 0;
+	box-shadow: 0 0 2px #BCBCBC;
+	font-family: Verdana,arial,微软雅黑e\8f6f\96c5\9ed1;
+	font-size: 12px;
+	margin: 0 5px 10px 0;
+	outline: medium none;
+	padding: 0 3px;
+	height: 28px;
+	line-height: 28px;
+	width: 260px;
+}
+.button {
+	background-color: #F6F6F6;
+	border: 0 none;
+	box-shadow: 0 0 2px #D5D5D5;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 12px;
+	color: #A7A7A7;
+}
+.button:hover {
+	box-shadow: 0 0 4px #D5D5D5;
+	text-shadow: 0 0 2px;
 }
 .form-item {
 	margin-top:1em;

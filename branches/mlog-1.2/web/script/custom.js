@@ -1,5 +1,5 @@
 /*
- * Ç°Ì¨Ò³ÃæÍ¨ÓÃJavaScriptÎÄ¼ş
+ * å‰å°é¡µé¢é€šç”¨JavaScriptæ–‡ä»¶
  * @author Gao Youbo
  * @since 2012-07-28
  * 
@@ -7,7 +7,7 @@
 if(typeof(mlog) === "undefined"){var mlog = function(){}};
 $.extend(mlog, {
 	/**
-	 * »ñÈ¡µ±Ç°¹â±êËùÔÚÎ»ÖÃ
+	 * è·å–å½“å‰å…‰æ ‡æ‰€åœ¨ä½ç½®
 	 */
 	getCursorEndPosition: function (textarea) {
         textarea.focus();
@@ -30,7 +30,7 @@ $.extend(mlog, {
     
 	
 	/**
-	 * Îª±íÇéÍ¼Ïñ°ó¶¨µã»÷ÊÂ¼ş
+	 * ä¸ºè¡¨æƒ…å›¾åƒç»‘å®šç‚¹å‡»äº‹ä»¶
 	 */
 	insertEmotions : function(name){
 		var _this = this;
@@ -60,8 +60,8 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * ½«ÆÀÂÛÖĞµÄ±íÇé±êÊ¶£¬Ìæ»»³É±íÇéÍ¼Æ¬
-	 * @param selector ±»Ìæ»»±íÇéµÄÈİÆ÷
+	 * å°†è¯„è®ºä¸­çš„è¡¨æƒ…æ ‡è¯†ï¼Œæ›¿æ¢æˆè¡¨æƒ…å›¾ç‰‡
+	 * @param selector è¢«æ›¿æ¢è¡¨æƒ…çš„å®¹å™¨
 	 */
 	replaceCommentsEm : function(selector){
 		var _this = this;
@@ -73,7 +73,7 @@ $.extend(mlog, {
 	},
 	
 	/**
-	 * Ìæ»»±íÇéhtmlÎÄ±¾
+	 * æ›¿æ¢è¡¨æƒ…htmlæ–‡æœ¬
 	 */
 	replaceEmString : function(str){
 		var _this = this;
@@ -120,8 +120,8 @@ $.extend(mlog, {
     },
     
     /*
-     * @description ³õÊ¼»¯ SyantaxHighlighter
-     * @param {Array} languages ĞèÒª¼ÓÔØµÄÓïÑÔ 
+     * @description åˆå§‹åŒ– SyantaxHighlighter
+     * @param {Array} languages éœ€è¦åŠ è½½çš„è¯­è¨€ 
      */
     initSyntaxHighlighter: function(languages){
     	for(var i = 0; i < languages.length; i++){
@@ -237,25 +237,25 @@ $.extend(mlog, {
     },
     
     /*
-     * @description ¼ÓÔØ SyntaxHighlighter 
-     * @param {String} SHTheme SyntaxHighLighter ÑùÊ½
-     * @param {String} selector SyntaxHighLighter ÈİÆ÷
+     * @description åŠ è½½ SyntaxHighlighter 
+     * @param {String} SHTheme SyntaxHighLighter æ ·å¼
+     * @param {String} selector SyntaxHighLighter å®¹å™¨
      */
     loadSyntaxHighlighter : function(SHTheme, selector){
     	var cssName = SHTheme ? SHTheme : "shCoreEclipse";
     	var _this = this;
     	// load css
-        _this.loadStyleSheet(mlog.variable.base + "/script/SyntaxHighlighter/styles/" + cssName + ".css");
+        mlog.utils.loader.loadStyleSheet(mlog.variable.base + "/script/SyntaxHighlighter/styles/" + cssName + ".css");
         
         // load js
         /**
-    	 * ¼ÓÔØJavaScriptÎÄ¼ş
-    	 * @param setting ÉèÖÃÏî
-    	 * @param setting.url JavaScriptµØÖ·
-    	 * @param setting.async (Ä¬ÈÏ: true) Ä¬ÈÏÉèÖÃÏÂ£¬ËùÓĞÇëÇó¾ùÎªÒì²½ÇëÇó
-    	 * @param setting.success ¼ÓÔØ³É¹¦ºóµÄ»Øµ÷º¯Êı
+    	 * åŠ è½½JavaScriptæ–‡ä»¶
+    	 * @param setting è®¾ç½®é¡¹
+    	 * @param setting.url JavaScriptåœ°å€
+    	 * @param setting.async (é»˜è®¤: true) é»˜è®¤è®¾ç½®ä¸‹ï¼Œæ‰€æœ‰è¯·æ±‚å‡ä¸ºå¼‚æ­¥è¯·æ±‚
+    	 * @param setting.success åŠ è½½æˆåŠŸåçš„å›è°ƒå‡½æ•°
     	 */
-        _this.loadJavaScript({
+        mlog.utils.loader.loadJavaScriptByAjax({
         	url : mlog.variable.base + "/script/SyntaxHighlighter/scripts/shCore.js",
         	success : function(){
         		// get brush settings
@@ -270,7 +270,7 @@ $.extend(mlog, {
                 });
                 // when html-script is true, need shBrushXml.js
                 if (isScrip) {
-                	_this.loadJavaScript({
+                	mlog.utils.loader.loadJavaScriptByAjax({
                 		url : mlog.variable.base + "/script/SyntaxHighlighter/scripts/shBrushXml.js",
                 		success: function() {
                             _this.initSyntaxHighlighter(languages);
@@ -284,10 +284,10 @@ $.extend(mlog, {
     },
     
     /*
-     * @description ½âÎöÓï·¨¸ßÁÁ
-     * @param {Obj} setting Óï·¨¸ßÁÁÅäÖÃ²ÎÊı
-     * @param {Obj} setting.SHTheme Óï·¨¸ßÁÁ SyntaxHighLighter ÑùÊ½
-     * @param {Obj} setting.contentSelector ÎÄÕÂÄÚÈİÈİÆ÷
+     * @description è§£æè¯­æ³•é«˜äº®
+     * @param {Obj} setting è¯­æ³•é«˜äº®é…ç½®å‚æ•°
+     * @param {Obj} setting.SHTheme è¯­æ³•é«˜äº® SyntaxHighLighter æ ·å¼
+     * @param {Obj} setting.contentSelector æ–‡ç« å†…å®¹å®¹å™¨
      */
     parseLanguage: function (setting) {
         var isPrettify = false;
@@ -313,9 +313,9 @@ $.extend(mlog, {
         
         if (isPrettify) {
             // load css
-            this.loadStyleSheet(mlog.variable.base + "/script/prettify/prettify.css");
+            mlog.utils.loader.loadStyleSheet(mlog.variable.base + "/script/prettify/prettify.css");
             // load js
-            this.loadJavaScript({
+            mlog.utils.loader.loadJavaScriptByAjax({
             	url : mlog.variable.base + "/script/prettify/prettify.js"
             })
             // load function
@@ -326,7 +326,7 @@ $.extend(mlog, {
     },
     
     /**
-     * ³õÊ¼»¯±à¼­Æ÷ 
+     * åˆå§‹åŒ–ç¼–è¾‘å™¨ 
      */
     initEditor : function(_id){
     	var _this = this;
@@ -347,17 +347,17 @@ $.extend(mlog, {
     },
     
     /**
-     * »Ø¸´
+     * å›å¤
      */
     reply : function(){
     	
     },
 	
 	/**
-	 * @description ÎÄÕÂ/×Ô¶¨ÒåÒ³Ãæ¼ÓÔØ
-     * @param {Object} setting ÅäÖÃÉè¶¨
-     * @param {Object} setting.language ´úÂë¸ßÁÁÅäÖÃ
-     * @param {Object} setting.contentSelector ÎÄÕÂÄÚÈİÈİÆ÷,Ä¬ÈÏ".content"
+	 * @description æ–‡ç« /è‡ªå®šä¹‰é¡µé¢åŠ è½½
+     * @param {Object} setting é…ç½®è®¾å®š
+     * @param {Object} setting.language ä»£ç é«˜äº®é…ç½®
+     * @param {Object} setting.contentSelector æ–‡ç« å†…å®¹å®¹å™¨,é»˜è®¤".content"
 	 */
 	load : function(setting){
 		var _this = this;
@@ -366,18 +366,18 @@ $.extend(mlog, {
 	},
 	
     /**
-     * ×Ô¶¯¼ÓÔØ
+     * è‡ªåŠ¨åŠ è½½
      */
     autoLoad : function(){
     	var _this = this;
     	
-    	//Îª±íÇé¶ÔÏó°ó¶¨µã»÷ ÊÂ¼ş
+    	//ä¸ºè¡¨æƒ…å¯¹è±¡ç»‘å®šç‚¹å‡» äº‹ä»¶
 		_this.insertEmotions();
     }
 });
 
 /**
- * ×Ô¶¯¼ÓÔØ
+ * è‡ªåŠ¨åŠ è½½
  */
 $(document).ready(function(){
 	mlog.autoLoad();

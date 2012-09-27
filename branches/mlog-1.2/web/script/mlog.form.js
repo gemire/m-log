@@ -1,14 +1,14 @@
 /**
  * @author GaoYoubo
  * @since 2012-09-25
- * formÔªËØµÄ²Ù×÷ºÍ´¦Àí
+ * formå…ƒç´ çš„æ“ä½œå’Œå¤„ç†
  */
 if(typeof(mlog) === "undefined"){var mlog = function(){}};
 mlog.form = {};
 $.extend(mlog.form, {
 	
    /**
-	 * Ñ¡ÔñÑ¡ÔñËùÓĞcheckbox
+	 * é€‰æ‹©é€‰æ‹©æ‰€æœ‰checkbox
 	 */
 	checkAll : function(_this, cbName) {
 		var array = document.getElementsByName(cbName);
@@ -18,7 +18,7 @@ $.extend(mlog.form, {
 	},
 
 	/**
-	 * µ±Ö»Ñ¡Ôñµ±Ç°checkboxÊ±£¬ ·µ»Øµ±Ç°checkboxµÄÖµ
+	 * å½“åªé€‰æ‹©å½“å‰checkboxæ—¶ï¼Œ è¿”å›å½“å‰checkboxçš„å€¼
 	 */
 	checkThis : function(_this, cbName) {
 		var array = document.getElementsByName(cbName);
@@ -35,7 +35,7 @@ $.extend(mlog.form, {
 	}, 
 	
 	/**
-	 * Ìá½»form
+	 * æäº¤form
 	 * @param {} formId
 	 * @param {} action
 	 */
@@ -48,7 +48,7 @@ $.extend(mlog.form, {
 	},
 	
 	confirmSubmit : function(formId, action, msg) {
-		var default_msg = 'È·ÈÏÉ¾³ıÑ¡ÔñÏîÂğ£¿';
+		var default_msg = 'ç¡®è®¤åˆ é™¤é€‰æ‹©é¡¹å—ï¼Ÿ';
 		if (msg) {
 			default_msg = msg;
 		}
@@ -62,10 +62,10 @@ $.extend(mlog.form, {
 		if (form) {
 			$.metadata.setType("attr", "validate");
 			/**
-			 * ×Ô¶¨Òåcheck·½·¨,¸Ã·½·¨ÓÃÓÚ×öajax¼ì²â
-			 * @param value µ±Ç°ÑéÖ¤±íµ¥ÔªËØµÄÖµ
-			 * @param element µ±Ç°ÑéÖ¤±íµ¥ÔªËØ
-			 * @param param µ±Ç°ÑéÖ¤´«µİµÄ²ÎÊı
+			 * è‡ªå®šä¹‰checkæ–¹æ³•,è¯¥æ–¹æ³•ç”¨äºåšajaxæ£€æµ‹
+			 * @param value å½“å‰éªŒè¯è¡¨å•å…ƒç´ çš„å€¼
+			 * @param element å½“å‰éªŒè¯è¡¨å•å…ƒç´ 
+			 * @param param å½“å‰éªŒè¯ä¼ é€’çš„å‚æ•°
 			 */
 			$.validator.addMethod("ajaxCheck", function(value, element, param) {
 				try{
@@ -96,10 +96,10 @@ $.extend(mlog.form, {
 			});
 			$(form).validate({
 				success : callback,
-				/* ÖØĞ´´íÎóÏÔÊ¾ÏûÏ¢·½·¨,ÒÔalert·½Ê½µ¯³ö´íÎóÏûÏ¢ */
+				/* é‡å†™é”™è¯¯æ˜¾ç¤ºæ¶ˆæ¯æ–¹æ³•,ä»¥alertæ–¹å¼å¼¹å‡ºé”™è¯¯æ¶ˆæ¯ */
 				showErrors : function(errorMap, errorList) {
 	
-					/* ´¦Àí´íÎó±íµ¥ÑùÊ½ */
+					/* å¤„ç†é”™è¯¯è¡¨å•æ ·å¼ */
 					for ( var i = 0; this.errorList[i]; i++) {
 						var error = this.errorList[i];
 						this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass);
@@ -124,7 +124,7 @@ $.extend(mlog.form, {
 					this.toHide = this.toHide.not(this.toShow);
 					this.hideErrors();
 					this.addWrapper(this.toShow).show();
-					/* end ´¦Àí´íÎó±íµ¥ÑùÊ½ */
+					/* end å¤„ç†é”™è¯¯è¡¨å•æ ·å¼ */
 	
 					var msg = "";
 					$.each(errorList, function(i, v) {
@@ -135,11 +135,11 @@ $.extend(mlog.form, {
 						mspring.tip("<font color='red'>" + msg + "</font>");
 					}
 				},
-				// Ê§È¥½¹µãÊ±²»ÑéÖ¤
+				// å¤±å»ç„¦ç‚¹æ—¶ä¸éªŒè¯
 				onfocusout : false,
-				// ÊäÈëÊ±²»ÑéÖ¤
+				// è¾“å…¥æ—¶ä¸éªŒè¯
 				onkeyup : false,
-				// µã»÷Ê±²»ÑéÖ¤
+				// ç‚¹å‡»æ—¶ä¸éªŒè¯
 				onclick : false
 			});
 		}

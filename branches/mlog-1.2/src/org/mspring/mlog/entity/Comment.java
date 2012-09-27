@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +20,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * @author Gao Youbo
@@ -36,16 +41,43 @@ public class Comment implements Serializable {
      */
     private static final long serialVersionUID = 4508095889920768217L;
 
+    @Expose
     private Long id;
+    @Expose
     private String author;
+    @Expose
     private String email;
+    @Expose
     private String url;
+    @Expose
     private String content;
+    @Expose
     private Date createTime;
+    @Expose
     private String postIp;
+    @Expose
     private String agent;
     private Post post;
+    @Expose
     private String status;
+    @Expose
+    private Comment parent;
+    private Set<Comment> comments;
+
+    /**
+     * 
+     */
+    public Comment() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param id
+     */
+    public Comment(Long id) {
+        super();
+        this.id = id;
+    }
 
     /**
      * @return the id
@@ -209,6 +241,39 @@ public class Comment implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the parent
+     */
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, optional = false, targetEntity = Comment.class)
+    @JoinColumn(name = "parent_id")
+    public Comment getParent() {
+        return parent;
+    }
+
+    /**
+     * @param parent
+     *            the parent to set
+     */
+    public void setParent(Comment parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * @return the comments
+     */
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Comment.class, mappedBy = "parent", orphanRemoval = true)
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments
+     *            the comments to set
+     */
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public static final class Status {

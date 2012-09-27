@@ -16,9 +16,12 @@ import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
+import org.mspring.platform.web.servlet.renderer.JSONRenderer;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -53,6 +56,14 @@ public class CommentWidget extends AbstractWebWidget {
         return "skin:/comment";
     }
 
+    /**
+     * 发表评论
+     * 
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
     @RequestMapping("/post")
     public String postComment(HttpServletRequest request, HttpServletResponse response, Model model) {
         String postId = request.getParameter("postId");
@@ -64,6 +75,7 @@ public class CommentWidget extends AbstractWebWidget {
         String content = request.getParameter("content");
         String email = request.getParameter("email");
         String url = request.getParameter("url");
+        Long parentId = StringUtils.isBlank(request.getParameter("parentId")) ? null : new Long(request.getParameter("parentId"));
         String ip = StringUtils.getIpAddr(request);
         String agent = StringUtils.getUserAgent(request);
 
@@ -105,6 +117,9 @@ public class CommentWidget extends AbstractWebWidget {
         comment.setAgent(agent);
         comment.setCreateTime(new Date());
         comment.setPost(new Post(new Long(postId.trim())));
+        if (parentId != null) {
+            comment.setParent(new Comment(parentId));
+        }
 
         // 判断评论审核功能是否开启
         String is_comment_audit = optionService.getOption("comment_audit");
@@ -128,4 +143,26 @@ public class CommentWidget extends AbstractWebWidget {
         model.addAttribute(FreemarkerVariableNames.COMMENT, comment);
         return String.format("redirect:%s", comment.getPost().getUrl());
     }
+
+    /**
+     * 引用
+     * 
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("quote")
+    @ResponseBody
+    public void quote(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null) {
+            return;
+        }
+        Comment comment = commentService.getCommentById(id);
+        if (comment != null) {
+            JSONRenderer renderer = new JSONRenderer(comment, true);
+            renderer.render(response);
+        }
+    }
+
 }
