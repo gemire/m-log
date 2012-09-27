@@ -13,6 +13,7 @@
 	<property name="build.dir" value="${basedir}/build" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	<property name="build.config.dir" value="${build.dir}/config" />
+	<property name="encoding" value="UTF-8" />
 	
 	<path id="project.class.path">
 		<pathelement location="${web.dir}/WEB-INF/classes"/>
@@ -41,7 +42,7 @@
 	
 	<target name="compile" depends="init" description="Compile java source to bytecode">
 		<javac 
-			encoding="UTF-8"
+			encoding="${encoding}"
 			srcdir="src" 
 			includes="**"
         	destdir="${build.classes.dir}"
