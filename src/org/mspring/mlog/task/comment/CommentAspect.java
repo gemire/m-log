@@ -31,17 +31,12 @@ public class CommentAspect {
      * 
      * @param jp
      */
-    @AfterReturning(pointcut = "execution(* org.mspring.mlog.service.CommentService.createComment(..))", returning = "comment")
+    @AfterReturning(value = "execution(* org.mspring.mlog.service.CommentService.createComment(..))", returning = "comment")
     public void commentReplyNoticeTask(JoinPoint jp, Comment comment) {
         if (comment != null && comment.getParent() != null && comment.getParent().getId() != null) {
             Map<Object, Object> context = new HashMap<Object, Object>();
             context.put("commentId", comment.getParent().getId());
             commentReplyNoticeTask.doAsyncTask(context);
         }
-    }
-    
-    @AfterReturning("execution(* org.mspring.mlog.service.CommentService.createComment(..))")
-    public void commentReplyNoticeTask1(JoinPoint jp) {
-        System.out.println("11111111111");
     }
 }
