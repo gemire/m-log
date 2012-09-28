@@ -84,15 +84,16 @@ public class CommentWidget {
      * @return
      */
     @RequestMapping("/delete")
-    public String deleteComment(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String deleteComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             commentService.deleteComment(id);
         }
-        return "redirect:/admin/comment/list";
+        //return "redirect:/admin/comment/list";
+        return listComment(commentPage, comment, queryParams, request, response, model);
     }
 
     @RequestMapping("/audit")
-    public String auditComment(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String auditComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         String status = request.getParameter("status");
         if (id != null && id.length > 0 && StringUtils.isNotBlank(status)) {
             if (Comment.Status.APPROVED.equals(status)) {
@@ -108,7 +109,8 @@ public class CommentWidget {
                 log.warn("update comment status failure, status [" + status + "] is illegal");
             }
         }
-        return "redirect:/admin/comment/list";
+        //return "redirect:/admin/comment/list";
+        return listComment(commentPage, comment, queryParams, request, response, model);
     }
 
 }
