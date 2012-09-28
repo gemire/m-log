@@ -33,8 +33,7 @@ public class DispatcherServlet extends org.springframework.web.servlet.Dispatche
     @Override
     protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // TODO Auto-generated method stub
-        exportContextPath(request, mv);
-
+        //exportContextPath(request, mv);
         super.render(mv, request, response);
     }
 

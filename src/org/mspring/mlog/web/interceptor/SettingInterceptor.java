@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.utils.SkinUtils;
 import org.mspring.mlog.web.common.OptionKeys;
+import org.mspring.platform.web.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -45,6 +46,7 @@ public class SettingInterceptor extends HandlerInterceptorAdapter {
         }
         // 处理通用参数
         request.setAttribute(OptionKeys.TEMPLATE_URL, SkinUtils.getTemplateUrl(request));
+        request.setAttribute(Keys.REQUEST_KEY_BASE, request.getContextPath());
         return super.preHandle(request, response, handler);
     }
 

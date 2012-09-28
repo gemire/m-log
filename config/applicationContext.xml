@@ -132,30 +132,8 @@
 			</props>
 		</property>
 	</bean>
-	<!-- 
-	<bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+	<bean class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
    		<property name="templateLoaderPath" value="/WEB-INF/template"/>
    		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
-	-->
-
-	<!-- Java Mail Sender -->
-	<!-- 
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-  		<property name="host" value="${mail.host}"/>
-  		<property name="port" value="${mail.port}"/>
-  		<property name="username" value="${mail.username}"/>
-  		<property name="password" value="${mail.password}"/>
-  		<property name="javaMailProperties">
-  			<props>
-  				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>  
-            	<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>  
-            	<prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>  
-            	<prop key="mail.smtp.socketFactory.port">${mail.smtp.socketFactory.port}</prop>  
-           		<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-            	<prop key="mail.smtp.socketFactory.fallback">${mail.smtp.socketFactory.fallback}</prop>  
-  			</props>
-  		</property>
-	</bean>
-	-->
 </beans>
