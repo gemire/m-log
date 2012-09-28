@@ -246,7 +246,7 @@ public class Comment implements Serializable {
     /**
      * @return the parent
      */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, optional = true, targetEntity = Comment.class)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Comment.class)
     @JoinColumn(name = "parent_id", nullable = true)
     public Comment getParent() {
         return parent;
