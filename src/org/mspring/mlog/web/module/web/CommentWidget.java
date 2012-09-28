@@ -141,20 +141,6 @@ public class CommentWidget extends AbstractWebWidget {
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
         model.addAttribute(FreemarkerVariableNames.COMMENT, comment);
-
-        // 评论回复通知
-        if (parentId != null) {
-            final Long commentId = comment.getId();
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    commentService.commentReplyNotice(commentId);
-                }
-            }).run();
-        }
-
         return String.format("redirect:%s", comment.getPost().getUrl());
     }
 

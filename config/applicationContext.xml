@@ -22,14 +22,16 @@
 		</property>
 	</bean>
 	
-	<!-- scan @components in service or dao -->
 	<context:annotation-config />
 	<context:component-scan base-package="org.mspring.mlog" />
 	
+	<aop:aspectj-autoproxy />
+	<!-- 
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<task:executor id="taskExecutor" pool-size="5" queue-capacity="25"/>
 	<task:scheduler id="taskScheduler" pool-size="5"/>
 	<task:annotation-driven executor="taskExecutor" scheduler="taskScheduler"/>
+	-->
 
 	<!-- datasource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
