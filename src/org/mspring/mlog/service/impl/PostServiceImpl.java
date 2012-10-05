@@ -380,6 +380,28 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         // TODO Auto-generated method stub
         return super.findAll(Post.class);
     }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PostService#getPostUrlByCommentId(java.lang.Long)
+     */
+    @Override
+    public String getPostUrlByCommentId(Long commentId) {
+        // TODO Auto-generated method stub
+        String queryString = "select post.url from Post post, Comment comment where comment.post.id = post.id and comment.id = ?";
+        Object url = findUnique(queryString, commentId);
+        return url == null ? "" : url.toString();
+    }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PostService#getPostByComment(java.lang.Long)
+     */
+    @Override
+    public Post getPostByComment(Long commentId) {
+        // TODO Auto-generated method stub
+        String queryString = "select post from Post post, Comment comment where comment.post.id = post.id and comment.id = ?";
+        Object post = findUnique(queryString, commentId);
+        return post == null ? null : ((Post)post);
+    }
     
     
 //    /**

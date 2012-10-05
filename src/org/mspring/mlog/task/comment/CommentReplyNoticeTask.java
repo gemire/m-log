@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author Gao Youbo
  * @since 2012-9-28
  * @Description
- * @TODO
+ * @TODO 有新评论时,邮件通知作者
  */
 @Component
 public class CommentReplyNoticeTask extends AbstractTask {

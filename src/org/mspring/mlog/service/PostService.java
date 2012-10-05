@@ -180,4 +180,18 @@ public interface PostService {
      * @return
      */
     List<Post> findAll();
+    
+    /**
+     * 根据评论编号,获取该评论对应的文章的URL
+     * @param commentId
+     * @return
+     */
+    String getPostUrlByCommentId(Long commentId);
+    
+    /**
+     * 根据评论编号获取该评论对应的文章
+     * @param commentId
+     * @return
+     */
+    Post getPostByComment(Long commentId);
 }

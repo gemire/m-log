@@ -12,6 +12,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -64,8 +65,8 @@ public class MailSenderConf {
     public static String getPassword() {
         return ServiceFactory.getOptionService().getOption("smtp_password");
     }
-    
-    public static String getFrom(){
+
+    public static String getFrom() {
         return ServiceFactory.getOptionService().getOption("mail_from");
     }
 

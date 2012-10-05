@@ -8,6 +8,7 @@ import java.io.File;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Mail;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.web.api.mail.MailSenderConf;
@@ -17,6 +18,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Gao Youbo
@@ -25,7 +27,9 @@ import org.springframework.stereotype.Service;
  * @TODO
  */
 @Service
+@Transactional
 public class MailServiceImpl implements MailService {
+    private static final Logger log = Logger.getLogger(MailServiceImpl.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -47,12 +51,27 @@ public class MailServiceImpl implements MailService {
     }
 
     private void doSend(final Mail mail) {
+        final String from = MailSenderConf.getFrom();
+        if (StringUtils.isBlank(from)) {
+            log.warn("send mail error, from email address is blank");
+            return;
+        }
+        if (mail.getTo() == null || mail.getTo().size() == 0) {
+            log.error("send mail error, to emailAddress is blank");
+            return;
+        }
+        if (StringUtils.isBlank(mail.getSubject())) {
+            log.warn("send mail error, mail subject is blank");
+        }
+        if (StringUtils.isBlank(mail.getContent())) {
+            log.warn("send mail error, mail content is blank");
+        }
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 // 是否包含附件
                 boolean marltipart = (mail.getAttachFiles() != null && mail.getAttachFiles().size() > 0) ? true : false;
                 MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, marltipart, MailSenderConf.getDefaultEncoding());
-                helper.setFrom(MailSenderConf.getFrom());
+                helper.setFrom(from == null ? "" : from);
                 helper.setSubject(mail.getSubject());
                 helper.setText(mail.getContent(), true);
 

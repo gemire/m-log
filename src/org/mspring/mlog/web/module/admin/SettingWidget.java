@@ -48,38 +48,119 @@ public class SettingWidget {
         this.skinService = skinService;
     }
 
-    @RequestMapping({ "/", "" })
-    public String settingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+    /**
+     * 显示"博客信息"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/bloginfo")
+    public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
-        return "/admin/setting/setting-view";
+        return "/admin/setting/bloginfo";
+    }
+    
+    /**
+     * 保存"博客信息"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/saveBloginfo")
+    public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        optionService.setOptions(options);
+        return "redirect:/admin/setting/bloginfo";
     }
 
-    @RequestMapping("/info")
-    public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "/admin/setting/info-setting";
+    /**
+     * 显示"邮件设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/mail")
+    public String mailSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        options = optionService.getOptions();
+        model.addAllAttributes(options);
+        return "/admin/setting/mail";
+    }
+    
+    /**
+     * 保存"邮件设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/saveMail")
+    public String saveMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        optionService.setOptions(options);
+        return "redirect:/admin/setting/mail";
     }
 
-    @RequestMapping("/global")
-    public String globalSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "/admin/setting/global-setting";
-    }
-
+    /**
+     * 显示"皮肤设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
     @RequestMapping("/skin")
     public String skinSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Skin> skins = skinService.scrnSkin();
         model.addAttribute("skins", skins);
-        return "/admin/setting/skin-setting";
+        return "/admin/setting/skin";
     }
     
-    @RequestMapping("/seo")
-    public String seoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "/admin/setting/seo-setting";
+    /**
+     * 保存"皮肤设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/saveSkin")
+    public String saveSkin(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        optionService.setOptions(options);
+        return "redirect:/admin/setting/skin";
     }
 
-    @RequestMapping("/saveSetting")
-    public String saveSetting(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+    /**
+     * 显示"SEO设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/seo")
+    public String seoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
+        options = optionService.getOptions();
+        model.addAllAttributes(options);
+        return "/admin/setting/seo";
+    }
+
+    /**
+     * 保存"SEO设置"
+     * @param options
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("/saveSeo")
+    public String saveSeo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
-        return "redirect:/admin/setting";
+        return "redirect:/admin/setting/seo";
     }
 }

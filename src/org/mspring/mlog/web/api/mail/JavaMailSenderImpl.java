@@ -16,6 +16,8 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailParseException;
@@ -35,6 +37,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JavaMailSenderImpl implements JavaMailSender {
+
+    private static final Logger log = Logger.getLogger(JavaMailSenderImpl.class);
 
     private static final String HEADER_MESSAGE_ID = "Message-ID";
 
@@ -175,11 +179,22 @@ public class JavaMailSenderImpl implements JavaMailSender {
 
     protected void doSend(MimeMessage[] mimeMessages, Object[] originalMessages) throws MailException {
         Map<Object, Exception> failedMessages = new LinkedHashMap<Object, Exception>();
-
+        final String host = MailSenderConf.getHost();
+        if (StringUtils.isBlank(host)) {
+            log.error("please set smtp host first!");
+            return;
+        }
+        final String username = MailSenderConf.getUsername();
+        if (StringUtils.isBlank(username)) {
+            log.error("please set email username first!");
+            return;
+        }
+        final int port = MailSenderConf.getPort();
+        final String password = MailSenderConf.getPassword();
         Transport transport;
         try {
             transport = MailSenderConf.getTransport();
-            transport.connect(MailSenderConf.getHost(), MailSenderConf.getPort(), MailSenderConf.getUsername(), MailSenderConf.getPassword());
+            transport.connect(host, port, username, password);
         }
         catch (AuthenticationFailedException ex) {
             throw new MailAuthenticationException(ex);
