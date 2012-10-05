@@ -1,6 +1,6 @@
 			<div id="sidebar">
 				<div id="rss">
-					<a href="${base}rss.xml"><div id="rss-pic"></div></a>
+					<a href="${base}/rss.xml"><div id="rss-pic"></div></a>
 				</div>
 				<form method="get" id="searchform" action="${base}/search">
 					<input type="text" value="" name="keyword" id="edtSearch" value="${keyword!""}" />

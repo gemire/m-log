@@ -8,19 +8,20 @@ var arrCSS = [
 ];
 
 var style_sheet_cookie = "5style_cookie";
-var current_style = mlog.getCookie(style_sheet_cookie);
+var current_style = mlog.utils.getCookie(style_sheet_cookie);
 var default_style = "layout1";
 
 /**
  * 设置样式
  */
 function writeCSS() {
-	if(current_style === undefined || current_style === 'undefined'){
+	if(current_style === undefined || current_style === 'undefined' || current_style === null){
 		current_style = default_style;
 	}
 	//加载所有样式表
 	for(var i = 0; i < arrCSS.length - 1; i++){
 		var disabled = true;
+		//alert(current_style);
 		if(arrCSS[i][1].indexOf(current_style) > 0 ){
 			disabled = false;
 		}
@@ -67,7 +68,7 @@ function setStyleSheet(css) {
 		if(styles[i].title === css){
 			styles[i].disabled = "";
 			current_style = styles[i].title;
-			mlog.setCookie(style_sheet_cookie, current_style, 365);
+			mlog.utils.setCookie(style_sheet_cookie, current_style, 365);
 		}
 		else{
 			styles[i].disabled = "disabled";
