@@ -387,7 +387,7 @@ span.error {
 
 
 /* 主题列表 */
-.skinItem {
+.skins .skinItem {
     background-color: #FAFAFA;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #333333;
@@ -397,17 +397,20 @@ span.error {
     text-align: center;
     width: 200px;
 }
-.skinItem img {
+.skins .skinItem:hover {
+    background-color: #EEE;
+}
+.skins .skinItem.selected {
+    background-color: #ff9999;
+}
+.skins .skinItem.selected:hover {
+    background-color: #ff9999;
+}
+.skins .skinItem img {
 	border:none;
 	width: 180px;
 }
-.skinItem.selected {
-    background-color: #ff9999;
-}
-.skinItem:hover {
-    background-color: #EEE;
-}
-.skinItem .metadata{
+.skins .skinItem .metadata{
 	margin-top:5px;
 	color: blue;
 }
