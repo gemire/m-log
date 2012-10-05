@@ -29,7 +29,7 @@ public class TreeItemServiceImpl extends AbstractServiceSupport implements TreeI
     @Override
     public List<TreeItem> findAllItems() {
         // TODO Auto-generated method stub
-        String queryString = "select t from TreeItem t where t.deleted = false";
+        String queryString = "select t from TreeItem t where t.deleted = false order by t.id";
         return find(queryString);
     }
 

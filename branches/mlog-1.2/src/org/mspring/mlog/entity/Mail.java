@@ -20,6 +20,11 @@ import org.apache.log4j.Logger;
  * @TODO
  */
 public class Mail implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7565547990960624426L;
+
     private static final Logger log = Logger.getLogger(Mail.class);
 
     private String subject;
@@ -120,7 +125,9 @@ public class Mail implements Serializable {
         if (this.attachFiles == null) {
             attachFiles = new ArrayList<File>();
         }
-        if (attach != null && attach.exists()) this.attachFiles.add(attach);
-        else log.debug("attach file [" + attach + "] is't exists");
+        if (attach != null && attach.exists())
+            this.attachFiles.add(attach);
+        else
+            log.debug("attach file [" + attach + "] is't exists");
     }
 }

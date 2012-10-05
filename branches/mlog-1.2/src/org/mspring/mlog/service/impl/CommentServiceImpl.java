@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
+import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
@@ -38,6 +40,8 @@ import freemarker.template.Configuration;
 @Service
 @Transactional
 public class CommentServiceImpl extends AbstractServiceSupport implements CommentService {
+
+    private static final Logger log = Logger.getLogger(CommentServiceImpl.class);
 
     @Autowired
     private PostService postService;
@@ -224,6 +228,35 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
             String subject = optionService.getOption("blogname") + " - 评论回复通知";
             mailService.sendMail(to, personal, subject, content);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CommentService#newCommentNotice(java.lang.Long)
+     */
+    @Override
+    public void newCommentNotice(Long commentId) {
+        // TODO Auto-generated method stub
+        Comment comment = getCommentById(commentId);
+        //文章的作者
+        User postAuthor = comment.getPost().getAuthor();
+        //如果文章的作者未找到,或者文章作者未设置email,那么就不进行通知
+        if (postAuthor == null || StringUtils.isBlank(postAuthor.getEmail())) {
+            log.warn("new comment notice failure, can't found post author");
+            return;
+        }
+        //如果文章作者email和评论作者email相同,那么判断文章作者和评论作者为同一个人,那么不进行评论通知
+        if (postAuthor.getEmail().trim().equals(comment.getEmail())) {
+            log.warn("new comment notice failure, postAuthorEmail == commentAuthorEmail");
+            return;
+        }
+        Map<Object, Object> model = new HashMap<Object, Object>();
+        model.put("comment", comment);
+        String content = FreemarkerUtils.render(configuration, "mail/new_comment_notice.ftl", model);
+        String subject = "文章评论通知";
+        mailService.sendMail(postAuthor.getEmail(), StringUtils.isBlank(postAuthor.getAlias()) ? postAuthor.getName() : postAuthor.getAlias(), subject, content);
     }
 
 }
