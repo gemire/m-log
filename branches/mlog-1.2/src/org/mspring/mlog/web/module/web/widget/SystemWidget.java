@@ -16,7 +16,11 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.entity.User;
+import org.mspring.mlog.utils.GlobalUtils;
+import org.mspring.mlog.web.common.Keys;
 import org.mspring.mlog.web.module.web.AbstractWebWidget;
+import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.widget.stereotype.Widget;
@@ -67,16 +71,17 @@ public class SystemWidget extends AbstractWebWidget {
         model.addAttribute("posts", posts);
         return "/widget/recentPost";
     }
-    
+
     /**
      * 最高点击文章
-     * @param request 
+     * 
+     * @param request
      * @param response
      * @param model
      * @return
      */
     @RequestMapping("mostViewPost")
-    public String mostViewPost(HttpServletRequest request, HttpServletResponse response, Model model){
+    public String mostViewPost(HttpServletRequest request, HttpServletResponse response, Model model) {
         int num = 20;
         String numStr = request.getParameter("num");
         if (!StringUtils.isBlank(numStr) && ValidatorUtils.isNumber(numStr)) {
@@ -153,5 +158,35 @@ public class SystemWidget extends AbstractWebWidget {
         }
         model.addAttribute("menus", menus);
         return "/widget/menus";
+    }
+
+    /**
+     * admin bar
+     * 
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping("adminbar")
+    public String adminbar(HttpServletRequest request, HttpServletResponse response, Model model) {
+        User loginUser = GlobalUtils.getCurrentUser(request);
+        if (loginUser == null) {
+            if ("true".equals(CookieUtils.getCookie(request, Keys.IS_REMEMBER_USER_COOKIE))) {
+                String username = CookieUtils.getCookie(request, Keys.USERNAME_COOKIE);
+                String password = CookieUtils.getCookie(request, Keys.PASSWORD_COOKIE);
+                if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
+                    loginUser = userService.login(username, password);
+                    request.getSession().setAttribute(Keys.CURRENT_USER, loginUser);
+                }
+            }
+        }
+        if (loginUser == null) {
+            return null;
+        }
+        String notice = optionService.getOption("notice");
+        model.addAttribute("notice", notice);
+        model.addAttribute("user", loginUser);
+        return "/widget/adminbar";
     }
 }
