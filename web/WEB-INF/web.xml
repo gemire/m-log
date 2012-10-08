@@ -130,6 +130,16 @@
 		</param-value>
 	</context-param>
 	
+	<!-- 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:applicationContext-sae.xml
+			classpath:applicationContext-dispatcher.xml
+		</param-value>
+	</context-param>
+	-->
+	
 	
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
