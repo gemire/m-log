@@ -39,5 +39,4 @@ public class CommentReplyNoticeTask extends AbstractTask {
             commentService.commentReplyNotice(new Long(commentId.toString()));
         }
     }
-
 }

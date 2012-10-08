@@ -9,6 +9,7 @@ import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
+import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.platform.utils.StringUtils;
@@ -29,6 +30,7 @@ public abstract class AbstractWebWidget {
     protected LinkService linkService;
     protected PostSearchService postSearchService;
     protected StatService statService;
+    protected UserService userService;
 
     @Autowired
     public void setPostService(PostService postService) {
@@ -63,6 +65,11 @@ public abstract class AbstractWebWidget {
     @Autowired
     public void setStatService(StatService statService) {
         this.statService = statService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     /**
