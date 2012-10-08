@@ -24,6 +24,9 @@
 			<td>网址:</td>
 			<td><a href="http://www.mspring.org" target="_blank">http://www.mspring.org</a></td>
 		</tr>
+		<tr>
+			<td colspan="2"><a href="https://me.alipay.com/gaoyoubo" target="_blank"><img src="${base}/images/alipay-me.png"></a></td>
+		</tr>
 	</table>
 </div>
 <script type="text/javascript">

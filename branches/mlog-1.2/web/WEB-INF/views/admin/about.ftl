@@ -42,6 +42,9 @@
 			<td>JDK版本:</td>
 			<td>${app.javaVersion}</td>
 		</tr>
+		<tr>
+			<td colspan="2"><a href="https://me.alipay.com/gaoyoubo" target="_blank"><img src="${base}/images/alipay-me.png"></a></td>
+		</tr>
 	</table>
 </div>
 <script type="text/javascript">
