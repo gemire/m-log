@@ -17,7 +17,7 @@ public class ExtendsFreeMarkerViewResolver extends FreeMarkerViewResolver {
 
     private static final String DEFAULT_FOLDER = "/WEB-INF/views/";
     private static final String DEFAULT_SUFFIX = ".ftl";
-    private static final String DEFAULT_SKIN_FOLDER = "/skin/";
+    private static final String DEFAULT_SKIN_FOLDER = "/skins/";
 
     private static String skinfolder = DEFAULT_SKIN_FOLDER;
 
