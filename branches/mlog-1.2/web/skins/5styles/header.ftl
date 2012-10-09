@@ -26,7 +26,6 @@
 	</script>
 </head>
 <body class="multi default">
-<@widget.placeholder path="/widget/adminbar" />
 <div id="wrap">
 		<div id="header">
 			<div id="header-left">

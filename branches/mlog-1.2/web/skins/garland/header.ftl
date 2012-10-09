@@ -29,7 +29,6 @@
 	</script>
 </head>
 <body class="multi default">
-<@widget.placeholder path="/widget/adminbar" />
 <!-- Layout -->
 <div id="header-region" class="clear-block"></div>
 	<div id="wrapper">
