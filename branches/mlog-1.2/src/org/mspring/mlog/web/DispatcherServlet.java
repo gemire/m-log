@@ -10,6 +10,7 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
+import org.mspring.platform.utils.CacheUtils;
 import org.mspring.platform.web.Keys;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -80,9 +81,10 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
      * @param templateModel
      */
     private void cacheTemplateModel(String key, TemplateModel templateModel) {
-        Cache cache = CacheManager.getInstance().getCache(TEMPLATE_MODEL_CACHE_NAME);
-        Element element = new Element(key, templateModel);
-        cache.put(element);
+//        Cache cache = CacheManager.getInstance().getCache(TEMPLATE_MODEL_CACHE_NAME);
+//        Element element = new Element(key, templateModel);
+//        cache.put(element);
+        CacheUtils.updateValue(CacheManager.getInstance(), TEMPLATE_MODEL_CACHE_NAME, key, templateModel);
     }
 
     /**
