@@ -32,7 +32,6 @@
 		</script>
 	</head>
 	<body>
-		<@widget.placeholder path="/widget/adminbar" />
 		<div class="header">
 		    <div class="wrapper">
 		        <div class="left">
