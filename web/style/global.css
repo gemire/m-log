@@ -413,6 +413,10 @@ span.error {
 .skins .skinItem .metadata{
 	margin-top:5px;
 	color: blue;
+	font-size:13px;
+}
+.skinItem .metadata span{
+	color:black;
 }
 .skinItem .metadata a, .skinItem .metadata a:VISITED{
 	text-decoration: none;
