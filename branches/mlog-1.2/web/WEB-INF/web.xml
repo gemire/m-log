@@ -126,7 +126,6 @@
 		<param-value>
 			classpath:applicationContext.xml
 			classpath:applicationContext-dispatcher.xml
-			classpath:applicationContext-job.xml
 		</param-value>
 	</context-param>
 	

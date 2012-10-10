@@ -9,7 +9,8 @@
 		    <li><a href="javascript:void(0);">修改</a></li>
 		</ul>
 	</div>
-	<form class="form" action="${base}/admin/catalog/doCreate" method="POST">
+	<div id="error" class="message error" style="display:none;">提示：不修改密码时，请留空密码框</div>
+	<form class="form" id="catalogForm" action="${base}/admin/catalog/doCreate" method="POST">
 		<@spring.bind "catalog" />
 		<@mspring.show_errors />
 		<table class="formtable" style="width:100%">
@@ -73,26 +74,10 @@
 				};
 			};
 		}
-	});
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('body').layout({
-			north__closable:false,
-			north__size:62,
-			north__resizable:false,
-			south__closable:false,
-			south__size:50,
-			south__resizable:false,
-			east__size:250,
-			togglerTip_open : "关闭",
-			togglerTip_closed : "打开",
-			resizerTip:"调整宽度",
-			//west__spacing_closed:10,
-			west__onresize: function (pane, $Pane) {  
-                
-            }
-		});
+		
+		//$.metadata.setType("attr", "validate");
+		//$("#catalogForm").validate();
+		mlog.form.validateForm("catalogForm");
 	});
 </script>
 <#include "../inc/footer.ftl" />
