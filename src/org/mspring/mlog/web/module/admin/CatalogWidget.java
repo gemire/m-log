@@ -120,11 +120,11 @@ public class CatalogWidget {
      */
     @RequestMapping("/doCreate")
     public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = catalogValidator.validate(catalog);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return createCatalogView(catalog, request, response, model);
-        }
+//        Errors errors = catalogValidator.validate(catalog);
+//        if (errors.hasErrors()) {
+//            model.addAttribute("errors", errors);
+//            return createCatalogView(catalog, request, response, model);
+//        }
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
         }
