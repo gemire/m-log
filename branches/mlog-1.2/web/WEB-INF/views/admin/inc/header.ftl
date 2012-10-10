@@ -22,6 +22,7 @@
 	<#-- jquery validate -->
 	<script type="text/javascript" src="${base}/script/jquery-validation/jquery.validate.js"></script>
 	<script type="text/javascript" src="${base}/script/jquery-validation/jquery.metadata.js"></script>
+	<script type="text/javascript" src="${base}/script/jquery-validation/validate.method.js"></script>
 	
 	<#-- lhgdialog -->
 	<script type="text/javascript" src="${base}/script/lhgdialog/lhgdialog.min.js"></script>

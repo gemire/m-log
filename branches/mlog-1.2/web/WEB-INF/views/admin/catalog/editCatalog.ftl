@@ -9,9 +9,9 @@
 		    <li><a href="javascript:void(0);" class="here">修改</a></li>
 		</ul>
 	</div>
-	<form class="form" action="${base}/admin/catalog/doEdit" method="POST">
+	<div id="error" class="message error" style="display:none;"></div>
+	<form class="form" id="catalogForm" action="${base}/admin/catalog/doEdit" method="POST">
 		<@spring.bind "catalog" />
-		<@mspring.show_errors />
 		<@spring.formHiddenInput path="catalog.id" />
 		<@spring.formHiddenInput path="catalog.createTime" />
 		<table class="formtable" style="width:100%">
@@ -24,7 +24,7 @@
 			<tr>
 				<td class="fieldlabel" style="width:60px;">名称</td>
 				<td>
-					<@spring.formInput path="catalog.name" attributes='class="textinput" style="width:98%;"' />
+					<@spring.formInput path="catalog.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, catalogNameExists:{id:"${catalog.id}"}, messages:{required:"请输入分类名称", catalogNameExists:"分类名字已经存在"}}\'' />
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,7 @@
 			<tr>
 				<td class="fieldlabel" style="width:60px;">排序</td>
 				<td>
-					<@spring.formInput path="catalog.order" attributes='class="textinput" style="width:98%;"' />
+					<@spring.formInput path="catalog.order" attributes='class="textinput" style="width:98%;" validate=\'{required: false, digits: true, messages:{digits:"排序号必须为正整数"}}\'' />
 				</td>
 			</tr>
 			<tr>
@@ -94,6 +94,34 @@
 			west__onresize: function (pane, $Pane) {  
                 
             }
+		});
+		
+		$.validator.addMethod("catalogNameExists", function(value, element, params){
+			var data = {};
+			if(params.id != undefined) {
+				data["id"] = params.id;
+			}
+			data["name"] = value;
+			var result = $.ajax({
+				url : "${base}/admin/catalog/catalogNameExists",
+				async : false,
+				data : data
+			}).responseText;
+			if(result == "true") {
+				return false;
+			}
+			else{
+				return true;
+			}
+		});
+		
+		$.metadata.setType("attr", "validate");
+		var validator = $("#catalogForm").validate({
+			errorLabelContainer : $("#error"),
+			wrapper: 'li',
+			onfocusout : false,
+			onkeyup : false,
+			onclick : false
 		});
 		
 	});
