@@ -17,13 +17,16 @@ import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -158,11 +161,6 @@ public class CatalogWidget {
      */
     @RequestMapping("/doEdit")
     public String doEditCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = catalogValidator.validate(catalog);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return getEditCatalogView(catalog, model);
-        }
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";
@@ -171,5 +169,15 @@ public class CatalogWidget {
     private String getEditCatalogView(Catalog catalog, Model model) {
         model.addAttribute("catalog", catalog);
         return "/admin/catalog/editCatalog";
+    }
+    
+    @RequestMapping("/catalogNameExists")
+    @ResponseBody
+    public String catalogNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response){
+        if (StringUtils.isBlank(name)) {
+            return "true";
+        }
+        boolean flag = catalogService.catalogExists(name, id);
+        return flag ? "true" : "false";
     }
 }
