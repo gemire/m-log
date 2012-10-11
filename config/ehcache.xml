@@ -23,12 +23,6 @@
             timeToLiveSeconds="60"
             overflowToDisk="false"
             />
-
-	<!-- tld标签库缓存 -->
-	<cache name="TemplateModelCache" maxElementsInMemory="10"
-		eternal="false" overflowToDisk="true" diskSpoolBufferSizeMB="60"
-		timeToIdleSeconds="300000" timeToLiveSeconds="600000">
-	</cache>
 	
 	<!-- Option缓存 -->
 	<cache name="OptionCache"

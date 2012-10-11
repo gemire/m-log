@@ -6,11 +6,6 @@ package org.mspring.mlog.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-
-import org.mspring.platform.utils.CacheUtils;
 import org.mspring.platform.web.Keys;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,8 +25,8 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
      * 
      */
     private static final long serialVersionUID = -6829172243642413052L;
-    private static final String TEMPLATE_MODEL_CACHE_NAME = "TemplateModelCache";
-    private static final String TEMPLATE_MODEL_CACHE_KEY = "TEMPLATE_MODEL_CACHE_KEY";
+    
+    private static TaglibFactory factory = null;
 
     /*
      * (non-Javadoc)
@@ -49,58 +44,22 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
     }
 
     /**
-     * 刚widget.tld标签添加到环境变量
+     * 将widget.tld标签添加到环境变量
      * 
      * @param request
      * @param mv
      */
     private void exportWidgetTld(HttpServletRequest request, ModelAndView mv) {
         try {
-            TemplateModel templateModel = getTemplateModelCache(TEMPLATE_MODEL_CACHE_KEY);
-            if (templateModel == null) {
-                TaglibFactory factory = (TaglibFactory) mv.getModel().get("MSPRING_WIDGET_TAGLIB");
-                if (factory == null) {
-                    factory = new TaglibFactory(request.getSession().getServletContext());
-                    mv.addObject("MSPRING_WIDGET_TAGLIB", factory);
-                }
-                templateModel = factory.get("/WEB-INF/tld/widget.tld");
-                cacheTemplateModel(TEMPLATE_MODEL_CACHE_KEY, templateModel);
+            if (factory == null) {
+                factory = new TaglibFactory(request.getSession().getServletContext());
             }
-            mv.addObject(Keys.WIDGET_KEY, templateModel);
+            TemplateModel templateModel = factory.get("/WEB-INF/tld/widget.tld");
+            mv.getModel().put(Keys.WIDGET_KEY, templateModel);
         }
         catch (TemplateModelException e) {
-            // TODO Auto-generated catch block
+            // TODO: handle exception
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 缓存tld标签
-     * 
-     * @param key
-     * @param templateModel
-     */
-    private void cacheTemplateModel(String key, TemplateModel templateModel) {
-//        Cache cache = CacheManager.getInstance().getCache(TEMPLATE_MODEL_CACHE_NAME);
-//        Element element = new Element(key, templateModel);
-//        cache.put(element);
-        CacheUtils.updateValue(CacheManager.getInstance(), TEMPLATE_MODEL_CACHE_NAME, key, templateModel);
-    }
-
-    /**
-     * 获取tld标签缓存
-     * 
-     * @param key
-     * @return
-     */
-    private TemplateModel getTemplateModelCache(String key) {
-        Cache cache = CacheManager.getInstance().getCache(TEMPLATE_MODEL_CACHE_NAME);
-        if (cache != null) {
-            Element element = cache.get(key);
-            if (element != null) {
-                return (TemplateModel) element.getObjectValue();
-            }
-        }
-        return null;
     }
 }
