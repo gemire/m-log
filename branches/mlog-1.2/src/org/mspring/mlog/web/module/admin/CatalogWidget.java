@@ -12,18 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
-import org.mspring.mlog.web.validator.CatalogValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
 import org.mspring.platform.utils.StringUtils;
-import org.mspring.platform.web.validation.Errors;
 import org.mspring.platform.web.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,16 +35,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/catalog")
 public class CatalogWidget {
     private CatalogService catalogService;
-    private CatalogValidator catalogValidator;
 
     @Autowired
     public void setCatalogService(CatalogService catalogService) {
         this.catalogService = catalogService;
-    }
-
-    @Autowired
-    public void setCatalogValidator(CatalogValidator catalogValidator) {
-        this.catalogValidator = catalogValidator;
     }
 
     /**
@@ -123,11 +114,6 @@ public class CatalogWidget {
      */
     @RequestMapping("/doCreate")
     public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
-//        Errors errors = catalogValidator.validate(catalog);
-//        if (errors.hasErrors()) {
-//            model.addAttribute("errors", errors);
-//            return createCatalogView(catalog, request, response, model);
-//        }
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
         }
@@ -171,6 +157,14 @@ public class CatalogWidget {
         return "/admin/catalog/editCatalog";
     }
     
+    /**
+     * 判断分类名称是否存在
+     * @param name
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/catalogNameExists")
     @ResponseBody
     public String catalogNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response){

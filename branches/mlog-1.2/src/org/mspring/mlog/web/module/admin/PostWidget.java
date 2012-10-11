@@ -127,11 +127,11 @@ public class PostWidget {
 
     @RequestMapping("/doCreate")
     public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = postValidator.validate(post);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return createPostView(post, request, response, model);
-        }
+//        Errors errors = postValidator.validate(post);
+//        if (errors.hasErrors()) {
+//            model.addAttribute("errors", errors);
+//            return createPostView(post, request, response, model);
+//        }
         User user = GlobalUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
             post.setAuthor(user);
@@ -247,5 +247,16 @@ public class PostWidget {
         // 是否开启评论
         model.addAttribute("commentStatus", Post.CommentStatus.getCommentStatusMap());
         return "/admin/post/editPost";
+    }
+    
+    
+    @RequestMapping("postTitleExists")
+    @ResponseBody
+    public String postTitleExists(@RequestParam(required = false) String title, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response){
+        if (StringUtils.isBlank(title)) {
+            return "true";
+        }
+        boolean flag = postService.titleExists(title, id);
+        return flag ? "true" : "false";
     }
 }
