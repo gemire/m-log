@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Link;
-import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.web.module.admin.query.LinkQueryCriterion;
 import org.mspring.mlog.web.resolver.QueryParam;
-import org.mspring.mlog.web.validator.LinkValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -38,16 +36,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin/link")
 public class LinkWidget {
     private LinkService linkService;
-    private LinkValidator linkValidator;
 
     @Autowired
     public void setLinkService(LinkService linkService) {
         this.linkService = linkService;
-    }
-
-    @Autowired
-    public void setLinkValidator(LinkValidator linkValidator) {
-        this.linkValidator = linkValidator;
     }
 
     @RequestMapping("/list")
@@ -82,11 +74,6 @@ public class LinkWidget {
 
     @RequestMapping("/doCreate")
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = linkValidator.validate(link);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return createLinkView(link, request, response, model);
-        }
         linkService.createLink(link);
         return "redirect:/admin/link/list";
     }
@@ -107,11 +94,6 @@ public class LinkWidget {
 
     @RequestMapping("/doEdit")
     public String doEditLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = linkValidator.validate(link);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return getEditLinkView(link, model);
-        }
         linkService.updateLink(link);
         return "redirect:/admin/link/list";
     }

@@ -55,5 +55,35 @@ $.extend(mlog.form, {
 		if (confirm(default_msg)) {
 			mlog.form.submitForm(formId, action);
 		}
+	},
+	
+	/**
+	 * form表单验证
+	 * @param {} conf.selector form选择器
+	 * @param {} conf.showErrors showErrors方法
+	 * @param {} conf.success 验证成功后的回调函数
+	 * @param {} conf.onfocusout 失去焦点时是否验证 默认：false
+	 * @param {} conf.onkeyup 输入时是否验证 默认：false
+	 * @param {} conf.onclick 点击时是否验证 默认：false
+	 * @param {} conf.errorLabelContainer
+	 * @param {} conf.wrapper
+	 */
+	validate : function(conf){
+		if(conf === undefined || conf.selector === undefined) return;
+		
+		if(conf.onfocusout === undefined){conf.onfocusout = false}
+		if(conf.onkeyup === undefined){conf.onkeyup = false}
+		if(conf.onclick === undefined){conf.onclick = false}
+		
+		$.metadata.setType("attr", "validate");
+		$(conf.selector).validate({
+			success : conf.success,
+			errorLabelContainer : $(conf.errorLabelContainer),
+			wrapper: conf.wrapper,
+			onfocusout : conf.onfocusout,
+			onkeyup : conf.onkeyup,
+			onclick : conf.onclick,
+			showErrors : conf.showErrors
+		});
 	}
 });

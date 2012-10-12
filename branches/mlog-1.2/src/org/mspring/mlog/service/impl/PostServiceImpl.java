@@ -402,6 +402,16 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         Object post = findUnique(queryString, commentId);
         return post == null ? null : ((Post)post);
     }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.PostService#clearTrash()
+     */
+    @Override
+    public void clearTrash() {
+        // TODO Auto-generated method stub
+        String hql = "delete Post post where post.status = ?";
+        executeUpdate(hql, Post.Status.TRASH);
+    }
     
     
 //    /**

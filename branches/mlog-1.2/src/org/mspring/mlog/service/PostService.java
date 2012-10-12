@@ -35,6 +35,11 @@ public interface PostService {
      * @param idArray
      */
     void trash2Publish(Long... idArray);
+    
+    /**
+     * 清空回收站
+     */
+    void clearTrash();
 
     /**
      * 删除文章
