@@ -227,6 +227,25 @@ div.pagger .disabled {
 	background: #d5d5d5;
 	padding-bottom: 3px;
 	font-size: 12px;
+	
+	text-align: left;
+	width: 100%;	
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	_top: expression(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight);
+	_position: abstract;
+	
+	/*
+	overflow: hidden;
+	overflow: visible;
+	border: #B4B4B4 1px solid;
+	border-top: none;
+	margin: 0 0;
+	line-height: 25px;
+	height: 25px;
+	*/
 }
 
 .tab ul {
@@ -253,6 +272,11 @@ div.pagger .disabled {
 .tab ul li a:hover {
 	background: #ccc;
 	text-decoration: none;
+}
+
+.tab-container {
+	margin-top:30px;
+	padding-top:3px;
 }
 
 .tab ul li a.here {

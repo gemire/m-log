@@ -54,6 +54,22 @@ $.extend(mlog.utils, {
     	} else {
     		document.cookie = sName + "=" + escape(sValue) + "; path=/";
     	}
+    },
+    
+    /**
+     * 跳转到页面顶部
+     */
+    scrollTop : function(){
+		var acceleration = acceleration || 0.1;
+
+        var y = $(window).scrollTop();
+        var speed = 1 + acceleration;
+        window.scrollTo(0, Math.floor(y / speed));
+
+        if (y > 0) {
+            var invokeFunction = "mlog.utils.scrollTop(" + acceleration + ")";
+            window.setTimeout(invokeFunction, 16);
+        }
     }
 });
 

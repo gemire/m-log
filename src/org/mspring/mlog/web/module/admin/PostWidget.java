@@ -19,9 +19,9 @@ import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.PostSearchService;
 import org.mspring.mlog.utils.GlobalUtils;
+import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
 import org.mspring.mlog.web.resolver.QueryParam;
-import org.mspring.mlog.web.validator.PostValidator;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -49,7 +49,6 @@ public class PostWidget {
 
     private PostService postService;
     private CatalogService catalogService;
-    private PostValidator postValidator;
     private PostSearchService postSearchService;
 
     @Autowired
@@ -60,11 +59,6 @@ public class PostWidget {
     @Autowired
     public void setCatalogService(CatalogService catalogService) {
         this.catalogService = catalogService;
-    }
-
-    @Autowired
-    public void setPostValidator(PostValidator postValidator) {
-        this.postValidator = postValidator;
     }
 
     @Autowired
@@ -79,8 +73,8 @@ public class PostWidget {
             postPage = new Page<Post>();
         }
         postPage.setSort(new Sort("id", Sort.DESC));
-        
-        //默认查看已发布的文章
+
+        // 默认查看已发布的文章
         if (post == null) {
             post = new Post();
         }
@@ -88,7 +82,6 @@ public class PostWidget {
             post.setStatus(Post.Status.PUBLISH);
             queryParams.put("status", Post.Status.PUBLISH);
         }
-        
 
         postPage = postService.findPost(postPage, new PostQueryCriterion(queryParams));
 
@@ -127,11 +120,11 @@ public class PostWidget {
 
     @RequestMapping("/doCreate")
     public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-//        Errors errors = postValidator.validate(post);
-//        if (errors.hasErrors()) {
-//            model.addAttribute("errors", errors);
-//            return createPostView(post, request, response, model);
-//        }
+        // Errors errors = postValidator.validate(post);
+        // if (errors.hasErrors()) {
+        // model.addAttribute("errors", errors);
+        // return createPostView(post, request, response, model);
+        // }
         User user = GlobalUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
             post.setAuthor(user);
@@ -191,7 +184,17 @@ public class PostWidget {
         if (id != null && id.length > 0) {
             postService.deletePost(id);
         }
-        //return "redirect:/admin/post/list";
+        return listPost(postPage, post, queryParams, request, response, model);
+    }
+
+    /**
+     * 清空回收站
+     * 
+     * @return
+     */
+    @RequestMapping("clearTrash")
+    public String clearTrash(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        postService.clearTrash();
         return listPost(postPage, post, queryParams, request, response, model);
     }
 
@@ -203,11 +206,6 @@ public class PostWidget {
 
     @RequestMapping("/doEdit")
     public String doEditPost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Errors errors = postValidator.validate(post);
-        if (errors.hasErrors()) {
-            model.addAttribute("errors", errors);
-            return getEditPostView(post, model);
-        }
         postService.updatePost(post);
         return "redirect:/admin/post/list";
     }
@@ -248,15 +246,67 @@ public class PostWidget {
         model.addAttribute("commentStatus", Post.CommentStatus.getCommentStatusMap());
         return "/admin/post/editPost";
     }
-    
-    
+
+    /**
+     * 判断文章标题是否为空
+     * 
+     * @param title
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("postTitleExists")
     @ResponseBody
-    public String postTitleExists(@RequestParam(required = false) String title, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response){
+    public String postTitleExists(@RequestParam(required = false) String title, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(title)) {
             return "true";
         }
         boolean flag = postService.titleExists(title, id);
+        return flag ? "true" : "false";
+    }
+
+    /**
+     * 判断链接的合法性
+     * 
+     * @param url
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("postUrlIllegal")
+    @ResponseBody
+    public String postUrlIllegal(@RequestParam(required = false) String url, HttpServletRequest request, HttpServletResponse response) {
+        if ("".equals(url) || url == null) {
+            return "true";
+        }
+        // 验证链接是否含有非法字符串，含有非法字符串返回false，验证不通过
+        if (PermaLinkUtils.hasIllegalCharacter(url)) {
+            return "false";
+        }
+        if (PermaLinkUtils.invalidParamLink(url)) {
+            return "false";
+        }
+        return "true";
+    }
+
+    /**
+     * 判断文章链接是否存在
+     * 
+     * @param url
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("postUrlExists")
+    @ResponseBody
+    public String postUrlExists(@RequestParam(required = false) String url, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+        if ("".equals(url) || url == null) {
+            return "false";
+        }
+        boolean flag = postService.urlExists(url, id);
         return flag ? "true" : "false";
     }
 }
