@@ -99,8 +99,11 @@ $.extend(mlog.editor.KindEditor, {
 		if(conf.model === "all"){
 			this[conf.id] = KindEditor.create('#' + conf.id, {
 				langType : conf.language,
+				//uploadJson : mlog.variable.base + '/upload_json.jsp',
+				//fileManagerJson : mlog.variable.base + '/file_manager_json.jsp',
+				//allowFileManager : true,
                 items: ["formatblock", "fontname", "fontsize", "|", "bold", "italic", "underline", "strikethrough", "forecolor", "|",
-                		"link", "unlink", "image", "media", "|", "pagebreak", "emoticons", "code", "/",
+                		"link", "unlink", "pagebreak", "|", "emoticons", "flash", "media", "code", "fullscreen", "/",
                 		"undo", "redo", "|", "insertunorderedlist", "insertorderedlist", "indent", "outdent", "|", 
                 		"justifyleft", "justifycenter", "justifyright", "justifyfull", "|", "plainpaste", "wordpaste", "|", 
                 		"clearhtml", "source", "preview"
