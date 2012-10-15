@@ -23,10 +23,14 @@ td {
 
 form {
 	margin: 0;
-	behavior: url(/style/form.htc);
+}
+
+img {
+	border:none;
 }
 
 /*顶部样式*/
+/*
 .top {
 	margin: 0px;
 	padding: 0px;
@@ -56,6 +60,45 @@ form {
 .top a:VISITED {
 	color: blue;
 }
+*/
+.top {
+	float:right; 
+	width:100%; 
+	margin:0px; 
+	padding:0px;
+	font-size:12px;
+	font-family: "Microsoft YaHei";
+}
+
+.top .logo {
+	border:none;
+	width:156px;
+}
+
+.top .metadata {
+	text-align:right;
+	padding-right:10px;
+	height:30px;
+}
+
+.top .metadata a, .top .metadata a:visited {
+	text-decoration: none;
+	color: blue;
+}
+
+.top .menu {
+	text-align:right;
+	vertical-align:bottom;
+	height:30px;
+	padding-right:10px;
+	padding-bottom:10px;
+}
+
+.top .menu a, .top .menu a:visited {
+	text-decoration: none;
+	color: blue;
+}
+
 
 /*底部样式*/
 .bottom {
