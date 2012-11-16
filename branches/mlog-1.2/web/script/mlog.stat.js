@@ -15,8 +15,9 @@ $.extend(mlog.stat, {
 		if (!post_id) {
 			return;
 		}
-		$.get(mlog.variable.base + "/script/stat?cmd=post_click&post_id=" + post_id, function(response) {
-			//alert(response);
-		});
+		$.get(mlog.variable.base + "/script/stat?cmd=post_click&post_id=" + post_id);
+	},
+	blogClick : function() {
+		$.get(mlog.variable.base + "/script/stat?cmd=blog_click");
 	}
 });

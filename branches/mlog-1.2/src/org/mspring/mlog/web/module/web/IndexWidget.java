@@ -47,16 +47,6 @@ public class IndexWidget extends AbstractWebWidget {
         }
         postService.findPost(postPage, "select post from Post post where post.status = ? order by post.createTime desc", Post.Status.PUBLISH);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
-
-        // 更新浏览量
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                statService.updateClickCount();
-            }
-        }).start();
-
         setCurrnetPage(model, PageNames.INDEX);
         return "skin:/index";
     }
