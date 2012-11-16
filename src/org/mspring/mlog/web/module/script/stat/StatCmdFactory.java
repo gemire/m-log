@@ -15,6 +15,9 @@ public class StatCmdFactory {
         if ("post_click".equals(name)) { // 文章点击统计
             cmd = new PostClickStatCmd();
         }
+        else if ("blog_click".equals(name)) { // 博客点击
+            cmd = new BlogClickStatCmd();
+        }
         else {
             cmd = new NullStatCmd();
         }

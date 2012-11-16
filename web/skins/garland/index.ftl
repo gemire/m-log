@@ -2,6 +2,7 @@
 <#import "/META-INF/mspring.ftl" as mspring />
 
 <#include "header.ftl" />
+<script type="text/javascript">mlog.stat.blogClick();</script>
 <#if (postPage?exists && postPage.result?size > 0)>
 	<@list_post>
 		<div id="node-<@post_id />" class="node">
