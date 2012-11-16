@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="${base}/script/mlog.utils.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${template_url}/script/graland.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/mlog.stat.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//加载
