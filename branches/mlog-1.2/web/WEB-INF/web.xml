@@ -148,6 +148,10 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	<listener>
+		<listener-class>org.mspring.mlog.web.listener.StartUpListener</listener-class>
+	</listener>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>login.jsp</welcome-file>

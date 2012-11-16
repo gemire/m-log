@@ -3,6 +3,8 @@
  */
 package org.mspring.mlog.core;
 
+import javax.sql.DataSource;
+
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
@@ -76,5 +78,9 @@ public class ServiceFactory {
 
     public static JdbcTemplate getJdbcTemplate() {
         return ContextManager.getApplicationContext().getBean(JdbcTemplate.class);
+    }
+    
+    public static DataSource getDataSource(){
+        return (DataSource) ContextManager.getApplicationContext().getBean("dataSource");
     }
 }

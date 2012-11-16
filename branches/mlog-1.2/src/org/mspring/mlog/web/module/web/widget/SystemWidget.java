@@ -138,6 +138,7 @@ public class SystemWidget extends AbstractWebWidget {
     @RequestMapping("menus")
     public String menus(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<String> menus = new ArrayList<String>();
+        String url = optionService.getOption("blogurl");
 
         // 用户配置menu
         String menuString = optionService.getOption("menu");
@@ -147,7 +148,7 @@ public class SystemWidget extends AbstractWebWidget {
             try {
                 String menu = "";
                 while (StringUtils.isNotBlank(menu = reader.readLine())) {
-                    menu = menu.replaceAll("%base%", request.getContextPath());
+                    menu = menu.replaceAll("%base%", url);
                     menus.add(menu);
                 }
             }

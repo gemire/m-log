@@ -134,8 +134,8 @@ public class Album implements Serializable {
         this.modifyTime = modifyTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Photo.class)
-    @JoinColumn(name = "cover")
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, targetEntity = Photo.class)
+    @JoinColumn(name = "cover", nullable = true)
     public Photo getCover() {
         return cover;
     }
