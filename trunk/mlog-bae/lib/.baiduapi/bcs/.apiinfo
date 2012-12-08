@@ -1,0 +1,16 @@
+{
+    "apiURL": "http://bs.baidu.com/baidu-api/bcs/java/1.2/api.zip",
+    "title": "BCS",
+    "releaseDate": "2012-05-17",
+    "description": "百度云存储提供一系列简单易用的接口，工具和方案使得开发者可以在任何时间，任何地点，存储任何的数据。 通过使用云存储服务，开发者可以轻松的开发出扩展性强，稳定性好，安全快速的分布式网络服务。",
+    "name": "Baidu Cloud Storage",
+    "apiChecksum": "01ed7397c57aef2d939922a07200098f",
+    "icons": [
+        {"x16": "http://bs.baidu.com/baidu-api/bcs/x16.png"},
+        {"x32": "http://bs.baidu.com/baidu-api/bcs/x32.png"}
+    ],
+    "tosURL": "http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E4%BA%91%E5%AD%98%E5%82%A8",
+    "docURL": "http://developer.baidu.com/wiki/index.php?title=%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E9%A6%96%E9%A1%B5/%E4%BA%91%E5%AD%98%E5%82%A8",
+    "publisher": "Baidu",
+    "version": "1.2"
+}
