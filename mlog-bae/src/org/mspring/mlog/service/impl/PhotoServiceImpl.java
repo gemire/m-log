@@ -11,15 +11,16 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.api.bae.bcs.BCSUtils;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.entity.Size;
+import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.PhotoService;
-import org.mspring.mlog.utils.PhotoUtils;
+import org.mspring.mlog.service.PhotoUploadService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.ImageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +37,11 @@ public class PhotoServiceImpl extends AbstractServiceSupport implements PhotoSer
 
     private static final Logger log = Logger.getLogger(PhotoServiceImpl.class);
 
+    @Autowired
+    private PhotoUploadService photoUploadService;
+    @Autowired
+    private FileService fileService;
+
     /*
      * (non-Javadoc)
      * 
@@ -46,18 +52,18 @@ public class PhotoServiceImpl extends AbstractServiceSupport implements PhotoSer
     @Override
     public Photo createPhoto(HttpServletRequest request, Long album) {
         // TODO Auto-generated method stub
-        MultipartFile mf = PhotoUtils.getPhotoMultipartFile(request);
-        BufferedImage image = PhotoUtils.getBufferedImage(mf);
-        if (PhotoUtils.isLimitSize(image.getWidth(), image.getHeight())) {
-            Size maxSize = PhotoUtils.getMaxSize();
-            Size size = PhotoUtils.getZoomSize(image.getWidth(), image.getHeight(), (int) maxSize.getWidth(), (int) maxSize.getHeight());
+        MultipartFile mf = photoUploadService.getPhotoMultipartFile(request);
+        BufferedImage image = photoUploadService.getBufferedImage(mf);
+        if (photoUploadService.isLimitSize(image.getWidth(), image.getHeight())) {
+            Size maxSize = photoUploadService.getMaxSize();
+            Size size = photoUploadService.getZoomSize(image.getWidth(), image.getHeight(), (int) maxSize.getWidth(), (int) maxSize.getHeight());
             image = ImageUtils.resize(image, (int) size.getWidth(), (int) size.getHeight());
         }
-        String photoSaveName = PhotoUtils.getPhotoSaveName(mf);
-        String photoSavePath = PhotoUtils.getPhotoSavePath(photoSaveName);
+        String photoSaveName = photoUploadService.getPhotoSaveName(mf);
+        String photoSavePath = photoUploadService.getPhotoSavePath(photoSaveName);
         String url = "";
         try {
-            url = PhotoUtils.uploadPhoto(image, photoSavePath);
+            url = photoUploadService.uploadPhoto(image, photoSavePath);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -65,19 +71,19 @@ public class PhotoServiceImpl extends AbstractServiceSupport implements PhotoSer
             return null;
         }
 
-        String photoPreviewSavenPath = PhotoUtils.getPhotoPreviewSavePath(photoSavePath);
-        Size previewSize = PhotoUtils.getZoomSize(image.getWidth(), image.getHeight(), PhotoUtils.DEFAULT_MAX_PREVIEW_WIDTH, PhotoUtils.DEFAULT_MAX_PREVIEW_HEIGHT);
-        BufferedImage previewImage = PhotoUtils.resize(image, (int) previewSize.getWidth(), (int) previewSize.getHeight());
+        String photoPreviewSavenPath = photoUploadService.getPhotoPreviewSavePath(photoSavePath);
+        Size previewSize = photoUploadService.getZoomSize(image.getWidth(), image.getHeight(), photoUploadService.DEFAULT_MAX_PREVIEW_WIDTH, photoUploadService.DEFAULT_MAX_PREVIEW_HEIGHT);
+        BufferedImage previewImage = photoUploadService.resize(image, (int) previewSize.getWidth(), (int) previewSize.getHeight());
         String previewUrl = "";
         try {
-            previewUrl = PhotoUtils.uploadPhoto(previewImage, photoPreviewSavenPath);
+            previewUrl = photoUploadService.uploadPhoto(previewImage, photoPreviewSavenPath);
         }
         catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
 
-        Photo photo = PhotoUtils.getPhotoEntity(image, url, album, mf, photoSaveName, photoSavePath, previewUrl, photoPreviewSavenPath);
+        Photo photo = photoUploadService.getPhotoEntity(image, url, album, mf, photoSaveName, photoSavePath, previewUrl, photoPreviewSavenPath);
         Serializable s = create(photo);
         return getPhotoById((Long) s);
     }
@@ -105,8 +111,8 @@ public class PhotoServiceImpl extends AbstractServiceSupport implements PhotoSer
         for (Long i : id) {
             photo = getPhotoById(i);
             try {
-                BCSUtils.deleteObject(photo.getFileName());
-                BCSUtils.deleteObject(photo.getPreviewFileName());
+                fileService.deleteFile(photo.getFileName());
+                fileService.deleteFile(photo.getPreviewFileName());
             }
             catch (Exception e) {
                 // TODO: handle exception

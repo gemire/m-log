@@ -1,11 +1,11 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache.support;
+package org.mspring.mlog.inf.bae.cache.support;
 
 import java.io.Serializable;
 
-import org.mspring.mlog.api.bae.cache.CacheServiceImpl;
+import org.mspring.mlog.inf.bae.CacheServiceImpl;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 

@@ -5,6 +5,7 @@ package org.mspring.mlog.api.metaweblog;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +29,6 @@ import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.UserService;
-import org.mspring.mlog.utils.AttachmentUtils;
 import org.mspring.platform.exception.BusinessException;
 import org.mspring.platform.utils.DateUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -548,7 +548,12 @@ public class MetaWeblogAPI {
      * @return
      */
     public String newMediaObject(HttpServletRequest request, String type, String base64Data) {
-        String url = AttachmentUtils.uploadBase64(base64Data);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String fileName = "/attachment/" + year + "/" + month + "/" + day + "/" + StringUtils.getFileName() + ".jpg";
+        String url = ServiceFactory.getFileService().uploadBase64File(fileName, base64Data, "image/JPEG");
 
         StringBuffer result = new StringBuffer();
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><params><param><value><struct><member><name>url</name><value><string>");

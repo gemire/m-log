@@ -43,7 +43,7 @@
 		</property>
 		<property name="customArgumentResolvers">
 			<list>
-				<bean class="org.mspring.mlog.web.resolver.QueryParamWebArgumentResolver">
+				<bean class="org.mspring.mlog.support.resolver.QueryParamWebArgumentResolver">
 					<property name="conversionService" ref="conversionService"></property>
 				</bean>
 			</list>
@@ -72,8 +72,8 @@
 		</property>
 		<property name="formatters">
 			<list>
-				<bean class="org.mspring.mlog.web.formatter.factory.CatalogFormatAnnotationFormatterFactory"></bean>
-				<bean class="org.mspring.mlog.web.formatter.factory.TagFormatAnnotationFormatterFactory"></bean>
+				<bean class="org.mspring.mlog.support.formater.factory.CatalogFormatAnnotationFormatterFactory"></bean>
+				<bean class="org.mspring.mlog.support.formater.factory.TagFormatAnnotationFormatterFactory"></bean>
 			</list>
 		</property>
 	</bean>

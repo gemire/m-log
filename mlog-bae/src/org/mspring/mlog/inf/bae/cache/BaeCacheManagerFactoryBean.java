@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache;
+package org.mspring.mlog.inf.bae.cache;
 
 import java.io.InputStream;
 

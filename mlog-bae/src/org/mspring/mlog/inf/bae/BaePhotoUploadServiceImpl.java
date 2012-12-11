@@ -1,0 +1,53 @@
+/**
+ * 
+ */
+package org.mspring.mlog.inf.bae;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+
+import org.mspring.mlog.service.FileService;
+import org.mspring.mlog.service.impl.AbstractPhotoUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author Gao Youbo
+ * @since 2012-12-11
+ * @Description
+ * @TODO
+ */
+@Service
+public class BaePhotoUploadServiceImpl extends AbstractPhotoUploadService {
+
+    @Autowired
+    private FileService fileService;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#uploadPhoto(java.awt.image
+     * .BufferedImage, java.lang.String)
+     */
+    @Override
+    public String uploadPhoto(BufferedImage image, String fileName) throws IOException {
+        // TODO Auto-generated method stub
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpeg", bos);
+        byte[] bytearray = bos.toByteArray();
+        InputStream inputStream = new ByteArrayInputStream(bytearray);
+
+        String url = fileService.uploadFile(fileName, inputStream, "image/JPEG", bytearray.length);
+
+        inputStream.close();
+        bos.close();
+        return url;
+    }
+
+}

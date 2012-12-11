@@ -19,5 +19,5 @@ public interface FileService {
 
     public String uploadBase64File(String fileName, String base64, String contentType);
 
-    public String deleteFile(String path);
+    public void deleteFile(String path);
 }

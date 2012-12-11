@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.utils;
+package org.mspring.mlog.service.impl;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -9,10 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -21,12 +18,12 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.api.bae.bcs.BCSUtils;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.entity.Size;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.PhotoUploadService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,26 +35,24 @@ import com.drew.metadata.exif.ExifDirectory;
 
 /**
  * @author Gao Youbo
- * @since 2012-11-22
+ * @since 2012-12-11
  * @Description
  * @TODO
  */
-public class PhotoUtils {
+public abstract class AbstractPhotoUploadService implements PhotoUploadService {
 
-    private static final Logger log = Logger.getLogger(PhotoUtils.class);
+    private static final Logger log = Logger.getLogger(AbstractPhotoUploadService.class);
 
-    public static final int DEFAULT_MAX_WIDTH = 1440;
-    public static final int DEFAULT_MAX_HEIGHT = 900;
-    public static final int DEFAULT_MAX_PREVIEW_WIDTH = 250;
-    public static final int DEFAULT_MAX_PREVIEW_HEIGHT = 250;
-
-    /**
-     * 从request中获取MultipartFile
+    /*
+     * (non-Javadoc)
      * 
-     * @param request
-     * @return
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#getPhotoMultipartFile(javax
+     * .servlet.http.HttpServletRequest)
      */
-    public static MultipartFile getPhotoMultipartFile(HttpServletRequest request) {
+    @Override
+    public MultipartFile getPhotoMultipartFile(HttpServletRequest request) {
+        // TODO Auto-generated method stub
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         if (fileMap == null || fileMap.size() < 1) {
@@ -71,13 +66,15 @@ public class PhotoUtils {
         return mf;
     }
 
-    /**
-     * 从MultipartFile中读取BufferedImage
+    /*
+     * (non-Javadoc)
      * 
-     * @param mf
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#getBufferedImage(org.
+     * springframework.web.multipart.MultipartFile)
      */
-    public static BufferedImage getBufferedImage(MultipartFile mf) {
+    @Override
+    public BufferedImage getBufferedImage(MultipartFile mf) {
+        // TODO Auto-generated method stub
         try {
             return ImageIO.read(mf.getInputStream());
         }
@@ -88,23 +85,28 @@ public class PhotoUtils {
         return null;
     }
 
-    /**
-     * 图片保存的名称
+    /*
+     * (non-Javadoc)
      * 
-     * @param mf
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#getPhotoSaveName(org.
+     * springframework.web.multipart.MultipartFile)
      */
-    public static String getPhotoSaveName(MultipartFile mf) {
+    @Override
+    public String getPhotoSaveName(MultipartFile mf) {
+        // TODO Auto-generated method stub
         return StringUtils.getFileName() + "." + StringUtils.getFileExtend(mf.getOriginalFilename());
     }
 
-    /**
-     * 图片保存的路径
+    /*
+     * (non-Javadoc)
      * 
-     * @param photoSaveName
-     * @return
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#getPhotoSavePath(java.lang
+     * .String)
      */
-    public static String getPhotoSavePath(String photoSaveName) {
+    @Override
+    public String getPhotoSavePath(String photoSaveName) {
+        // TODO Auto-generated method stub
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -112,14 +114,16 @@ public class PhotoUtils {
         return "/photos/" + year + "/" + month + "/" + day + "/" + photoSaveName;
     }
 
-    /**
-     * 获取缩略图保存的路径
+    /*
+     * (non-Javadoc)
      * 
-     * @param photoSavePath
-     *            原图片保存的路径
-     * @return
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#getPhotoPreviewSavePath(java
+     * .lang.String)
      */
-    public static String getPhotoPreviewSavePath(String photoSavePath) {
+    @Override
+    public String getPhotoPreviewSavePath(String photoSavePath) {
+        // TODO Auto-generated method stub
         photoSavePath = photoSavePath.replace("\\", "/");
         String ext = StringUtils.getFileExtend(photoSavePath);
         String path = StringUtils.substringBeforeLast(photoSavePath, "/");
@@ -127,38 +131,43 @@ public class PhotoUtils {
         return path + "/preview" + name + "_preview." + ext;
     }
 
-    /**
-     * 获取文件的contentType
+    /*
+     * (non-Javadoc)
      * 
-     * @param mf
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#getContentType(org.
+     * springframework.web.multipart.MultipartFile)
      */
-    public static String getContentType(MultipartFile mf) {
+    @Override
+    public String getContentType(MultipartFile mf) {
+        // TODO Auto-generated method stub
         return mf.getContentType();
     }
 
-    /**
-     * 获取文件呃contentLength
+    /*
+     * (non-Javadoc)
      * 
-     * @param mf
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#getContentLength(org.
+     * springframework.web.multipart.MultipartFile)
      */
-    public static long getContentLength(MultipartFile mf) {
+    @Override
+    public long getContentLength(MultipartFile mf) {
+        // TODO Auto-generated method stub
         return mf.getSize();
     }
 
-    /**
-     * 按照特定比例缩放
+    /*
+     * (non-Javadoc)
      * 
-     * @param sourceW 原图宽度
-     * @param sourceH 原图高度
-     * @param targetW 目标高度
-     * @param targetH 目标宽度
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#getZoomSize(java.lang.Integer
+     * , java.lang.Integer, java.lang.Integer, java.lang.Integer)
      */
-    public static Size getZoomSize(Integer sourceW, Integer sourceH, Integer targetW, Integer targetH) {
-//        Size size = getMaxSize();
-//        double targetW = size.getWidth();
-//        double targetH = size.getHeight();
+    @Override
+    public Size getZoomSize(Integer sourceW, Integer sourceH, Integer targetW, Integer targetH) {
+        // TODO Auto-generated method stub
+        // Size size = getMaxSize();
+        // double targetW = size.getWidth();
+        // double targetH = size.getHeight();
         double sx = (double) targetW / sourceW;
         double sy = (double) targetH / sourceH;
         if (sx > sy) {
@@ -172,16 +181,14 @@ public class PhotoUtils {
         return new Size(targetW, targetH);
     }
 
-    /**
-     * 是否限定图片大小
+    /*
+     * (non-Javadoc)
      * 
-     * @param sourceWidth
-     *            原图片宽度
-     * @param sourceHeight
-     *            原图片高度
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#isLimitSize(int, int)
      */
-    public static boolean isLimitSize(int sourceWidth, int sourceHeight) {
+    @Override
+    public boolean isLimitSize(int sourceWidth, int sourceHeight) {
+        // TODO Auto-generated method stub
         OptionService optionService = ServiceFactory.getOptionService();
         boolean isLimit = "true".equals(optionService.getOption("photo_islimit_size"));
         if (!isLimit) {
@@ -196,12 +203,14 @@ public class PhotoUtils {
         return true;
     }
 
-    /**
-     * 获取最大size
+    /*
+     * (non-Javadoc)
      * 
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#getMaxSize()
      */
-    public static Size getMaxSize() {
+    @Override
+    public Size getMaxSize() {
+        // TODO Auto-generated method stub
         OptionService optionService = ServiceFactory.getOptionService();
         String string_ori_width = optionService.getOption("photo_max_width");
         String string_ori_height = optionService.getOption("photo_max_height");
@@ -210,15 +219,15 @@ public class PhotoUtils {
         return new Size(MAX_WIDTH, MAX_HEIGHT);
     }
 
-    /**
-     * 按规定比例缩放图片
+    /*
+     * (non-Javadoc)
      * 
-     * @param source
-     * @param targetW
-     * @param targetH
-     * @return
+     * @see org.mspring.mlog.service.PhotoUploadService#resize(java.awt.image.
+     * BufferedImage, int, int)
      */
-    public static BufferedImage resize(BufferedImage source, int targetW, int targetH) {
+    @Override
+    public BufferedImage resize(BufferedImage source, int targetW, int targetH) {
+        // TODO Auto-generated method stub
         // targetW，targetH分别表示目标长和宽
         int type = source.getType();
         BufferedImage target = null;
@@ -239,38 +248,18 @@ public class PhotoUtils {
         return target;
     }
 
-    /**
-     * 上传Photo
+    /*
+     * (non-Javadoc)
      * 
-     * @param image
-     * @return
-     * @throws IOException
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#getPhotoEntity(java.awt.image
+     * .BufferedImage, java.lang.String, long,
+     * org.springframework.web.multipart.MultipartFile, java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String)
      */
-    public static String uploadPhoto(BufferedImage image, String fileName) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpeg", bos);
-        byte[] bytearray = bos.toByteArray();
-        InputStream inputStream = new ByteArrayInputStream(bytearray);
-
-        BCSUtils.putFile(fileName, inputStream, "image/JPEG", bytearray.length);
-
-        inputStream.close();
-        bos.close();
-        return BCSUtils.getURL(fileName);
-    }
-
-    /**
-     * 获取图片实体对象
-     * 
-     * @param image
-     * @param url
-     * @param album
-     * @param mf
-     * @param photoSaveName
-     * @param photoSavePath
-     * @return
-     */
-    public static Photo getPhotoEntity(BufferedImage image, String url, long album, MultipartFile mf, String photoSaveName, String photoSavePath, String previewUrl, String previewSavePath) {
+    @Override
+    public Photo getPhotoEntity(BufferedImage image, String url, long album, MultipartFile mf, String photoSaveName, String photoSavePath, String previewUrl, String previewSavePath) {
+        // TODO Auto-generated method stub
         Photo photo = new Photo();
         photo.setWidth(image.getWidth());
         photo.setHeight(image.getHeight());
@@ -286,15 +275,16 @@ public class PhotoUtils {
         return photo;
     }
 
-    /**
-     * 填充Exif信息
+    /*
+     * (non-Javadoc)
      * 
-     * @param mf
-     * @param photo
-     * @return
+     * @see
+     * org.mspring.mlog.service.PhotoUploadService#fillExifInfo(org.springframework
+     * .web.multipart.MultipartFile, org.mspring.mlog.entity.Photo)
      */
-    public static Photo fillExifInfo(MultipartFile mf, Photo photo) {
-        // Reading EXIF
+    @Override
+    public Photo fillExifInfo(MultipartFile mf, Photo photo) {
+        // TODO Auto-generated method stub
         try {
             Metadata metadata = JpegMetadataReader.readMetadata(mf.getInputStream());
             if (!metadata.containsDirectory(ExifDirectory.class)) return photo;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache;
+package org.mspring.mlog.inf.bae.cache;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.api.bae.cache.support.CacheBean;
+import org.mspring.mlog.inf.bae.cache.support.CacheBean;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.utils.XMLUtils;

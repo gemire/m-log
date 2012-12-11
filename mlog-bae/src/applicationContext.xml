@@ -43,7 +43,7 @@
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.use_structured_entries">false</prop>
-				<prop key="hibernate.cache.provider_class">org.mspring.mlog.api.bae.cache.provider.BaeCacheProvider</prop>
+				<prop key="hibernate.cache.provider_class">org.mspring.mlog.inf.bae.cache.provider.BaeCacheProvider</prop>
 				<prop key="hibernate.baecache.configLocation">classpath:baecache-hibernate.xml</prop>
 			</props>
 		</property>

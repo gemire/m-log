@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache.provider;
+package org.mspring.mlog.inf.bae.cache.provider;
 
 import org.mspring.platform.utils.StringUtils;
 
