@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.web.common.PageNames;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 import org.mspring.platform.utils.StringUtils;

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.utils.SkinUtils;
-import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

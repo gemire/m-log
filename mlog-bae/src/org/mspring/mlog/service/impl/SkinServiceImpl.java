@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.common.Keys;
+import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.SkinService;
-import org.mspring.mlog.web.common.Keys;
-import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.PropertiesUtils;
 import org.mspring.platform.utils.StringUtils;
