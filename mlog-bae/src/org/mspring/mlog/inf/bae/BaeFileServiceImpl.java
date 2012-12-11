@@ -8,8 +8,8 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.impl.AbstractFileService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ import com.baidu.inf.iis.bcs.request.PutObjectRequest;
  * @TODO
  */
 @Service
-public class BaeFileServiceImpl implements FileService {
+public class BaeFileServiceImpl extends AbstractFileService {
     private static final Logger log = Logger.getLogger(BaeFileServiceImpl.class);
 
     @Autowired
@@ -81,7 +81,6 @@ public class BaeFileServiceImpl implements FileService {
         // TODO Auto-generated method stub
         PutObjectRequest request = new PutObjectRequest(getBCSBucket(), fileName, file);
         ObjectMetadata metadata = new ObjectMetadata();
-        // metadata.setContentType("text/html");
         request.setMetadata(metadata);
         getBaiduBCS().putObject(request);
         return getURL(fileName);
@@ -91,11 +90,13 @@ public class BaeFileServiceImpl implements FileService {
      * (non-Javadoc)
      * 
      * @see org.mspring.mlog.service.FileService#uploadFile(java.lang.String,
-     * java.io.InputStream, java.lang.String, long)
+     * java.io.InputStream, long)
      */
     @Override
-    public String uploadFile(String fileName, InputStream inputStream, String contentType, long contentLength) {
+    public String uploadFile(String fileName, InputStream inputStream, long contentLength) {
         // TODO Auto-generated method stub
+        String contentType = getMimeType(inputStream);
+
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(contentType);
         metadata.setContentLength(contentLength);
@@ -109,10 +110,10 @@ public class BaeFileServiceImpl implements FileService {
      * 
      * @see
      * org.mspring.mlog.service.FileService#uploadBase64File(java.lang.String,
-     * java.lang.String, java.lang.String)
+     * java.lang.String)
      */
     @Override
-    public String uploadBase64File(String fileName, String base64, String contentType) {
+    public String uploadBase64File(String fileName, String base64) {
         // TODO Auto-generated method stub
         byte[] bytes = StringUtils.decodeBASE64(base64.getBytes());
         for (int i = 0; i < bytes.length; ++i) {
@@ -121,6 +122,9 @@ public class BaeFileServiceImpl implements FileService {
             }
         }
         InputStream inputStream = new ByteArrayInputStream(bytes);
+
+        String contentType = getMimeType(inputStream);
+
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(contentType);
         metadata.setContentLength(bytes.length);

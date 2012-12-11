@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.impl.AbstractPhotoUploadService;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +39,14 @@ public class BaePhotoUploadServiceImpl extends AbstractPhotoUploadService {
     @Override
     public String uploadPhoto(BufferedImage image, String fileName) throws IOException {
         // TODO Auto-generated method stub
+        String formatName = StringUtils.getFileExtend(fileName);
+        
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpeg", bos);
+        ImageIO.write(image, formatName, bos);
         byte[] bytearray = bos.toByteArray();
         InputStream inputStream = new ByteArrayInputStream(bytearray);
-
-        String url = fileService.uploadFile(fileName, inputStream, "image/JPEG", bytearray.length);
+        
+        String url = fileService.uploadFile(fileName, inputStream, bytearray.length);
 
         inputStream.close();
         bos.close();

@@ -38,6 +38,8 @@ import org.mspring.platform.web.servlet.renderer.XMLRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import eu.medsea.mimeutil.MimeUtil;
+
 /**
  * @author Gao Youbo
  * @since 2012-8-6
@@ -548,12 +550,15 @@ public class MetaWeblogAPI {
      * @return
      */
     public String newMediaObject(HttpServletRequest request, String type, String base64Data) {
+        // 根据mimetype获取文件后缀名
+        String ext = MimeUtil.getSubType(type);
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String fileName = "/attachment/" + year + "/" + month + "/" + day + "/" + StringUtils.getFileName() + ".jpg";
-        String url = ServiceFactory.getFileService().uploadBase64File(fileName, base64Data, "image/JPEG");
+        String fileName = "/attachment/" + year + "/" + month + "/" + day + "/" + StringUtils.getFileName() + "." + ext;
+        String url = ServiceFactory.getFileService().uploadBase64File(fileName, base64Data);
 
         StringBuffer result = new StringBuffer();
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><params><param><value><struct><member><name>url</name><value><string>");

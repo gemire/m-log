@@ -48,7 +48,7 @@ public class AttachmentWidget {
                 break;
             }
             String fileName = AttachmentUtils.getUploadPath(mf);
-            url = fileService.uploadFile(fileName, mf.getInputStream(), mf.getContentType(), mf.getSize());
+            url = fileService.uploadFile(fileName, mf.getInputStream(), mf.getSize());
         }
         catch (Exception e) {
             // TODO: handle exception
