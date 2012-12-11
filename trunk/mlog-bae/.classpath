@@ -85,5 +85,7 @@
 	<classpathentry kind="lib" path="E:/plugin/Java/bae/bcs/bcs-sdk-java_1.2.jar"/>
 	<classpathentry kind="lib" path="E:/plugin/Java/bae/pcs/pcs-java-sdk.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/freemarker-2.3.18.jar"/>
+	<classpathentry kind="con" path="com.baidu.bdt.eclipse.managedapis.MANAGED_API_CONTAINER00/pcs"/>
+	<classpathentry kind="con" path="com.baidu.bdt.eclipse.managedapis.MANAGED_API_CONTAINER01/bcs"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

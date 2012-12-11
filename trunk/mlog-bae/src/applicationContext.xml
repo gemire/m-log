@@ -17,14 +17,14 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		
+		<!-- 
 		<property name="url" value="jdbc:mysql://sqld.duapp.com:4050/jvyIbnxnDrSAnZtMJrHc?useUnicode=true&amp;characterEncoding=utf8" />
 		<property name="username" value="01b32d0f23fd7dff318190b7046561b4" />
 		<property name="password" value="7613a6504ed373a03ab44c727f4c5e9a" />
-		<!-- 
+		-->
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/mlog-bae?useUnicode=true&amp;characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="gaoyoubo" />
-		-->
 	</bean>
 
 	<!-- persistence exception translator -->

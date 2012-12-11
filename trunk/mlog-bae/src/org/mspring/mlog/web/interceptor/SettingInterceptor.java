@@ -8,9 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.utils.SkinUtils;
-import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.mlog.web.freemarker.widget.http.HttpWidget;
 import org.mspring.mlog.web.freemarker.widget.http.HttpWidgetRequest;
 import org.mspring.mlog.web.freemarker.widget.http.HttpWidgetResponse;

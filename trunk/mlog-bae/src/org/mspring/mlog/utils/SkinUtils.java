@@ -5,8 +5,8 @@ package org.mspring.mlog.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.web.common.OptionKeys;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver;
 

@@ -18,7 +18,6 @@ import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.TreeItemService;
 import org.mspring.mlog.service.UserService;
-import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
 import org.mspring.platform.core.ContextManager;
 
 import freemarker.template.Configuration;
@@ -56,14 +55,6 @@ public class ServiceFactory {
 
     public static StatService getStatService() {
         return ContextManager.getApplicationContext().getBean(StatService.class);
-    }
-
-    public static ExtendsFreeMarkerConfigurer getExtendsFreeMarkerConfigurer() {
-        return ContextManager.getApplicationContext().getBean(ExtendsFreeMarkerConfigurer.class);
-    }
-
-    public static Configuration getFreemarkerConfiguration() {
-        return getExtendsFreeMarkerConfigurer().getConfiguration();
     }
 
     public static FileService getFileService() {

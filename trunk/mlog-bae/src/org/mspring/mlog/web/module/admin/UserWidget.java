@@ -6,10 +6,10 @@ package org.mspring.mlog.web.module.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.utils.GlobalUtils;
-import org.mspring.mlog.web.common.Keys;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;

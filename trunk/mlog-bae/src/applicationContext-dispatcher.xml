@@ -74,7 +74,6 @@
 			<list>
 				<bean class="org.mspring.mlog.web.formatter.factory.CatalogFormatAnnotationFormatterFactory"></bean>
 				<bean class="org.mspring.mlog.web.formatter.factory.TagFormatAnnotationFormatterFactory"></bean>
-				<bean class="org.mspring.mlog.web.formatter.factory.EncodingFormatAnnotationFormatterFactory"></bean>
 			</list>
 		</property>
 	</bean>

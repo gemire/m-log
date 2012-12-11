@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.common;
+package org.mspring.mlog.common;
 
 /**
  * @author Gao Youbo
