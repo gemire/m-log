@@ -13,11 +13,62 @@ import java.io.InputStream;
  * @TODO M-Log文件操作的相关类
  */
 public interface FileService {
+    /**
+     * 上传文件
+     * 
+     * @param fileName
+     * @param file
+     * @return
+     */
     public String uploadFile(String fileName, File file);
 
-    public String uploadFile(String fileName, InputStream inputStream, String contentType, long contentLength);
+    /**
+     * 上传文件
+     * 
+     * @param fileName
+     * @param inputStream
+     * @param contentType
+     * @param contentLength
+     * @return
+     */
+    public String uploadFile(String fileName, InputStream inputStream, long contentLength);
 
-    public String uploadBase64File(String fileName, String base64, String contentType);
+    /**
+     * 上传base64加密文件
+     * 
+     * @param fileName
+     * @param base64
+     * @param contentType
+     * @return
+     */
+    public String uploadBase64File(String fileName, String base64);
 
+    /**
+     * 删除文件
+     * 
+     * @param path
+     */
     public void deleteFile(String path);
+
+    /**
+     * 获取文件的mimetype
+     * 
+     * @param file
+     * @return
+     */
+    public String getMimeType(File file);
+    
+    /**
+     * 获取文件的mimetype
+     * @param inputStream
+     * @return
+     */
+    public String getMimeType(InputStream inputStream);
+    
+    /**
+     * 获取mimetype
+     * @param bytes
+     * @return
+     */
+    public String getMimeType(byte[] bytes);
 }
