@@ -85,7 +85,6 @@
 	<classpathentry kind="con" path="com.baidu.bdt.eclipse.managedapis.MANAGED_API_CONTAINER00/pcs"/>
 	<classpathentry kind="con" path="com.baidu.bdt.eclipse.managedapis.MANAGED_API_CONTAINER01/bcs"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/freemarker-2.3.18.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jmimemagic-0.1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mime-util-2.1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
