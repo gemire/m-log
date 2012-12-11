@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.utils.AttachmentUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +29,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Widget
 @RequestMapping("/admin/attachment")
 public class AttachmentWidget {
+    @Autowired
+    private FileService fileService;
+    
     @ResponseBody
     @RequestMapping("/upload")
     public String upload(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -42,7 +47,8 @@ public class AttachmentWidget {
                 mf = entity.getValue();
                 break;
             }
-            url = AttachmentUtils.upload(mf);
+            String fileName = AttachmentUtils.getUploadPath(mf);
+            url = fileService.uploadFile(fileName, mf.getInputStream(), mf.getContentType(), mf.getSize());
         }
         catch (Exception e) {
             // TODO: handle exception

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache.support;
+package org.mspring.mlog.inf.bae.cache.support;
 
 import java.io.Serializable;
 

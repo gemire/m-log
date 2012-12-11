@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache.provider;
+package org.mspring.mlog.inf.bae.cache.provider;
 
 import java.net.URL;
 import java.util.Properties;
@@ -11,8 +11,8 @@ import org.hibernate.cache.Cache;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.CacheProvider;
 import org.hibernate.cache.Timestamper;
-import org.mspring.mlog.api.bae.cache.CacheManager;
-import org.mspring.mlog.api.bae.cache.support.CacheBean;
+import org.mspring.mlog.inf.bae.cache.CacheManager;
+import org.mspring.mlog.inf.bae.cache.support.CacheBean;
 import org.mspring.mlog.service.CacheService;
 import org.mspring.platform.utils.ClassLoaderUtils;
 import org.mspring.platform.utils.StringUtils;

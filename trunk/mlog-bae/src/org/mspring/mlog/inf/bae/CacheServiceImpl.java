@@ -1,12 +1,12 @@
 /**
  * 
  */
-package org.mspring.mlog.api.bae.cache;
+package org.mspring.mlog.inf.bae;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mspring.mlog.api.bae.cache.support.Element;
+import org.mspring.mlog.inf.bae.cache.support.Element;
 import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.platform.utils.StringUtils;
