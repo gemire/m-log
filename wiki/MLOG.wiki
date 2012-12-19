@@ -1,5 +1,7 @@
 #summary One-sentence summary of this page.
 
+<wiki:toc max_depth="5" /> 
+
 = 说明文档 =
 
 M-LOG是一个遵循[http://www.apache.org/licenses/LICENSE-2.0.html Apache License Version 2.0]协议的开源软件。 M-LOG是一个用Java搭建的博客程序。该程序使用JDK1.5+、Spring MVC、Hibernate、Freemarker、Lucene搭建。
@@ -44,4 +46,3 @@ M-LOG是一个遵循[http://www.apache.org/licenses/LICENSE-2.0.html Apache Lice
 M-LOG支持metaweblog协议的离线写作接口。我们推荐的离线写作客户端为Windows live writer。
 
 Windows live writer配置步骤：
-
