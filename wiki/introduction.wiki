@@ -1,5 +1,7 @@
 #summary 说明文档
 
+[http://m-log.googlecode.com/svn/wiki/images/logo.png]
+
 M-LOG是一个遵循[http://www.apache.org/licenses/LICENSE-2.0.html Apache License Version 2.0]协议的开源软件。 M-LOG是一个用Java搭建的博客程序。该程序使用JDK1.5+、Spring MVC、Hibernate、Freemarker、Lucene搭建。
 
 **应用功能：*
@@ -16,3 +18,9 @@ M-LOG是一个遵循[http://www.apache.org/licenses/LICENSE-2.0.html Apache Lice
  # 评论回复及邮件提醒
  # 可配置文章固定永久链接和SEO优化
  # 自由配置博客信息
+
+
+ [http://m-log.googlecode.com/svn/wiki/images/mlog-simpleone.png]
+
+
+ [http://m-log.googlecode.com/svn/wiki/images/mlog-manager.png]
