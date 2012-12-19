@@ -6,9 +6,9 @@
    * 使用帮助
      * [userguide_metaweblog 离线写作配置]
  * 开发手册
-   * 开发前准备
-   * 开发环境
-   * 开发框架
-   * 皮肤开发
+   * [development_preparation 开发前准备]
+   * [development_devtools 开发环境]
+   * [development_framework 开发框架]
+   * [development_skins 皮肤开发]
  * FAQ
  * 关于M-LOG
