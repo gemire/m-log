@@ -1,0 +1,27 @@
+#summary 皮肤开发
+
+[http://m-log.googlecode.com/svn/wiki/images/logo.png]
+
+
+M-LOG皮肤是以Freemarker开发的，所以开发皮肤之前必须了解Freemarker相关知识，如果你不是很了解Freemarker和M-LOG的架构，我们推荐在您开发皮肤时，参照已有皮肤开发。
+
+== 皮肤目录结构 ==
+M-LOG皮肤保存在skins目录下，皮肤目录中包含的文件及文件夹结构如下：
+|| *文件/文件夹名*     ||*类型* 			||*描述* ||
+|| images              || 文件夹			|| 该文件夹用于存放该皮肤所用到的相关图片      ||
+|| script              || 文件夹			|| 该文件夹用于存放该皮肤所用到的JavaScript文件 ||
+|| style               || 文件夹			|| 该文件夹用户存放该皮肤所用到的样式表文件      ||
+|| skin.properties     || properties文件		|| 该文件为皮肤的信息描述文件，文件描述信息配置项如下：\\ name：皮肤的名称、author：作者名称、url：皮肤的发布页或者作者的相关网址、email：作者的邮箱、description：皮肤描述信息      ||
+|| preview.png         || png图片			|| 该文件为皮肤的预览缩略图，目前只支持png格式图片，建议大小：宽280，高160      ||
+|| index.ftl           || ftl文件			|| 该文件为皮肤模板的首页，也是默认的文章列表页      ||
+|| header.ftl          || ftl文件			|| 该文件为皮肤的header部分      ||
+|| footer.ftl          || ftl文件			|| 该文件为皮肤的footer部分      ||
+|| single.ftl          || ftl文件			|| 该文件为文章页      ||
+|| post-token.ftl      || ftl文件			|| 在文章加密之后，访问加密文章需要输入相册密码，该文件即为文章密码输入页 ||
+|| sidebar.ftl         || ftl文件			|| 该文件为皮肤的侧边栏      ||
+|| comment.ftl         || ftl文件			|| 该文件为文章详细页面的评论部分（包括评论列表和评论输入框）      ||
+|| search.ftl          || ftl文件			|| 该文件为文章的搜索页面和搜索结果显示页面      ||
+|| album.ftl           || ftl文件			|| 该文件为相册页面 ||
+|| photo-list.ftl      || ftl文件			|| 该文件为图片列表页 ||
+|| photo-view.ftl      || ftl文件			|| 该文件为图片查看页 ||
+|| album-token.ftl     || ftl文件			|| 在相册加密之后，访问加密相册需要输入相册密码，该文件即为相册密码输入页 ||
