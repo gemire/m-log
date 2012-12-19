@@ -5,3 +5,10 @@
      * [install_bae BAE版本]
    * 使用帮助
      * [userguide_metaweblog 离线写作配置]
+ * 开发手册
+   * 开发前准备
+   * 开发环境
+   * 开发框架
+   * 皮肤开发
+ * FAQ
+ * 关于M-LOG
