@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
-
-<wiki:toc max_depth="5" /> 
+#summary M-LOG
 
 = 说明文档 =
 
