@@ -1,7 +1,7 @@
  * [introduction 说明文档]
  * 用户手册
    * 安装帮助
-     * 标准Servlet版本
-     * BAE版本
+     * [install_servlet 标准Servlet版本]
+     * [install_bae BAE版本]
    * 使用帮助
      * 离线写作配置
