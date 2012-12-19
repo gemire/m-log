@@ -4,7 +4,7 @@
 
 = Eclipse =
 
-M-Log是基于Ant搭建的自由格式项目，理论上可以使用任何一款Java IDE进行开发。我们这里推荐使用eclipse(http://www.eclipse.org)进行开发，
+M-Log是基于Ant搭建的自由格式项目，理论上可以使用任何一款Java IDE进行开发。我们这里推荐使用eclipse(<a href="http://www.eclipse.org" target="_blank">http://www.eclipse.org</a>)进行开发，
 当然也可根据个人习惯选择其他IDE。M-LOG开发所需要的eclipse插件，这些插件都为非必须插件，但为了提高开发效率推荐安装使用。
 
 == Subclipse ==
