@@ -16,3 +16,5 @@ M-LOG是一个遵循[http://www.apache.org/licenses/LICENSE-2.0.html Apache Lice
  # 评论回复及邮件提醒
  # 可配置文章固定永久链接和SEO优化
  # 自由配置博客信息
+
+<wiki:comment></wiki:comment>
