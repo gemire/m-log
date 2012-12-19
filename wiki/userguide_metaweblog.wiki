@@ -1,0 +1,5 @@
+#summary Metaweblog配置帮助
+
+M-LOG支持metaweblog协议的离线写作接口。我们推荐的离线写作客户端为Windows live writer。
+
+Windows live writer配置步骤：
