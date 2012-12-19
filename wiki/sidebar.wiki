@@ -4,4 +4,4 @@
      * [install_servlet 标准Servlet版本]
      * [install_bae BAE版本]
    * 使用帮助
-     * 离线写作配置
+     * [userguide_metaweblog 离线写作配置]
