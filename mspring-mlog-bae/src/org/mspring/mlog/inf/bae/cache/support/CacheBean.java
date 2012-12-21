@@ -5,7 +5,7 @@ package org.mspring.mlog.inf.bae.cache.support;
 
 import java.io.Serializable;
 
-import org.mspring.mlog.inf.bae.CacheServiceImpl;
+import org.mspring.mlog.inf.bae.BaeCacheServiceImpl;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 
@@ -21,7 +21,7 @@ public class CacheBean implements Serializable {
      */
     private static final long serialVersionUID = 4119039518552645483L;
     
-    public static final long DEFAULT_CACHE_TIME_SECONDS = 1 * CacheServiceImpl.ONE_MINUTE;
+    public static final long DEFAULT_CACHE_TIME_SECONDS = 1 * BaeCacheServiceImpl.ONE_MINUTE;
 
     private String name;
     private long timeToIdleSeconds;
