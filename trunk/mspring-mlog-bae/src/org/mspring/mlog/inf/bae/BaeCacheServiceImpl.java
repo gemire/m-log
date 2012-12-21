@@ -20,7 +20,7 @@ import com.baidu.bae.api.memcache.BaeMemcachedClient;
  * @since Feb 20, 2012
  */
 @Service
-public class CacheServiceImpl implements CacheService {
+public class BaeCacheServiceImpl implements CacheService {
 
     @Autowired
     private OptionService optionService;
@@ -56,7 +56,6 @@ public class CacheServiceImpl implements CacheService {
     public String getKey(String key) {
         // 获取缓存的前缀，前缀可以在后台进行设置，精良要和bae上其他应用的前缀区分开，避免cachekey相同照成缓存错乱的bug
         return getAppCachePrefix() + key;
-        // return "MLOG_" + key;
     }
 
     /**

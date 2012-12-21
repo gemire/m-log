@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.utils.SkinUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
@@ -28,8 +28,8 @@ public class ScriptVariableWidget {
     @RequestMapping("/script_variable.js")
     public String execute(HttpServletRequest request, HttpServletResponse response, Model model) {
         Map<String, String> variables = new HashMap<String, String>();
-        variables.put("base", StringEscapeUtils.escapeJavaScript(request.getContextPath()));
-        variables.put(OptionKeys.TEMPLATE_URL, StringEscapeUtils.escapeJavaScript(SkinUtils.getTemplateUrl(request)));
+        variables.put("base", StringEscapeUtils.escapeEcmaScript(request.getContextPath()));
+        variables.put(OptionKeys.TEMPLATE_URL, StringEscapeUtils.escapeEcmaScript(SkinUtils.getTemplateUrl(request)));
         model.addAttribute("variables", variables);
         return "/common/scriptVariable";
     }

@@ -9,8 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.mspring.mlog.Application;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;

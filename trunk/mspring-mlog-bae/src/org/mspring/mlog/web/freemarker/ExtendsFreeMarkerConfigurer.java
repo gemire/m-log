@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 import org.mspring.platform.utils.PropertiesUtils;
