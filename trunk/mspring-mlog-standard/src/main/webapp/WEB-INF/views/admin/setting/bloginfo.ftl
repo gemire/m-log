@@ -5,7 +5,7 @@
 	<div id="error" class="message error" style="display:none;"></div>
 	<table class="infotable">
 		<tr>
-			<td colspan="3" class="partition">BCS服务配置</td>
+			<td colspan="3" class="partition">博客信息</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:120px;">博客标题:</td>
