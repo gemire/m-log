@@ -134,11 +134,11 @@
 						<#list photoPage.result as photo>
 							<div class="item">
 								<div class="itemdiv">
-									<img src="${photo.previewUrl}" alt="${photo.description!photo.name}" class="itemimage" onclick="showPic(${photo.id});" />
+									<img src="${base}/${photo.previewUrl}" alt="${photo.description!photo.name}" class="itemimage" onclick="showPic(${photo.id});" />
 								</div>
 								<div class="itemmeta">
 									<input type="checkbox" name="id" value="${photo.id}" />
-									<input type="hidden" id="url_${photo.id}" value="${photo.url}"/>
+									<input type="hidden" id="url_${photo.id}" value="${base}/${photo.url}"/>
 									<a href="${base}/admin/photo/edit?id=${photo.id}" class="ctrl">编辑</a>
 									<a href="javascript:mlog.form.confirmSubmit('photoForm','${base}/admin/photo/delete?id=${photo.id}&album.id=${album.id}','确认要删除该图片吗？');" class="ctrl">删除</a>
 									<a href="javascript:setCover('${album.id}', '${photo.id}');" class="ctrl">设为封面</a>
