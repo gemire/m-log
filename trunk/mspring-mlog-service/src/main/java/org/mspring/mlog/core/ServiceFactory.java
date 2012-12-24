@@ -8,6 +8,7 @@ import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
+import org.mspring.mlog.service.InstallService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.service.OptionService;
@@ -19,8 +20,6 @@ import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.TreeItemService;
 import org.mspring.mlog.service.UserService;
 import org.mspring.platform.core.ContextManager;
-
-import freemarker.template.Configuration;
 
 /**
  * @author Gao Youbo
@@ -87,5 +86,9 @@ public class ServiceFactory {
 
     public static CacheService getCacheService() {
         return ContextManager.getApplicationContext().getBean(CacheService.class);
+    }
+
+    public static InstallService getInstallService() {
+        return ContextManager.getApplicationContext().getBean(InstallService.class);
     }
 }
