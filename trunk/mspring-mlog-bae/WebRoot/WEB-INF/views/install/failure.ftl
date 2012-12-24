@@ -11,7 +11,7 @@
 	<div id="wrap">
 		<div id="logobanner">
 		    <div id="logo">
-		    	<a href="http://union.mspring.org"><img src="/images/logo.png"/></a>
+		    	<a href="http://www.mspring.org"><img src="${base}/images/logo.png"/></a>
 			</div>
 		</div>
 		<div class="clear"></div>
