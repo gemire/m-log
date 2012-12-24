@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.service.InstallService;
+import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.module.AbstractWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,6 +113,8 @@ public class InstallController extends AbstractWidget {
             return "/install/failure";
         }
         installService.setHasInstalled();
+        String blogurl = optionService.getOption("blogurl");
+        model.addAttribute("blogurl", blogurl);
         return "/install/success";
     }
 }
