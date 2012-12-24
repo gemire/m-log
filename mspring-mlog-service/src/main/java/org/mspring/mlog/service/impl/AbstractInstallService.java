@@ -1,11 +1,9 @@
 /**
  * 
  */
-package org.mspring.mlog.utils;
+package org.mspring.mlog.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -14,29 +12,31 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.LinkType;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.TreeItem;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.service.InstallService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
-import org.mspring.mlog.service.TreeItemService;
 import org.mspring.mlog.service.UserService;
 
 /**
  * @author Gao Youbo
- * @since 2012-11-29
+ * @since 2012-12-24
  * @Description
- * @TODO 用于完成安装的通用类
+ * @TODO
  */
-public class InstallUtils {
-    private static final Logger log = Logger.getLogger(InstallUtils.class);
+public abstract class AbstractInstallService implements InstallService {
 
-    /**
-     * 判断系统是否安装
+    private static final Logger log = Logger.getLogger(AbstractInstallService.class);
+
+    /*
+     * (non-Javadoc)
      * 
-     * @return
+     * @see org.mspring.mlog.service.InstallService#hasInstall()
      */
-    public static boolean hasInstall() {
+    @Override
+    public boolean hasInstall() {
+        // TODO Auto-generated method stub
         OptionService optionService = ServiceFactory.getOptionService();
         String hasInstalled = optionService.getOption("hasInstalled");
         if ("true".equals(hasInstalled)) {
@@ -45,35 +45,39 @@ public class InstallUtils {
         return false;
     }
 
-    /**
-     * 设置为已经安装
+    /*
+     * (non-Javadoc)
      * 
-     * @return
+     * @see org.mspring.mlog.service.InstallService#setHasInstalled()
      */
-    public static void setHasInstalled() {
+    @Override
+    public void setHasInstalled() {
+        // TODO Auto-generated method stub
         ServiceFactory.getOptionService().setOption("hasInstalled", "true");
     }
 
-    /**
-     * 判断是否存在用户
+    /*
+     * (non-Javadoc)
      * 
-     * @return
+     * @see org.mspring.mlog.service.InstallService#hasUser()
      */
-    public static boolean hasUser() {
+    @Override
+    public boolean hasUser() {
+        // TODO Auto-generated method stub
         return ServiceFactory.getUserService().hasUser();
     }
 
-    /**
-     * 初始化博客信息
+    /*
+     * (non-Javadoc)
      * 
-     * @param blogname
-     * @param blogurl
-     * @param username
-     * @param alias
-     * @param password
-     * @param email
+     * @see
+     * org.mspring.mlog.service.InstallService#initBlogInfo(java.lang.String,
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String,
+     * java.lang.String)
      */
-    public static void initBlogInfo(String blogname, String blogurl, String username, String alias, String password, String email) {
+    @Override
+    public void initBlogInfo(String blogname, String blogurl, String username, String alias, String password, String email) {
+        // TODO Auto-generated method stub
         log.debug("init bloginfo...");
         OptionService optionService = ServiceFactory.getOptionService();
         optionService.setOption("blogname", blogname);
@@ -88,10 +92,14 @@ public class InstallUtils {
         ServiceFactory.getUserService().addUser(user);
     }
 
-    /**
-     * 初始化添加一篇文章
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.InstallService#initPosts()
      */
-    public static void initPosts() {
+    @Override
+    public void initPosts() {
+        // TODO Auto-generated method stub
         log.debug("init posts...");
         CatalogService catalogService = ServiceFactory.getCatalogService();
         PostService postService = ServiceFactory.getPostService();
@@ -115,7 +123,14 @@ public class InstallUtils {
         postService.createPost(post);
     }
 
-    public static void initLinks() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.InstallService#initLinks()
+     */
+    @Override
+    public void initLinks() {
+        // TODO Auto-generated method stub
         LinkType linkType = new LinkType();
         linkType.setName("M-Loger");
         linkType.setDescription("M-Loger");
@@ -138,45 +153,9 @@ public class InstallUtils {
         wiki.setOrder(new Long(2));
         wiki.setType(linkType);
         wiki.setVisable(true);
-        
+
         ServiceFactory.getLinkService().createLink(mspring);
         ServiceFactory.getLinkService().createLink(wiki);
     }
 
-    /**
-     * 初始化TreeItem
-     */
-    public static void initTreeItems() {
-        log.debug("init tree items...");
-        TreeItemService treeItemService = ServiceFactory.getTreeItemService();
-
-        treeItemService.clearItems();
-
-        List<TreeItem> items = new ArrayList<TreeItem>();
-        items.add(new TreeItem("1", "功能菜单", "0", "", false, true, "main"));
-        items.add(new TreeItem("105", "首页", "1", "admin/about", false, true, "main"));
-        items.add(new TreeItem("115", "文章", "1", "", false, true, "main"));
-        items.add(new TreeItem("11505", "文章管理", "115", "admin/post/list", false, true, "main"));
-        items.add(new TreeItem("11515", "分类管理", "115", "admin/catalog/list", false, true, "main"));
-        items.add(new TreeItem("11520", "评论管理", "115", "admin/comment/list", false, true, "main"));
-        items.add(new TreeItem("120", "链接管理", "1", "admin/link/list", false, true, "main"));
-        items.add(new TreeItem("125", "相册管理", "1", "admin/album/list", false, true, "main"));
-
-        items.add(new TreeItem("2", "配置", "0", "", false, true, "main"));
-        items.add(new TreeItem("205", "用户信息", "2", "admin/user/userinfo", false, true, "main"));
-        items.add(new TreeItem("220", "博客信息", "2", "admin/setting/bloginfo", false, true, "main"));
-        items.add(new TreeItem("225", "邮件设置", "2", "admin/setting/mail", false, true, "main"));
-        items.add(new TreeItem("230", "皮肤设置", "2", "admin/setting/skin", false, true, "main"));
-        items.add(new TreeItem("235", "BAE设置", "2", "admin/setting/bae", false, true, "main"));
-        items.add(new TreeItem("240", "SEO设置", "2", "admin/setting/seo", false, true, "main"));
-        items.add(new TreeItem("245", "缓存管理", "2", "admin/cache/setting", false, true, "main"));
-
-        items.add(new TreeItem("3", "关于", "0", "", false, true, "main"));
-        items.add(new TreeItem("305", "关于", "3", "admin/about", false, true, "main"));
-        items.add(new TreeItem("310", "联系我们", "3", "admin/contact", false, true, "main"));
-
-        for (TreeItem item : items) {
-            treeItemService.createItem(item);
-        }
-    }
 }
