@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.utils.InstallUtils;
+import org.mspring.mlog.core.ServiceFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -30,7 +30,7 @@ public class InstallInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO Auto-generated method stub
-        boolean hasInstalled = InstallUtils.hasInstall();
+        boolean hasInstalled = ServiceFactory.getInstallService().hasInstall();
         if (!hasInstalled) {
             if (!handler.getClass().getName().startsWith("org.mspring.mlog.web.module.install")) {
                 log.debug("redirect to install page...");

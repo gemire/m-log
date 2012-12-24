@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.utils.InstallUtils;
+import org.mspring.mlog.service.InstallService;
 import org.mspring.mlog.web.module.AbstractWidget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/install")
 public class InstallController extends AbstractWidget {
+
+    @Autowired
+    private InstallService installService;
+
     /**
      * 安装第一步,显示授权信息
      * 
@@ -32,7 +37,7 @@ public class InstallController extends AbstractWidget {
      */
     @RequestMapping({ "", "/", "/setup1" })
     public String setup1(HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (InstallUtils.hasInstall()) {
+        if (installService.hasInstall()) {
             return prompt(model, "系统消息", "系统已经安装，不能重复运行安装引导", optionService.getOption("blogurl"));
         }
         return "/install/setup1";
@@ -48,7 +53,7 @@ public class InstallController extends AbstractWidget {
      */
     @RequestMapping(value = "/setup2")
     public String setup2(HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (InstallUtils.hasInstall()) {
+        if (installService.hasInstall()) {
             return prompt(model, "系统消息", "系统已经安装，不能重复运行安装引导", optionService.getOption("blogurl"));
         }
         ServiceFactory.getUserService().clearUser();
@@ -65,11 +70,12 @@ public class InstallController extends AbstractWidget {
      */
     @RequestMapping(value = "/setup3")
     public String setup3_view(HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (InstallUtils.hasInstall()) {
+        if (installService.hasInstall()) {
             return prompt(model, "系统消息", "系统已经安装，不能重复运行安装引导", optionService.getOption("blogurl"));
         }
         StringBuffer url = request.getRequestURL();
         String blogurl = url.delete(url.length() - request.getRequestURI().length(), url.length()).toString();
+        blogurl = blogurl + request.getContextPath();
         model.addAttribute("blogurl", blogurl);
         return "/install/setup3";
     }
@@ -84,7 +90,7 @@ public class InstallController extends AbstractWidget {
      */
     @RequestMapping("/setup4")
     public String setup4(HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (InstallUtils.hasInstall()) {
+        if (installService.hasInstall()) {
             return prompt(model, "系统消息", "系统已经安装，不能重复运行安装引导", optionService.getOption("blogurl"));
         }
         try {
@@ -95,17 +101,17 @@ public class InstallController extends AbstractWidget {
             String password = request.getParameter("password");
             String email = request.getParameter("email");
 
-            InstallUtils.initBlogInfo(blogname, blogurl, username, alias, password, email);
-            InstallUtils.initTreeItems();
-            InstallUtils.initPosts();
-            InstallUtils.initLinks();
+            installService.initBlogInfo(blogname, blogurl, username, alias, password, email);
+            installService.initTreeItems();
+            installService.initPosts();
+            installService.initLinks();
         }
         catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
             return "/install/failure";
         }
-        InstallUtils.setHasInstalled();
+        installService.setHasInstalled();
         return "/install/success";
     }
 }
