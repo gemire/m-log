@@ -26,14 +26,6 @@
 		</div>
 		<button class="btn" id="btnClear"> 清 理 缓 存 </button>
 	</div>
-	<div style="margin:10px;">
-		CACHE列表：<br/>
-		<#if keys?exists>
-			<#list keys as key>
-			${key}<br/>
-			</#list>
-		</#if>
-	</div>
 </div>
 <script type="text/javascript">
 	$("#btnClear").click(function(){
