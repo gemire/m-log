@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.inf.utils;
+package org.mspring.mlog.inf.standard.utils;
 
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;

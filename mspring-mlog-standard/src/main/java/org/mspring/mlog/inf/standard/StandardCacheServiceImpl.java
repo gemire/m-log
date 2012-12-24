@@ -5,12 +5,9 @@ package org.mspring.mlog.inf.standard;
 
 import java.util.List;
 
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
 
-import org.mspring.mlog.inf.utils.CacheUtils;
+import org.mspring.mlog.inf.standard.utils.CacheUtils;
 import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.platform.utils.StringUtils;
