@@ -8,6 +8,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.ehcache.CacheManager;
+
+import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.AbstractWidget;
 import org.springframework.ui.Model;
@@ -26,8 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CacheWidget extends AbstractWidget {
     @RequestMapping("/setting")
     public String setting(HttpServletRequest request, HttpServletResponse response, Model model) {
-        List<String> keys = cacheService.getCacheKeys();
-        model.addAttribute("keys", keys);
+//        List<String> keys = cacheService.getCacheKeys();
+//        model.addAttribute("keys", keys);
 
         String cache_prefix = optionService.getPropertiesOption("cache_prefix");
         model.addAttribute("cache_prefix", cache_prefix);
@@ -50,12 +53,7 @@ public class CacheWidget extends AbstractWidget {
     @ResponseBody
     public String doClear(HttpServletRequest request, HttpServletResponse response, Model model) {
         // 开始清理缓存
-        List<String> keys = cacheService.getCacheKeys();
-        if (keys != null) {
-            for (String key : keys) {
-                cacheService.deleteCache(key);
-            }
-        }
+        CacheManager.getInstance().clearAll();
         return "true";
     }
 }
