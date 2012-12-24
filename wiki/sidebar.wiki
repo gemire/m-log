@@ -10,5 +10,5 @@
    * [development_devtools 开发环境]
    * [development_framework 开发框架]
    * [development_skins 皮肤开发]
- * FAQ
- * 关于M-LOG
+ * [faq FAQ]
+ * [about 关于M-LOG]
