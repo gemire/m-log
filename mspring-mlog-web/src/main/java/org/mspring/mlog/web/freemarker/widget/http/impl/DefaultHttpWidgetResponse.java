@@ -14,7 +14,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.mspring.mlog.Application;
 import org.mspring.mlog.web.freemarker.widget.http.HttpWidgetResponse;
 
 /**
@@ -51,7 +50,7 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
     public String getResponseAsString() {
         // TODO Auto-generated method stub
         try {
-            return content.toString(Application.getDefaultEncoding());
+            return content.toString("UTF-8");
         }
         catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
@@ -71,7 +70,7 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
     public void append(String html) throws UnsupportedEncodingException {
         // TODO Auto-generated method stub
         if (responsePrintWriter == null) {
-            responsePrintWriter = new ResponsePrintWriter(Application.getDefaultEncoding());
+            responsePrintWriter = new ResponsePrintWriter("UTF-8");
         }
         if (contentPrintWriter == null) {
             contentPrintWriter = new PrintWriter(content, true);
@@ -100,10 +99,10 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
     public PrintWriter getWriter() throws IOException {
         // TODO Auto-generated method stub
         if (responsePrintWriter == null) {
-            responsePrintWriter = new ResponsePrintWriter(Application.getDefaultEncoding());
+            responsePrintWriter = new ResponsePrintWriter("UTF-8");
         }
         if (contentPrintWriter == null) {
-            contentPrintWriter = new PrintWriter(new OutputStreamWriter(content, Application.getDefaultEncoding()), true);
+            contentPrintWriter = new PrintWriter(new OutputStreamWriter(content, "UTF-8"), true);
         }
         return contentPrintWriter;
     }
