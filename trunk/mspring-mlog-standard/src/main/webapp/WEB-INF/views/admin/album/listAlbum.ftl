@@ -31,7 +31,7 @@
 								<div class="itemdiv">
 									<a href="${base}/admin/photo/list?album.id=${album.id}" title="${album.name!""}">
 										<#if album.cover?exists>
-											<img src="${album.cover.previewUrl}" alt="${album.description!album.name}" class="itemimage" />
+											<img src="${base}${album.cover.previewUrl}" alt="${album.description!album.name}" class="itemimage" />
 										<#else>
 											<img src="${base}/images/nophoto.gif" alt="${album.description!album.name}" class="itemimage" />
 										</#if>
