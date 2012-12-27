@@ -51,11 +51,11 @@
 			</div>
 			<#if (photoPage?exists && photoPage.result?size > 0)>
 				<div class="main-albums">
-					<#list photoPage.result as photo>
+					<@list_photo>
 						<div class="album-item">
-							<a href="${blogurl}/album/photo-${photo.id}.html" title="${photo.description!photo.name}" target="_blank"><img class="item-image" src="${photo.previewUrl}" alt="${photo.description!photo.name}" /></a>
+							<a href="${blogurl}/album/photo-${photo.id}.html" title="${photo.description!photo.name}" target="_blank"><img class="item-image" src="<@photo_preview_url />" alt="${photo.description!photo.name}" /></a>
 						</div>
-					</#list>
+					</@list_photo>
 				</div>
 				<#if (photoPage.totalPages > 1)>
 					<@simple.photoPageNavi />
