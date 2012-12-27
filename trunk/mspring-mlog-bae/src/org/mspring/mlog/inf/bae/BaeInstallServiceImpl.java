@@ -11,6 +11,8 @@ import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.TreeItem;
 import org.mspring.mlog.service.TreeItemService;
 import org.mspring.mlog.service.impl.AbstractInstallService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Gao Youbo
@@ -18,6 +20,8 @@ import org.mspring.mlog.service.impl.AbstractInstallService;
  * @Description
  * @TODO
  */
+@Service
+@Transactional
 public class BaeInstallServiceImpl extends AbstractInstallService {
     private static final Logger log = Logger.getLogger(BaeInstallServiceImpl.class);
 
