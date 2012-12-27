@@ -116,7 +116,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
     public void deleteFile(String path) {
         // TODO Auto-generated method stub
         File file = getDestFile(path);
-        file.deleteOnExit();
+        FileUtils.deleteQuietly(file);
         log.debug("delete file " + path);
     }
 
