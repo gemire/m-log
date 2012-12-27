@@ -47,7 +47,7 @@ public class Option implements Serializable {
      * @return the name
      */
     @Id
-    @Column(name = "name", unique = true, nullable = false, length = 300)
+    @Column(name = "name", length = 100)
     public String getName() {
         return name;
     }
