@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.web.WebContext;
 import org.mspring.mlog.web.freemarker.directive.exception.MustBooleanException;
 import org.mspring.mlog.web.freemarker.directive.exception.MustDateException;
@@ -38,6 +39,32 @@ import freemarker.template.TemplateScalarModel;
  * @TODO Freemarker标签工具类
  */
 public class DirectiveUtils {
+    private static final Logger log = Logger.getLogger(DirectiveUtils.class);
+    
+    public static Object getItem(Environment env, String name){
+        Object ret = null;
+        try {
+            ret = env.__getitem__(name);
+        }
+        catch (TemplateModelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            log.debug("get item failure, name = " + name, e);
+        }
+        return ret;
+    }
+    
+    public static void setItem(Environment env, String name, Object value){
+        try {
+            env.__setitem__(name, value);
+        }
+        catch (TemplateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            log.debug("set item failure, name = " + name + ", value = " + value, e);
+        }
+    }
+    
     /**
      * 将params的值复制到variable中
      * 

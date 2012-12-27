@@ -1,17 +1,17 @@
 /**
  * 
  */
-package org.mspring.mlog.web.freemarker.directive.post;
+package org.mspring.mlog.web.freemarker.directive.album.photo;
 
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.log4j.Logger;
-import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
-import org.mspring.platform.persistence.support.Page;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -20,16 +20,16 @@ import freemarker.template.TemplateModel;
 
 /**
  * @author Gao Youbo
- * @since 2012-8-9
+ * @since 2012-12-27
  * @Description
- * @TODO 循环文章列表
+ * @TODO 图片缩略图URL
  */
-public class ListPostDirectiveModel extends AbstractDirectiveModel {
-
-    private static final Logger log = Logger.getLogger(ListPostDirectiveModel.class);
-
-    private static final String KEY = "list_post";
-
+public class PhotoPreviewUrlDirectiveModel extends AbstractDirectiveModel {
+    
+    private static final Logger log = Logger.getLogger(PhotoPreviewUrlDirectiveModel.class);
+    
+    public static final String KEY = "photo_preview_url";
+    
     /*
      * (non-Javadoc)
      * 
@@ -42,6 +42,7 @@ public class ListPostDirectiveModel extends AbstractDirectiveModel {
         return KEY;
     }
 
+
     /*
      * (non-Javadoc)
      * 
@@ -49,20 +50,22 @@ public class ListPostDirectiveModel extends AbstractDirectiveModel {
      * Environment, java.util.Map, freemarker.template.TemplateModel[],
      * freemarker.template.TemplateDirectiveBody)
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVar, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] model, TemplateDirectiveBody body) throws TemplateException, IOException {
         // TODO Auto-generated method stub
-        Object postPageObj = env.__getitem__(FreemarkerVariableNames.POST_PAGE);
-        if (postPageObj == null || !(postPageObj instanceof Page)) {
-            log.warn("#####################count find postPage");
+        Object photoObject = DirectiveUtils.getItem(env, FreemarkerVariableNames.PHOTO);
+        if (photoObject == null || !(photoObject instanceof Photo)) {
             return;
         }
-        Page<Post> postPage = (Page<Post>) postPageObj;
-        for (Post post : postPage.getResult()) {
-            env.__setitem__(FreemarkerVariableNames.POST, post);
-            body.render(env.getOut());
+        String url = ((Photo)photoObject).getPreviewUrl();
+        if (url.startsWith("http")) {
+            env.getOut().append(url);
+        }
+        else {
+            url = DirectiveUtils.getWebContext(env).getRequest().getContextPath() + url;
+            env.getOut().append(url);
         }
     }
 
+ 
 }
