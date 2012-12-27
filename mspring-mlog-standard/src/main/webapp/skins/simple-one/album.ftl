@@ -47,10 +47,10 @@
 		<div class="main-content">
 			<#if (albumPage?exists && albumPage.result?size > 0)>
 				<div class="main-albums">
-					<#list albumPage.result as album>
+					<@list_album>
 						<div class="album-item">
 							<#if album.cover?exists>
-								<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="${album.cover.previewUrl}" alt="${album.description!album.name}" /></a>
+								<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="<@album_cover />" alt="${album.description!album.name}" /></a>
 							<#else>
 								<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="${base}/images/nophoto.gif" alt="${album.description!album.name}" /></a>
 							</#if>
@@ -58,7 +58,7 @@
 								<a href="#" class="album-title">${album.name!""}</a>
 							</div>
 						</div>
-					</#list>
+					</@list_album>
 				</div>
 				<#if (albumPage.totalPages > 1)>
 					<@simple.albumPageNavi />
