@@ -35,7 +35,8 @@ public class CookieUtils {
 
     public static void setCookie(HttpServletResponse response, String name, String value, int iExpireDays) {
         try {
-            Cookie cookie = new Cookie(name, StringUtils.encodeBASE64(value));
+            //Cookie cookie = new Cookie(name, StringUtils.encodeBASE64(value));
+            Cookie cookie = new Cookie(name, value);
             if (iExpireDays != 0) {
                 cookie.setMaxAge(iExpireDays * 24 * 60 * 60 * 1000);
             }
@@ -57,7 +58,8 @@ public class CookieUtils {
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
             if (name.equals(cookie.getName())) {
-                return new StringUtils().decodeBASE64(cookie.getValue());
+                //return new StringUtils().decodeBASE64(cookie.getValue());
+                return cookie.getValue();
             }
         }
         return "";
