@@ -3,11 +3,13 @@
  */
 package org.mspring.mlog.core;
 
+import org.hibernate.SessionFactory;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
+import org.mspring.mlog.service.HQLExecuteService;
 import org.mspring.mlog.service.InstallService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
@@ -28,6 +30,10 @@ import org.mspring.platform.core.ContextManager;
  * @TODO 该类用于获取bean对象
  */
 public class ServiceFactory {
+    public static SessionFactory getSessionFactory(){
+        return (SessionFactory) ContextManager.getApplicationContext().getBean("sessionFactory");
+    }
+    
     public static UserService getUserService() {
         return ContextManager.getApplicationContext().getBean(UserService.class);
     }
@@ -91,4 +97,10 @@ public class ServiceFactory {
     public static InstallService getInstallService() {
         return ContextManager.getApplicationContext().getBean(InstallService.class);
     }
+    
+    public static HQLExecuteService getHQLExecuteService() {
+        return ContextManager.getApplicationContext().getBean(HQLExecuteService.class);
+    }
+    
+    
 }
