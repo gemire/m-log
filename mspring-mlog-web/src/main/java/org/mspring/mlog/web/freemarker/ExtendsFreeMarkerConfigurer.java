@@ -58,7 +58,8 @@ public class ExtendsFreeMarkerConfigurer extends FreeMarkerConfigurer {
             if (StringUtils.isNotBlank(key)) {
                 try {
                     Class clazz = ClassUtils.getClass(value);
-                    if (clazz.getSuperclass().equals(AbstractDirectiveModel.class)) {
+                    //if (clazz.getSuperclass().equals(AbstractDirectiveModel.class)) {
+                    if(AbstractDirectiveModel.class.isAssignableFrom(clazz)){
                         AbstractDirectiveModel model = (AbstractDirectiveModel) clazz.newInstance();
                         variables.put(key, model);
                     }
@@ -68,7 +69,7 @@ public class ExtendsFreeMarkerConfigurer extends FreeMarkerConfigurer {
                 }
                 catch (Exception e) {
                     // TODO Auto-generated catch block
-                    // e.printStackTrace();
+                    e.printStackTrace();
                     log.debug("can't found AbstractDirectiveModel named [" + value + "], set string variable.");
                     variables.put(key, value);
                 }

@@ -28,6 +28,11 @@ public class SQLValidateFilterChain {
      * 最后一个filter
      */
     private SQLValidateFilter lastFilter = null;
+    
+    public SQLValidateFilterChain(Map params){
+        firstFilter = lastFilter;
+        this.params = params;
+    }
 
     /**
      * 
@@ -35,7 +40,7 @@ public class SQLValidateFilterChain {
     public SQLValidateFilterChain() {
         // TODO Auto-generated constructor stub
         firstFilter = lastFilter;
-        params = new HashMap();
+        this.params = new HashMap();
     }
 
     /**
@@ -56,16 +61,16 @@ public class SQLValidateFilterChain {
     /**
      * 启动filter链
      */
-    public void doExecute() {
+    public void doFilter() {
         try {
             if (firstFilter != null) {
-                firstFilter.execute(params);
+                firstFilter.doFilter(params);
             }
         }
         catch (Exception e) {
             // TODO: handle exception
             log.error(e.getMessage(), e);
-            firstFilter.getNextFilter().execute(params);
+            firstFilter.getNextFilter().doFilter(params);
         }
     }
 

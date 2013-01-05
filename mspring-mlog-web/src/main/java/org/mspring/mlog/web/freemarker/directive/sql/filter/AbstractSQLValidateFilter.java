@@ -43,7 +43,7 @@ public abstract class AbstractSQLValidateFilter implements SQLValidateFilter {
     public void doNextFilter(Map params){
         SQLValidateFilter filter = getNextFilter();
         if (filter != null) {
-            filter.execute(params);
+            filter.doFilter(params);
         }
     }
 
