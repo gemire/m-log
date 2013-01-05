@@ -15,12 +15,40 @@
 					<div class="post-summary"><@post_content /></div>
 					<div class="post-ft"></div>
 				</div>
+				
 				<#--
 				<div class="nav-above">
 					<div class="nav-previous">上一篇</div>
 					<div class="nav-next">下一篇</div>
 				</div>
 				-->
+				<hr/>
+				<div class="post-relative-div">
+					<div  class="post-relative">
+						<h4>相关文章</h4>				
+						<#assign tags=post.tags />
+						<@sql_query var="about_posts" sql="select pt.PK.post from PostTag pt where pt.PK.tag.name in (@tags.name) and pt.PK.post.id <> @post.id order by pt.PK.post.viewCount desc" max="10" />
+						<#if about_posts?exists>
+						<ul>
+							<#list about_posts as p>
+							<li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+							</#list>
+						</ul>
+						</#if>
+					</div>
+					<div  class="post-relative">
+						<h4>随机文章</h4>				
+						<#assign tags=post.tags />
+						<@sql_query var="rand_posts" sql="from Post post order by rand()" max="10" cache="false" />
+						<#if rand_posts?exists>
+						<ul>
+							<#list rand_posts as p>
+							<li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+							</#list>
+						</ul>
+						</#if>
+					</div>
+				</div>
 				<div class="post-copyright">
 					如非注明，本站文章均为原创，转载请注明出处。<br/>
 					本站地址：<a href="${blogurl}" target="_blank" title="${blogname}">${blogname}</a> <a href="${blogurl}" target="_blank" title="${blogname}">${blogurl}</a><br/>
