@@ -16,7 +16,7 @@ public interface SQLValidateFilter {
      * 执行
      * @param params
      */
-    public void execute(Map params);
+    public void doFilter(Map params);
     
     /**
      * 后续执行filter

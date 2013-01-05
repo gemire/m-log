@@ -3,18 +3,18 @@
  */
 package org.mspring.mlog.web.freemarker.directive.sql;
 
-import java.io.IOException;
 import java.util.Map;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;
+import org.mspring.mlog.web.freemarker.directive.sql.filter.SQLValidateParamNames;
+import org.mspring.mlog.web.freemarker.directive.sql.filter.SQLValidateUtils;
 import org.mspring.platform.utils.StringUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
 /**
@@ -33,37 +33,57 @@ public class QuerySQLDirectiveModel extends AbstractSQLDirectiveModel {
      * @see freemarker.template.TemplateDirectiveModel#execute(freemarker.core.Environment, java.util.Map, freemarker.template.TemplateModel[], freemarker.template.TemplateDirectiveBody)
      */
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] model, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] model, TemplateDirectiveBody body) {
         // TODO Auto-generated method stub
-        String var = getVar(params);
-        if (StringUtils.isBlank(var)) {
-            log.warn("var name is blank, return.");
-            return;
+        try {
+            String var = ParamUtils.getVar(params);
+            if (StringUtils.isBlank(var)) {
+                log.warn("var name is blank, return.");
+                return;
+            }
+            
+            String sql = ParamUtils.getSQL(params);
+            if (StringUtils.isBlank(sql)) {
+                log.warn("sql is blank, return.");
+                return;
+            }
+            boolean cache = ParamUtils.getCacheEnable(params);
+            long expiry = ParamUtils.getExpiry(params);
+            
+            
+            //进行SQL验证
+            Map validateResult = validateSQL(env, sql);
+            boolean validateSuccess = SQLValidateUtils.getValidateResult(validateResult);
+            if (!validateSuccess) {
+                log.warn("sql validate failure.");
+                return;
+            }
+            sql = SQLValidateUtils.getValidatedSQL(validateResult);
+            
+            //获取CacheKey
+            params.put(PARAM_NAME.SQL, sql);
+            String cacheKey = getCacheKey(KEY, params);
+            
+            Object value = null;
+            if (cache) {
+                value = getCacheValue(cacheKey);
+            }
+            if (value == null) {
+                Integer first = ParamUtils.getFirstResult(params);
+                Integer max = ParamUtils.getMaxResult(params);
+                value = ServiceFactory.getHQLExecuteService().query(sql, first, max);
+                setCacheValue(cacheKey, value, expiry);
+            }
+            
+            if (value == null) {
+                value = ListUtils.EMPTY_LIST;
+            }
+            DirectiveUtils.setItem(env, var, value);
         }
-        
-        String sql = getSQL(params);
-        if (StringUtils.isBlank(sql)) {
-            log.warn("sql is blank, return.");
-            return;
+        catch (Exception e) {
+            // TODO: handle exception
+            log.error(e.getMessage());
         }
-        
-        boolean cache = getCacheEnable(params);
-        long expiry = getExpiry(params);
-        
-        Object value = null;
-        if (cache) {
-            value = getCacheValue(KEY, params);
-        }
-        
-        if (value == null) {
-            value = ServiceFactory.getHQLExecuteService().query(sql);
-            SetCacheValue(KEY, value, params);
-        }
-        
-        if (value == null) {
-            value = ListUtils.EMPTY_LIST;
-        }
-        DirectiveUtils.setItem(env, var, value);
     }
 
     /* (non-Javadoc)
