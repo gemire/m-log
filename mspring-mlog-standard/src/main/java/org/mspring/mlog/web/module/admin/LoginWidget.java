@@ -50,6 +50,18 @@ public class LoginWidget {
 
     @RequestMapping(value = { "/doLogin" }, method = { RequestMethod.POST })
     public String doLogin(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+        Object sessionValidateCode = session.getAttribute(Keys.VALIDATE_CODE);
+        if (sessionValidateCode == null) {
+            //验证码超时
+            model.addAttribute(MESSAGE, "登录失败，验证码超时。");
+            return "/admin/login";
+        }
+        String validateCode = request.getParameter("validateCode");
+        if (!sessionValidateCode.toString().equalsIgnoreCase(validateCode)) {
+            //验证码错误
+            model.addAttribute(MESSAGE, "登录失败，验证码输入错误。");
+            return "/admin/login";
+        }
         User loginUser = userService.login(user.getName(), user.getPassword());
         if (loginUser != null) {
             session.setAttribute(Keys.CURRENT_USER, loginUser);
@@ -60,7 +72,7 @@ public class LoginWidget {
             }
             return "redirect:/admin";
         }
-        model.addAttribute(MESSAGE, "登录失败");
+        model.addAttribute(MESSAGE, "登录失败，请检查用户名密码是否正确。");
         return "/admin/login";
     }
 

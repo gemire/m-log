@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Widget
 @RequestMapping(value = "/common")
 public class ValidateCodeWidget {
-    private static final String DEFAULT_ALLOW_VALIDATE_STRING = "0123456789";
+    //验证码中允许出现的字符串
+    private static final String DEFAULT_ALLOW_VALIDATE_STRING = "0123456789abcdefghijklmnopqrstuvwxyz";
 
     @RequestMapping(value = "validateCode", method = RequestMethod.GET)
     public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
