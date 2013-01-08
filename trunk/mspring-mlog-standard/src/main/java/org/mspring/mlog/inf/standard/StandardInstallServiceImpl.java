@@ -57,10 +57,13 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         //items.add(new TreeItem("235", "BAE设置", "2", "admin/setting/bae", false, true, "main"));
         items.add(new TreeItem("240", "SEO设置", "2", "admin/setting/seo", false, true, "main"));
         items.add(new TreeItem("245", "缓存管理", "2", "admin/cache/setting", false, true, "main"));
+        
+        items.add(new TreeItem("4", "插件", "0", "", false, true, "main"));
+        items.add(new TreeItem("405", "金山快盘", "4", "/admin/api/kuaipan/setting", false, true, "main"));
 
-        items.add(new TreeItem("3", "关于", "0", "", false, true, "main"));
-        items.add(new TreeItem("305", "关于", "3", "admin/about", false, true, "main"));
-        items.add(new TreeItem("310", "联系我们", "3", "admin/contact", false, true, "main"));
+        items.add(new TreeItem("9", "关于", "0", "", false, true, "main"));
+        items.add(new TreeItem("905", "关于", "9", "admin/about", false, true, "main"));
+        items.add(new TreeItem("910", "联系我们", "9", "admin/contact", false, true, "main"));
 
         for (TreeItem item : items) {
             treeItemService.createItem(item);
