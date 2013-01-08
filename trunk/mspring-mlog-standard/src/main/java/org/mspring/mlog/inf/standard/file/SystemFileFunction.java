@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.inf.standard;
+package org.mspring.mlog.inf.standard.file;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -14,35 +14,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.mspring.mlog.service.OptionService;
-import org.mspring.mlog.service.impl.AbstractFileService;
 import org.mspring.platform.utils.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author Gao Youbo
- * @since 2012-12-19
- * @Description
- * @TODO
+ * @since 2013-1-7
+ * @Description 
+ * @TODO 
  */
-@Service
-public class StandardFileServiceImpl extends AbstractFileService {
-    private static final Logger log = Logger.getLogger(StandardFileServiceImpl.class);
+public class SystemFileFunction extends AbstractFileFunction {
+    private static final Logger log = Logger.getLogger(SystemFileFunction.class);
 
-    @Autowired
-    private OptionService optionService;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.FileService#uploadFile(java.lang.String,
-     * java.io.File)
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.inf.standard.file.AbstractFileFunction#save(java.lang.String, java.io.File)
      */
     @Override
-    public String uploadFile(String fileName, File file) {
+    public String save(String fileName, File file) {
         // TODO Auto-generated method stub
         File destFile = getDestFile(fileName);
 
@@ -60,14 +49,11 @@ public class StandardFileServiceImpl extends AbstractFileService {
         return getFileUrl(fileName);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.FileService#uploadFile(java.lang.String,
-     * java.io.InputStream, long)
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.inf.standard.file.AbstractFileFunction#save(java.lang.String, java.io.InputStream, long)
      */
     @Override
-    public String uploadFile(String fileName, InputStream inputStream, long contentLength) {
+    public String save(String fileName, InputStream inputStream, long contentLength) {
         // TODO Auto-generated method stub
         File destFile = getDestFile(fileName);
         try {
@@ -87,15 +73,11 @@ public class StandardFileServiceImpl extends AbstractFileService {
         return getFileUrl(fileName);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.FileService#uploadBase64File(java.lang.String,
-     * java.lang.String)
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.inf.standard.file.AbstractFileFunction#saveBase64(java.lang.String, java.lang.String)
      */
     @Override
-    public String uploadBase64File(String fileName, String base64) {
+    public String saveBase64(String fileName, String base64) {
         // TODO Auto-generated method stub
         byte[] bytes = StringUtils.decodeBASE64(base64.getBytes());
         for (int i = 0; i < bytes.length; ++i) {
@@ -104,22 +86,21 @@ public class StandardFileServiceImpl extends AbstractFileService {
             }
         }
         InputStream inputStream = new ByteArrayInputStream(bytes);
-        return uploadFile(fileName, inputStream, bytes.length);
+        return save(fileName, inputStream, bytes.length);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.FileService#deleteFile(java.lang.String)
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.inf.standard.file.AbstractFileFunction#delete(java.lang.String)
      */
     @Override
-    public void deleteFile(String path) {
+    public void delete(String filePath) {
         // TODO Auto-generated method stub
-        File file = getDestFile(path);
+        File file = getDestFile(filePath);
         FileUtils.deleteQuietly(file);
-        log.debug("delete file " + path);
+        log.debug("delete file " + filePath);
     }
-
+    
+    
     /**
      * 获取要保存的文件路径
      * 
