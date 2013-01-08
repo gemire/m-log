@@ -3,8 +3,6 @@
  */
 package org.mspring.mlog.web.module.web;
 
-import java.util.Properties;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

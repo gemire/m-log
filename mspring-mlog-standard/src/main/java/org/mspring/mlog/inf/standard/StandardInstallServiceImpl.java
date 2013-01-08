@@ -49,14 +49,17 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("120", "链接管理", "1", "admin/link/list", false, true, "main"));
         items.add(new TreeItem("125", "相册管理", "1", "admin/album/list", false, true, "main"));
 
-        items.add(new TreeItem("2", "配置", "0", "", false, true, "main"));
+        items.add(new TreeItem("2", "个人配置", "0", "", false, true, "main"));
         items.add(new TreeItem("205", "用户信息", "2", "admin/user/userinfo", false, true, "main"));
         items.add(new TreeItem("220", "博客信息", "2", "admin/setting/bloginfo", false, true, "main"));
-        items.add(new TreeItem("225", "邮件设置", "2", "admin/setting/mail", false, true, "main"));
         items.add(new TreeItem("230", "皮肤设置", "2", "admin/setting/skin", false, true, "main"));
         //items.add(new TreeItem("235", "BAE设置", "2", "admin/setting/bae", false, true, "main"));
         items.add(new TreeItem("240", "SEO设置", "2", "admin/setting/seo", false, true, "main"));
         items.add(new TreeItem("245", "缓存管理", "2", "admin/cache/setting", false, true, "main"));
+        
+        items.add(new TreeItem("3", "系统配置", "0", "", false, true, "main"));
+        items.add(new TreeItem("325", "邮件设置", "3", "admin/setting/mail", false, true, "main"));
+        items.add(new TreeItem("330", "任务管理", "3", "admin/job/setting", false, true, "main"));
         
         items.add(new TreeItem("4", "插件", "0", "", false, true, "main"));
         items.add(new TreeItem("405", "金山快盘", "4", "/admin/api/kuaipan/setting", false, true, "main"));
