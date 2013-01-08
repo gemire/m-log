@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class AttachmentWidget {
     @Autowired
     private FileService fileService;
-    
+
     @ResponseBody
     @RequestMapping("/upload")
     public String upload(HttpServletRequest request, HttpServletResponse response, Model model) {
