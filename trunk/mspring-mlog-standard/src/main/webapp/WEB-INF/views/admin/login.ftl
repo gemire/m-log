@@ -3,7 +3,8 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>M-LOG登录</title>
+	<link rel="icon" type="image/png" href="${base}/images/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="${base}/style/login.css">
 </head>
 <body>
@@ -20,6 +21,15 @@
 				<p>
 					<@spring.formPasswordInput path="user.password" attributes='class="loginInput" required="required" placeholder="请输入密码"'  />
 				<p>
+				<p>
+					<label for="password">验证码：</label><img id="validateCode" src="${base}/common/validateCode" />&nbsp;&nbsp;<a href="javascript:changeImg();">换一张</a>
+				</p>
+				<p>
+					<input name="validateCode" class="loginInput" required="required" placeholder="请输入验证码" />
+				<p>
+				<#if message?has_content>
+				<p style="color:red;">${message}</p>
+				</#if>
 			</div>
 			<div class="loginBoxButtons">
 				<@spring.formCheckbox path="user.rememberMe" />
@@ -30,4 +40,10 @@
 		</form>
 	</div>
 </body>
+<script type="text/javascript">
+	function changeImg(){
+		var img = document.getElementById('validateCode');
+		img.src = "${base}/common/validateCode";
+	}
+</script>
 </html>
