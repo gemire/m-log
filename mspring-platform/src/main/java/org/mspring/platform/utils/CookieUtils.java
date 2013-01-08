@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 public class CookieUtils {
     private static final Logger logger = Logger.getLogger(CookieUtils.class);
 
-    private static final String COOKIE_SECURITY_KEY = "mspring.mlog";
+    //private static final String COOKIE_SECURITY_KEY = "mspring.mlog";
 
     private CookieUtils() {
     }
@@ -46,7 +46,8 @@ public class CookieUtils {
         }
         catch (Exception e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
+            logger.warn(String.format("set cookie failure. name = %s, value = %s , iExpireDays = %s", name, value, iExpireDays));
         }
     }
 
@@ -58,8 +59,15 @@ public class CookieUtils {
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
             if (name.equals(cookie.getName())) {
-                //return new StringUtils().decodeBASE64(cookie.getValue());
-                return cookie.getValue();
+                try {
+                    return new StringUtils().decodeBASE64(cookie.getValue());
+                }
+                catch (Exception e) {
+                    // TODO: handle exception
+                    logger.warn("get cookie failure. name = " + name);
+                    continue;
+                }
+                //return cookie.getValue();
             }
         }
         return "";
