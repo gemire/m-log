@@ -1,6 +1,6 @@
 <#include "inc/header.ftl" />
 	<div class="ui-layout-north" style="overflow:hidden;"><@tldwidget.placeholder path="/admin/top" cache=true idle=86400 /></div>
-	<div class="ui-layout-west"><@tldwidget.placeholder path="/admin/leftMenu" cache=true idle=3600 /></div>
+	<div class="ui-layout-west"><@tldwidget.placeholder path="/admin/leftMenu" cache=false idle=3600 /></div>
 	<div class="ui-layout-south"><@tldwidget.placeholder path="/admin/bottom" cache=true idle=86400 /></div>
 	<#-- <div class="ui-layout-center"><@tldwidget.placeholder path="/admin/widget/about" /></div> -->
 	<iframe class="ui-layout-center" id="main-frame" name="main" src="${base}/admin/about" frameborder="0" scrolling="auto"></iframe>

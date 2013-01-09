@@ -28,10 +28,6 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- <servlet> <servlet-name>profiler</servlet-name> <servlet-class>com.baidu.bae.profiler.ProfilerServlet</servlet-class> 
-		</servlet> <servlet-mapping> <servlet-name>profiler</servlet-name> <url-pattern>/profiler</url-pattern> 
-		</servlet-mapping> -->
-
 	<filter>
 		<filter-name>encoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -72,6 +68,7 @@
 		<param-value>
 			classpath:applicationContext.xml
 			classpath:applicationContext-dispatcher.xml
+			classpath:applicationContext-job.xml
 		</param-value>
 	</context-param>
 
@@ -79,9 +76,13 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-
+	<!-- 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	-->
+	<listener>
+		<listener-class>org.mspring.mlog.inf.standard.listener.StandardStartupListener</listener-class>
 	</listener>
 
 	<welcome-file-list>

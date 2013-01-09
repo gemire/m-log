@@ -1,12 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.mspring</groupId>
 	<artifactId>mspring-mlog-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
+	<version>0.0.1-SNAPSHOT</version>
 	<name>mspring-mlog-service</name>
 	<url>http://maven.apache.org</url>
 
@@ -122,10 +120,12 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.7</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.2.2</version> </dependency> -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.2</version>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ezmorph</groupId>
@@ -148,6 +148,23 @@
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>2.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>dbank</groupId> <artifactId>dbank</artifactId> 
+			<version>0.4.1</version> <scope>system</scope> <systemPath>${basedir}/lib/dbank-sdk-0.4.1.jar</systemPath> 
+			</dependency> -->
+		<dependency>
+			<groupId>phprpc</groupId>
+			<artifactId>phprpc</artifactId>
+			<version>3.0.5</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/phprpc.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
