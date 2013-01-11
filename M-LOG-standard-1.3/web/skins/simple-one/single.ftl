@@ -26,8 +26,8 @@
 				<div class="post-relative-div">
 					<div  class="post-relative">
 						<h4>相关文章</h4>				
-						<#assign tags=post.tags />
-						<@sql_query var="about_posts" sql="select pt.PK.post from PostTag pt where pt.PK.tag.name in (@tags.name) and pt.PK.post.id <> @post.id order by pt.PK.post.viewCount desc" max="10" />
+						<#assign catalogs=post.catalogs />
+						<@sql_query var="about_posts" sql="select pc.PK.post from PostCatalog pc where pc.PK.catalog.name in (@catalogs.name) and pc.PK.post.id <> @post.id order by pc.PK.post.viewCount desc" max="10" expiry="3600000"/>
 						<#if about_posts?exists>
 						<ul>
 							<#list about_posts as p>

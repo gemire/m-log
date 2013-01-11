@@ -117,7 +117,7 @@
 	<target name="clean" description="Cleans this project">
 		<delete dir="${build.dir}" failonerror="false" />
 		<delete dir="${dist.dir}" failonerror="false" />
-		<!--<delete dir="${basedir}/bin" failonerror="false" />-->
+		<delete dir="${basedir}/bin" failonerror="false" />
 		<delete dir="${web.dir}/WEB-INF/classes" failonerror="false" />
 		<delete dir="${web.dir}/WEB-INF/lib" failonerror="false" />
 	</target>

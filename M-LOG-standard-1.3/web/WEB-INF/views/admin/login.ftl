@@ -10,7 +10,7 @@
 <body>
 	<div class="wrapper">
 		<@spring.bind "user" />
-		<form action="${base}/admin/doLogin" method="post" >
+		<form action="${base}/admin/doSecurity" method="post" >
 		<div class="loginBox">
 			<div class="loginBoxCenter">
 				<p><label for="username">用户名：</label></p>

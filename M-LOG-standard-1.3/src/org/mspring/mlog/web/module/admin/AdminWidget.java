@@ -20,8 +20,13 @@ public class AdminWidget extends AbstractAdminWidget {
      * 
      * @return
      */
-    @RequestMapping({ "", "/", "/index" })
+    @RequestMapping({ "", "/" })
     public String index() {
+        return "redirect:/admin/index";
+    }
+    
+    @RequestMapping({"/index"})
+    public String redirect(){
         return "/admin/index";
     }
 }
