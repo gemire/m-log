@@ -52,8 +52,6 @@ public class SingleWidget extends AbstractWebWidget {
             return "skin:/post-token";
         }
         PermissionUtils.setPostPermission(postId, password, request);
-        // request.setAttribute("post", postService.getPostById(postId));
-        // return single(request, response, session, model);
         return "redirect:" + postUrl;
     }
 }

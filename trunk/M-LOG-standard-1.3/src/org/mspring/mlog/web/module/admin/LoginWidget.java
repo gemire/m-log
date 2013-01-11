@@ -43,7 +43,7 @@ public class LoginWidget extends AbstractAdminWidget {
     public String login(@ModelAttribute User user, BindingResult result, HttpServletRequest request) {
         User currentUser = GlobalUtils.getCurrentUser(request);
         if (currentUser != null) {
-            return "redirect:/admin";
+            return "redirect:/admin/index";
         }
         return "/admin/login";
     }
@@ -70,7 +70,7 @@ public class LoginWidget extends AbstractAdminWidget {
                 CookieUtils.setCookie(response, Keys.USERNAME_COOKIE, user.getName(), 365);
                 CookieUtils.setCookie(response, Keys.PASSWORD_COOKIE, user.getPassword(), 365);
             }
-            return "redirect:/admin";
+            return "redirect:/admin/index";
         }
         model.addAttribute(MESSAGE, "登录失败，请检查用户名密码是否正确。");
         return "/admin/login";
