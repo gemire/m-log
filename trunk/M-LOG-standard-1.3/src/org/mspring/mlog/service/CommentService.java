@@ -92,12 +92,7 @@ public interface CommentService {
     /**
      * 评论回复邮件通知
      * 
-     * @param commentId
+     * @param comment 当前评论编号
      */
-    public void commentReplyNotice(Long commentId);
-    
-    /**
-     * 新评论邮件通知
-     */
-    public void newCommentNotice(Long commentId);
+    public void commentReplyNotice(Comment comment);
 }

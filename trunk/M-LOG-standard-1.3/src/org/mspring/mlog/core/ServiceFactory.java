@@ -11,6 +11,7 @@ import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.HQLExecuteService;
 import org.mspring.mlog.service.InstallService;
+import org.mspring.mlog.service.JobService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.service.OptionService;
@@ -21,6 +22,7 @@ import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.TreeItemService;
 import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.platform.core.ContextManager;
 
 /**
@@ -30,10 +32,10 @@ import org.mspring.platform.core.ContextManager;
  * @TODO 该类用于获取bean对象
  */
 public class ServiceFactory {
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return (SessionFactory) ContextManager.getApplicationContext().getBean("sessionFactory");
     }
-    
+
     public static UserService getUserService() {
         return ContextManager.getApplicationContext().getBean(UserService.class);
     }
@@ -97,10 +99,16 @@ public class ServiceFactory {
     public static InstallService getInstallService() {
         return ContextManager.getApplicationContext().getBean(InstallService.class);
     }
-    
+
     public static HQLExecuteService getHQLExecuteService() {
         return ContextManager.getApplicationContext().getBean(HQLExecuteService.class);
     }
-    
-    
+
+    public static JobService getJobService() {
+        return ContextManager.getApplicationContext().getBean(JobService.class);
+    }
+
+    public static HibernateSearchService getHibernateSearchService() {
+        return ContextManager.getApplicationContext().getBean(HibernateSearchService.class);
+    }
 }

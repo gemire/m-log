@@ -15,8 +15,8 @@ import org.mspring.mlog.Application;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Description
  * @TODO
  */
-@Controller
+@Widget("webFeedWidget")
 @RequestMapping("/")
-public class FeedControler {
+public class FeedWidget extends AbstractWebWidget {
     private OptionService optionService;
     private PostService postService;
 
@@ -53,19 +53,20 @@ public class FeedControler {
 
     @RequestMapping("atom.xml")
     public String atom(HttpServletRequest request, HttpServletResponse response, Model model) {
-        
+
         putAtomModelInfos(model);
-        
+
         response.setContentType("application/atom+xml");
         response.setCharacterEncoding("UTF-8");
         return "/common/atom";
     }
-    
+
     /**
      * 填充RSS模板信息
+     * 
      * @param model
      */
-    private void putRssModelInfos(Model model){
+    private void putRssModelInfos(Model model) {
         String title = optionService.getOption("blogname"); // 频道名称
         String link = optionService.getOption("blogurl") + "/rss.xml"; // 频道的URL
         String description = ""; // 频道的描述
@@ -92,23 +93,23 @@ public class FeedControler {
         model.addAttribute("webMaster", StringEscapeUtils.escapeXml(webMaster));
         model.addAttribute("posts", posts);
     }
-    
+
     /**
      * 填充Atom模板信息
+     * 
      * @param model
      */
-    private void putAtomModelInfos(Model model){
+    private void putAtomModelInfos(Model model) {
         String title = optionService.getOption("blogname"); // 频道名称
         String subtitle = optionService.getOption("blogsubname");
         String link = optionService.getOption("blogurl") + "/atom.xml"; // 频道的URL
         String updated = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
         String rights = optionService.getOption("copyright");
-        String generator = Application.ALIAS_NAME; 
+        String generator = Application.ALIAS_NAME;
         String generator_uri = Application.HOME_PAGE;
         String generator_version = Application.VERSION;
         List<Post> posts = postService.getRecentPost(20);
-        
-        
+
         model.addAttribute("title", StringEscapeUtils.escapeXml(title));
         model.addAttribute("subtitle", StringEscapeUtils.escapeXml(subtitle));
         model.addAttribute("link", StringEscapeUtils.escapeXml(link));

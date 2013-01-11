@@ -46,6 +46,10 @@ public class JavaMailSenderImpl implements JavaMailSender {
 
     }
 
+    // ---------------------------------------------------------------------
+    // Implementation of MailSender
+    // ---------------------------------------------------------------------
+
     /*
      * (non-Javadoc)
      * 
@@ -76,6 +80,10 @@ public class JavaMailSenderImpl implements JavaMailSender {
         doSend(mimeMessages.toArray(new MimeMessage[mimeMessages.size()]), simpleMessages);
     }
 
+    // ---------------------------------------------------------------------
+    // Implementation of JavaMailSender
+    // ---------------------------------------------------------------------
+
     /*
      * (non-Javadoc)
      * 
@@ -84,6 +92,7 @@ public class JavaMailSenderImpl implements JavaMailSender {
     @Override
     public MimeMessage createMimeMessage() {
         // TODO Auto-generated method stub
+        //return new SmartMimeMessage(getSession(), getDefaultEncoding(), getDefaultFileTypeMap());
         return new SmartMimeMessage(MailSenderConf.getSession(), MailSenderConf.getDefaultEncoding(), MailSenderConf.getDefaultFileTypeMap());
     }
 
@@ -115,7 +124,7 @@ public class JavaMailSenderImpl implements JavaMailSender {
     @Override
     public void send(MimeMessage mimeMessage) throws MailException {
         // TODO Auto-generated method stub
-        send(new MimeMessage[] { mimeMessage });
+        send(new MimeMessage[] {mimeMessage});
     }
 
     /*
@@ -179,18 +188,12 @@ public class JavaMailSenderImpl implements JavaMailSender {
 
     protected void doSend(MimeMessage[] mimeMessages, Object[] originalMessages) throws MailException {
         Map<Object, Exception> failedMessages = new LinkedHashMap<Object, Exception>();
+
         final String host = MailSenderConf.getHost();
-        if (StringUtils.isBlank(host)) {
-            log.error("please set smtp host first!");
-            return;
-        }
         final String username = MailSenderConf.getUsername();
-        if (StringUtils.isBlank(username)) {
-            log.error("please set email username first!");
-            return;
-        }
         final int port = MailSenderConf.getPort();
         final String password = MailSenderConf.getPassword();
+        
         Transport transport;
         try {
             transport = MailSenderConf.getTransport();
@@ -235,7 +238,8 @@ public class JavaMailSenderImpl implements JavaMailSender {
             }
             catch (MessagingException ex) {
                 if (!failedMessages.isEmpty()) {
-                    throw new MailSendException("Failed to close server connection after message failures", ex, failedMessages);
+                    throw new MailSendException("Failed to close server connection after message failures", ex,
+                            failedMessages);
                 }
                 else {
                     throw new MailSendException("Failed to close server connection after message sending", ex);

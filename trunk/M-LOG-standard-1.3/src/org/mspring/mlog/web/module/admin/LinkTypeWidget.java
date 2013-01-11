@@ -14,7 +14,6 @@ import org.mspring.mlog.entity.LinkType;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -34,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/linkType")
-public class LinkTypeWidget extends AbstractWidget {
+public class LinkTypeWidget extends AbstractAdminWidget {
     private LinkTypeService linkTypeService;
 
     @Autowired
@@ -96,7 +95,7 @@ public class LinkTypeWidget extends AbstractWidget {
     @RequestMapping("/edit")
     public String editLinkType(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
-            return prompt(model, "请先选择要修改的分类");
+            return prompt(model, "请先选择要修改的链接分类");
         }
         LinkType lt = linkTypeService.getLinkTypeById(id);
         model.addAttribute("linkType", lt);
@@ -129,8 +128,8 @@ public class LinkTypeWidget extends AbstractWidget {
         if (visableIds != null && visableIds.length > 0) {
             linkTypeService.setLinkTypeVisable(true, visableIds);
         }
-        // 设置不现实
-        Long[] hiddenId = (Long[]) ArrayUtils.removeAll(ids, visableIds, Long.class);
+        // 设置不显示
+        Long[] hiddenId = ArrayUtils.removeAll(ids, visableIds, Long.class);
         if (hiddenId != null && hiddenId.length > 0) {
             linkTypeService.setLinkTypeVisable(false, hiddenId);
         }

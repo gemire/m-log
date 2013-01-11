@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
@@ -216,47 +217,28 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
      * Long)
      */
     @Override
-    public void commentReplyNotice(Long commentId) {
+    public void commentReplyNotice(Comment comment) {
         // TODO Auto-generated method stub
-        Comment comment = getCommentById(commentId);
-        if (comment != null && comment.getParent() != null && StringUtils.isNotBlank(comment.getParent().getEmail())) {
+        if (comment != null && StringUtils.isNotBlank(comment.getReplyUserEmail())) {
             Map<Object, Object> model = new HashMap<Object, Object>();
             model.put("comment", comment);
+            
+            String commentUrl = optionService.getOption("blogurl");
+            if (comment.getPost() != null && StringUtils.isNotBlank(comment.getPost().getUrl())) {
+                commentUrl = commentUrl + comment.getPost().getUrl();
+            }
+            else if (comment.getPost() != null && comment.getPost().getId() != null) {
+                Post post = postService.getPostById(comment.getPost().getId());
+                comment.setPost(post);
+                commentUrl = commentUrl + post.getUrl();
+            }
+            model.put("commentUrl", commentUrl);
+            
             String content = FreemarkerUtils.render(configuration, "mail/comment_reply_notice.ftl", model);
-            String to = comment.getParent().getEmail();
-            String personal = comment.getParent().getAuthor();
+            String to = comment.getReplyUserEmail();
+            String personal = comment.getReplyUser();
             String subject = optionService.getOption("blogname") + " - 评论回复通知";
             mailService.sendMail(to, personal, subject, content);
         }
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.CommentService#newCommentNotice(java.lang.Long)
-     */
-    @Override
-    public void newCommentNotice(Long commentId) {
-        // TODO Auto-generated method stub
-        Comment comment = getCommentById(commentId);
-        //文章的作者
-        User postAuthor = comment.getPost().getAuthor();
-        //如果文章的作者未找到,或者文章作者未设置email,那么就不进行通知
-        if (postAuthor == null || StringUtils.isBlank(postAuthor.getEmail())) {
-            log.warn("new comment notice failure, can't found post author");
-            return;
-        }
-        //如果文章作者email和评论作者email相同,那么判断文章作者和评论作者为同一个人,那么不进行评论通知
-        if (postAuthor.getEmail().trim().equals(comment.getEmail())) {
-            log.warn("new comment notice failure, postAuthorEmail == commentAuthorEmail");
-            return;
-        }
-        Map<Object, Object> model = new HashMap<Object, Object>();
-        model.put("comment", comment);
-        String content = FreemarkerUtils.render(configuration, "mail/new_comment_notice.ftl", model);
-        String subject = "文章评论通知";
-        mailService.sendMail(postAuthor.getEmail(), StringUtils.isBlank(postAuthor.getAlias()) ? postAuthor.getName() : postAuthor.getAlias(), subject, content);
-    }
-
 }

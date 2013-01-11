@@ -114,13 +114,14 @@ $.extend(mlog.editor.KindEditor, {
 				width : conf.width,
 				height : conf.height,
 				uploadJson : mlog.variable.base + '/admin/attachment/upload',
+				//urlType : 'absolute',
 				//fileManagerJson : mlog.variable.base + '/file_manager_json.jsp',
 				//allowFileManager : true,
                 items: ["formatblock", "fontname", "fontsize", "|", "bold", "italic", "underline", "strikethrough", "forecolor", "|",
                 		"link", "unlink", "pagebreak", "|", "emoticons", "image", "flash", "media", "code", "fullscreen", "/",
                 		"undo", "redo", "|", "insertunorderedlist", "insertorderedlist", "indent", "outdent", "|", 
                 		"justifyleft", "justifycenter", "justifyright", "justifyfull", "|", "plainpaste", "wordpaste", "|", 
-                		"clearhtml", "source", "preview"
+                		"clearhtml", "source", "preview", "source"
                 	],
                 afterCreate: function () {
                     // TODO: chrome bug

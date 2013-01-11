@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.utils.PermaLinkUtils;
@@ -39,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Widget
 @RequestMapping("/admin/post")
-public class PostWidget {
+public class PostWidget extends AbstractAdminWidget {
     private static final Logger log = Logger.getLogger(PostWidget.class);
 
     private PostService postService;
@@ -61,7 +63,7 @@ public class PostWidget {
         if (postPage == null) {
             postPage = new Page<Post>();
         }
-        //postPage.setSort(new Sort("id", Sort.DESC));
+        // postPage.setSort(new Sort("id", Sort.DESC));
         postPage.setSort(new Sort("isTop desc, id desc", ""));
 
         // 默认查看已发布的文章
@@ -76,7 +78,6 @@ public class PostWidget {
         postPage = postService.findPost(postPage, new PostQueryCriterion(queryParams));
         model.addAttribute("postPage", postPage);
         model.addAttribute("status", Post.Status.getStatusMap());
-
         return "/admin/post/listPost";
     }
 
@@ -91,7 +92,7 @@ public class PostWidget {
         commentStatus.put(Post.CommentStatus.OPEN, "开启");
         commentStatus.put(Post.CommentStatus.CLOSE, "关闭");
         model.addAttribute("commentStatus", commentStatus);
-        
+
         Map<String, String> isTop = new HashMap<String, String>();
         isTop.put("true", "是");
         isTop.put("false", "否");
@@ -176,8 +177,11 @@ public class PostWidget {
 
     @RequestMapping("/edit")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (post == null || post.getId() == null) {
+            return prompt(model, "请先选择要修改的文章");
+        }
         post = postService.getPostById(post.getId());
-        
+
         Map<String, String> isTop = new HashMap<String, String>();
         isTop.put("true", "是");
         isTop.put("false", "否");
@@ -200,7 +204,9 @@ public class PostWidget {
     @ResponseBody
     public String updateLuceneIndex() {
         try {
-            // postSearchService.rebuildAllPostIndex();
+            ServiceFactory.getInstallService().initTreeItems();
+            HibernateSearchService hibernateSearchService = ServiceFactory.getHibernateSearchService();
+            hibernateSearchService.updateAllIndex(Post.class);
         }
         catch (Exception e) {
             // TODO: handle exception

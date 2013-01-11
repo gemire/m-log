@@ -68,6 +68,14 @@ public class MailSenderConf {
     public static String getFrom() {
         return ServiceFactory.getOptionService().getOption("mail_from");
     }
+    
+    public static boolean getSSLEnable(){
+        String smtp_ssl_enable = ServiceFactory.getOptionService().getOption("smtp_ssl_enable");
+        if (StringUtils.isNotBlank(smtp_ssl_enable) && smtp_ssl_enable.equals("true")) {
+            return true;
+        }
+        return false;
+    }
 
     public static String getDefaultEncoding() {
         return DEFAULT_ENCODING;
@@ -85,8 +93,9 @@ public class MailSenderConf {
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", true);
         properties.put("mail.smtp.socketFactory.port", 25);
-        // properties.put("mail.smtp.socketFactory.class",
-        // "javax.net.ssl.SSLSocketFactory");
+        if (getSSLEnable()) { //如果启用了SSL
+            properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        }
         properties.put("mail.smtp.socketFactory.fallback", false);
         Properties javaMailProperties = new Properties();
         if (properties != null && properties.size() > 0) {

@@ -17,6 +17,7 @@ import org.mspring.mlog.api.kuaipan.client.exception.KuaipanServerException;
 import org.mspring.mlog.api.kuaipan.client.session.OauthSession;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/api/kuaipan")
-public class KuaipanWidget {
+public class KuaipanWidget extends AbstractAdminWidget {
     @Autowired
     private OptionService optionService;
 
@@ -46,11 +47,12 @@ public class KuaipanWidget {
         optionService.setOptions(options);
         return "redirect:/admin/api/kuaipan/setting";
     }
-    
+
     private KuaipanAPI api;
 
     /**
      * 获取未授权的临时 token
+     * 
      * @param request
      * @param response
      * @param model
@@ -71,6 +73,7 @@ public class KuaipanWidget {
 
     /**
      * 获取 access_token
+     * 
      * @param request
      * @param response
      * @param model
@@ -88,20 +91,21 @@ public class KuaipanWidget {
         if (api.getSession().isAuth()) {
             KuaipanUtils.saveAuthFile(api.getSession().token);
         }
-        //设置快盘状态为已开通
+        // 设置快盘状态为已开通
         optionService.setOption("api_kuaipan_on", "true");
         return "/admin/api/kuaipan/accessTokenSuccess";
     }
-    
+
     /**
      * 关闭快盘接口
+     * 
      * @param request
      * @param response
      * @param model
      * @return
      */
     @RequestMapping("close")
-    public String closeKuaipan(HttpServletRequest request, HttpServletResponse response, Model model){
+    public String closeKuaipan(HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOption("api_kuaipan_on", "false");
         return "redirect:/admin/api/kuaipan/setting";
     }

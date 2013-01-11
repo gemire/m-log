@@ -21,16 +21,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "tree_item")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class TreeItem {
-    private String id;
-    private String name;
-    private String parent;
-    private Long order;
-    private String call;
-    private Long type;
-    private Boolean deleted;
-    private String icon;
-    private Boolean open;
-    private String target;
+    private String id; // 编号
+    private String name; // 名字
+    private String parent; // 父节点
+    private Long order; // 排序编号，已废弃
+    private String call; // 链接地址
+    private String type; // 类型
+    private Boolean deleted; // 是否删除
+    private String icon; // 图标
+    private Boolean open; // 是否打开
+    private String target; // target
 
     /**
      * 
@@ -48,15 +48,17 @@ public class TreeItem {
      * @param open
      * @param target
      */
-    public TreeItem(String id, String name, String parent, String call, Boolean deleted, Boolean open, String target) {
+    public TreeItem(String id, String name, String parent, String call, String type, Boolean open) {
         super();
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.call = call;
-        this.deleted = deleted;
+        this.type = type;
         this.open = open;
-        this.target = target;
+
+        this.deleted = false;
+        this.target = "main";
     }
 
     @Id
@@ -105,12 +107,12 @@ public class TreeItem {
         this.call = call;
     }
 
-    @Column(name = "type", length = 2)
-    public Long getType() {
+    @Column(name = "type", nullable = false, length = 20)
+    public String getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -148,5 +150,11 @@ public class TreeItem {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public static final class Type {
+        public static String TREE_FOLDER = "tree_folder"; //树形菜单文件夹
+        public static String TREE_ITEM = "tree_item"; //树形菜单节点
+        public static String TAB = "tab"; //tab
     }
 }

@@ -1,15 +1,6 @@
-<#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-	<div class="ui-layout-center">
-		<div class="tab">
-			<ul>
-			    <li><a href="javascript:void(0);" class="here">列表</a></li>
-			    <li><a href="${base}/admin/post/create">增加</a></li>
-			    <li><a href="javascript:void(0);">修改</a></li>
-			</ul>
-		</div>
-		<div class="tab-container">
+<#include "../inc/header.ftl" />
 			<form id="postForm" name="postForm" action="${base}/admin/post/list" method="POST">
 				<@spring.bind "post" />
 				<table class="formtable">
@@ -104,8 +95,7 @@
 					</tr>
 				</table>
 			</form>
-		</div>
-	</div>
+
 	
 <script type="text/javascript">
 function updateLuceneIndex(){

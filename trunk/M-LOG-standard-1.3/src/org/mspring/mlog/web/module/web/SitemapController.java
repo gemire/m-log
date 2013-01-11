@@ -54,7 +54,7 @@ public class SitemapController {
             urlset.add(map);
         }
         model.addAttribute("urlset", urlset);
-        
+
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
         return "/common/sitemap_baidu";

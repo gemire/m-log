@@ -31,7 +31,7 @@ public class LeftMenuWidget {
 
     @RequestMapping(value = "/leftMenu")
     public String execute(Model model) {
-        List<TreeItem> items = treeItemService.findAllItems();
+        List<TreeItem> items = treeItemService.findTreeItems();
         model.addAttribute("items", items);
         return "/admin/frame/leftMenu";
     }

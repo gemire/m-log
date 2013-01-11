@@ -1,8 +1,9 @@
-<#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
+<#include "../inc/header.ftl" />
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript">
+		turnHighLight(11505015);
 		$(document).ready(function(){
 			mlog.editor.init({
 				type : "kindeditor",
@@ -32,15 +33,6 @@
 		});
 	</script>
 	
-	<div class="ui-layout-center">
-		<div class="tab">
-			<ul>
-			    <li><a href="${base}/admin/post/list">列表</a></li>
-			    <li><a href="${base}/admin/post/create">增加</a></li>
-			    <li><a href="javascript:void(0);" class="here">修改</a></li>
-			</ul>
-		</div>
-		<div class="tab-container">
 			<div id="error" class="message error" style="display:none;"></div>
 			<form id="postForm" name="postForm" action="${base}/admin/post/doEdit" method="POST">
 				<@spring.bind "post" />
@@ -126,8 +118,7 @@
 					</tr>
 				</table>
 			</form>
-		</div>
-	</div>
+			
 	<script type="text/javascript">
 		//发布
 		function publish(){

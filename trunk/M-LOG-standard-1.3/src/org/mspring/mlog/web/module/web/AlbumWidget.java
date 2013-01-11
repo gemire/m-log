@@ -15,7 +15,6 @@ import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.utils.PermissionUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
@@ -33,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget("webAlbumWidget")
 @RequestMapping("/album")
-public class AlbumWidget extends AbstractWidget {
+public class AlbumWidget extends AbstractWebWidget {
     @Autowired
     private AlbumService albumService;
     @Autowired

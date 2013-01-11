@@ -3,12 +3,11 @@
  */
 package org.mspring.mlog.web.module.admin;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
 
 import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.utils.AttachmentUtils;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.Gson;
+
 /**
  * @author Gao Youbo
  * @since 2012-11-22
@@ -28,7 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  */
 @Widget
 @RequestMapping("/admin/attachment")
-public class AttachmentWidget {
+public class AttachmentWidget extends AbstractAdminWidget {
     @Autowired
     private FileService fileService;
 
@@ -53,14 +54,17 @@ public class AttachmentWidget {
         catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-            JSONObject obj = new JSONObject();
+            // JSONObject obj = new JSONObject();
+            Map obj = new HashMap();
             obj.put("error", 1);
             obj.put("message", "upload failure!");
-            return obj.toString();
+            String json = new Gson().toJson(obj);
+            return json;
         }
-        JSONObject obj = new JSONObject();
+        Map obj = new HashMap();
         obj.put("error", 0);
         obj.put("url", url);
-        return obj.toString();
+        String json = new Gson().toJson(obj);
+        return json;
     }
 }

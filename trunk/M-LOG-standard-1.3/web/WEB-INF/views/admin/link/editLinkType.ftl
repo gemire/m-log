@@ -1,63 +1,50 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-	<div class="ui-layout-center">
-		<div class="tab">
-			<ul>
-			    <li><a href="${base}/admin/link/list">列表</a></li>
-			    <li><a href="javascript:void(0);">增加</a></li>
-			    <li><a href="javascript:void(0);">修改</a></li>
-			    <li><a href="${base}/admin/linkType/list">链接分类</a></li>
-			    <li><a href="${base}/admin/linkType/create">新增分类</a></li>
-			    <li><a href="${base}/admin/linkType/edit?id=${linkType.id}" class="here">修改分类</a></li>
-			</ul>
-		</div>
-		<div class="tab-container">
-			<div id="error" class="message error" style="display:none;"></div>
-			<@spring.bind "linkType" />
-			<form class="form" name="linkTypeForm" id="linkTypeForm" action="${base}/admin/linkType/doEdit" method="POST">
-				<table class="formtable">
-					<tr>
-						<td class="fieldlabel" style="width:60px;">编号</td>
-						<td>
-							<@spring.formInput path="linkType.id" attributes='class="textinput" readonly="readonly" style="width:98%;"' />
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldlabel" style="width:60px;">名称</td>
-						<td>
-							<@spring.formInput path="linkType.name" attributes='class="textinput" style="width:98%;" validate=\'{required:true, maxlength:10, messages:{required:"请输入分类名称", maxlength:"分类名字长度不能超过{0}"}}\'' />
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldlabel" style="width:60px;">是否可见</td>
-						<td style="font-size:12px;">
-							<@spring.formRadioButtons path="linkType.visable" options=visable defaultValue="true" separator="&nbsp;" />
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldlabel" style="width:60px;">排序</td>
-						<td>
-							<@spring.formInput path="linkType.order" attributes='class="textinput" style="width:98%;" validate=\'{digits: true, range:[1,1000], messages:{digits:"排序号必须为数字", range:"排序号的范围必须在{0}-{1}之间"}}\'' />
-						</td>
-					</tr>
-					<tr>
-						<td class="fieldlabel" style="width:60px;">描述</td>
-						<td>
-							<@spring.formTextarea path="linkType.description" attributes='class="textinput" style="width:98%;" validate=\'{maxlength:2000, messages:{maxlength:"分类描述长度不能超过{0}"}}\'' />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4" style="text-align:center;">
-							<input type="submit" class="btn" value=" 提交 " />
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
-	</div>
+	<div id="error" class="message error" style="display:none;"></div>
+	<@spring.bind "linkType" />
+	<form class="form" name="linkTypeForm" id="linkTypeForm" action="${base}/admin/linkType/doEdit" method="POST">
+		<table class="formtable">
+			<tr>
+				<td class="fieldlabel" style="width:60px;">编号</td>
+				<td>
+					<@spring.formInput path="linkType.id" attributes='class="textinput" readonly="readonly" style="width:98%;"' />
+				</td>
+			</tr>
+			<tr>
+				<td class="fieldlabel" style="width:60px;">名称</td>
+				<td>
+					<@spring.formInput path="linkType.name" attributes='class="textinput" style="width:98%;" validate=\'{required:true, maxlength:10, messages:{required:"请输入分类名称", maxlength:"分类名字长度不能超过{0}"}}\'' />
+				</td>
+			</tr>
+			<tr>
+				<td class="fieldlabel" style="width:60px;">是否可见</td>
+				<td style="font-size:12px;">
+					<@spring.formRadioButtons path="linkType.visable" options=visable defaultValue="true" separator="&nbsp;" />
+				</td>
+			</tr>
+			<tr>
+				<td class="fieldlabel" style="width:60px;">排序</td>
+				<td>
+					<@spring.formInput path="linkType.order" attributes='class="textinput" style="width:98%;" validate=\'{digits: true, range:[1,1000], messages:{digits:"排序号必须为数字", range:"排序号的范围必须在{0}-{1}之间"}}\'' />
+				</td>
+			</tr>
+			<tr>
+				<td class="fieldlabel" style="width:60px;">描述</td>
+				<td>
+					<@spring.formTextarea path="linkType.description" attributes='class="textinput" style="width:98%;" validate=\'{maxlength:2000, messages:{maxlength:"分类描述长度不能超过{0}"}}\'' />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align:center;">
+					<input type="submit" class="btn" value=" 提交 " />
+				</td>
+			</tr>
+		</table>
+	</form>
 
 	<script type="text/javascript">
+		turnHighLight(120030);
 		$(document).ready(function(){
 			//斑马线
 			var tables=document.getElementsByTagName("table");

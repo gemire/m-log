@@ -19,14 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping("/admin")
-public class AboutWidget {
-    
+public class AboutWidget extends AbstractAdminWidget {
+
     /**
      * 关于页面
+     * 
      * @return
      */
     @RequestMapping("/about")
-    public String about(HttpServletRequest request, HttpServletResponse response, Model model){
+    public String about(HttpServletRequest request, HttpServletResponse response, Model model) {
         Application app = Application.getInstance();
         model.addAttribute("app", app);
         return "/admin/about";

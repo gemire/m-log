@@ -12,7 +12,6 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.springframework.ui.Model;
@@ -26,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description
  * @TODO
  */
-@Widget
+@Widget("webIndexWidget")
 @RequestMapping({ "/", "" })
-public class IndexWidget extends AbstractWidget {
+public class IndexWidget extends AbstractWebWidget {
 
     /**
      * 文章首页

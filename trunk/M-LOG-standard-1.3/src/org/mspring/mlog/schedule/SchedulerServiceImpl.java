@@ -65,6 +65,7 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
         catch (SchedulerException e) {
             // TODO: handle exception
+            e.printStackTrace();
             log.error("register job [name = " + jobName + ", class = " + jobClass + "] failure.");
         }
     }
@@ -84,6 +85,7 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
         catch (ParseException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
             log.error("register job [name = " + jobName + ", class = " + jobClass + ", cron = " + cronExpression + "] failure.");
         }
     }
@@ -113,6 +115,7 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
         catch (SchedulerException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
             log.error("register job [name = " + jobName + ", class = " + jobClass + ", cron = " + cronExpression + "] failure.");
         }
     }

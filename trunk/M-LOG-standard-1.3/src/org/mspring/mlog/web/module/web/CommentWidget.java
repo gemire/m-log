@@ -14,7 +14,6 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -30,9 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Description
  * @TODO
  */
-@Widget("customCommentWidget")
+@Widget("webCommentWidget")
 @RequestMapping("/comment")
-public class CommentWidget extends AbstractWidget {
+public class CommentWidget extends AbstractWebWidget {
 
     /**
      * 评论信息
@@ -76,9 +75,14 @@ public class CommentWidget extends AbstractWidget {
         String content = request.getParameter("content");
         String email = request.getParameter("email");
         String url = request.getParameter("url");
-        Long parentId = StringUtils.isBlank(request.getParameter("parentId")) ? null : new Long(request.getParameter("parentId"));
         String ip = StringUtils.getIpAddr(request);
         String agent = StringUtils.getUserAgent(request);
+
+        String reply_comment_str = request.getParameter("reply_comment");
+        Long reply_comment = null;
+        if (StringUtils.isNotBlank(reply_comment_str.toString()) && ValidatorUtils.isNumber(reply_comment_str.trim())) {
+            reply_comment = new Long(request.getParameter("reply_comment").trim());
+        }
 
         /**
          * 验证评论发布人
@@ -118,8 +122,15 @@ public class CommentWidget extends AbstractWidget {
         comment.setAgent(agent);
         comment.setCreateTime(new Date());
         comment.setPost(new Post(new Long(postId.trim())));
-        if (parentId != null) {
-            comment.setParent(new Comment(parentId));
+        if (reply_comment != null) {
+            comment.setReplyComment(reply_comment);
+            Comment replyComment = commentService.getCommentById(reply_comment);
+            if (replyComment != null) {
+                comment.setReplyCommentContent(replyComment.getContent());
+                comment.setReplyUser(replyComment.getAuthor());
+                comment.setReplyUserEmail(replyComment.getEmail());
+                comment.setReplyUserUrl(replyComment.getUrl());
+            }
         }
 
         // 判断评论审核功能是否开启

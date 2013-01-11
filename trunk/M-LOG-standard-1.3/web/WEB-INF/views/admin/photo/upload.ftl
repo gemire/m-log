@@ -97,34 +97,20 @@
 			$('#btn_clear').removeAttr('disabled');
 		}
 	</script>
-	<div class="ui-layout-center">
-		<div class="tab">
-			<ul>
-			    <li><a href="${base}/admin/album/list">相册列表</a></li>
-			    <li><a href="${base}/admin/album/create">增加相册</a></li>
-			    <li><a href="javascript:void(0);">修改相册</a></li>
-			    <li><a href="${base}/admin/photo/list">查看图片</a></li>
-			    <li><a href="${base}/admin/photo/upload" class="here">图片上传</a></li>
-			    <li><a href="${base}/admin/album/config">相册设置</a></li>
-			</ul>
-		</div>
-		<div class="tab-container">
-			<div id="error" class="message error" style="display:none;"></div>
-			<div style="margin:10px;">
-				<form name="uploadForm" id="uploadForm">
-					选择相册:
-					<select id="album" validate="{required:true, messages:{required:'请选择相册'}}">
-						<option value="">--请选择--</option>
-						<#list albums as album>
-							<option value="${album.id}">${album.name}</option>
-						</#list>
-					</select>
-					<input type="button" class="btn" value="开始上传" id="btn_upload" onclick="upload();" />
-					<input type="button" class="btn" value="暂停上传" id="btn_stop" onclick="stop();" style="display:none;" />
-					<input type="button" class="btn" value="清空列表" id="btn_clear" onclick="clearQueue();" />
-					<input type="file" name="uploadify" id="uploadify" />
-				</form>
-			</div>
-		</div>
+	<div id="error" class="message error" style="display:none;"></div>
+	<div style="margin:10px;">
+		<form name="uploadForm" id="uploadForm">
+			选择相册:
+			<select id="album" validate="{required:true, messages:{required:'请选择相册'}}">
+				<option value="">--请选择--</option>
+				<#list albums as album>
+					<option value="${album.id}">${album.name}</option>
+				</#list>
+			</select>
+			<input type="button" class="btn" value="开始上传" id="btn_upload" onclick="upload();" />
+			<input type="button" class="btn" value="暂停上传" id="btn_stop" onclick="stop();" style="display:none;" />
+			<input type="button" class="btn" value="清空列表" id="btn_clear" onclick="clearQueue();" />
+			<input type="file" name="uploadify" id="uploadify" />
+		</form>
 	</div>
 <#include "../inc/footer.ftl" />

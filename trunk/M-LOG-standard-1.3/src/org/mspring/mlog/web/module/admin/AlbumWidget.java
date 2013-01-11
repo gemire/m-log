@@ -13,7 +13,6 @@ import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/album")
-public class AlbumWidget extends AbstractWidget{
+public class AlbumWidget extends AbstractAdminWidget {
 
     @Autowired
     private AlbumService albumService;
@@ -77,7 +76,10 @@ public class AlbumWidget extends AbstractWidget{
     }
 
     @RequestMapping("/edit")
-    public String editAlbumView(@RequestParam Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String editAlbumView(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null) {
+            return prompt(model, "请先选择要修改的相册");
+        }
         Album album = albumService.getAlbumById(id);
         model.addAttribute("types", Album.Type.getType());
         model.addAttribute("album", album);

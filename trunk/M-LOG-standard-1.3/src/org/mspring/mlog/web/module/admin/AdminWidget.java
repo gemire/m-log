@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping("/admin")
-public class AdminWidget {
+public class AdminWidget extends AbstractAdminWidget {
     /**
      * 后台首页
      * 
      * @return
      */
-    @RequestMapping({"", "/", "/index"})
+    @RequestMapping({ "", "/", "/index" })
     public String index() {
         return "/admin/index";
     }

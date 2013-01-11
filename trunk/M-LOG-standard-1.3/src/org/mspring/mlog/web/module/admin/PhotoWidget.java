@@ -16,7 +16,6 @@ import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.mlog.web.module.admin.query.PhotoQueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -35,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Widget
 @RequestMapping("/admin/photo")
-public class PhotoWidget extends AbstractWidget {
+public class PhotoWidget extends AbstractAdminWidget {
     @Autowired
     private PhotoService photoService;
 

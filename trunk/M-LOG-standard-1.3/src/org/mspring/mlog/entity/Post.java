@@ -29,6 +29,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 import org.mspring.mlog.support.formater.stereotype.CatalogFormat;
 import org.mspring.mlog.support.formater.stereotype.TagFormat;
 
@@ -41,6 +46,7 @@ import org.mspring.mlog.support.formater.stereotype.TagFormat;
 @Entity
 @Table(name = "post")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Indexed(index = "post")
 public class Post implements Serializable {
     /**
      * 
@@ -87,6 +93,8 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false, length = 30)
+    @DocumentId
+    @Field(name = "id", index = Index.TOKENIZED, store = Store.YES)
     public Long getId() {
         return id;
     }
@@ -103,6 +111,7 @@ public class Post implements Serializable {
      * @return the title
      */
     @Column(name = "title", unique = true, nullable = false, length = 200)
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getTitle() {
         return title;
     }
@@ -119,6 +128,7 @@ public class Post implements Serializable {
      * @return the summary
      */
     @Column(name = "summary", columnDefinition = "text")
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getSummary() {
         return summary;
     }
@@ -135,6 +145,7 @@ public class Post implements Serializable {
      * @return the content
      */
     @Column(name = "content", nullable = false, columnDefinition = "text")
+    @Field(index = Index.TOKENIZED, store = Store.NO)
     public String getContent() {
         return content;
     }

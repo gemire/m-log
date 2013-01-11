@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author Gao Youbo
  * @since 2012-7-26
- * @Description 
- * @TODO 
+ * @Description
+ * @TODO
  */
 @Widget
 @RequestMapping("/admin")
-public class ContactWidget {
+public class ContactWidget extends AbstractAdminWidget {
 
     /**
      * 联系方式页面
+     * 
      * @return
      */
     @RequestMapping("/contact")
-    public String contact(){
+    public String contact() {
         return "/admin/contact";
     }
 }

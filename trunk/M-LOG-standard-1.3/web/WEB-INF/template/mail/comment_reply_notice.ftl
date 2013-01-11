@@ -25,10 +25,10 @@ blockquote p {
 }
 </style>
 <div>
-	${comment.parent.author},您好:<br/>
+	${comment.replyUser!"来宾"},您好:<br/>
 	您的评论
-	<blockquote>${comment.parent.content}</blockquote>
+	<blockquote>${comment.replyCommentContent}</blockquote>
 	被用户<a href="${comment.url!"#"}" target="_blank">${comment.author!""}</a>回复.</br> 
 	回复内容:<p>${comment.content}<p>
-	详情请<a href="" target="_blank">点击这里查看...</a>
+	详情请<a href="${commentUrl}" target="_blank">点击这里查看...</a>
 </dvi>
