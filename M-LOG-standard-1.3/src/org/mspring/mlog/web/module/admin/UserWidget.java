@@ -15,7 +15,6 @@ import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping("/admin/user")
-public class UserWidget {
+public class UserWidget extends AbstractAdminWidget {
     private UserService userService;
 
     @Autowired

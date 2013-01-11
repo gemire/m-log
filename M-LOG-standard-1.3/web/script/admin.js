@@ -30,3 +30,20 @@ $(document).ready(function(){
 function setMainFrameUrl(url){
 	window.top.main.location = url; 
 }
+
+/**
+ * 转换高亮tab 
+ * @param {Object} id
+ */
+function turnHighLight(id){
+	if(id){
+		$(".tab a").each(function(){
+			if(this.id == id){
+				$(this).attr("class", "here");
+			}
+			else {
+				$(this).removeAttr("class");
+			}
+		});	
+	}
+}

@@ -248,3 +248,83 @@
 		<a class="page" href="${blogurl}/album/album-${album.id}-${page}.html" title="${title}">${label}</a>
 	</#if>
 </#macro>
+
+
+
+
+<#-- 搜索列表页的分页 -->
+<#macro searchPostPageNavi>
+	<#if postPage?exists>
+		<style type="text/css">
+			.page,.page-current{
+			   display:inline-block;
+			   padding:0 7px;
+			   border:1px solid #fff;
+			   line-height:20px;
+			   height:20px;
+			   cursor:pointer;
+			   text-decoration:none;
+			}
+			.page:hover{
+			   border-color:#4787ee;
+			   color:#4787ee;
+			   }
+			.page-current{
+			   background:#4787ee;
+			   border-color:#4787ee;
+			   color:#fff;
+			}
+			.page-info{
+			    text-align:right;
+			    margin:0 10px;
+			    padding-bottom:30px;
+			}
+		</style>
+		<div class="page-info">
+			<span class="page">共${postPage.totalPages}页/${postPage.getTotalCount()}条记录</span>
+			<#if (postPage.getPageNo()>1)>
+			    <@getSearchPostPageUrl 1, "&lt;&lt;", "首页" />
+			</#if>
+			<#--如果前面页数过多,显示"..."-->
+			<#if (postPage.getPageNo() > 5)>
+			    <#assign prevPages = postPage.getPageNo() - 9>
+			    <#if (prevPages < 1)>
+			    	<#assign prevPages=1>
+			    </#if>
+			    <#assign start=postPage.getPageNo() - 4>
+			    <@getSearchPostPageUrl prevPages, "...", "向前5页" />
+			<#else>
+			    <#assign start = 1>
+			</#if>
+			
+			<#-- 显示当前页附近的页-->
+			<#assign end = postPage.getPageNo() + 4>
+			<#if (end > postPage.totalPages)>
+				<#assign end = postPage.totalPages>
+			</#if>
+			<#-- start:${start} end:${end} -->
+			<#list start..end as index>
+				<@getSearchPostPageUrl index />
+			</#list>
+			<#--如果后面页数过多,显示"...":-->
+			<#if (end < postPage.totalPages)>
+				<#assign end=end+5>
+				<#if (end>postPage.totalPages)>
+					<#assign end=postPage.totalPages>
+				</#if>
+				<@getSearchPostPageUrl end, "...", "向后5页" />
+			</#if>
+			<#-- 显示"下一页":-->
+			<#if (postPage.getPageNo() < postPage.totalPages)>
+				<@getSearchPostPageUrl postPage.totalPages, "&gt;&gt;", "末页" />
+			</#if>
+		</div>
+	</#if>
+</#macro>
+<#macro getSearchPostPageUrl page=1 label="${page}" title="第${page}页">
+	<#if postPage.getPageNo() == page>
+		<span class="page-current">${page}</span>
+	<#else>
+		<a class="page" href="${blogurl}/search?keyword=${searchKeyword!""}&page=${page}" title="${title}">${label}</a>
+	</#if>
+</#macro>

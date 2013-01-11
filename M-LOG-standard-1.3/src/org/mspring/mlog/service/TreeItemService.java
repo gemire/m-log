@@ -14,7 +14,13 @@ import org.mspring.mlog.entity.TreeItem;
  * @TODO
  */
 public interface TreeItemService {
-    public List<TreeItem> findAllItems();
+    public TreeItem getItemById(String id);
+    
+    public List<TreeItem> findTreeItems();
+    
+    public List<TreeItem> findTabItems(String parent);
+    
+    public TreeItem getOpenTab(String parent);
 
     public void createItem(TreeItem item);
     

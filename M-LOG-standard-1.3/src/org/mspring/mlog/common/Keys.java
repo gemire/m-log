@@ -20,6 +20,10 @@ public class Keys {
     
     public static final String PASSWORD_COOKIE = "MLOG__PASSWORD_COOKIE__";
     
+    public static final String CURRENT_MODULE = "currentModule";
+    
+    public static final String CURRENT_ENTITY = "currentEntity";
+    
     /**
      * 主题配置文件名称
      */

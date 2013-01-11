@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/link")
-public class LinkWidget {
+public class LinkWidget extends AbstractAdminWidget {
     @Autowired
     private LinkService linkService;
     @Autowired
@@ -89,6 +89,9 @@ public class LinkWidget {
 
     @RequestMapping("/edit")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (link == null || link.getId() == null) {
+            return prompt(model, "请先选择要修改的链接");
+        }
         link = linkService.getLinkById(link.getId());
         model.addAttribute("link", link);
         model.addAttribute("target", Link.Target.getTargetMap());

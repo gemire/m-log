@@ -1,72 +1,57 @@
 <#include "../inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-<div class="ui-layout-center">
-	<div class="tab">
-		<ul>
-		    <li><a href="${base}/admin/album/list">相册列表</a></li>
-		    <li><a href="${base}/admin/album/create">增加相册</a></li>
-		    <li><a href="javascript:void(0);" class="here">修改相册</a></li>
-		    <li><a href="${base}/admin/photo/list">查看图片</a></li>
-		    <li><a href="${base}/admin/photo/upload">图片上传</a></li>
-		    <li><a href="${base}/admin/album/config">相册设置</a></li>
-		</ul>
-	</div>
-	<div class="tab-container">
-		<div id="error" class="message error" style="display:none;"></div>
-		<form class="albumForm" id="albumForm" action="${base}/admin/album/doEdit" method="POST">
-			<@spring.bind "album" />
-			<@spring.formHiddenInput path="album.id" />
-			<@spring.formHiddenInput path="album.createTime" />
-			<input type="hidden" id="albumType" value="${album.type}" />
-			<table class="formtable">
-				<tr>
-					<td class="fieldlabel" style="width:60px;">相册编号</td>
-					<td>
-						<@spring.formInput path="album.id" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="自动生成"  />
-					</td>
-				</tr>
-				<tr>
-					<td class="fieldlabel" style="width:60px;">相册名称</td>
-					<td>
-						<@spring.formInput path="album.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, messages:{required:"请输入相册名称"}}\'' />
-					</td>
-				</tr>
-				<tr>
-					<td class="fieldlabel" style="width:60px;">创建时间</td>
-					<td>
-						<@spring.formInput path="album.createTime" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="当前时间" />
-					</td>
-				</tr>
-				<tr>
-					<td class="fieldlabel" style="width:60px;">隐私设置</td>
-					<td>
-						<@spring.formRadioButtons path="album.type" options=types defaultValue="public" separator="<br />" attributes='onclick="changeAlbumType(this)"' />
-						<@spring.formInput path="album.verifycode" attributes='class="textinput" style="width:98%;" disabled="disabled" validate=\'{required:true, messages:{required:"请输入相册密码"}}\'' />
-					</td>
-				</tr>
-				<tr>
-					<td class="fieldlabel" style="width:60px;">排序</td>
-					<td>
-						<@spring.formInput path="album.sortOrder" attributes='class="textinput" style="width:98%;" validate=\'{digits:true, messages:{digits:"排序编号必须为正整数"}}\'' />
-					</td>
-				</tr>
-				<tr>
-					<td class="fieldlabel" style="width:60px;">相册描述</td>
-					<td>
-						<@spring.formInput path="album.description" attributes='class="textinput" style="width:98%;"' />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center;">
-						<input type="submit" class="btn" value=" 提交 " />
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-</div>
-
+<div id="error" class="message error" style="display:none;"></div>
+<form class="albumForm" id="albumForm" action="${base}/admin/album/doEdit" method="POST">
+	<@spring.bind "album" />
+	<@spring.formHiddenInput path="album.id" />
+	<@spring.formHiddenInput path="album.createTime" />
+	<input type="hidden" id="albumType" value="${album.type}" />
+	<table class="formtable">
+		<tr>
+			<td class="fieldlabel" style="width:60px;">相册编号</td>
+			<td>
+				<@spring.formInput path="album.id" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="自动生成"  />
+			</td>
+		</tr>
+		<tr>
+			<td class="fieldlabel" style="width:60px;">相册名称</td>
+			<td>
+				<@spring.formInput path="album.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, messages:{required:"请输入相册名称"}}\'' />
+			</td>
+		</tr>
+		<tr>
+			<td class="fieldlabel" style="width:60px;">创建时间</td>
+			<td>
+				<@spring.formInput path="album.createTime" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="当前时间" />
+			</td>
+		</tr>
+		<tr>
+			<td class="fieldlabel" style="width:60px;">隐私设置</td>
+			<td>
+				<@spring.formRadioButtons path="album.type" options=types defaultValue="public" separator="<br />" attributes='onclick="changeAlbumType(this)"' />
+				<@spring.formInput path="album.verifycode" attributes='class="textinput" style="width:98%;" disabled="disabled" validate=\'{required:true, messages:{required:"请输入相册密码"}}\'' />
+			</td>
+		</tr>
+		<tr>
+			<td class="fieldlabel" style="width:60px;">排序</td>
+			<td>
+				<@spring.formInput path="album.sortOrder" attributes='class="textinput" style="width:98%;" validate=\'{digits:true, messages:{digits:"排序编号必须为正整数"}}\'' />
+			</td>
+		</tr>
+		<tr>
+			<td class="fieldlabel" style="width:60px;">相册描述</td>
+			<td>
+				<@spring.formInput path="album.description" attributes='class="textinput" style="width:98%;"' />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:center;">
+				<input type="submit" class="btn" value=" 提交 " />
+			</td>
+		</tr>
+	</table>
+</form>
 <script type="text/javascript">
 	//控制相册验证码框是否可用
 	function changeAlbumType(obj){

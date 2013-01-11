@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Widget
 @RequestMapping("/admin/catalog")
-public class CatalogWidget {
+public class CatalogWidget extends AbstractAdminWidget {
     private CatalogService catalogService;
 
     @Autowired
@@ -132,6 +132,9 @@ public class CatalogWidget {
      */
     @RequestMapping("/edit")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (catalog == null || catalog.getId() == null) {
+            return prompt(model, "请先选择要修改的分类");
+        }
         catalog = catalogService.getCatalogById(catalog.getId());
         return getEditCatalogView(catalog, model);
     }
@@ -156,9 +159,10 @@ public class CatalogWidget {
         model.addAttribute("catalog", catalog);
         return "/admin/catalog/editCatalog";
     }
-    
+
     /**
      * 判断分类名称是否存在
+     * 
      * @param name
      * @param id
      * @param request
@@ -167,7 +171,7 @@ public class CatalogWidget {
      */
     @RequestMapping("/catalogNameExists")
     @ResponseBody
-    public String catalogNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response){
+    public String catalogNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(name)) {
             return "true";
         }

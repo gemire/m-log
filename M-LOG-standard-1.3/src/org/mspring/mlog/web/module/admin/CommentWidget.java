@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/comment")
-public class CommentWidget {
+public class CommentWidget extends AbstractAdminWidget {
 
     private static final Logger log = Logger.getLogger(CommentWidget.class);
 

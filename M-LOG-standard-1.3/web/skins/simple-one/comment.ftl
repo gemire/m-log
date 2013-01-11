@@ -63,14 +63,13 @@ function quote(id){
 		$("#replycontainer").ScrollTo();
 		$("#replymsg").html("<font color='red'><b>@" + cmt.author + "</b></font>&nbsp;&nbsp;<a href='JavaScript:cancel_quote();'>取消回复</a>");
 		$("#replycontainer").fadeIn("normal");
-		$("#parentId").val(id);
-		
+		$("#reply_comment").val(id);
 	});
 }
 function cancel_quote(){
 	$("#replymsg").html("");
 	$("#replycontainer").fadeOut("normal");
-	$("#parentId").val("");
+	$("#reply_comment").val("");
 }
 </script>
 <h2>评论</h2>
@@ -89,8 +88,13 @@ function cancel_quote(){
 					<a class="comment-reply-link" href="javascript:quote(<@comment_id />);">回复</a>
 				</div>
 				<div class="content">
+					<#--
 					<#if comment.parent?exists>
 						<blockquote>@<a href="<@comment_author_url />" rel="external nofollow" target="_blank" class="url">${comment.parent.author}</a>:${comment.parent.content}</blockquote >
+					</#if>
+					-->
+					<#if comment.replyCommentContent?has_content>
+						<blockquote>@${comment.replyUser!"蒙面大侠"}：${comment.replyCommentContent}</blockquote>
 					</#if>
 					<@comment_content />
 				</div>
@@ -109,7 +113,7 @@ function cancel_quote(){
 <div class="box" id="divCommentPost">
 	<form id="comment-form" class="comment-form" target="_self" method="post" action="${base}/comment/post">
 		<input type="hidden" name="postId" value="${postId}" />
-		<input type="hidden" name="parentId" id="parentId" />
+		<input type="hidden" name="reply_comment" id="reply_comment" />
 		<div class="item" id="replycontainer" style="display:none;">
 			<div id="replymsg"></div>
 		</div>

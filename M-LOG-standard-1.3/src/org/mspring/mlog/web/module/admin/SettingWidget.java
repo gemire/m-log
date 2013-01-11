@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Widget
 @RequestMapping("/admin/setting")
-public class SettingWidget {
+public class SettingWidget extends AbstractAdminWidget {
     private OptionService optionService;
     private SkinService skinService;
 
@@ -61,13 +61,6 @@ public class SettingWidget {
     public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
-        // // 生成默认配置
-        // Properties props = new Properties();
-        // Map<String, String> map = optionService.getOptions();
-        // for (Map.Entry<String, String> entry : map.entrySet()) {
-        // props.put(entry.getKey(), entry.getValue());
-        // }
-        // PropertiesUtils.saveProperties(props, "default_options.properties");
         return "/admin/setting/bloginfo";
     }
 
@@ -84,37 +77,6 @@ public class SettingWidget {
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/bloginfo";
-    }
-
-    /**
-     * 显示"邮件设置"
-     * 
-     * @param options
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequestMapping("/mail")
-    public String mailSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        options = optionService.getOptions();
-        model.addAllAttributes(options);
-        return "/admin/setting/mail";
-    }
-
-    /**
-     * 保存"邮件设置"
-     * 
-     * @param options
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequestMapping("/saveMail")
-    public String saveMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
-        optionService.setOptions(options);
-        return "redirect:/admin/setting/mail";
     }
 
     /**

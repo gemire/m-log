@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.admin;
+package org.mspring.mlog.web.module.admin.system.job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,12 @@ import org.mspring.mlog.entity.Job;
 import org.mspring.mlog.service.JobService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
 import org.mspring.platform.support.field.Field;
+import org.mspring.platform.utils.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +33,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @TODO 定时任务管理
  */
 @Widget
-@RequestMapping("/admin/job")
-public class JobWidget {
+@RequestMapping("/admin/system/job")
+public class JobWidget extends AbstractAdminWidget {
     @Autowired
     private JobService jobService;
 
@@ -56,20 +58,36 @@ public class JobWidget {
         model.addAttribute("columnfields", columnfields);
         model.addAttribute("execType", Job.ExecType.getExecTypeMap());
         model.addAttribute("jobPage", jobPage);
-        return "/admin/job/listJob";
+        return "/admin/system/job/listJob";
     }
 
     @RequestMapping("/ctrl")
-    public String ctrl(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
-        
+    public String ctrl(@RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] enabledIds, @RequestParam(required = false) String[] expressions, @RequestParam(required = false) String[] execTypes, @ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        // 设置可用
+        if (enabledIds != null && enabledIds.length > 0) {
+            jobService.setEnabled(true, enabledIds);
+        }
+
+        // 设置不可用
+        Long[] disabledIds = ArrayUtils.removeAll(ids, enabledIds, Long.class);
+        if (disabledIds != null && disabledIds.length > 0) {
+            jobService.setEnabled(false, disabledIds);
+        }
+
+        // 设置执行方式
+        jobService.setExecTypes(ids, execTypes);
+
+        // 设置执行规则
+        jobService.setExpressions(ids, expressions);
+
+        // 更新配置后重新加载JOB Server
+        jobService.loadJobServer();
+
         return list(jobPage, queryParams, request, response, model);
     }
 
     @RequestMapping("/exec")
-    public String exec(@RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] enabledIds, HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (enabledIds != null && enabledIds.length > 0) {
-            
-        }
-        return "redirect:/admin/job/list";
+    public String exec(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        return list(jobPage, queryParams, request, response, model);
     }
 }

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author Gao Youbo
  * @since 2012-7-30
- * @Description 
- * @TODO 
+ * @Description
+ * @TODO
  */
-@Widget
+@Widget("webMenuWidget")
 @RequestMapping("/menu")
-public class MenuWidget {
-    @RequestMapping({"/", ""})
-    public String menu(){
+public class MenuWidget extends AbstractWebWidget {
+    @RequestMapping({ "/", "" })
+    public String menu() {
         return "";
     }
 }

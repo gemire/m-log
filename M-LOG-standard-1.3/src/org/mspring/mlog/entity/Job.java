@@ -34,7 +34,7 @@ public class Job implements Serializable {
 
     private Long id;
     private String name;
-    private String execType;
+    private String execType = ExecType.SIMPLE;
     private String expression;
     private Date lastExec;
     private Boolean enabled = true;
@@ -161,8 +161,8 @@ public class Job implements Serializable {
 
         public static final Map<String, String> getExecTypeMap() {
             Map<String, String> map = new HashMap<String, String>();
-            map.put(SIMPLE, "Simple");
-            map.put(CRON, "Cron");
+            map.put(SIMPLE, "时间间隔");
+            map.put(CRON, "Cron表达式");
             return map;
         }
     }

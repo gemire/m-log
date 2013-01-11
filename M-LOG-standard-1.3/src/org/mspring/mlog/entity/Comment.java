@@ -9,9 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,9 +57,17 @@ public class Comment implements Serializable {
     private Post post;
     @Expose
     private String status;
-    @Expose
-    private Comment parent;
-    private Set<Comment> comments;
+
+    // 指定该评论回复的是哪条评论
+    private Long replyComment;
+    // 回复评论的内容(引用内容)
+    private String replyCommentContent;
+    // 被评论用户
+    private String replyUser;
+    // 被评论用户Email
+    private String replyUserEmail;
+    // 被评论用户的主页
+    private String replyUserUrl;
 
     /**
      * 
@@ -244,36 +249,83 @@ public class Comment implements Serializable {
     }
 
     /**
-     * @return the parent
+     * @return the replyComment
      */
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Comment.class)
-    @JoinColumn(name = "parent_id", nullable = true)
-    public Comment getParent() {
-        return parent;
+    @Column(name = "reply_comment", length = 30)
+    public Long getReplyComment() {
+        return replyComment;
     }
 
     /**
-     * @param parent
-     *            the parent to set
+     * @param replyComment
+     *            the replyComment to set
      */
-    public void setParent(Comment parent) {
-        this.parent = parent;
+    public void setReplyComment(Long replyComment) {
+        this.replyComment = replyComment;
     }
 
     /**
-     * @return the comments
+     * @return the replyCommentContent
      */
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Comment.class, mappedBy = "parent")
-    public Set<Comment> getComments() {
-        return comments;
+    @Column(name = "reply_comment_content", length = 5000)
+    public String getReplyCommentContent() {
+        return replyCommentContent;
     }
 
     /**
-     * @param comments
-     *            the comments to set
+     * @param replyCommentContent
+     *            the replyCommentContent to set
      */
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setReplyCommentContent(String replyCommentContent) {
+        this.replyCommentContent = replyCommentContent;
+    }
+
+    /**
+     * @return the replyUser
+     */
+    @Column(name = "reply_user", length = 30)
+    public String getReplyUser() {
+        return replyUser;
+    }
+
+    /**
+     * @param replyUser
+     *            the replyUser to set
+     */
+    public void setReplyUser(String replyUser) {
+        this.replyUser = replyUser;
+    }
+
+    /**
+     * @return the replyUserEmail
+     */
+    @Column(name = "reply_user_email", length = 100)
+    public String getReplyUserEmail() {
+        return replyUserEmail;
+    }
+
+    /**
+     * @param replyUserEmail
+     *            the replyUserEmail to set
+     */
+    public void setReplyUserEmail(String replyUserEmail) {
+        this.replyUserEmail = replyUserEmail;
+    }
+
+    /**
+     * @return the replyUserUrl
+     */
+    @Column(name = "reply_user_url", length = 200)
+    public String getReplyUserUrl() {
+        return replyUserUrl;
+    }
+
+    /**
+     * @param replyUserUrl
+     *            the replyUserUrl to set
+     */
+    public void setReplyUserUrl(String replyUserUrl) {
+        this.replyUserUrl = replyUserUrl;
     }
 
     public static final class Status {

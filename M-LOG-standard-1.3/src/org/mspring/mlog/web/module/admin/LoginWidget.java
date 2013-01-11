@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Widget
 @RequestMapping("/admin")
-public class LoginWidget {
+public class LoginWidget extends AbstractAdminWidget {
 
     private static final String MESSAGE = "message";
 
@@ -52,13 +52,13 @@ public class LoginWidget {
     public String doLogin(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         Object sessionValidateCode = session.getAttribute(Keys.VALIDATE_CODE);
         if (sessionValidateCode == null) {
-            //验证码超时
+            // 验证码超时
             model.addAttribute(MESSAGE, "登录失败，验证码超时。");
             return "/admin/login";
         }
         String validateCode = request.getParameter("validateCode");
         if (!sessionValidateCode.toString().equalsIgnoreCase(validateCode)) {
-            //验证码错误
+            // 验证码错误
             model.addAttribute(MESSAGE, "登录失败，验证码输入错误。");
             return "/admin/login";
         }

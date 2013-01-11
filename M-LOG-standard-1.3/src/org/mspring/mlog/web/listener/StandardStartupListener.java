@@ -6,9 +6,7 @@ package org.mspring.mlog.web.listener;
 import javax.servlet.ServletContextEvent;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.schedule.SchedulerService;
-import org.mspring.mlog.schedule.job.UpdateStatInfoJob;
-import org.mspring.platform.core.ContextManager;
+import org.mspring.mlog.core.ServiceFactory;
 
 /**
  * @author Gao Youbo
@@ -32,9 +30,7 @@ public class StandardStartupListener extends AbstractStartupListener {
         // TODO Auto-generated method stub
         log.info("container has started.");
 
-        SchedulerService schedulerService = ContextManager.getApplicationContext().getBean(SchedulerService.class);
-        schedulerService.schedule("UpdateStatInfoJob", UpdateStatInfoJob.class, 60*1000);
-        log.info("UpdateStatInfoJob register success!");
+        ServiceFactory.getJobService().loadJobServer();
     }
 
 }

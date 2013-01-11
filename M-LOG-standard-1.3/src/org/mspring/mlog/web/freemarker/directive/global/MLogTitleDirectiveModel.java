@@ -70,7 +70,7 @@ public class MLogTitleDirectiveModel extends AbstractDirectiveModel {
             else if (currentPage.equals(PageNames.SEARCH)) {
                 Object keyword = env.__getitem__(FreemarkerVariableNames.SEARCH_KEYWORD);
                 if (keyword != null && StringUtils.isNotBlank(keyword.toString())) {
-                    title = "Search \"" + keyword + "\" -" + title;
+                    title = keyword + " 搜索 -" + title;
                 }
             }
             else if (currentPage.equals(PageNames.CATALOG_ARCHIVE)) {

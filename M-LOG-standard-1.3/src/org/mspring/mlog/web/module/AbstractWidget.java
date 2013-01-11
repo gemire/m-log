@@ -128,9 +128,4 @@ public abstract class AbstractWidget {
         }
         return "/common/prompt";
     }
-
-    protected void setCurrnetPage(Model model, String currentPage) {
-        model.addAttribute(FreemarkerVariableNames.CURRENT_PAGE, currentPage);
-    }
-
 }

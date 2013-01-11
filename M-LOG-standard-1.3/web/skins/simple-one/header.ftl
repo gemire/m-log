@@ -58,21 +58,10 @@
             </div>
             -->
             <div class="navbar-search">
-                <form action="http://www.baidu.com/baidu" method="get" target="_blank" id="searchForm" onsubmit="search();">
-                	<input name="tn" type="hidden" value="bds">
-					<input name="cl" type="hidden" value="3">
-					<input name="ct" type="hidden" value="2097152">
-					<input name="si" type="hidden" id="site">
-					<input type="text" placeholder="请输入搜索的关键字" name="word">
+                <form action="${base}/search" method="get" id="searchForm">
+					<input type="text" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">
 					<button type="submit"></button>
                 </form>
             </div>
-            <script type="text/javascript">
-            	function search(){
-            		var site = '${blogurl}';
-            		site = site.replace('http://', '').replace('https://', '');
-            		$("#site").val(site);
-            	}
-            </script>
         </div>
 	</div>

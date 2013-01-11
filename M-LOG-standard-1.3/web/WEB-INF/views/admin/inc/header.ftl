@@ -43,4 +43,4 @@
 	<script type="text/javascript" src="${base}/script/admin.js"></script>
 </head>
 <body>
-	
+<#include "tab_header.ftl" />	

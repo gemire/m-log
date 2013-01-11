@@ -12,7 +12,6 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PermissionUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.AbstractWidget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description
  * @TODO
  */
-@Widget
+@Widget("webSingleWidget")
 @RequestMapping({ "/", "" })
-public class SingleWidget extends AbstractWidget {
+public class SingleWidget extends AbstractWebWidget {
 
     @RequestMapping("/post")
     public String single(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
