@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.security;
+package org.mspring.mlog.web.security;
 
 import java.io.IOException;
 
@@ -24,9 +24,8 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
  * @Description
  * @TODO
  */
-public class MySecurityFilter extends AbstractSecurityInterceptor implements Filter {
-    // 与applicationContext-security.xml里的myFilter的属性securityMetadataSource对应，
-    // 其他的两个组件，已经在AbstractSecurityInterceptor定义
+public class SecurityFilter extends AbstractSecurityInterceptor implements Filter {
+    
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Override
@@ -40,13 +39,6 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
     }
 
     private void invoke(FilterInvocation fi) throws IOException, ServletException {
-        // object为FilterInvocation对象
-        // super.beforeInvocation(fi);源码
-        // 1.获取请求资源的权限
-        // 执行Collection<ConfigAttribute> attributes =
-        // SecurityMetadataSource.getAttributes(object);
-        // 2.是否拥有权限
-        // this.accessDecisionManager.decide(authenticated, object, attributes);
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
@@ -64,7 +56,7 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
         this.securityMetadataSource = securityMetadataSource;
     }
 
-    public void init(FilterConfig arg0) throws ServletException {
+    public void init(FilterConfig config) throws ServletException {
         // TODO Auto-generated method stub
     }
 
