@@ -5,6 +5,7 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<global-method-security pre-post-annotations="enabled" />
+
 	<!-- 该路径下的资源不用过滤 -->
 	<http pattern="/images/**" security="none" />
 	<http pattern="/script/**" security="none" />
@@ -14,73 +15,102 @@
 	<!-- 登录页面不过滤 -->
 	<http pattern="/admin/login" security="none" />
 	<http pattern="/admin/doLogin" security="none" />
-	
+
 
 	<http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
-		<!-- 
-		<form-login login-page="/admin/login"
-			authentication-failure-url="/admin/login" login-processing-url="/admin/doSecurity"
-			username-parameter="username" password-parameter="password" />
-		<logout invalidate-session="true" logout-url="/admin/logout"
-			logout-success-url="/admin/logout" />
-		-->
-			
-		<!-- 实现免登陆验证 -->
-		<remember-me />
-		<session-management invalid-session-url="/timeout.jsp">
+		<remember-me key="mlog_security_cookie" />
+		<session-management invalid-session-url="/admin/login">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
 		</session-management>
-		<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER"  />
-		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+		<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		<custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
 	</http>
-
-	<!-- 配置过滤器 -->
-	<beans:bean id="securityFilter" class="org.mspring.mlog.security.MySecurityFilter">
-		<!-- 用户拥有的权限 -->
-		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
-		<!-- 用户是否拥有所请求资源的权限 -->
-		<beans:property name="accessDecisionManager" ref="myAccessDecisionManager" />
-		<!-- 资源与权限对应关系 -->
-		<beans:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
-	</beans:bean>
-	
-	<!-- 实现了UserDetailsService的Bean -->
-	<authentication-manager alias="myAuthenticationManager">
-		<authentication-provider user-service-ref="myUserDetailServiceImpl" />
-	</authentication-manager>
-	
-	 <!-- 登录验证器 -->
-    <beans:bean id="loginFilter"
-		class="org.mspring.mlog.security.MyUsernamePasswordAuthenticationFilter">
-		<!-- 处理登录 -->
-		<beans:property name="filterProcessesUrl" value="/admin/doSecurity"></beans:property>
-		<beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"></beans:property>
-		<beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"></beans:property>
-		<beans:property name="authenticationManager" ref="myAuthenticationManager"></beans:property>
-	</beans:bean>
-	<beans:bean id="loginLogAuthenticationSuccessHandler"
-		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-		<beans:property name="defaultTargetUrl" value="/admin/index"></beans:property>
-	</beans:bean>
-	<beans:bean id="simpleUrlAuthenticationFailureHandler"
-		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-		<beans:property name="defaultFailureUrl" value="/admin/login"></beans:property>
-	</beans:bean>
 	
 	<!-- 未登录的切入点 -->
-	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	<beans:bean id="authenticationProcessingFilterEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
 		<beans:property name="loginFormUrl" value="/admin/login"></beans:property>
 	</beans:bean>
+	
+	<beans:bean id="userDetailService" class="org.mspring.mlog.web.security.UserDetailServiceImpl" />
 
-
-	<beans:bean id="myAccessDecisionManager"
-		class="org.mspring.mlog.security.MyAccessDecisionManager"></beans:bean>
-	<beans:bean id="mySecurityMetadataSource"
-		class="org.mspring.mlog.security.MySecurityMetadataSource">
+	<!-- 登录验证器  start-->
+	<beans:bean id="loginFilter" class="org.mspring.mlog.web.security.UsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/admin/doSecurity"></beans:property>
+		<beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler" />
+		<beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler" />
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="rememberMeServices" ref="rememberMeServices" />
 	</beans:bean>
-	<beans:bean id="myUserDetailServiceImpl"
-		class="org.mspring.mlog.security.MyUserDetailServiceImpl">
+	<beans:bean id="loginLogAuthenticationSuccessHandler" class="org.mspring.mlog.web.security.LoginAuthenticationSuccesssHandler">
+		<beans:property name="defaultTargetUrl" value="/admin/index" />
 	</beans:bean>
+	<beans:bean id="simpleUrlAuthenticationFailureHandler" class="org.mspring.mlog.web.security.LoginAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/admin/login"></beans:property>
+	</beans:bean>
+	<!-- 登录验证器  end-->
+	
+	
 
+	<!-- 配置过滤器 start -->
+	<beans:bean id="securityFilter" class="org.mspring.mlog.web.security.SecurityFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+	<beans:bean id="accessDecisionManager" class="org.mspring.mlog.web.security.AccessDecisionManager" />
+	<beans:bean id="securityMetadataSource" class="org.mspring.mlog.web.security.SecurityMetadataSource" />
+	<!-- 配置过滤器 end -->
+	
+	
+	<!-- 注销登录 start -->
+	<beans:bean id="logoutFilter" class="org.mspring.mlog.web.security.LogoutFilter">
+		<beans:constructor-arg value="/admin/login" />
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:ref local="rememberMeServices" />
+				<beans:bean
+					class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+			</beans:list>
+		</beans:constructor-arg>
+		<beans:property name="filterProcessesUrl" value="/admin/logout"></beans:property>
+	</beans:bean>
+	<!-- 注销登录 end -->
+
+
+	<!-- remember me Configuration start -->
+	<beans:bean id="rememberMeFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+	  	<beans:property name="rememberMeServices" ref="rememberMeServices"/>
+	  	<beans:property name="authenticationManager" ref="authenticationManager" />
+	</beans:bean>
+	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<beans:property name="userDetailsService" ref="userDetailService" />
+		<beans:property name="key" value="mlog_security_cookie" />
+		<beans:property name="alwaysRemember" value="true"></beans:property>
+		<!-- <beans:property name="tokenValiditySeconds" value="86400"></beans:property> -->
+		<beans:property name="parameter" value="rememberMe"></beans:property>
+	</beans:bean>
+	<beans:bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+		<beans:property name="key" value="mlog_security_cookie" />
+	</beans:bean>
+	<!-- remember me Configuration end -->
+	
+	
+	<!-- authenticationManager Configuration start -->
+	<beans:bean id="authenticationManager" name="org.springframework.security.authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<beans:property name="providers">
+			<beans:list>
+				<beans:ref local="daoAuthenticationProvider" />
+				<beans:ref local="rememberMeAuthenticationProvider"/>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">  
+    	<beans:property name="userDetailsService" ref="userDetailService" />  
+    	<beans:property name="passwordEncoder" ref="md5PasswordEncoder" />  
+	</beans:bean>
+	<beans:bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<!-- authenticationManager Configuration end -->
 </beans:beans>

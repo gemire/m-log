@@ -29,7 +29,7 @@ public class ValidateCodeWidget {
     @RequestMapping(value = "validateCode", method = RequestMethod.GET)
     public void validateCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String validateCode = ImageUtils.validateCode(response.getOutputStream(), DEFAULT_ALLOW_VALIDATE_STRING);
-        request.getSession().setAttribute(Keys.VALIDATE_CODE, validateCode);
+        request.getSession().setAttribute(Keys.SESSION_VALIDATE_CODE, validateCode);
     }
 
     @RequestMapping(value = "validateImage", method = RequestMethod.GET)

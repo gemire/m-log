@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.security;
+package org.mspring.mlog.web.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,15 +30,16 @@ import org.springframework.security.web.util.RequestMatcher;
  * @Description
  * @TODO
  */
-// 1 加载资源与权限的对应关系
-public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+public class SecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
     @Autowired
     private ResourceService resourceService;
 
-    // 加载所有资源与权限的关系
+    /**
+     * 加载所有资源与权限的关系
+     */
     private void loadResourceDefine() {
         if (resourceMap == null) {
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
@@ -55,25 +56,19 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         Iterator<Entry<String, Collection<ConfigAttribute>>> iterator = resourceSet.iterator();
     }
 
-    // 返回所请求资源所需要的权限
+    /**
+     * 返回所请求资源所需要的权限
+     */
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        // String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        // System.out.println("requestUrl is " + requestUrl);
-        // if (resourceMap == null) {
-        // loadResourceDefine();
-        // }
-        // Collection<ConfigAttribute> attrs = resourceMap.get(requestUrl);
-        // return attrs;
-
         if (resourceMap == null) {
             loadResourceDefine();
         }
+        
         String url = ((FilterInvocation) object).getRequestUrl();
         int firstQuestionMarkIndex = url.indexOf("?");
         if (firstQuestionMarkIndex != -1) {
             url = url.substring(0, firstQuestionMarkIndex);
         }
-
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
 
         Iterator<String> ite = resourceMap.keySet().iterator();

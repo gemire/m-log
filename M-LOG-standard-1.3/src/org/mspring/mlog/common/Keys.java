@@ -12,7 +12,7 @@ package org.mspring.mlog.common;
 public class Keys {
     public static final String CURRENT_USER = "currentUser";
     
-    public static final String VALIDATE_CODE = "_VALIDATE_CODE__";
+    public static final String SESSION_VALIDATE_CODE = "_VALIDATE_CODE__";
     
     public static final String IS_REMEMBER_USER_COOKIE = "MLOG__IS_REMEMBER_USER_COOKIE__";
     

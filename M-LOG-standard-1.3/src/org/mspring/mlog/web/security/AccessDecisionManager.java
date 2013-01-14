@@ -1,12 +1,11 @@
 /**
  * 
  */
-package org.mspring.mlog.security;
+package org.mspring.mlog.web.security;
 
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -19,7 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @Description
  * @TODO
  */
-public class MyAccessDecisionManager implements AccessDecisionManager {
+public class AccessDecisionManager implements org.springframework.security.access.AccessDecisionManager {
 
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         if (configAttributes == null) {
@@ -31,7 +30,6 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             ConfigAttribute configAttribute = iterator.next();
             // 访问所请求资源所需要的权限
             String needPermission = configAttribute.getAttribute();
-            System.out.println("needPermission is " + needPermission);
             // 用户所拥有的权限authentication
             for (GrantedAuthority ga : authentication.getAuthorities()) {
                 if (needPermission.equals(ga.getAuthority())) {

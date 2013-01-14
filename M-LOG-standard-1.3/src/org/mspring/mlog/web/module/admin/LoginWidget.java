@@ -48,9 +48,9 @@ public class LoginWidget extends AbstractAdminWidget {
         return "/admin/login";
     }
 
-    @RequestMapping(value = { "/doLogin" }, method = { RequestMethod.POST })
+    //@RequestMapping(value = { "/doLogin" }, method = { RequestMethod.POST })
     public String doLogin(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
-        Object sessionValidateCode = session.getAttribute(Keys.VALIDATE_CODE);
+        Object sessionValidateCode = session.getAttribute(Keys.SESSION_VALIDATE_CODE);
         if (sessionValidateCode == null) {
             // 验证码超时
             model.addAttribute(MESSAGE, "登录失败，验证码超时。");
@@ -76,7 +76,7 @@ public class LoginWidget extends AbstractAdminWidget {
         return "/admin/login";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    //@RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         session.invalidate();
         CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "false", 365);

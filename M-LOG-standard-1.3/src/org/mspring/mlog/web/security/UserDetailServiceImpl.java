@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.security;
+package org.mspring.mlog.web.security;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @Description
  * @TODO
  */
-public class MyUserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -35,8 +35,12 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
     private RoleService roleService;
     @Autowired
     private ResourceService resourceService;
-    /* (non-Javadoc)
-     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.security.core.userdetails.UserDetailsService#
+     * loadUserByUsername(java.lang.String)
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,7 +60,11 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
         return userdetail;
     }
 
-    // 取得用户的权限
+    /**
+     * 取得用户的权限
+     * @param user
+     * @return
+     */
     private Set<GrantedAuthority> obtionGrantedAuthorities(User user) {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
         List<Role> roles = roleService.getRolesByUser(user.getId());
@@ -70,5 +78,4 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
         return authSet;
     }
 
-    
 }
