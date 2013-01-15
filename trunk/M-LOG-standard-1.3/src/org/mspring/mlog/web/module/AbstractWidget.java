@@ -3,6 +3,9 @@
  */
 package org.mspring.mlog.web.module;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
@@ -11,8 +14,7 @@ import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
-import org.mspring.mlog.service.UserService;
-import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -127,5 +129,35 @@ public abstract class AbstractWidget {
             model.addAttribute("dispatcher", dispatcher);
         }
         return "/common/prompt";
+    }
+
+    /**
+     * 设置session
+     * 
+     * @param request
+     * @param name
+     * @param value
+     */
+    protected void setSessionAttribute(HttpServletRequest request, String name, Object value) {
+        request.getSession().setAttribute(name, value);
+    }
+
+    protected void setSessionAttribute(HttpSession session, String name, Object value) {
+        session.setAttribute(name, value);
+    }
+
+    /**
+     * 获取Session
+     * 
+     * @param request
+     * @param name
+     * @return
+     */
+    protected Object getSessionAttribute(HttpServletRequest request, String name) {
+        return request.getSession().getAttribute(name);
+    }
+
+    protected Object getSessionAttribute(HttpSession session, String name) {
+        return session.getAttribute(name);
     }
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.entity.security.User;
 
 /**
  * @author Gao Youbo

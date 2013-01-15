@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.admin.system.job;
+package org.mspring.mlog.web.module.admin.system;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,49 +10,38 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 /**
  * @author Gao Youbo
- * @since 2013-1-11
+ * @since 2013-1-14
  * @Description
  * @TODO
  */
 @Embeddable
-public class UserRolePK implements Serializable {
+public class RoleTreeItemPK implements Serializable {
 
     /**
      * 
      */
-    private static final long serialVersionUID = 3047122696690398123L;
+    private static final long serialVersionUID = 8080918969572750029L;
 
-    private User user;
     private Role role;
+    private TreeItem treeItem;
 
     /**
      * 
      */
-    public UserRolePK() {
+    public RoleTreeItemPK() {
         // TODO Auto-generated constructor stub
     }
 
     /**
-     * @param user
      * @param role
+     * @param treeItem
      */
-    public UserRolePK(User user, Role role) {
+    public RoleTreeItemPK(Role role, TreeItem treeItem) {
         super();
-        this.user = user;
         this.role = role;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = User.class)
-    @JoinColumn(name = "user_id")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        this.treeItem = treeItem;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Role.class)
@@ -63,6 +52,16 @@ public class UserRolePK implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = TreeItem.class)
+    @JoinColumn(name = "tree_item_id")
+    public TreeItem getTreeItem() {
+        return treeItem;
+    }
+
+    public void setTreeItem(TreeItem treeItem) {
+        this.treeItem = treeItem;
     }
 
 }

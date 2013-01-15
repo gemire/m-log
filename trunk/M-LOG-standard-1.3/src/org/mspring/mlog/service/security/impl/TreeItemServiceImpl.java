@@ -1,12 +1,12 @@
 /**
  * 
  */
-package org.mspring.mlog.service.impl;
+package org.mspring.mlog.service.security.impl;
 
 import java.util.List;
 
-import org.mspring.mlog.entity.TreeItem;
-import org.mspring.mlog.service.TreeItemService;
+import org.mspring.mlog.entity.security.TreeItem;
+import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,10 +39,11 @@ public class TreeItemServiceImpl extends AbstractServiceSupport implements TreeI
      * @see org.mspring.mlog.service.TreeItemService#findAllItems()
      */
     @Override
-    public List<TreeItem> findTreeItems() {
+    public List<TreeItem> findTreeItems(Long userId) {
         // TODO Auto-generated method stub
-        String queryString = "select t from TreeItem t where t.deleted = false and (t.type = ? or t.type = ?) order by t.id";
-        return find(queryString, new String[]{TreeItem.Type.TREE_FOLDER, TreeItem.Type.TREE_ITEM});
+//        String queryString = "select t from TreeItem t where t.deleted = false and (t.type = ? or t.type = ?) order by t.id";
+//        return find(queryString, new String[] { TreeItem.Type.TREE_FOLDER, TreeItem.Type.TREE_ITEM });
+        return find("select roleTreeItem.PK.treeItem from RoleTreeItem roleTreeItem, UserRole userRole where roleTreeItem.PK.role.id = userRole.PK.role.id and roleTreeItem.PK.treeItem.deleted = false and (roleTreeItem.PK.treeItem.type = ? or roleTreeItem.PK.treeItem.type = ?) and userRole.PK.user.id = ? order by roleTreeItem.PK.treeItem.id", new Object[]{TreeItem.Type.TREE_FOLDER, TreeItem.Type.TREE_ITEM, userId});
     }
 
     /*
@@ -57,10 +58,12 @@ public class TreeItemServiceImpl extends AbstractServiceSupport implements TreeI
         String queryString = "select t from TreeItem t where t.deleted = false and t.type = ? and t.parent = ? order by t.id";
         return find(queryString, new Object[] { TreeItem.Type.TAB, parent });
     }
-    
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.TreeItemService#getOpenTab(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.TreeItemService#getOpenTab(java.lang.String)
      */
     @Override
     public TreeItem getOpenTab(String parent) {
@@ -100,5 +103,16 @@ public class TreeItemServiceImpl extends AbstractServiceSupport implements TreeI
         executeUpdate("delete from TreeItem");
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.TreeItemService#findAllTreeItems()
+     */
+    @Override
+    public List<TreeItem> findAllTreeItems() {
+        // TODO Auto-generated method stub
+        String queryString = "select t from TreeItem t where t.deleted = false order by t.id";
+        return find(queryString);
+    }
 
 }

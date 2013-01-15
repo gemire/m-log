@@ -1,11 +1,11 @@
 /**
  * 
  */
-package org.mspring.mlog.service;
+package org.mspring.mlog.service.security;
 
 import java.util.List;
 
-import org.mspring.mlog.entity.TreeItem;
+import org.mspring.mlog.entity.security.TreeItem;
 
 /**
  * @author Gao Youbo
@@ -16,7 +16,7 @@ import org.mspring.mlog.entity.TreeItem;
 public interface TreeItemService {
     public TreeItem getItemById(String id);
     
-    public List<TreeItem> findTreeItems();
+    public List<TreeItem> findTreeItems(Long userId);
     
     public List<TreeItem> findTabItems(String parent);
     
@@ -25,4 +25,6 @@ public interface TreeItemService {
     public void createItem(TreeItem item);
     
     public void clearItems();
+    
+    public List<TreeItem> findAllTreeItems();
 }

@@ -92,4 +92,91 @@ $(document).ready(function() {
 		}
 		return true;
 	});
+
+	/**
+	 * 检查角色名称是否存在
+	 */
+	$.validator.addMethod("roleNameExists", function(value, element, params) {
+		var data = {};
+		if (params.id != undefined) {
+			data["id"] = params.id;
+		}
+		data["name"] = value;
+		var result = $.ajax({
+			url : mlog.variable.base + "/admin/role/roleNameExists",
+			async : false,
+			data : data
+		}).responseText;
+		if (result == "true") {
+			return false;
+		} else {
+			return true;
+		}
+	});
+
+	////////////////////////////////用户验证 start
+	/**
+	 * 用户名是否存在
+	 */
+	$.validator.addMethod("userNameExists", function(value, element, params) {
+		var data = {};
+		if (params.id != undefined) {
+			data["id"] = params.id;
+		}
+		data["name"] = value;
+		var result = $.ajax({
+			url : mlog.variable.base + "/common/validate/userNameExists",
+			async : false,
+			data : data
+		}).responseText;
+		if (result == "true") {
+			return false;
+		} else {
+			return true;
+		}
+	});
+	
+	/**
+	 * 用户Email是否存在
+	 */
+	$.validator.addMethod("userEmailExists", function(value, element, params) {
+		var data = {};
+		if (params.id != undefined) {
+			data["id"] = params.id;
+		}
+		data["email"] = value;
+		var result = $.ajax({
+			url : mlog.variable.base + "/common/validate/userEmailExists",
+			async : false,
+			data : data
+		}).responseText;
+		if (result == "true") {
+			return false;
+		} else {
+			return true;
+		}
+	});
+	
+	/**
+	 * 用户别名是否存在
+	 */
+	$.validator.addMethod("userAliasExists", function(value, element, params) {
+		var data = {};
+		if (params.id != undefined) {
+			data["id"] = params.id;
+		}
+		data["alias"] = value;
+		var result = $.ajax({
+			url : mlog.variable.base + "/common/validate/userAliasExists",
+			async : false,
+			data : data
+		}).responseText;
+		if (result == "true") {
+			return false;
+		} else {
+			return true;
+		}
+	});
+	
+	////////////////////////////////用户验证 end
 });

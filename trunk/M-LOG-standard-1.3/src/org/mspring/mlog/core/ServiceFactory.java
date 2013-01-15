@@ -20,9 +20,9 @@ import org.mspring.mlog.service.PostMetaService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
-import org.mspring.mlog.service.TreeItemService;
-import org.mspring.mlog.service.UserService;
 import org.mspring.mlog.service.search.HibernateSearchService;
+import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.core.ContextManager;
 
 /**

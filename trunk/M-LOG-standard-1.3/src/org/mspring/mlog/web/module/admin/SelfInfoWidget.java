@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.User;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @TODO
  */
 @Widget
-@RequestMapping("/admin/user")
-public class UserWidget extends AbstractAdminWidget {
+@RequestMapping("/admin/self")
+public class SelfInfoWidget extends AbstractAdminWidget {
     private UserService userService;
 
     @Autowired
@@ -34,13 +34,14 @@ public class UserWidget extends AbstractAdminWidget {
         this.userService = userService;
     }
 
-    @RequestMapping("/userinfo")
+    @RequestMapping("/info")
     public String viewUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = GlobalUtils.getCurrentUser(request);
-        return getUserInfoView(user, model);
+        model.addAttribute("user", user);
+        return "/admin/self/info";
     }
 
-    @RequestMapping("/doEditUserInfo")
+    @RequestMapping("/saveInfo")
     public String doEditUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码
             String password = StringUtils.getMD5(user.getPassword());
@@ -58,11 +59,6 @@ public class UserWidget extends AbstractAdminWidget {
             user = userService.getUserByName(user.getName());
             request.getSession().setAttribute(Keys.CURRENT_USER, user);
         }
-        return "redirect:/admin/user/userinfo";
-    }
-
-    private String getUserInfoView(User user, Model model) {
-        model.addAttribute("user", user);
-        return "/admin/user/viewUserInfo";
+        return "redirect:/admin/self/info";
     }
 }

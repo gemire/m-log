@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.admin.system.mail;
+package org.mspring.mlog.web.module.admin.system;
 
 import java.util.Map;
 

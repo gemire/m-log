@@ -1,12 +1,13 @@
 /**
  * 
  */
-package org.mspring.mlog.entity;
+package org.mspring.mlog.entity.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,11 +33,21 @@ public class TreeItem {
     private Boolean open; // 是否打开
     private String target; // target
 
+    private Boolean checked; // 是否选中
+
     /**
      * 
      */
     public TreeItem() {
         // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param id
+     */
+    public TreeItem(String id) {
+        super();
+        this.id = id;
     }
 
     /**
@@ -152,9 +163,18 @@ public class TreeItem {
         this.target = target;
     }
 
+    @Transient
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
     public static final class Type {
-        public static String TREE_FOLDER = "tree_folder"; //树形菜单文件夹
-        public static String TREE_ITEM = "tree_item"; //树形菜单节点
-        public static String TAB = "tab"; //tab
+        public static String TREE_FOLDER = "tree_folder"; // 树形菜单文件夹
+        public static String TREE_ITEM = "tree_item"; // 树形菜单节点
+        public static String TAB = "tab"; // tab
     }
 }

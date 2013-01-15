@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.User;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;

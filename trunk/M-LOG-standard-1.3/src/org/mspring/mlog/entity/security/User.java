@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.entity;
+package org.mspring.mlog.entity.security;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,6 +37,21 @@ public class User implements Serializable {
     private Date createTime;
 
     private boolean rememberMe;
+
+    /**
+     * 
+     */
+    public User() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param id
+     */
+    public User(Long id) {
+        super();
+        this.id = id;
+    }
 
     /**
      * @return the id
@@ -107,7 +122,7 @@ public class User implements Serializable {
     /**
      * @return the email
      */
-    @Column(name = "email", length = 200, nullable = false)
+    @Column(name = "email", unique = true, length = 200, nullable = false)
     public String getEmail() {
         return email;
     }
