@@ -7,17 +7,17 @@
 					<tr>
 						<td class="fieldlabel" style="width:50px;">状态</td>
 						<td>
-							<@spring.formSingleSelect path="post.status" options=status attributes='style="width:98%" onchange="changeStatus();"' />
+							<@spring.formSingleSelect path="post.status" options=status attributes='onchange="changeStatus();"' />
 						</td>
 						
 						<td class="fieldlabel" style="width:40px;">标题</td>
 						<td>
-							<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%"' />
+							<@spring.formInput path="post.title" attributes='class="textinput"' />
 						</td>
 						
 						<td class="fieldlabel" style="width:40px;">发布人</td>
 						<td>
-							<@spring.formInput path="post.author.alias" attributes='class="textinput" style="width:98%"' />
+							<@spring.formInput path="post.author.alias" attributes='class="textinput"' />
 						</td>
 						
 						<td><input type="submit" class="btn" value=" 查 询 " /></td>
