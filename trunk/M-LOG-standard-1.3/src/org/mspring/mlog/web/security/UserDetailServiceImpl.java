@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.mspring.mlog.entity.User;
 import org.mspring.mlog.entity.security.Resource;
 import org.mspring.mlog.entity.security.Role;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.ResourceService;
 import org.mspring.mlog.service.security.RoleService;
+import org.mspring.mlog.service.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -56,8 +56,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        UserDetails userdetail = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), enables, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuths);
-        return userdetail;
+        return new UserDetailsImpl(user.getName(), user.getPassword(), enables, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuths, user);
     }
 
     /**

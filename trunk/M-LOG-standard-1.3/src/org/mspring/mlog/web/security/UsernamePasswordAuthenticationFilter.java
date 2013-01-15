@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.User;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -39,8 +39,6 @@ public class UsernamePasswordAuthenticationFilter extends org.springframework.se
 
         // 验证码
         checkValidateCode(request);
-        
-        request.setAttribute("aaa", "xxx");
 
         // 用户验证
         String username = obtainUsername(request);
@@ -49,7 +47,7 @@ public class UsernamePasswordAuthenticationFilter extends org.springframework.se
         if (loginUser == null) {
             throw new AuthenticationServiceException("登录失败，用户名或密码错误");
         }
-        
+
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
         // 允许子类设置详细属性
         setDetails(request, authRequest);
@@ -63,8 +61,8 @@ public class UsernamePasswordAuthenticationFilter extends org.springframework.se
             e.printStackTrace();
         }
 
-        //保存登录相关信息
-        request.getSession().setAttribute(Keys.CURRENT_USER, loginUser);      
+        // 保存登录相关信息
+        request.getSession().setAttribute(Keys.CURRENT_USER, loginUser);
         return auth;
     }
 
