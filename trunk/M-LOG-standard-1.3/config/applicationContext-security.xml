@@ -18,7 +18,7 @@
 
 
 	<http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
-		<remember-me key="mlog_security_cookie" />
+		<!-- <remember-me key="mlog_security_cookie" /> -->
 		<session-management invalid-session-url="/admin/login">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
@@ -26,6 +26,7 @@
 		<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER" />
 		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
 		<custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
+		<custom-filter ref="rememberMeFilter" position="REMEMBER_ME_FILTER"/>
 	</http>
 	
 	<!-- 未登录的切入点 -->
@@ -85,7 +86,8 @@
 	  	<beans:property name="rememberMeServices" ref="rememberMeServices"/>
 	  	<beans:property name="authenticationManager" ref="authenticationManager" />
 	</beans:bean>
-	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+	<!-- <beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices"> -->
+	<beans:bean id="rememberMeServices" class="org.mspring.mlog.web.security.rememberme.TokenBasedRememberMeServices">
 		<beans:property name="userDetailsService" ref="userDetailService" />
 		<beans:property name="key" value="mlog_security_cookie" />
 		<beans:property name="alwaysRemember" value="true"></beans:property>
