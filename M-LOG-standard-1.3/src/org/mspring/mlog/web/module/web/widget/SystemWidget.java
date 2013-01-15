@@ -17,7 +17,7 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.AbstractWidget;

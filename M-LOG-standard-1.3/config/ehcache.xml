@@ -24,7 +24,7 @@
 
 
 	<!-- TreeItem，缓存时间1年 -->
-	<cache name="org.mspring.mlog.entity.TreeItem"
+	<cache name="org.mspring.mlog.entity.security.TreeItem"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="31104000"
 		overflowToDisk="true" />
 

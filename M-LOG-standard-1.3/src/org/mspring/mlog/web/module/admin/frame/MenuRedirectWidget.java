@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.TreeItem;
-import org.mspring.mlog.service.TreeItemService;
+import org.mspring.mlog.entity.security.TreeItem;
+import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.utils.StringUtils;

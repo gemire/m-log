@@ -12,12 +12,12 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.LinkType;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.InstallService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.service.security.UserService;
 
 /**
  * @author Gao Youbo

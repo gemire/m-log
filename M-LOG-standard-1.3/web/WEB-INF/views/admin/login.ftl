@@ -15,11 +15,11 @@
 			<div class="loginBoxCenter">
 				<p><label for="username">用户名：</label></p>
 				<p>
-					<@spring.formInput path="user.name" attributes='class="loginInput" autofocus="autofocus" required="required" autocomplete="off" placeholder="请输入用户名"' />
+					<input type="text" id="name" name="name" class="loginInput" autofocus="autofocus" required="required" autocomplete="off" placeholder="请输入用户名"/>
 				</p>
 				<p><label for="password">密码：</label></p>
 				<p>
-					<@spring.formPasswordInput path="user.password" attributes='class="loginInput" required="required" placeholder="请输入密码"'  />
+					<input type="password" id="password" name="password" class="loginInput" required="required" placeholder="请输入密码" />
 				<p>
 				<p>
 					<label for="password">验证码：</label><img id="validateCode" src="${base}/common/validateCode" />&nbsp;&nbsp;<a href="javascript:changeImg();">换一张</a>
@@ -27,8 +27,8 @@
 				<p>
 					<input name="validateCode" class="loginInput" required="required" placeholder="请输入验证码" />
 				<p>
-				<#if message?has_content>
-				<p style="color:red;">${message}</p>
+				<#if SPRING_SECURITY_LAST_EXCEPTION?has_content>
+				<p style="color:red;">${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
 				</#if>
 			</div>
 			<div class="loginBoxButtons">

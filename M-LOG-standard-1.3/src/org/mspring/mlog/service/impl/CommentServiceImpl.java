@@ -15,7 +15,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;

@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.entity.User;
-import org.mspring.mlog.service.UserService;
+import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Gao Youbo
@@ -25,10 +26,27 @@ public class Role implements Serializable {
      * 
      */
     private static final long serialVersionUID = -3433358033622918691L;
-    
+
     private Long id;
     private String name;
     private Boolean enabled;
+
+    private Boolean selected;// 是否选中
+
+    /**
+     * 
+     */
+    public Role() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param id
+     */
+    public Role(Long id) {
+        super();
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +75,15 @@ public class Role implements Serializable {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Transient
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
 }

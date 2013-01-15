@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.User;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.HibernateSearchService;
