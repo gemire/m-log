@@ -7,20 +7,20 @@
 			<tr>
 				<td class="fieldlabel" style="width:65px;">链接分类：</td>
 				<td>
-					<@spring.formSingleSelect path="link.type.id" options=types attributes='style="width:98%"' has_default=true />
+					<@spring.formSingleSelect path="link.type.id" options=types has_default=true />
 				</td>
 				<td class="fieldlabel" style="width:65px;">是否显示：</td>
 				<td>
-					<@spring.formSingleSelect path="link.visable" options=visable attributes='style="width:98%"' has_default=true />
+					<@spring.formSingleSelect path="link.visable" options=visable has_default=true />
 				</td>
 				<td class="fieldlabel" style="width:65px;">名称：</td>
 				<td>
-					<@spring.formInput path="link.name" attributes='class="textinput" style="width:98%"' />
+					<@spring.formInput path="link.name" attributes='class="textinput"' />
 				</td>
 				
 				<td class="fieldlabel" style="width:65px;">地址：</td>
 				<td>
-					<@spring.formInput path="link.url" attributes='class="textinput" style="width:98%"' />
+					<@spring.formInput path="link.url" attributes='class="textinput"' />
 				</td>
 				
 				<td><input type="submit" class="btn" value=" 查 询 " /></td>
