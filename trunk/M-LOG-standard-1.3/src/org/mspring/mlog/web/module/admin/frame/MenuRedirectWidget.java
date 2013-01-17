@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.TreeItem;
+import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.utils.StringUtils;
@@ -37,13 +39,15 @@ public class MenuRedirectWidget extends AbstractAdminWidget {
             return prompt(model, "未找到该页面");
         }
         TreeItem item = treeItemService.getItemById(id);
+        
+        User user = GlobalUtils.getCurrentUser(request);
 
         List<TreeItem> tabs = null;
         TreeItem openTab = null;
         String url = "";
         if (item.getType().equals(TreeItem.Type.TREE_ITEM)) {
             request.getSession().setAttribute(Keys.CURRENT_MODULE, item.getId());
-            tabs = treeItemService.findTabItems(item.getId());
+            tabs = treeItemService.findTabItems(item.getId(), user.getId());
             if (tabs == null || tabs.size() == 0) {
                 if (StringUtils.isBlank(url)) {
                     return prompt(model, item.getName() + " 未找到");
@@ -53,7 +57,7 @@ public class MenuRedirectWidget extends AbstractAdminWidget {
                 openTab = tabs.get(0);
             }
             else {
-                openTab = treeItemService.getOpenTab(item.getId());
+                openTab = treeItemService.getOpenTab(item.getId(), user.getId());
             }
             url = openTab.getCall();
         }
@@ -61,7 +65,7 @@ public class MenuRedirectWidget extends AbstractAdminWidget {
             request.getSession().setAttribute(Keys.CURRENT_ENTITY, item.getId());
             url = item.getCall();
             openTab = item;
-            tabs = treeItemService.findTabItems(openTab.getParent());
+            tabs = treeItemService.findTabItems(openTab.getParent(), user.getId());
         }
 
         if (StringUtils.isBlank(url)) {

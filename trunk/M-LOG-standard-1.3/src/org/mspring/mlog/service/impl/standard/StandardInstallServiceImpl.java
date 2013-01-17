@@ -40,7 +40,7 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         treeItemService.clearItems();
 
         List<TreeItem> items = new ArrayList<TreeItem>();
-        items.add(new TreeItem("1", "功能菜单", "0", "", TreeItem.Type.TREE_FOLDER, true));
+        items.add(new TreeItem("1", "基本功能", "0", "", TreeItem.Type.TREE_FOLDER, true));
         
         items.add(new TreeItem("105", "首页", "1", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("105001", "首页", "105", "/admin/about", TreeItem.Type.TAB, true));

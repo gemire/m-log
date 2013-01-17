@@ -50,13 +50,13 @@ public class AlbumWidget extends AbstractAdminWidget {
         return "/admin/album/listAlbum";
     }
 
-    @RequestMapping({ "/create", "/", "" })
+    @RequestMapping({ "/create" })
     public String createAlbumView(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("types", Album.Type.getType());
         return "/admin/album/createAlbum";
     }
 
-    @RequestMapping({ "/doCreate", "/", "" })
+    @RequestMapping({ "/doCreate" })
     public String doCreateAlbum(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         albumService.createAlbum(album);
         return "redirect:/admin/album/list";

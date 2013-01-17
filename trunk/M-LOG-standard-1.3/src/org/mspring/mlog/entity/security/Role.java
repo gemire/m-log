@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * @author Gao Youbo
@@ -30,8 +29,6 @@ public class Role implements Serializable {
     private Long id;
     private String name;
     private Boolean enabled;
-
-    private Boolean selected;// 是否选中
 
     /**
      * 
@@ -76,14 +73,4 @@ public class Role implements Serializable {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
-    @Transient
-    public Boolean getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Boolean selected) {
-        this.selected = selected;
-    }
-
 }
