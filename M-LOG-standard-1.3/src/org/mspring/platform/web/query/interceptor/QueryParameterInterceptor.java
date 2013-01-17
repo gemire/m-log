@@ -51,7 +51,6 @@ public class QueryParameterInterceptor extends HandlerInterceptorAdapter {
     }
 
     protected void setParameterMaps(HttpServletRequest request, QueryParameterAware action) {
-
         if (log.isDebugEnabled()) {
             log.debug("Beging interceptor QueryParameterAware for " + action.getClass());
         }

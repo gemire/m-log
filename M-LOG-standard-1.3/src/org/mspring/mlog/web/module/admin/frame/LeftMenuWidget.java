@@ -37,7 +37,7 @@ public class LeftMenuWidget {
     @RequestMapping(value = "/leftMenu")
     public String execute(HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = GlobalUtils.getCurrentUser(request);
-        List<TreeItem> items = treeItemService.findTreeItems(user.getId());
+        List<TreeItem> items = treeItemService.findTreeItemByUser(user.getId());
         model.addAttribute("items", items);
         return "/admin/frame/leftMenu";
     }

@@ -10,9 +10,11 @@ import java.util.Set;
 
 import org.mspring.mlog.entity.security.Resource;
 import org.mspring.mlog.entity.security.Role;
+import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.ResourceService;
 import org.mspring.mlog.service.security.RoleService;
+import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.service.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +37,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private RoleService roleService;
     @Autowired
     private ResourceService resourceService;
+    @Autowired
+    private TreeItemService treeItemService;
 
     /*
      * (non-Javadoc)
@@ -69,10 +73,17 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<Role> roles = roleService.getRolesByUser(user.getId());
 
         for (Role role : roles) {
-            List<Resource> tempRes = resourceService.findResourceByRole(role.getId());
-            for (Resource res : tempRes) {
-                authSet.add(new GrantedAuthorityImpl(res.getName()));
+            List<Resource> resources = resourceService.findResourceByRole(role.getId());
+            for (Resource res : resources) {
+                String name = "RES_" + res.getId() + "_" + res.getName();
+                authSet.add(new GrantedAuthorityImpl(name));
             }
+            
+//            List<TreeItem> items = treeItemService.findTreeItemByRole(role.getId());
+//            for (TreeItem item : items) {
+//                String name = "ITEM_" + item.getId() + "_" + item.getName();
+//                authSet.add(new GrantedAuthorityImpl(name));
+//            }
         }
         return authSet;
     }

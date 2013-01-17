@@ -9,13 +9,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.entity.security.Resource;
+import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.security.ResourceService;
+import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -37,6 +38,9 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
     @Autowired
     private ResourceService resourceService;
 
+    @Autowired
+    private TreeItemService treeItemService;
+
     /**
      * 加载所有资源与权限的关系
      */
@@ -45,25 +49,33 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
             List<Resource> resources = resourceService.findAllResources();
             for (Resource resource : resources) {
+                String name = "RES_" + resource.getId() + "_" + resource.getName();
                 Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-                // 以权限名封装为Spring的security Object
-                ConfigAttribute configAttribute = new SecurityConfig(resource.getName());
+                ConfigAttribute configAttribute = new SecurityConfig(name);
                 configAttributes.add(configAttribute);
                 resourceMap.put(resource.getUrl(), configAttributes);
             }
+
+//            List<TreeItem> items = treeItemService.findTreeItemResource();
+//            for (TreeItem item : items) {
+//                if (StringUtils.isBlank(item.getName()) || StringUtils.isBlank(item.getCall())) {
+//                    continue;
+//                }
+//                String name = "ITEM_" + item.getId() + "_" + item.getName();
+//                Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
+//                ConfigAttribute configAttribute = new SecurityConfig(name);
+//                configAttributes.add(configAttribute);
+//                resourceMap.put(item.getCall(), configAttributes);
+//            }
         }
-        Set<Entry<String, Collection<ConfigAttribute>>> resourceSet = resourceMap.entrySet();
-        Iterator<Entry<String, Collection<ConfigAttribute>>> iterator = resourceSet.iterator();
     }
 
     /**
      * 返回所请求资源所需要的权限
      */
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if (resourceMap == null) {
-            loadResourceDefine();
-        }
-        
+        loadResourceDefine();
+
         String url = ((FilterInvocation) object).getRequestUrl();
         int firstQuestionMarkIndex = url.indexOf("?");
         if (firstQuestionMarkIndex != -1) {

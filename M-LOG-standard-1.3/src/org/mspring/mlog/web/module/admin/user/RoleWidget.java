@@ -23,7 +23,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -127,29 +126,5 @@ public class RoleWidget extends AbstractAdminWidget {
         String[] notIds = StringUtils.split(notCheckedItems, ",");
         roleTreeItemService.unAuthorize(id, notIds);
         return "redirect:/admin/role/authorize";
-    }
-    
-    /**
-     * 检测角色名字是否存在
-     * @param name
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("/roleNameExists")
-    @ResponseBody
-    public String roleNameExists(@RequestParam(required = false)String name, @RequestParam(required = false)Long id, HttpServletRequest request, HttpServletResponse response){
-        if (StringUtils.isBlank(name)) {
-            return "true";
-        }
-        try {
-            boolean flag = roleService.checkRoleNameExists(name, id);
-            return flag ? "true" : "false";
-        }
-        catch (Exception e) {
-            // TODO: handle exception
-            return "true";
-        }
     }
 }
