@@ -9,7 +9,7 @@ $(document).ready(function() {
 		}
 		data["title"] = value;
 		var result = $.ajax({
-			url : mlog.variable.base + "/admin/post/postTitleExists",
+			url : mlog.variable.base + "/common/validate/postTitleExists",
 			async : false,
 			data : data
 		}).responseText;
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		}
 		data["url"] = value;
 		var result = $.ajax({
-			url : mlog.variable.base + "/admin/post/postUrlExists",
+			url : mlog.variable.base + "/common/validate/postUrlExists",
 			async : false,
 			data : data
 		}).responseText;
@@ -48,7 +48,7 @@ $(document).ready(function() {
 		var data = {};
 		data["url"] = value;
 		var result = $.ajax({
-			url : mlog.variable.base + "/admin/post/postUrlIllegal",
+			url : mlog.variable.base + "/common/validate/postUrlIllegal",
 			async : false,
 			data : data
 		}).responseText;
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		}
 		data["name"] = value;
 		var result = $.ajax({
-			url : mlog.variable.base + "/admin/catalog/catalogNameExists",
+			url : mlog.variable.base + "/common/validate/catalogNameExists",
 			async : false,
 			data : data
 		}).responseText;
@@ -103,7 +103,7 @@ $(document).ready(function() {
 		}
 		data["name"] = value;
 		var result = $.ajax({
-			url : mlog.variable.base + "/admin/role/roleNameExists",
+			url : mlog.variable.base + "/common/validate/roleNameExists",
 			async : false,
 			data : data
 		}).responseText;
