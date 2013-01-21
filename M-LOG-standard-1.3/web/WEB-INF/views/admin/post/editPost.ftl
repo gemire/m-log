@@ -34,7 +34,7 @@
 	</script>
 	
 			<div id="error" class="message error" style="display:none;"></div>
-			<form id="postForm" name="postForm" action="${base}/admin/post/doEdit" method="POST">
+			<form id="postForm" name="postForm" action="${base}/admin/post/edit/save" method="POST">
 				<@spring.bind "post" />
 				<@mspring.show_errors />
 				<@spring.formHiddenInput path="post.id" />

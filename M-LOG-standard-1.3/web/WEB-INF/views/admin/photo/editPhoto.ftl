@@ -7,7 +7,7 @@
 	</tr>
 </table>
 <div id="error" class="message error" style="display:none;"></div>
-<form class="photoForm" id="photoForm" action="${base}/admin/photo/doEdit" method="POST">
+<form class="photoForm" id="photoForm" action="${base}/admin/photo/edit/save" method="POST">
 	<@spring.bind "photo" />
 	<#-- <@spring.formHiddenInput path="photo.id" /> -->
 	<@spring.formHiddenInput path="photo.album.id" />

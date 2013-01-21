@@ -43,7 +43,7 @@ public class SelfInfoWidget extends AbstractAdminWidget {
         return "/admin/self/info";
     }
 
-    @RequestMapping("/saveInfo")
+    @RequestMapping("/info/save")
     @Premission(item = "205005")
     public String doEditUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码

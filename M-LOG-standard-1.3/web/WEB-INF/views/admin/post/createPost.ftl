@@ -32,7 +32,7 @@
 		});
 	</script>
 	<div id="error" class="message error" style="display:none;"></div>
-	<form id="postForm" name="postForm" action="${base}/admin/post/doCreate" method="POST">
+	<form id="postForm" name="postForm" action="${base}/admin/post/create/save" method="POST">
 		<@spring.bind "post" />
 		<@mspring.show_errors />
 		<@spring.formHiddenInput path="post.status" />

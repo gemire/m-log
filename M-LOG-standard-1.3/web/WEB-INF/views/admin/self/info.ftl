@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <div class="message notice" style="margin:10px;">提示：不修改密码时，请留空密码框</div>
-<form id="userForm" name="userForm" action="${base}/admin/self/saveInfo" method="POST">
+<form id="userForm" name="userForm" action="${base}/admin/self/info/save" method="POST">
 	<@spring.bind "user" />
 	<@mspring.show_errors />
 	<@spring.formHiddenInput path="user.id" />
