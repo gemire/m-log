@@ -3,7 +3,7 @@
 <#include "../inc/header.ftl" />
 <div id="error" class="message error" style="display:none;"></div>
 <@spring.bind "link" />
-<form class="form" name="linkForm" id="linkForm" action="${base}/admin/link/doCreate" method="POST">
+<form class="form" name="linkForm" id="linkForm" action="${base}/admin/link/create/save" method="POST">
 	<table class="formtable">
 		<tr>
 			<td class="fieldlabel" style="width:60px;">编号</td>

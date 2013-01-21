@@ -16,6 +16,7 @@ import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.LinkQueryCriterion;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -42,6 +43,7 @@ public class LinkWidget extends AbstractAdminWidget {
     private LinkTypeService linkTypeService;
 
     @RequestMapping("/list")
+    @Premission(item = "120005")
     public String listLinks(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkPage == null) {
             linkPage = new Page<Link>();
@@ -66,6 +68,7 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
+    @Premission(item = "120010")
     public String createLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("target", Link.Target.getTargetMap());
         model.addAttribute("visable", Link.Visable.getVisableMap());
@@ -73,7 +76,8 @@ public class LinkWidget extends AbstractAdminWidget {
         return "/admin/link/createLink";
     }
 
-    @RequestMapping("/doCreate")
+    @RequestMapping("/create/save")
+    @Premission(item = "120010")
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.createLink(link);
         return "redirect:/admin/link/list";
@@ -88,6 +92,7 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
+    @Premission(item = "120015")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (link == null || link.getId() == null) {
             return prompt(model, "请先选择要修改的链接");
@@ -100,7 +105,8 @@ public class LinkWidget extends AbstractAdminWidget {
         return "/admin/link/editLink";
     }
 
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit/save")
+    @Premission(item = "120015")
     public String doEditLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.updateLink(link);
         return "redirect:/admin/link/list";

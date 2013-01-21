@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <div id="error" class="message error" style="display:none;"></div>
-<form class="form" id="catalogForm" action="${base}/admin/catalog/doCreate" method="POST">
+<form class="form" id="catalogForm" action="${base}/admin/catalog/create/save" method="POST">
 	<@spring.bind "catalog" />
 	<table class="formtable">
 		<tr>

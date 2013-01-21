@@ -12,6 +12,7 @@ import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.core.ContextManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -40,6 +41,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/setting")
+    @Premission(item = "725001")
     public String mailSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -56,6 +58,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSetting")
+    @Premission(item = "725001")
     public String saveMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/system/mail/setting";
@@ -71,6 +74,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/test")
+    @Premission(item = "725002")
     public String testView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/system/mail/test";
     }
@@ -85,6 +89,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/sendTestMail")
+    @Premission(item = "725002")
     public String sendTestMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         boolean success = true;
         String message = "success!";

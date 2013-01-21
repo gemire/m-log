@@ -1,6 +1,6 @@
 <#include "inc/simpleheader.ftl" />
-	<div class="ui-layout-north" style="overflow:hidden;"><@tldwidget.placeholder path="/admin/top" cache=true idle=86400 /></div>
-	<div class="ui-layout-west"><@tldwidget.placeholder path="/admin/leftMenu" cache=true idle=86400 /></div>
+	<div class="ui-layout-north" style="overflow:hidden;"><@tldwidget.placeholder path="/admin/top" cache=true idle=3 /></div>
+	<div class="ui-layout-west"><@tldwidget.placeholder path="/admin/leftMenu" cache=false /></div>
 	<div class="ui-layout-south"><@tldwidget.placeholder path="/admin/bottom" cache=true idle=86400 /></div>
 	<iframe class="ui-layout-center" id="main-frame" name="main" src="${base}/admin/redirect?id=105001" frameborder="0" scrolling="auto"></iframe>
 	

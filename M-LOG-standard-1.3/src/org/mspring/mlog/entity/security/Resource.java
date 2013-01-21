@@ -4,6 +4,10 @@
 package org.mspring.mlog.entity.security;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +34,7 @@ public class Resource implements Serializable {
     private String name;
     private String url;
     private String type;
+    private String treeItem;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +72,31 @@ public class Resource implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    @Column(name = "tree_item", length = 100)
+    public String getTreeItem() {
+        return treeItem;
+    }
+
+    public void setTreeItem(String treeItem) {
+        this.treeItem = treeItem;
+    }
+
+
+
+
+    public static class Type {
+        public static final String TREE = "tree";
+        public static final String NORMAL = "normal";
+        public static final List<String> Types = Arrays.asList(new String[] { TREE, NORMAL });
+
+        public static final Map<String, String> getCommentStatusMap() {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(TREE, TREE);
+            map.put(NORMAL, NORMAL);
+            return map;
+        }
     }
 
 }

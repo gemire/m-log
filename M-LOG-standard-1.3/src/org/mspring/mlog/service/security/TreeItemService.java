@@ -49,6 +49,7 @@ public interface TreeItemService {
 
     /**
      * 获取自动打开的Tab
+     * 
      * @param parent
      * @param userId
      * @return
@@ -75,13 +76,6 @@ public interface TreeItemService {
     public List<TreeItem> findAllTreeItems();
 
     /**
-     * 加载所有TreeItemResource用于授权，即加载Call不为空的Item
-     * 
-     * @return
-     */
-    public List<TreeItem> findTreeItemResource();
-
-    /**
      * 根据URL查找制定用户的TreeItem
      * 
      * @param url
@@ -89,4 +83,21 @@ public interface TreeItemService {
      * @return
      */
     public TreeItem findTreeItemByUserAndUrl(String url, Long userId);
+
+    /**
+     * 根据TreeeItem的Call查找TreeItem
+     * 
+     * @param url
+     * @return
+     */
+    public TreeItem findTreeItemByUrl(String url);
+    
+    
+    /**
+     * 判断用户是否有指定的TreeItem的权限
+     * @param itemId
+     * @param userId
+     * @return
+     */
+    public boolean hasUserTreeItem(String itemId, Long userId);
 }

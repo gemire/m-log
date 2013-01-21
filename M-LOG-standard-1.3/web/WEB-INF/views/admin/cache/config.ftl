@@ -1,7 +1,7 @@
 <#include "../inc/header.ftl" />
 <div>
 	<#--
-	<form id="cacheForm" name="cacheForm" method="post" action="${base}/admin/cache/saveSetting">
+	<form id="cacheForm" name="cacheForm" method="post" action="${base}/admin/cache/config/save">
 		<div id="error" class="message error" style="display:none;"></div>
 		<table class="infotable">
 			<tr>
@@ -29,7 +29,7 @@
 </div>
 <script type="text/javascript">
 	$("#btnClear").click(function(){
-		$.get("${base}/admin/cache/doClear", function(response){
+		$.get("${base}/admin/cache/clear", function(response){
 			alert('清理完成');
 			document.location.reload();
 		});

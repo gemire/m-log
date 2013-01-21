@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 	<div id="error" class="message error" style="display:none;"></div>
-	<form class="form" name="linkForm" id="linkForm" action="${base}/admin/link/doEdit" method="POST">
+	<form class="form" name="linkForm" id="linkForm" action="${base}/admin/link/edit/save" method="POST">
 		<@spring.bind "link" />
 		<@mspring.show_errors />
 		<@spring.formHiddenInput path="link.id" />

@@ -15,6 +15,7 @@ import org.mspring.mlog.service.security.RoleTreeItemService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
@@ -41,6 +42,7 @@ public class RoleWidget extends AbstractAdminWidget {
     private RoleTreeItemService roleTreeItemService;
 
     @RequestMapping("/list")
+    @Premission(item = "310005")
     public String list(@ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (rolePage == null) {
             rolePage = new Page<Role>();
@@ -53,23 +55,27 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
+    @Premission(item = "310005")
     public String delete(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
 
         return list(rolePage, request, response, model);
     }
 
     @RequestMapping("/create")
+    @Premission(item = "310010")
     public String create(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/role/createRole";
     }
 
     @RequestMapping("/doCreate")
+    @Premission(item = "310010")
     public String doCreate(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         roleService.createRole(role);
         return "redirect:/admin/role/edit?id=" + role.getId();
     }
 
     @RequestMapping("/edit")
+    @Premission(item = "310015")
     public String edit(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "RoleWidget_edit_id");
@@ -89,12 +95,14 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/doEdit")
+    @Premission(item = "310015")
     public String doEdit(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         roleService.updateRole(role);
         return "redirect:/admin/role/edit?id=" + role.getId();
     }
 
     @RequestMapping("/authorize")
+    @Premission(item = "310020")
     public String authorize(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "RoleWidget_authorize_id");
@@ -108,7 +116,7 @@ public class RoleWidget extends AbstractAdminWidget {
         setSessionAttribute(request, "RoleWidget_authorize_id", id);
 
         List<TreeItem> treeItems = treeItemService.findAllTreeItems();
-        List<TreeItem> authorized = roleTreeItemService.getAuthorizedList(id);
+        List<TreeItem> authorized = roleTreeItemService.getPremissions(id);
         model.addAttribute("id", id);
         model.addAttribute("treeItems", treeItems);
         model.addAttribute("authorized", authorized);
@@ -116,15 +124,16 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/saveAuthorize")
+    @Premission(item = "310020")
     public String saveAuthorize(@RequestParam(required = false) Long id, @RequestParam(required = false) String checkedItems,@RequestParam(required = false) String notCheckedItems, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请先选择要修改的角色");
         }
         String[] ids = StringUtils.split(checkedItems, ",");
-        roleTreeItemService.authorize(id, ids);
+        roleTreeItemService.setPremission(id, ids);
         
         String[] notIds = StringUtils.split(notCheckedItems, ",");
-        roleTreeItemService.unAuthorize(id, notIds);
+        roleTreeItemService.removePremission(id, notIds);
         return "redirect:/admin/role/authorize";
     }
 }

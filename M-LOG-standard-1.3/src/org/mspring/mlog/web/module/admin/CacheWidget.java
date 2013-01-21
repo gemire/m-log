@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.ehcache.CacheManager;
 
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,14 +26,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Widget
 @RequestMapping("/admin/cache")
 public class CacheWidget extends AbstractAdminWidget {
-    @RequestMapping("/setting")
+    @RequestMapping("/config")
+    @Premission(item = "245005")
     public String setting(HttpServletRequest request, HttpServletResponse response, Model model) {
         String cache_prefix = optionService.getPropertiesOption("cache_prefix");
         model.addAttribute("cache_prefix", cache_prefix);
-        return "/admin/cache/setting";
+        return "/admin/cache/config";
     }
 
-    @RequestMapping("/saveSetting")
+    @RequestMapping("/config/save")
+    @Premission(item = "245005")
     public String saveSetting(@RequestParam String cache_prefix, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setPropertiesOption("cache_prefix", cache_prefix);
         List<String> keys = cacheService.getCacheKeys();
@@ -41,11 +44,12 @@ public class CacheWidget extends AbstractAdminWidget {
                 cacheService.deleteCache(key);
             }
         }
-        return "redirect:/admin/cache/setting";
+        return "redirect:/admin/cache/config";
     }
 
-    @RequestMapping("/doClear")
+    @RequestMapping("/clear")
     @ResponseBody
+    @Premission(item = "245005")
     public String doClear(HttpServletRequest request, HttpServletResponse response, Model model) {
         // 开始清理缓存
         CacheManager.getInstance().clearAll();

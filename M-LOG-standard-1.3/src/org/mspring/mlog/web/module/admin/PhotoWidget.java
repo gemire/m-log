@@ -17,6 +17,7 @@ import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PhotoQueryCriterion;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     private AlbumService albumService;
 
     @RequestMapping("/upload")
+    @Premission(item = "125025")
     public String photoUploadView(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
         model.addAttribute("albums", albums);
@@ -73,6 +75,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping({ "/list", "/", "" })
+    @Premission(item = "125020")
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
         Album album = null;

@@ -32,17 +32,17 @@ public class ResourceServiceImpl extends AbstractServiceSupport implements Resou
         return findAll(Resource.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.security.ResourceService#findResourceByRole(
-     * java.lang.Long)
-     */
     @Override
-    public List<Resource> findResourceByRole(Long roleId) {
+    public Resource createResource(Resource resource) {
         // TODO Auto-generated method stub
-        return find("select roleResource.PK.resource from RoleResource roleResource where roleResource.PK.role.id = ?", roleId);
+        Long id = (Long) create(resource);
+        return getResourceById(id);
+    }
+
+    @Override
+    public Resource getResourceById(Long id) {
+        // TODO Auto-generated method stub
+        return (Resource) getById(Resource.class, id);
     }
 
 }

@@ -20,19 +20,19 @@ public interface RoleTreeItemService {
      * @param roleId
      * @param treeItems
      */
-    void authorize(Long roleId, String[] treeItems);
+    void setPremission(Long roleId, String[] treeItems);
     
     /**
      * 取消授权
      * @param roleId
      * @param treeItems
      */
-    void unAuthorize(Long roleId, String[] treeItems);
+    void removePremission(Long roleId, String[] treeItems);
     
     /**
      * 根据Role获取已经被授权的treeItem
      * @param roleId
      * @return
      */
-    List<TreeItem> getAuthorizedList(Long roleId);
+    List<TreeItem> getPremissions(Long roleId);
 }
