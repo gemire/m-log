@@ -11,6 +11,7 @@ import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.HQLExecuteService;
 import org.mspring.mlog.service.InstallService;
+import org.mspring.mlog.service.JobLogService;
 import org.mspring.mlog.service.JobService;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
@@ -106,6 +107,10 @@ public class ServiceFactory {
 
     public static JobService getJobService() {
         return ContextManager.getApplicationContext().getBean(JobService.class);
+    }
+    
+    public static JobLogService getJobLogService(){
+        return ContextManager.getApplicationContext().getBean(JobLogService.class); 
     }
 
     public static HibernateSearchService getHibernateSearchService() {

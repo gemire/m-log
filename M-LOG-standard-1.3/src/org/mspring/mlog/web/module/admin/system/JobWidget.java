@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Job;
+import org.mspring.mlog.entity.JobLog;
+import org.mspring.mlog.service.JobLogService;
 import org.mspring.mlog.service.JobService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.mlog.web.module.admin.system.query.JobLogQueryCriterion;
 import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -38,6 +41,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class JobWidget extends AbstractAdminWidget {
     @Autowired
     private JobService jobService;
+    @Autowired
+    private JobLogService jobLogService;
 
     @RequestMapping("/list")
     @Premission(item = "730005")
@@ -93,5 +98,22 @@ public class JobWidget extends AbstractAdminWidget {
     @Premission(item = "730005")
     public String exec(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         return list(jobPage, queryParams, request, response, model);
+    }
+
+    @RequestMapping("/log")
+    public String log(@ModelAttribute Page<JobLog> jobLogPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (jobLogPage == null) {
+            jobLogPage = new Page<JobLog>();
+        }
+        jobLogPage.setSort(new Sort("id", Sort.DESC));
+        jobLogPage = jobLogService.findJobLog(jobLogPage, new JobLogQueryCriterion(queryParams));
+        model.addAttribute("jobLogPage", jobLogPage);
+        return "/admin/system/job/log";
+    }
+    
+    @RequestMapping("/log/clear")
+    public String log(@RequestParam(required = false) int days, HttpServletRequest request, HttpServletResponse response, Model model) {
+        jobLogService.removeJobLog(days);
+        return prompt(model, "系统提示", "JOB调度日志清理成功！", "/admin/system/job/log");
     }
 }
