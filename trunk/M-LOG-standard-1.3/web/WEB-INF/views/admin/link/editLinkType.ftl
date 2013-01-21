@@ -3,7 +3,7 @@
 <#import "/META-INF/mspring.ftl" as mspring />
 	<div id="error" class="message error" style="display:none;"></div>
 	<@spring.bind "linkType" />
-	<form class="form" name="linkTypeForm" id="linkTypeForm" action="${base}/admin/linkType/doEdit" method="POST">
+	<form class="form" name="linkTypeForm" id="linkTypeForm" action="${base}/admin/linkType/edit/save" method="POST">
 		<table class="formtable">
 			<tr>
 				<td class="fieldlabel" style="width:60px;">编号</td>

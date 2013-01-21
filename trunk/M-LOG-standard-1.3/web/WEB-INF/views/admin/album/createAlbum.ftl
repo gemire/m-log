@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <div id="error" class="message error" style="display:none;"></div>
-<form class="albumForm" id="albumForm" action="${base}/admin/album/doCreate" method="POST">
+<form class="albumForm" id="albumForm" action="${base}/admin/album/create/save" method="POST">
 	<@spring.bind "album" />
 	<table class="infotable" style="width:100%">
 		<tr>

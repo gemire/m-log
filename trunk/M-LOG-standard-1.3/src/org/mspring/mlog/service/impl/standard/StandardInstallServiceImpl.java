@@ -85,20 +85,19 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("220005", "博客信息", "220", "/admin/setting/bloginfo", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("230", "皮肤设置", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("230005", "博客信息", "230", "/admin/setting/skin", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("230005", "皮肤设置", "230", "/admin/setting/skin", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("240", "SEO设置", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("240005", "博客信息", "240", "/admin/setting/seo", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("240005", "SEO设置", "240", "/admin/setting/seo", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("245", "缓存管理", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("245005", "博客信息", "245", "/admin/cache/setting", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("245005", "博客信息", "245", "/admin/cache/config", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("3", "用户", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("305", "用户管理", "3", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("305005", "列表", "305", "/admin/user/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("305010", "新增", "305", "/admin/user/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("305015", "修改", "305", "/admin/user/edit", TreeItem.Type.TAB, false));
-        //items.add(new TreeItem("305020", "授权", "305", "/admin/user/authorize", TreeItem.Type.TAB, false));
         
         items.add(new TreeItem("310", "角色", "3", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("310005", "列表", "310", "/admin/role/list", TreeItem.Type.TAB, true));
@@ -115,13 +114,7 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("730005", "列表", "730", "/admin/system/job/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("730010", "任务日志", "730", "/admin/system/job/log", TreeItem.Type.TAB, false));
         
-//        items.add(new TreeItem("335", "用户管理", "3", "", TreeItem.Type.TREE_ITEM, true));
-//        items.add(new TreeItem("335005", "用户列表", "335", "/admin/about", TreeItem.Type.TAB, true));
-//        items.add(new TreeItem("335010", "新增用户", "335", "/admin/about", TreeItem.Type.TAB, true));
-//        items.add(new TreeItem("335015", "编辑用户", "335", "/admin/about", TreeItem.Type.TAB, true));
-//        items.add(new TreeItem("335020", "用户授权", "335", "/admin/about", TreeItem.Type.TAB, true));
         
-
         items.add(new TreeItem("8", "插件", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("805005", "金山快盘", "805", "/admin/api/kuaipan/setting", TreeItem.Type.TAB, true));

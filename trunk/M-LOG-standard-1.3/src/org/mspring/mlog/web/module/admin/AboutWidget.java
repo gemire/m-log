@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.Application;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 

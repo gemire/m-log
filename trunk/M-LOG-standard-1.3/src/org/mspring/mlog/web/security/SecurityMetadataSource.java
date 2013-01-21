@@ -13,10 +13,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.entity.security.Resource;
-import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.security.ResourceService;
 import org.mspring.mlog.service.security.TreeItemService;
-import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -49,31 +47,21 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
             List<Resource> resources = resourceService.findAllResources();
             for (Resource resource : resources) {
-                String name = "RES_" + resource.getId() + "_" + resource.getName();
                 Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-                ConfigAttribute configAttribute = new SecurityConfig(name);
+                ConfigAttribute configAttribute = new SecurityConfig(resource.getName());
                 configAttributes.add(configAttribute);
                 resourceMap.put(resource.getUrl(), configAttributes);
             }
-
-//            List<TreeItem> items = treeItemService.findTreeItemResource();
-//            for (TreeItem item : items) {
-//                if (StringUtils.isBlank(item.getName()) || StringUtils.isBlank(item.getCall())) {
-//                    continue;
-//                }
-//                String name = "ITEM_" + item.getId() + "_" + item.getName();
-//                Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-//                ConfigAttribute configAttribute = new SecurityConfig(name);
-//                configAttributes.add(configAttribute);
-//                resourceMap.put(item.getCall(), configAttributes);
-//            }
         }
     }
 
+    
     /**
      * 返回所请求资源所需要的权限
      */
+    @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+        // TODO Auto-generated method stub
         loadResourceDefine();
 
         String url = ((FilterInvocation) object).getRequestUrl();
@@ -93,6 +81,7 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
         }
         return null;
     }
+    
 
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         // TODO Auto-generated method stub

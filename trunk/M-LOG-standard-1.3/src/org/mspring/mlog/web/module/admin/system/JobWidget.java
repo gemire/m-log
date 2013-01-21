@@ -15,6 +15,7 @@ import org.mspring.mlog.service.JobService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -39,6 +40,7 @@ public class JobWidget extends AbstractAdminWidget {
     private JobService jobService;
 
     @RequestMapping("/list")
+    @Premission(item = "730005")
     public String list(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (jobPage == null) {
             jobPage = new Page<Job>();
@@ -62,6 +64,7 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
+    @Premission(item = "730005")
     public String ctrl(@RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] enabledIds, @RequestParam(required = false) String[] expressions, @RequestParam(required = false) String[] execTypes, @ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 设置可用
         if (enabledIds != null && enabledIds.length > 0) {
@@ -87,6 +90,7 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/exec")
+    @Premission(item = "730005")
     public String exec(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         return list(jobPage, queryParams, request, response, model);
     }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -48,7 +49,8 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @param model
      * @return
      */
-    @RequestMapping({ "/list", "/", "" })
+    @RequestMapping({ "/list" })
+    @Premission(item = "11515005")
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
@@ -80,6 +82,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/delete")
+    @Premission(item = "11515005")
     public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             catalogService.deleteCatalog(id);
@@ -97,6 +100,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create")
+    @Premission(item = "11515010")
     public String createCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/catalog/createCatalog";
     }
@@ -110,7 +114,8 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @param model
      * @return
      */
-    @RequestMapping("/doCreate")
+    @RequestMapping("/create/save")
+    @Premission(item = "11515010")
     public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
@@ -129,6 +134,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit")
+    @Premission(item = "11515015")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog == null || catalog.getId() == null) {
             return prompt(model, "请先选择要修改的分类");
@@ -147,7 +153,8 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @param model
      * @return
      */
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit/save")
+    @Premission(item = "11515015")
     public String doEditCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);

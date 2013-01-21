@@ -18,6 +18,7 @@ import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.mlog.web.module.admin.user.query.UserQueryCriterion;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class UserWidget extends AbstractAdminWidget {
     private RoleService roleService;
 
     @RequestMapping("/list")
+    @Premission(item = "305005")
     public String list(@ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (userPage == null) {
             userPage = new Page<User>();
@@ -56,7 +58,29 @@ public class UserWidget extends AbstractAdminWidget {
         return "/admin/user/listUser";
     }
     
+    @RequestMapping("/create")
+    @Premission(item = "305010")
+    public String create(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+        List<Role> roles = roleService.findEnabledRole();
+        model.addAttribute("roles", roles);
+        return "/admin/user/createUser";
+    }
+    
+    @RequestMapping("/doCreate")
+    @Premission(item = "305010")
+    public String doCreate(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+        user = userService.addUser(user);
+        
+        String userRoles = request.getParameter("selectRoles");
+        if (StringUtils.isNotBlank(userRoles)) {
+            String[] roles = userRoles.split(",");
+            userService.setUserRoles(user.getId(), roles);
+        }
+        return "redirect:/admin/user/edit?id=" + user.getId();
+    }
+    
     @RequestMapping("/edit")
+    @Premission(item = "305015")
     public String edit(@RequestParam(required = false)Long id, @ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
         if (id == null) {
             Object obj = getSessionAttribute(request, "UserWidget_edit_id");
@@ -82,6 +106,7 @@ public class UserWidget extends AbstractAdminWidget {
     
     
     @RequestMapping("/doEdit")
+    @Premission(item = "305015")
     public String doEdit(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
         String newPassword = request.getParameter("newPassword");
         if (StringUtils.isNotBlank(newPassword)) {
@@ -104,23 +129,4 @@ public class UserWidget extends AbstractAdminWidget {
         return edit(user.getId(), user, request, response, model);
     }
     
-    
-    @RequestMapping("/create")
-    public String create(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
-        List<Role> roles = roleService.findEnabledRole();
-        model.addAttribute("roles", roles);
-        return "/admin/user/createUser";
-    }
-    
-    @RequestMapping("/doCreate")
-    public String doCreate(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
-        user = userService.addUser(user);
-        
-        String userRoles = request.getParameter("selectRoles");
-        if (StringUtils.isNotBlank(userRoles)) {
-            String[] roles = userRoles.split(",");
-            userService.setUserRoles(user.getId(), roles);
-        }
-        return "redirect:/admin/user/edit?id=" + user.getId();
-    }
 }

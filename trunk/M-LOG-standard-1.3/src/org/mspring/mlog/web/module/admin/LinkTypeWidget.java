@@ -14,6 +14,7 @@ import org.mspring.mlog.entity.LinkType;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -42,6 +43,7 @@ public class LinkTypeWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/list")
+    @Premission(item = "120020")
     public String listLinkType(@ModelAttribute Page<LinkType> linkTypePage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkTypePage == null) {
             linkTypePage = new Page<LinkType>();
@@ -54,7 +56,6 @@ public class LinkTypeWidget extends AbstractAdminWidget {
         columnfields.add(new ColumnField("id", "编号"));
         columnfields.add(new ColumnField("name", "名称"));
         columnfields.add(new ColumnField("order", "排序"));
-        // columnfields.add(new ColumnField("visable", "是否可见"));
 
         model.addAttribute("columnfields", columnfields);
         model.addAttribute("visable", LinkType.Visable.getVisableMap());
@@ -72,6 +73,7 @@ public class LinkTypeWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create")
+    @Premission(item = "120025")
     public String createLinkType(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("visable", LinkType.Visable.getVisableMap());
         return "/admin/link/createLinkType";
@@ -86,13 +88,15 @@ public class LinkTypeWidget extends AbstractAdminWidget {
      * @param model
      * @return
      */
-    @RequestMapping("/doCreate")
+    @RequestMapping("/create/save")
+    @Premission(item = "120025")
     public String doCreateLinkType(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkTypeService.createLinkType(linkType);
         return "redirect:/admin/linkType/list";
     }
 
     @RequestMapping("/edit")
+    @Premission(item = "120030")
     public String editLinkType(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请先选择要修改的链接分类");
@@ -103,7 +107,8 @@ public class LinkTypeWidget extends AbstractAdminWidget {
         return "/admin/link/editLinkType";
     }
 
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit/save")
+    @Premission(item = "120015")
     public String doEditLinkType(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkTypeService.updateLinkType(linkType);
         return "redirect:/admin/linkType/list";

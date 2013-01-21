@@ -10,11 +10,30 @@ import org.mspring.mlog.entity.security.Resource;
 /**
  * @author Gao Youbo
  * @since 2013-1-11
- * @Description 
- * @TODO 
+ * @Description
+ * @TODO
  */
 public interface ResourceService {
+    /**
+     * 查找所有resource
+     * 
+     * @return
+     */
     List<Resource> findAllResources();
-    
-    List<Resource> findResourceByRole(Long roleId);
+
+    /**
+     * 创建Resource
+     * 
+     * @param resource
+     * @return
+     */
+    Resource createResource(Resource resource);
+
+    /**
+     * 根据ResourceID获取resource
+     * 
+     * @param id
+     * @return
+     */
+    Resource getResourceById(Long id);
 }

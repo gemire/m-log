@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <div id="error" class="message error" style="display:none;"></div>
-<form id="albumConfigForm" name="albumConfigForm" action="${base}/admin/album/saveConfig" method="POST">
+<form id="albumConfigForm" name="albumConfigForm" action="${base}/admin/album/config/save" method="POST">
 	<table class="infotable">
 		<tr>
 			<td colspan="3" class="partition">上传配置</td>

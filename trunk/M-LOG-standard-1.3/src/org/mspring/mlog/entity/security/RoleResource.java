@@ -43,7 +43,6 @@ public class RoleResource implements Serializable {
         super();
         PK = pK;
     }
-
     
     @EmbeddedId
     @AttributeOverrides({ @AttributeOverride(name = "roleId", column = @Column(name = "role_id", nullable = false)), @AttributeOverride(name = "resourceId", column = @Column(name = "resource_id", nullable = false)) })

@@ -20,9 +20,9 @@ import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.utils.GlobalUtils;
-import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
@@ -58,7 +58,8 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @SuppressWarnings("rawtypes")
-    @RequestMapping({ "/list", "/", "" })
+    @RequestMapping("/list")
+    @Premission(item = "11505005")
     public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
             postPage = new Page<Post>();
@@ -82,6 +83,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
+    @Premission(item = "11505010")
     public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
@@ -101,6 +103,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/doCreate")
+    @Premission(item = "11505010")
     public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = GlobalUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
@@ -176,6 +179,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
+    @Premission(item = "11505015")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (post == null || post.getId() == null) {
             return prompt(model, "请先选择要修改的文章");
@@ -190,6 +194,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/doEdit")
+    @Premission(item = "11505015")
     public String doEditPost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.updatePost(post);
         return "redirect:/admin/post/list";
@@ -204,7 +209,6 @@ public class PostWidget extends AbstractAdminWidget {
     @ResponseBody
     public String updateLuceneIndex() {
         try {
-            ServiceFactory.getInstallService().initTreeItems();
             HibernateSearchService hibernateSearchService = ServiceFactory.getHibernateSearchService();
             hibernateSearchService.updateAllIndex(Post.class);
         }

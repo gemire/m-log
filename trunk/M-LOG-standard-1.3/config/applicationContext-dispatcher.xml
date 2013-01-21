@@ -24,7 +24,7 @@
   		</property>
  	</bean>
  	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<bean class="org.mspring.platform.web.converter.StringHttpMessageConverter">

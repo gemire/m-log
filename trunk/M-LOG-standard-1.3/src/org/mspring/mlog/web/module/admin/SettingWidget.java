@@ -13,6 +13,7 @@ import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.SkinService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.annotation.Premission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/bloginfo")
+    @Premission(item = "220005")
     public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -74,6 +76,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveBloginfo")
+    @Premission(item = "220005")
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/bloginfo";
@@ -89,6 +92,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/skin")
+    @Premission(item = "230005")
     public String skinSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Skin> skins = skinService.scrnSkin();
         model.addAttribute("skins", skins);
@@ -105,6 +109,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSkin")
+    @Premission(item = "230005")
     public String saveSkin(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/skin";
@@ -120,6 +125,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/seo")
+    @Premission(item = "240005")
     public String seoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -136,13 +142,14 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSeo")
+    @Premission(item = "240005")
     public String saveSeo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/seo";
     }
 
     /**
-     * 显示"SEO设置"
+     * 显示"BAE设置"
      * 
      * @param options
      * @param request
@@ -151,6 +158,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/bae")
+    @Premission(item = "240005")
     public String baeSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -158,7 +166,7 @@ public class SettingWidget extends AbstractAdminWidget {
     }
 
     /**
-     * 保存"SEO设置"
+     * 保存"BAE设置"
      * 
      * @param options
      * @param request
