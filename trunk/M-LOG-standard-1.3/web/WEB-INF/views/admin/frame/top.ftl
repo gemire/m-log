@@ -5,7 +5,7 @@
 		</td>
 		<td class="metadata">
 			<div class="userinfo">
-				欢迎：${currentUser.alias} | <a href="${base}/admin/logout">注销登录</a> | <a href="${blogurl}" target="_blank">浏览博客</a>
+				欢迎：${currentUser.alias} | <a href="${base}/admin/logout">注销登录</a> | <a href="${blogurl}" target="_blank">主页</a> | <a href="http://www.mspring.org" target="_blank">M-LOG</a>
 			</div>
 		</td>
 	</tr>
