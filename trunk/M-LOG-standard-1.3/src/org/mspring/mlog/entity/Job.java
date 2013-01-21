@@ -39,6 +39,22 @@ public class Job implements Serializable {
     private Date lastExec;
     private Boolean enabled = true;
     private String jobClass;
+    
+    /**
+     * 
+     */
+    public Job() {
+        // TODO Auto-generated constructor stub
+    }
+    
+    
+
+    public Job(Long id) {
+        super();
+        this.id = id;
+    }
+
+
 
     /**
      * @return the id

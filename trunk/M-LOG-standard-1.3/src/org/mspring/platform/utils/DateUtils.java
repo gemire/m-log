@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Gao Youbo
  * @since Feb 20, 2012
  */
-public class DateUtils {
+public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     public static final String YYYY = "yyyy";
     public static final String YYYY_MM = "yyyy-MM";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
@@ -26,17 +26,13 @@ public class DateUtils {
         Date date = null;
         if (dateStr.length() == YYYY.length()) {
             date = parse(dateStr, YYYY);
-        }
-        else if (dateStr.length() == YYYY_MM.length()) {
+        } else if (dateStr.length() == YYYY_MM.length()) {
             date = parse(dateStr, YYYY_MM);
-        }
-        else if (dateStr.length() == YYYY_MM_DD.length()) {
+        } else if (dateStr.length() == YYYY_MM_DD.length()) {
             date = parse(dateStr, YYYY_MM_DD);
-        }
-        else if (dateStr.length() == YYYY_MM_DD_HH_MM.length()) {
+        } else if (dateStr.length() == YYYY_MM_DD_HH_MM.length()) {
             date = parse(dateStr, YYYY_MM_DD_HH_MM);
-        }
-        else {
+        } else {
             date = parse(dateStr, YYYY_MM_DD_HH_MM_SS);
         }
         return date;
@@ -48,18 +44,15 @@ public class DateUtils {
         try {
             fmt.applyPattern(pattern);
             date = fmt.parse(dateStr);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             try {
                 fmt.applyPattern("yyyy-MM-dd HH:mm");
                 date = fmt.parse(dateStr);
-            }
-            catch (ParseException e1) {
+            } catch (ParseException e1) {
                 fmt.applyPattern("yyyy-MM-dd");
                 try {
                     date = fmt.parse(dateStr);
-                }
-                catch (ParseException e2) {
+                } catch (ParseException e2) {
                     e2.printStackTrace();
                 }
             }
