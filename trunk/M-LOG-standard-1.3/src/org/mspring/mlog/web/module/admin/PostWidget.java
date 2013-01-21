@@ -102,7 +102,7 @@ public class PostWidget extends AbstractAdminWidget {
         return "/admin/post/createPost";
     }
 
-    @RequestMapping("/doCreate")
+    @RequestMapping("/create/save")
     @Premission(item = "11505010")
     public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = GlobalUtils.getCurrentUser(request);
@@ -190,10 +190,13 @@ public class PostWidget extends AbstractAdminWidget {
         isTop.put("true", "是");
         isTop.put("false", "否");
         model.addAttribute("isTop", isTop);
-        return getEditPostView(post, model);
+        model.addAttribute("post", post); // 文章
+        model.addAttribute("catalogs", catalogService.findAllCatalog()); // 文章分类
+        model.addAttribute("commentStatus", Post.CommentStatus.getCommentStatusMap()); // 是否开启评论
+        return "/admin/post/editPost";
     }
 
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit/save")
     @Premission(item = "11505015")
     public String doEditPost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.updatePost(post);
@@ -211,29 +214,11 @@ public class PostWidget extends AbstractAdminWidget {
         try {
             HibernateSearchService hibernateSearchService = ServiceFactory.getHibernateSearchService();
             hibernateSearchService.updateAllIndex(Post.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             log.debug("update post index failure!", e);
             return "false";
         }
         return "true";
-    }
-
-    /**
-     * 获取文章编辑页面
-     * 
-     * @param post
-     * @param model
-     * @return
-     */
-    private String getEditPostView(Post post, Model model) {
-        // 文章
-        model.addAttribute("post", post);
-        // 文章分类
-        model.addAttribute("catalogs", catalogService.findAllCatalog());
-        // 是否开启评论
-        model.addAttribute("commentStatus", Post.CommentStatus.getCommentStatusMap());
-        return "/admin/post/editPost";
     }
 }

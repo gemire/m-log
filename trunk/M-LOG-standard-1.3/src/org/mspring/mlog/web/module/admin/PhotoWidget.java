@@ -74,7 +74,7 @@ public class PhotoWidget extends AbstractAdminWidget {
         }
     }
 
-    @RequestMapping({ "/list", "/", "" })
+    @RequestMapping("/list")
     @Premission(item = "125020")
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
@@ -124,7 +124,7 @@ public class PhotoWidget extends AbstractAdminWidget {
         return "/admin/photo/editPhoto";
     }
 
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit/save")
     public String doEditPhoto(@ModelAttribute Photo photo, HttpServletRequest request, HttpServletResponse response, Model model) {
         photoService.updatePhoto(photo);
         return "redirect:/admin/photo/edit?id=" + photo.getId();
