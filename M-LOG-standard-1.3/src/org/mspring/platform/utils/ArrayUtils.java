@@ -75,5 +75,23 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
         }
         return null;
     }
+    
+    /**
+     * 不区分大小写的Contains
+     * @param array
+     * @param valueToFind
+     * @return
+     */
+    public static boolean ignoreCaseContains(String[] array, String valueToFind){
+        if (array == null || array.length == 0 || valueToFind == null) {
+            return false;
+        }
+        for (String str : array) {
+            if (str.equalsIgnoreCase(valueToFind)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
