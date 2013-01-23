@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
+import org.mspring.platform.utils.HTMLUtils;
 import org.mspring.platform.utils.StringUtils;
 
 import freemarker.core.Environment;
@@ -63,6 +64,7 @@ public class PostSummaryDirectiveModel extends AbstractDirectiveModel {
         if (summary == null || StringUtils.isBlank(summary)) {
             summary = post.getContent();
         }
+        //summary = HTMLUtils.removeHTML(summary, true);
         //summary = StringEscapeUtils.escapeHtml4(summary);
         env.getOut().append(summary);
     }

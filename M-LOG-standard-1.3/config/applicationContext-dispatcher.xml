@@ -15,7 +15,7 @@
   		<property name="useDefaultSuffixPattern" value="false" />
   		<property name="interceptors">
   			<list>
-				<bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" />
+				<!-- <bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" /> -->
 				<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
 				<bean class="org.mspring.mlog.web.interceptor.WebContextInterceptor" />
 				<bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" />
