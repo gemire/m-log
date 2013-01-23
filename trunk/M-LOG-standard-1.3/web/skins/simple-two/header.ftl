@@ -23,6 +23,14 @@
         <!--[if lt IE 9]>
         <script src="${template_url}/script/html5.js"></script>
         <![endif]-->
+        <script type="text/javascript">
+			$(document).ready(function(){
+				//加载
+				mlog.load({
+					contentSelector : "body"
+				});
+			});
+		</script>
     <body>
         <div class="main-body">
 			
