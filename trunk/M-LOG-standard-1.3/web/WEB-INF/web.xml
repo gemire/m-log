@@ -98,6 +98,11 @@
 	<listener>
 		<listener-class>org.mspring.mlog.web.listener.StandardStartupListener</listener-class>
 	</listener>
+	<!-- Spring Security -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>	
+	
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
