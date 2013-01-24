@@ -46,6 +46,18 @@ public class Link implements Serializable {
     private LinkType type;
 
     /**
+     * 
+     */
+    public Link() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public Link(Long id) {
+        super();
+        this.id = id;
+    }
+
+    /**
      * @return the id
      */
     @Id

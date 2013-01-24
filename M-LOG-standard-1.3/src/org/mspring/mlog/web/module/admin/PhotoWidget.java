@@ -3,7 +3,6 @@
  */
 package org.mspring.mlog.web.module.admin;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import org.mspring.mlog.web.module.admin.query.PhotoQueryCriterion;
 import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -65,8 +65,7 @@ public class PhotoWidget extends AbstractAdminWidget {
             // res.put("preview", photo.getPreviewUrl());
             // res.put("url", photo.getUrl());
             return photo.getUrl();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
             // res.put("success", false);
@@ -78,28 +77,37 @@ public class PhotoWidget extends AbstractAdminWidget {
     @Premission(item = "125020")
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
-        Album album = null;
+        
+        Long albumId = null;
+        Album albumEntity = null;
         if (photo == null || photo.getAlbum() == null || photo.getAlbum().getId() == null) {
-            album = albums.get(0);
-            photo.setAlbum(album);
-            if (queryParams == null) {
-                queryParams = new HashMap();
+            Object obj = getSessionAttribute(request, "PhotoWidget_listPost_album");
+            if (obj != null && ValidatorUtils.isNumber(obj.toString())) {
+                albumId = new Long(obj.toString());
             }
-            queryParams.put("album.id", album.getId());
-            // return prompt(model, "请先选择相册");
         }
         else {
-            album = albumService.getAlbumById(photo.getAlbum().getId());
+            albumId = photo.getAlbum().getId();
         }
+        
+        if (albumId == null) {
+            albumEntity = albums.get(0);
+            albumId = albumEntity.getId();
+        }
+        else {
+            albumEntity = albumService.getAlbumById(albumId);
+        }
+        setSessionAttribute(request, "PhotoWidget_listPost_album", albumId);
 
         if (photoPage == null) {
             photoPage = new Page<Photo>();
         }
         photoPage.setSort(new Sort("id", Sort.DESC));
         photoPage.setPageSize(21);
+        queryParams.put("album.id", albumId);
         photoPage = photoService.findPhoto(photoPage, new PhotoQueryCriterion(queryParams));
 
-        model.addAttribute("album", album);
+        model.addAttribute("album", albumEntity);
         model.addAttribute("albums", albums);
         model.addAttribute("photoPage", photoPage);
         return "/admin/photo/listPhoto";
@@ -114,8 +122,16 @@ public class PhotoWidget extends AbstractAdminWidget {
     @RequestMapping("/edit")
     public String toEditPhoto(@RequestParam(required = false) Long id, @ModelAttribute Photo photo, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
+            Object obj = getSessionAttribute(request, "PhotoWidget_edit_id");
+            if (obj != null) {
+                id = (Long) obj;
+            }
+        }
+        if (id == null) {
             return prompt(model, "请先选择一张照片");
         }
+        setSessionAttribute(request, "PhotoWidget_edit_id", id);
+        
         photo = photoService.getPhotoById(id);
         Album album = albumService.getAlbumById(photo.getAlbum().getId());
         photo.setAlbum(album);
@@ -138,8 +154,7 @@ public class PhotoWidget extends AbstractAdminWidget {
         }
         try {
             albumService.setCover(albumId, photoId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             return "false";
         }
