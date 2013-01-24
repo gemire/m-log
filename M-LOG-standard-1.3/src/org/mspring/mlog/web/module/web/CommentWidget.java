@@ -84,6 +84,8 @@ public class CommentWidget extends AbstractWebWidget {
             reply_comment = new Long(request.getParameter("reply_comment").trim());
         }
 
+        
+
         /**
          * 验证评论发布人
          */
@@ -96,6 +98,13 @@ public class CommentWidget extends AbstractWebWidget {
          */
         if (StringUtils.isBlank(content)) {
             return prompt(model, "评论发表失败，评论内容不能为空");
+        }
+        
+        /**
+         * 验证评论内容长度
+         */
+        if (content.length() > 4000) {
+            return prompt(model, "评论发表失败，评论内容不能超过4000字符");
         }
 
         /**
@@ -137,8 +146,7 @@ public class CommentWidget extends AbstractWebWidget {
         String is_comment_audit = optionService.getOption("comment_audit");
         if ("true".equals(is_comment_audit)) { // 如果开启评论审核
             comment.setStatus(Comment.Status.WAIT_FOR_APPROVE);
-        }
-        else {
+        } else {
             comment.setStatus(Comment.Status.APPROVED);
         }
         comment = commentService.createComment(comment);
