@@ -18,6 +18,7 @@ import org.mspring.platform.persistence.support.Page;
 public interface CommentService {
     /**
      * 添加评论
+     * 
      * @param comment
      * @return
      */
@@ -25,6 +26,7 @@ public interface CommentService {
 
     /**
      * 根据文章编号查找该文章下的评论
+     * 
      * @param postId
      * @return
      */
@@ -32,6 +34,7 @@ public interface CommentService {
 
     /**
      * 更具评论ID获取评论对象
+     * 
      * @param id
      * @return
      */
@@ -39,15 +42,20 @@ public interface CommentService {
 
     /**
      * 分页查找评论
-     * @param page page对象
-     * @param queryString hql语句
-     * @param params 查询参数
+     * 
+     * @param page
+     *            page对象
+     * @param queryString
+     *            hql语句
+     * @param params
+     *            查询参数
      * @return
      */
     public Page<Comment> findComment(Page<Comment> page, String queryString, Object... params);
 
     /**
      * 分页查找评论
+     * 
      * @param page
      * @param queryCriterion
      * @return
@@ -56,7 +64,9 @@ public interface CommentService {
 
     /**
      * 查找最新评论
-     * @param num 查询条数
+     * 
+     * @param num
+     *            查询条数
      * @return
      */
     public List<Comment> getRecentComment(int num);
@@ -92,7 +102,15 @@ public interface CommentService {
     /**
      * 评论回复邮件通知
      * 
-     * @param comment 当前评论编号
+     * @param comment
+     *            当前评论编号
      */
     public void commentReplyNotice(Comment comment);
+
+    /**
+     * 新评论邮件通知文章作者
+     * 
+     * @param comment
+     */
+    public void commentNotice(Comment comment);
 }

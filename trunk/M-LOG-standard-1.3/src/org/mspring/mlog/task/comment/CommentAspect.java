@@ -25,6 +25,11 @@ import org.springframework.stereotype.Component;
 public class CommentAspect {
     private static final Logger log = Logger.getLogger(CommentAspect.class);
 
+    public static String CONTEXT_COMMENT = "comment";
+
+    @Autowired
+    private CommentNoticeTask commentNoticeTask;
+
     @Autowired
     private CommentReplyNoticeTask commentReplyNoticeTask;
 
@@ -37,13 +42,17 @@ public class CommentAspect {
     public void noticeTask(JoinPoint jp, Comment comment) {
         try {
             Map<Object, Object> context = new HashMap<Object, Object>();
-            // 评论邮件通知
+            context.put(CONTEXT_COMMENT, comment);
+
+            // 评论回复邮件通知
             if (comment != null && comment.getReplyComment() != null) {
-                context.put("comment", comment);
                 commentReplyNoticeTask.doAsyncTask(context);
             }
-        }
-        catch (Exception e) {
+            // 文章评论通知
+            if (comment != null) {
+                commentNoticeTask.doAsyncTask(context);
+            }
+        } catch (Exception e) {
             // TODO: handle exception
             log.debug("send comment reply notice mail failure.", e);
         }
