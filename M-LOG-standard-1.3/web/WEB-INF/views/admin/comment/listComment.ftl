@@ -41,9 +41,9 @@
 				</th>
 				<th>编号</th>
 				<th>作者</th>
-				<th>评论时间</th>
+				<th>邮箱</th>
+				<th>主页</th>
 				<th>评论文章</th>
-				<th>IP</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
@@ -54,17 +54,25 @@
 						<#assign tdClass = "even">
 					</#if>
 					<tr>
-						<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" /></td>
+						<td class="${tdClass}" rowspan="2" style="border-bottom:solid 5px #AAE8EA;">
+							<input type="checkbox" name="id" value="${item.id}" />
+						</td>
 						<td class="${tdClass}">${item.id}</td>
 						<td class="${tdClass}">${item.author}</td>
-						<td class="${tdClass}">${item.createTime}</td>
-						<td class="${tdClass}">${item.post.title}</td>
-						<td class="${tdClass}">${item.postIp}</td>
+						<td class="${tdClass}">${item.email!""}</td>
+						<td class="${tdClass}">${item.url!""}</td>
+						<td class="${tdClass}"><a target="_blank" href="${blogurl}${item.post.url}">${item.post.title}</a></td>
 						<td class="${tdClass}">
 							${item.status}
 						</td>
-						<td class="${tdClass}">
+						<td class="${tdClass}" rowspan="2" style="border-bottom:solid 5px #AAE8EA;">
 							<a href="javascript:viewComment('${item.id}');">查看详情</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="${tdClass}" colspan="6" style="border-bottom:solid 5px #AAE8EA;">
+							<font color="red"><b>${item.author}@${item.createTime}</b></font>:<br/><br/>
+							<quote>${item.content}</quote>
 						</td>
 					</tr>
 				</#list>
