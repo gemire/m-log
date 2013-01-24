@@ -3,8 +3,6 @@
  */
 package org.mspring.platform.utils;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Gao Youbo

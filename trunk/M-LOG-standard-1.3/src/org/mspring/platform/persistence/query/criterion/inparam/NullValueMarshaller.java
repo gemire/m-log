@@ -6,6 +6,7 @@ package org.mspring.platform.persistence.query.criterion.inparam;
  */
 public class NullValueMarshaller implements Marshaller {
 
+    @SuppressWarnings("rawtypes")
     public Object getNamedQueryParamValue(Class paramClass) {
         return null;
     }

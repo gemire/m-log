@@ -6,16 +6,13 @@ package org.mspring.mlog.web.security;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.security.RoleResourceService;
 import org.mspring.mlog.service.security.TreeItemService;
-import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.FilterInvocation;
 
 /**
  * @author Gao Youbo

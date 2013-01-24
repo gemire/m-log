@@ -8,6 +8,11 @@ package org.mspring.platform.persistence.query.converter;
  * @since Jan 31, 2012
  */
 public class ConversionException extends RuntimeException {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5441417089733191506L;
+
     public ConversionException(String message) {
         super(message);
     }

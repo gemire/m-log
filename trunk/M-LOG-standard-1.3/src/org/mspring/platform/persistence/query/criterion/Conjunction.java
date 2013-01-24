@@ -7,7 +7,12 @@ package org.mspring.platform.persistence.query.criterion;
  */
 public class Conjunction extends Junction {
 	
-	protected Conjunction() {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1073983362042130123L;
+
+    protected Conjunction() {
 		super("and");
 	}
 	

@@ -11,6 +11,7 @@ import org.mspring.platform.utils.StringUtils;
  * @Description 
  * @TODO 
  */
+@SuppressWarnings({ "rawtypes" })
 public class BooleanConverter implements Converter {
 
     /* (non-Javadoc)

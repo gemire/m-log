@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.service.InstallService;
-import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.module.AbstractWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

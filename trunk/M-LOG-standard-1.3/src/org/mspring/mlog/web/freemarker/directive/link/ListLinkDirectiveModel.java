@@ -4,7 +4,6 @@
 package org.mspring.mlog.web.freemarker.directive.link;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 

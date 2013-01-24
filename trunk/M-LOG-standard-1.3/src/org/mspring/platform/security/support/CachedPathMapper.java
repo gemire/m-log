@@ -4,10 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class CachedPathMapper extends PathMapper {
     private Map cacheMap;
     private Map cacheAllMap;
-
+    
     public CachedPathMapper(Map cacheMap, Map cacheAllMap) {
         this.cacheMap = Collections.synchronizedMap(cacheMap);
         this.cacheAllMap = Collections.synchronizedMap(cacheAllMap);
