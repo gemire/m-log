@@ -12,18 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Administrator
- * @since Gao Youbo
- * @description 
+ * @author Gao Youbo
+ * @since 2013-1-9
+ * @Description
  * @TODO
  */
 @Component
-public class CommentReplyNoticeTask extends AbstractTask {
-    
+public class CommentNoticeTask extends AbstractTask {
     @Autowired
     private CommentService commentService;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.mspring.platform.task.AbstractTask#doTask(java.util.Map)
      */
     @Override
@@ -34,8 +35,7 @@ public class CommentReplyNoticeTask extends AbstractTask {
             if (comment == null) {
                 return;
             }
-            commentService.commentReplyNotice((Comment) comment);
+            commentService.commentNotice((Comment) comment);
         }
     }
-
 }

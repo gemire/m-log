@@ -28,5 +28,5 @@ blockquote p {
 	${comment.post.author.alias ! comment.post.author.name},您好:<br/>
 	您的文章 <b>${comment.post.title!""}</b> 有了新评论:
 	<p>${comment.content}<p>
-	详情请<a href="" target="_blank">点击这里查看...</a>
+	详情请<a href="${commentUrl}" target="_blank">点击这里查看...</a>
 </dvi>

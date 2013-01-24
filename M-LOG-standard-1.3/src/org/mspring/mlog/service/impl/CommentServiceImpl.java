@@ -15,7 +15,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
@@ -221,7 +220,6 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         // TODO Auto-generated method stub
         if (comment != null && StringUtils.isNotBlank(comment.getReplyUserEmail())) {
             Map<Object, Object> model = new HashMap<Object, Object>();
-            model.put("comment", comment);
             
             String commentUrl = optionService.getOption("blogurl");
             if (comment.getPost() != null && StringUtils.isNotBlank(comment.getPost().getUrl())) {
@@ -233,11 +231,42 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
                 commentUrl = commentUrl + post.getUrl();
             }
             model.put("commentUrl", commentUrl);
+            model.put("comment", comment);
             
             String content = FreemarkerUtils.render(configuration, "mail/comment_reply_notice.ftl", model);
             String to = comment.getReplyUserEmail();
             String personal = comment.getReplyUser();
             String subject = optionService.getOption("blogname") + " - 评论回复通知";
+            mailService.sendMail(to, personal, subject, content);
+        }
+        
+        
+    }
+
+    /* (non-Javadoc)
+     * @see org.mspring.mlog.service.CommentService#commentNotice(org.mspring.mlog.entity.Comment)
+     */
+    @Override
+    public void commentNotice(Comment comment) {
+        // TODO Auto-generated method stub
+        Map<Object, Object> model = new HashMap<Object, Object>();
+        if (comment != null) {
+            String commentUrl = optionService.getOption("blogurl");
+            if (comment.getPost() != null && StringUtils.isNotBlank(comment.getPost().getUrl())) {
+                commentUrl = commentUrl + comment.getPost().getUrl();
+            }
+            else if (comment.getPost() != null && comment.getPost().getId() != null) {
+                Post post = postService.getPostById(comment.getPost().getId());
+                comment.setPost(post);
+                commentUrl = commentUrl + post.getUrl();
+            }
+            model.put("commentUrl", commentUrl);
+            model.put("comment", comment);
+            
+            String content = FreemarkerUtils.render(configuration, "mail/new_comment_notice.ftl", model);
+            String to = comment.getPost().getAuthor().getEmail();
+            String personal = comment.getPost().getAuthor().getAlias();
+            String subject = optionService.getOption("blogname") + " - 文章评论通知";
             mailService.sendMail(to, personal, subject, content);
         }
     }
