@@ -22,6 +22,33 @@
 								<@post_content />
 							</div>
 							<div class="post-meta-bottom">
+								<div class="post-relative-div">
+                                    <div  class="post-relative">
+                                        <h4>相关文章</h4>				
+                                        <#assign catalogs=post.catalogs />
+                                        <@sql_query var="about_posts" sql="select pc.PK.post from PostCatalog pc where pc.PK.catalog.name in (@catalogs.name) and pc.PK.post.id <> @post.id order by pc.PK.post.viewCount desc" max="10" expiry="3600000"/>
+                                        <#if about_posts?exists>
+                                        <ul>
+                                            <#list about_posts as p>
+                                            <li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+                                            </#list>
+                                        </ul>
+                                        </#if>
+                                    </div>
+                                    <div  class="post-relative">
+                                        <h4>随机文章</h4>				
+                                        <#assign tags=post.tags />
+                                        <@sql_query var="rand_posts" sql="from Post post order by rand()" max="10" cache="false" />
+                                        <#if rand_posts?exists>
+                                        <ul>
+                                            <#list rand_posts as p>
+                                            <li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+                                            </#list>
+                                        </ul>
+                                        </#if>
+                                    </div>
+                                </div>
+                                
 								<div class="post-copyright">
 									如非注明，本站文章均为原创，转载请注明出处。<br/>
 									本站地址：<a href="${blogurl}" target="_blank" title="${blogname}">${blogname}</a> <a href="${blogurl}" target="_blank" title="${blogname}">${blogurl}</a><br/>
