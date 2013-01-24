@@ -3,6 +3,9 @@
 <#include "../inc/header.ftl" />
 	<script type="text/javascript">
 		$(document).ready(function(){
+		
+			turnHighLight(125020);
+			
 			$("#albumSelect").change(function(){
 				location.href = "${base}/admin/photo/list?album.id=" + $("#albumSelect").val(); 
 			});

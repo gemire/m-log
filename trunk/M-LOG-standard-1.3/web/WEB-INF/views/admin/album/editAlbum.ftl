@@ -63,6 +63,9 @@
 		}
 	}
 	$(document).ready(function(){
+		
+		turnHighLight(125015);
+		
 		//斑马线
 		var tables=document.getElementsByTagName("table");
 		var b=false;
