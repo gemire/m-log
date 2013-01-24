@@ -182,6 +182,15 @@ public class PostWidget extends AbstractAdminWidget {
     @Premission(item = "11505015")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (post == null || post.getId() == null) {
+            Object obj = getSessionAttribute(request, "PostWidget_edit_id");
+            if (obj != null) {
+                Long id = (Long) obj;
+                post = new Post(id);
+            }
+        }
+        setSessionAttribute(request, "PostWidget_edit_id", post.getId());
+        
+        if (post == null || post.getId() == null) {
             return prompt(model, "请先选择要修改的文章");
         }
         post = postService.getPostById(post.getId());

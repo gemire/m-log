@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Link;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
@@ -94,6 +95,15 @@ public class LinkWidget extends AbstractAdminWidget {
     @RequestMapping("/edit")
     @Premission(item = "120015")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (link == null || link.getId() == null) {
+            Object obj = getSessionAttribute(request, "LinkWidget_edit_id");
+            if (obj != null) {
+                Long id = (Long) obj;
+                link = new Link(id);
+            }
+        }
+        setSessionAttribute(request, "LinkWidget_edit_id", link.getId());
+        
         if (link == null || link.getId() == null) {
             return prompt(model, "请先选择要修改的链接");
         }

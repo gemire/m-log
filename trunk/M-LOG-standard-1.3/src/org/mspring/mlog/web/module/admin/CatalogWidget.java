@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Catalog;
+import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.security.annotation.Premission;
@@ -136,6 +137,15 @@ public class CatalogWidget extends AbstractAdminWidget {
     @RequestMapping("/edit")
     @Premission(item = "11515015")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (catalog == null || catalog.getId() == null) {
+            Object obj = getSessionAttribute(request, "CatalogWidget_edit_id");
+            if (obj != null) {
+                Long id = (Long) obj;
+                catalog = new Catalog(id);
+            }
+        }
+        setSessionAttribute(request, "CatalogWidget_edit_id", catalog.getId());
+        
         if (catalog == null || catalog.getId() == null) {
             return prompt(model, "请先选择要修改的分类");
         }

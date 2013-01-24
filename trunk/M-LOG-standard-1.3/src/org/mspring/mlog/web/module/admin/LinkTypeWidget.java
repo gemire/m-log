@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.LinkType;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
@@ -98,6 +99,14 @@ public class LinkTypeWidget extends AbstractAdminWidget {
     @RequestMapping("/edit")
     @Premission(item = "120030")
     public String editLinkType(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null) {
+            Object obj = getSessionAttribute(request, "LinkTypeWidget_edit_id");
+            if (obj != null) {
+                id = (Long) obj;
+            }
+        }
+        setSessionAttribute(request, "LinkTypeWidget_edit_id", id);
+        
         if (id == null) {
             return prompt(model, "请先选择要修改的链接分类");
         }

@@ -45,6 +45,18 @@ public class Catalog implements Serializable {
     private String description;
 
     /**
+     * 
+     */
+    public Catalog() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public Catalog(Long id) {
+        super();
+        this.id = id;
+    }
+
+    /**
      * @return the id
      */
     @Id

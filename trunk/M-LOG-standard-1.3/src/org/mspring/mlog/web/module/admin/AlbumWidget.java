@@ -83,6 +83,14 @@ public class AlbumWidget extends AbstractAdminWidget {
     @Premission(item = "125015")
     public String editAlbumView(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
+            Object obj = getSessionAttribute(request, "AlbumWidget_edit_id");
+            if (obj != null) {
+                id = (Long) obj;
+            }
+        }
+        setSessionAttribute(request, "AlbumWidget_edit_id", id);
+        
+        if (id == null) {
             return prompt(model, "请先选择要修改的相册");
         }
         Album album = albumService.getAlbumById(id);
