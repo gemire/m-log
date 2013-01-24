@@ -42,7 +42,7 @@
 							<ul class="nav">
 								<@widget path="/widget/menus" cache=false />
 							</ul>
-							<div style="padding-top:6px;float:right;">
+							<div style="float:right;margin-top:3px;">
 								<form action="${base}/search" method="get" style="margin:0px; padding:0px;">
 									<input type="text" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">
 				                </form>
