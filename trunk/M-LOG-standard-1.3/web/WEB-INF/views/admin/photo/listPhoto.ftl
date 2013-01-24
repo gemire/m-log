@@ -51,6 +51,7 @@
 				}
 				if(flag){
 					alert("请选择要删除的图片!");
+					return;
 				}
 				mlog.form.confirmSubmit('photoForm', '${base}/admin/photo/delete', '确认要删除选中的图片吗？');
 			});
@@ -59,7 +60,12 @@
 			$("#btnSelAll").click(function(){
 				var arr = document.getElementsByName('id');
 				for(var i = 0; i < arr.length; i++){
-					arr[i].checked = "checked";
+					if(arr[i].checked){
+						arr[i].checked = "";
+					}
+					else {
+						arr[i].checked = "checked";
+					}
 				}
 			});
 		});
@@ -96,12 +102,11 @@
 					</#if>
 				</select>
 				<button class="btn" id="btnReload">重新加载图片</button>
-				<#--
-				<button class="btn" id="btnPl">批量管理</button>
-				<button class="btn" id="btnQx" style="display:none;">取消批量管理</button>
-				<button class="btn" id="btnSelAll" style="display:none;">全选</button>
+				<button class="btn" id="btnPl" style="color:red;">批量管理</button>
+				<button class="btn" id="btnQx" style="display:none; color:red;">取消批量管理</button>
+				<button class="btn" id="btnSelAll" style="display:none;">全选/反选</button>
 				<button class="btn" id="btnDel" style="display:none;">批量删除</button>
-				-->
+				
 			</td>
 			<td></td>
 		</tr>
@@ -128,7 +133,7 @@
 							<img src="${base}/${photo.previewUrl}" alt="${photo.description!photo.name}" class="itemimage" onclick="showPic(${photo.id});" />
 						</div>
 						<div class="itemmeta">
-							<input type="checkbox" name="id" value="${photo.id}" />
+							<input type="checkbox" name="id" value="${photo.id}" style="display:none;" />
 							<input type="hidden" id="url_${photo.id}" value="${base}/${photo.url}"/>
 							<a href="${base}/admin/photo/edit?id=${photo.id}" class="ctrl">编辑</a>
 							<a href="javascript:mlog.form.confirmSubmit('photoForm','${base}/admin/photo/delete?id=${photo.id}&album.id=${album.id}','确认要删除该图片吗？');" class="ctrl">删除</a>
@@ -140,8 +145,10 @@
 			<table style="width:100%;">
 				<tr>
 					<td>
+						<#--
 						<input type="checkbox" title="全选/反选" onclick="mlog.form.checkAll(this, 'id');" />
 						<input type="button" class="btn" value=" 删除 " onclick="mlog.form.confirmSubmit('photoForm', '${base}/admin/photo/delete');" />
+						-->
 					</td>
 					<td>
 						<@mspring.pagingnavigator page=photoPage form_id="photoForm" />

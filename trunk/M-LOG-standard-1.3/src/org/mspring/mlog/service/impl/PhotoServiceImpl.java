@@ -107,6 +107,9 @@ public class PhotoServiceImpl extends AbstractServiceSupport implements PhotoSer
     @Override
     public void deletePhoto(Long... id) {
         // TODO Auto-generated method stub
+        if (id == null) {
+            return;
+        }
         Photo photo = null;
         for (Long i : id) {
             photo = getPhotoById(i);
