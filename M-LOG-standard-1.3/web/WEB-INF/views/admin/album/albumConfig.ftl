@@ -91,6 +91,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		turnHighLight(125030);
+	
 		//斑马线
 		var tables=document.getElementsByTagName("table");
 		var b=false;

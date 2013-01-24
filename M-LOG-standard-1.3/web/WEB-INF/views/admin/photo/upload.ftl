@@ -14,6 +14,9 @@
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
+		
+			turnHighLight(125025);
+			
 			$(function() {
 			    $("#uploadify").uploadify({
 			    	debug            : false,

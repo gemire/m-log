@@ -67,6 +67,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
 		//斑马线
 		var tables=document.getElementsByTagName("table");
 		var b=false;
