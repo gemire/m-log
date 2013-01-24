@@ -17,7 +17,6 @@ import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
-import org.mspring.platform.utils.StringUtils;
 import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailParseException;

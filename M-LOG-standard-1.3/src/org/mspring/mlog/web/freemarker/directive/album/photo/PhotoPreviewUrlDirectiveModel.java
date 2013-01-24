@@ -6,7 +6,6 @@ package org.mspring.mlog.web.freemarker.directive.album.photo;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;

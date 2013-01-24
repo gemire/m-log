@@ -4,6 +4,7 @@ package org.mspring.platform.persistence.query.criterion.inparam;
  * @author Gao Youbo
  * @since Jan 31, 2012
  */
+@SuppressWarnings({"rawtypes"})
 public class ArrayMarshaller implements Marshaller {
     private Object[] values;
     

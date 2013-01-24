@@ -80,7 +80,7 @@ public class CommentWidget extends AbstractWebWidget {
 
         String reply_comment_str = request.getParameter("reply_comment");
         Long reply_comment = null;
-        if (StringUtils.isNotBlank(reply_comment_str.toString()) && ValidatorUtils.isNumber(reply_comment_str.trim())) {
+        if (StringUtils.isNotBlank(reply_comment_str) && ValidatorUtils.isNumber(reply_comment_str.trim())) {
             reply_comment = new Long(request.getParameter("reply_comment").trim());
         }
 

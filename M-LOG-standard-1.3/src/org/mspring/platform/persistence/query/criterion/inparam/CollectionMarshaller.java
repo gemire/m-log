@@ -6,6 +6,7 @@ import java.util.Collection;
  * @author Gao Youbo
  * @since Jan 31, 2012
  */
+@SuppressWarnings({"rawtypes"})
 public class CollectionMarshaller implements Marshaller {
     private Collection values;
     

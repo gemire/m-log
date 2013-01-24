@@ -6,10 +6,7 @@ package org.mspring.mlog.inf.file;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.mspring.mlog.api.kuaipan.KuaipanUtils;
 import org.mspring.mlog.api.kuaipan.MKuaipanAPI;
