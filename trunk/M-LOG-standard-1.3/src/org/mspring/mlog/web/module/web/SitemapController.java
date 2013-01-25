@@ -35,7 +35,7 @@ public class SitemapController {
     @Autowired
     private OptionService optionService;
 
-    @RequestMapping("sitemap_baidu.xml")
+    //@RequestMapping("sitemap_baidu.xml")
     public String sitemap_baidu(HttpServletRequest request, HttpServletResponse response, Model model) {
         String blogurl = optionService.getOption("blogurl");
         List<Post> posts = postService.findAll();
@@ -60,11 +60,8 @@ public class SitemapController {
         return "/common/sitemap_baidu";
     }
 
-    @RequestMapping("sitemap.xml")
+    //@RequestMapping("sitemap.xml")
     public String sitemap(HttpServletRequest request, HttpServletResponse response, Model model) {
         return this.sitemap_baidu(request, response, model);
-        // response.setContentType("text/xml");
-        // response.setCharacterEncoding("UTF-8");
-        // return "";
     }
 }

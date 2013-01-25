@@ -27,7 +27,9 @@ public class WebContextInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // TODO Auto-generated method stub
-        request.setAttribute(WebContext.WEB_CONTEXT_KEY, new WebContext(request, response));
+        WebContext.getInstance().setRequest(request);
+        WebContext.getInstance().setResponse(response);
+        request.setAttribute(WebContext.WEB_CONTEXT_KEY, WebContext.getInstance());
         return true;
     }
 }

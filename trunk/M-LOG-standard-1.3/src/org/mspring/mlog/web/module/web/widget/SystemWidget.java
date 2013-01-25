@@ -18,9 +18,10 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.security.User;
-import org.mspring.mlog.utils.GlobalUtils;
+import org.mspring.mlog.utils.WebUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.AbstractWidget;
+import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -191,7 +192,7 @@ public class SystemWidget extends AbstractWidget {
      */
     @RequestMapping("adminbar")
     public String adminbar(HttpServletRequest request, HttpServletResponse response, Model model) {
-        User loginUser = GlobalUtils.getCurrentUser(request);
+        User loginUser = SecurityUtils.getCurrentUser(request);
         if (loginUser == null) {
             if ("true".equals(CookieUtils.getCookie(request, Keys.IS_REMEMBER_USER_COOKIE))) {
                 String username = CookieUtils.getCookie(request, Keys.USERNAME_COOKIE);

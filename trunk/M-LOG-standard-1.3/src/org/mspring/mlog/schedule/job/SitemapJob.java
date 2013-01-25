@@ -3,27 +3,34 @@
  */
 package org.mspring.mlog.schedule.job;
 
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.mspring.mlog.api.sitemap.WebSitemapGenerator;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Job;
 import org.mspring.mlog.entity.JobLog;
+import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.utils.WebUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
  * @author Gao Youbo
- * @since 2013-1-8
- * @Description
- * @TODO 更新系统统计信息
+ * @since 2013-1-25
+ * @description
+ * @TODO
  */
-public class UpdateStatInfoJob extends AbstractJob {
-
-    private static final Logger log = Logger.getLogger(UpdateStatInfoJob.class);
-
-    public static final Long JOB_ID = new Long(1);
+public class SitemapJob extends AbstractJob {
+    
+    public static final Long JOB_ID = new Long(2);
     public static final String JOB_NAME = "UpdateStatInfoJob";
+
+    private OptionService optionService = ServiceFactory.getOptionService();
+    private PostService postService = ServiceFactory.getPostService();
 
     /*
      * (non-Javadoc)
@@ -40,16 +47,21 @@ public class UpdateStatInfoJob extends AbstractJob {
         long start = System.currentTimeMillis();
         boolean success = true;
         try {
-            log.debug("begin update post count...");
-            ServiceFactory.getStatService().updatePostCount();
-            log.debug("begin update comment count...");
-            ServiceFactory.getStatService().updateCommentCount();
+            String baseUrl = optionService.getOption("blogurl");
+            String baseDirPath = WebUtils.getRealContextPath();
+            File baseDir = new File(baseDirPath);
+            WebSitemapGenerator generator = new WebSitemapGenerator(baseUrl, baseDir);
+            List<Post> posts = postService.findAll();
+            for (Post post : posts) {
+                String loc = baseUrl + post.getUrl();
+                generator.addUrl(loc);
+            }
+            generator.write();
         } catch (Exception e) {
             // TODO: handle exception
             success = false;
             jobLog.setMessage(e.getMessage());
         }
-
         long end = System.currentTimeMillis();
         jobLog.setUseTime(end - start);
         jobLog.setJob(new Job(JOB_ID));

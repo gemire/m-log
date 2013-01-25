@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.UserService;
-import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -38,7 +38,7 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     @RequestMapping("/info")
     @Premission(item = "205005")
     public String viewUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
-        user = GlobalUtils.getCurrentUser(request);
+        user = SecurityUtils.getCurrentUser(request);
         model.addAttribute("user", user);
         return "/admin/self/info";
     }
@@ -54,9 +54,8 @@ public class SelfInfoWidget extends AbstractAdminWidget {
             // 重置用户登录信息
             request.getSession().invalidate();
             CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "false", 365);
-        }
-        else {
-            String password = GlobalUtils.getCurrentUser(request).getPassword();
+        } else {
+            String password = SecurityUtils.getCurrentUser(request).getPassword();
             user.setPassword(password);
             userService.updateUserInfo(user);
             user = userService.getUserByName(user.getName());

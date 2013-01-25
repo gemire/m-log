@@ -12,9 +12,9 @@ import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.TreeItemService;
-import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -39,8 +39,8 @@ public class MenuRedirectWidget extends AbstractAdminWidget {
             return prompt(model, "未找到该页面");
         }
         TreeItem item = treeItemService.getItemById(id);
-        
-        User user = GlobalUtils.getCurrentUser(request);
+
+        User user = SecurityUtils.getCurrentUser(request);
 
         List<TreeItem> tabs = null;
         TreeItem openTab = null;
@@ -55,13 +55,11 @@ public class MenuRedirectWidget extends AbstractAdminWidget {
             }
             if (tabs.size() == 0) {
                 openTab = tabs.get(0);
-            }
-            else {
+            } else {
                 openTab = treeItemService.getOpenTab(item.getId(), user.getId());
             }
             url = openTab.getCall();
-        }
-        else if (item.getType().equals(TreeItem.Type.TAB)) {
+        } else if (item.getType().equals(TreeItem.Type.TAB)) {
             request.getSession().setAttribute(Keys.CURRENT_ENTITY, item.getId());
             url = item.getCall();
             openTab = item;

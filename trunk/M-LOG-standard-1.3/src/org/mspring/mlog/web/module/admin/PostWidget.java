@@ -19,9 +19,9 @@ import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.support.resolver.QueryParam;
-import org.mspring.mlog.utils.GlobalUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
+import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -105,7 +105,7 @@ public class PostWidget extends AbstractAdminWidget {
     @RequestMapping("/create/save")
     @Premission(item = "11505010")
     public String doCreatePost(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
-        User user = GlobalUtils.getCurrentUser(request);
+        User user = SecurityUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
             post.setAuthor(user);
         }
@@ -189,7 +189,7 @@ public class PostWidget extends AbstractAdminWidget {
             }
         }
         setSessionAttribute(request, "PostWidget_edit_id", post.getId());
-        
+
         if (post == null || post.getId() == null) {
             return prompt(model, "请先选择要修改的文章");
         }
