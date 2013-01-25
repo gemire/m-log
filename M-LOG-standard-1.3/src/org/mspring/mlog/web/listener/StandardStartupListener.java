@@ -7,6 +7,7 @@ import javax.servlet.ServletContextEvent;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
+import org.mspring.mlog.web.WebContext;
 
 /**
  * @author Gao Youbo
@@ -28,9 +29,9 @@ public class StandardStartupListener extends AbstractStartupListener {
     @Override
     public void startuped(ServletContextEvent event) {
         // TODO Auto-generated method stub
-        log.info("container has started.");
-
+        WebContext.getInstance().setServletContext(event.getServletContext());
         ServiceFactory.getJobService().loadJobServer();
+        log.info("container has started.");
     }
 
 }
