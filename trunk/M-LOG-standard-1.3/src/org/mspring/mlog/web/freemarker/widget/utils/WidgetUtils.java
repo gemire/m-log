@@ -4,6 +4,7 @@
 package org.mspring.mlog.web.freemarker.widget.utils;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.mspring.mlog.web.freemarker.widget.http.impl.DefaultHttpWidgetRespons
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
+import freemarker.template.TemplateBooleanModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModelException;
 
@@ -74,10 +76,24 @@ public class WidgetUtils {
      * @return
      */
     public static String getHttpWidgetKey(Map params) {
-        if (params != null || params.size() < 1) {
+        if (params == null || params.size() < 1) {
             return "";
         }
-        return WidgetTokens.WIDGET_CACHE_KEY + params.toString();
+        StringBuffer buffer = new StringBuffer(WidgetTokens.WIDGET_CACHE_KEY);
+        for (Map.Entry entry : (Set<Map.Entry>)params.entrySet()) {
+            Object key = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof TemplateBooleanModel) {
+                try {
+                    value = (((TemplateBooleanModel) value).getAsBoolean()) ? "true" : "false";
+                } catch (TemplateModelException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            buffer.append(key).append("=").append(value).append("_");
+        }
+        return buffer.toString();
     }
 
     /**
