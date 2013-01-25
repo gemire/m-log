@@ -7,7 +7,9 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import org.mspring.mlog.api.sitemap.ChangeFreq;
 import org.mspring.mlog.api.sitemap.WebSitemapGenerator;
+import org.mspring.mlog.api.sitemap.WebSitemapUrl;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Job;
 import org.mspring.mlog.entity.JobLog;
@@ -25,7 +27,7 @@ import org.quartz.JobExecutionException;
  * @TODO
  */
 public class SitemapJob extends AbstractJob {
-    
+
     public static final Long JOB_ID = new Long(2);
     public static final String JOB_NAME = "UpdateStatInfoJob";
 
@@ -54,7 +56,12 @@ public class SitemapJob extends AbstractJob {
             List<Post> posts = postService.findAll();
             for (Post post : posts) {
                 String loc = baseUrl + post.getUrl();
-                generator.addUrl(loc);
+                double priority = 0.9;
+                if (post.getIsTop()) {
+                    priority = 1.0;
+                }
+                WebSitemapUrl url = new WebSitemapUrl.Options(loc).lastMod(post.getModifyTime()).priority(priority).changeFreq(ChangeFreq.DAILY).build();
+                generator.addUrl(url);
             }
             generator.write();
         } catch (Exception e) {
