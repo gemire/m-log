@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE urlrewrite
-        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
-        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite4.0.dtd">
 <urlrewrite>
 	<rule>
 		<from>^/post/page-([0-9]+).html$</from>
 		<to>/?pageNo=$1</to>
 	</rule>
-
+	
+	<class-rule class="org.mspring.mlog.web.rulrewrite.PostRewriteRule"/>
+	
 	<!-- 根据catalog归档 -->
 	<rule>
 		<from>^/catalog/catalog-([0-9]+)-([0-9]+).html$</from>

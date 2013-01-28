@@ -56,10 +56,10 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
         }
-        if (StringUtils.isBlank(post.getUrl())) {
-            String url = PermaLinkUtils.getDefaultPostURL();
-            post.setUrl(url);
-        }
+//        if (StringUtils.isBlank(post.getUrl())) {
+//            String url = PermaLinkUtils.getDefaultPostURL();
+//            post.setUrl(url);
+//        }
         if (post.getIsTop() == null) {
             post.setIsTop(false);
         }
