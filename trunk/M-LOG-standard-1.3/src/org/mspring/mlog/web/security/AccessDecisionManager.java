@@ -13,6 +13,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @author Gao Youbo
@@ -57,7 +58,12 @@ public class AccessDecisionManager implements org.springframework.security.acces
         while (iterator.hasNext()) {
             ConfigAttribute configAttribute = iterator.next();
             String needPermission = configAttribute.getAttribute();
-            for (GrantedAuthorityImpl ga : (Collection<GrantedAuthorityImpl>)authentication.getAuthorities()) {
+//            for (GrantedAuthorityImpl ga : (Collection<GrantedAuthorityImpl>)authentication.getAuthorities()) {
+//                if (needPermission.equals(ga.getAuthority())) {
+//                    return;
+//                }
+//            }
+            for (GrantedAuthority ga : authentication.getAuthorities()) {
                 if (needPermission.equals(ga.getAuthority())) {
                     return;
                 }
