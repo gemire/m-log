@@ -131,26 +131,26 @@ public class ValidateMethodWidget {
 		return flag ? "true" : "false";
 	}
 
-	/**
-	 * 判断文章标题是否存在
-	 * 
-	 * @param title
-	 * @param id
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping("postTitleExists")
-	@ResponseBody
-	public String postTitleExists(@RequestParam(required = false) String title,
-			@RequestParam(required = false) Long id,
-			HttpServletRequest request, HttpServletResponse response) {
-		if (StringUtils.isBlank(title)) {
-			return "true";
-		}
-		boolean flag = postService.titleExists(title, id);
-		return flag ? "true" : "false";
-	}
+//	/**
+//	 * 判断文章标题是否存在
+//	 * 
+//	 * @param title
+//	 * @param id
+//	 * @param request
+//	 * @param response
+//	 * @return
+//	 */
+//	@RequestMapping("postTitleExists")
+//	@ResponseBody
+//	public String postTitleExists(@RequestParam(required = false) String title,
+//			@RequestParam(required = false) Long id,
+//			HttpServletRequest request, HttpServletResponse response) {
+//		if (StringUtils.isBlank(title)) {
+//			return "true";
+//		}
+//		boolean flag = postService.titleExists(title, id);
+//		return flag ? "true" : "false";
+//	}
 
 	/**
 	 * 判断链接的合法性

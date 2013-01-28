@@ -86,13 +86,13 @@ public interface PostService {
      */
     Post getPostById(Long postId);
 
-    /**
-     * 根据标题获取
-     * 
-     * @param title
-     * @return
-     */
-    Post getPostByTitle(String title);
+//    /**
+//     * 根据标题获取
+//     * 
+//     * @param title
+//     * @return
+//     */
+//    Post getPostByTitle(String title);
 
     /**
      * 根据URL获取

@@ -2,7 +2,8 @@ $(document).ready(function() {
 	/**
 	 * 验证文章标题是否存在
 	 */
-	$.validator.addMethod("postTitleExists", function(value, element, params) {
+	/*
+	 $.validator.addMethod("postTitleExists", function(value, element, params) {
 		var data = {};
 		if (params.id != undefined) {
 			data["id"] = params.id;
@@ -19,6 +20,7 @@ $(document).ready(function() {
 			return true;
 		}
 	});
+	 * */
 
 	/**
 	 * 验证文章链接是否存在
