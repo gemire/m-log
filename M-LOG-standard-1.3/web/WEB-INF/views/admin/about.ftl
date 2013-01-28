@@ -24,6 +24,32 @@
 			<td colspan="2"><a href="https://me.alipay.com/gaoyoubo" target="_blank"><img src="${base}/images/alipay-me.png"></a></td>
 		</tr>
 	</table>
+	<table class="infotable">
+		<tr>
+			<td colspan="2" class="partition">系统状态</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">服务器名:</td>
+			<td>${serverName}(${remoteAddr})</td>
+		</tr>
+		<tr>
+			<td>内存消耗:</td>
+			<td>
+				${fUsedMemory/1024/1024}M / ${fTotalMemory/1024/1024}M
+				<div style="width:200px; height:10px; background:#f00; font-size:1px">
+					<div style="float:right; background:#0f0; width:${fPercent*2}px; font-size:1px; height:10px"></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">操作系统:</td>
+			<td>${os}</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">JDK版本:</td>
+			<td>${javaVersion}</td>
+		</tr>
+	</table>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
