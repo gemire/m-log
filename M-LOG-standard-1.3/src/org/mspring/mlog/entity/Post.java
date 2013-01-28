@@ -111,7 +111,7 @@ public class Post implements Serializable {
     /**
      * @return the title
      */
-    @Column(name = "title", unique = true, nullable = false, length = 200)
+    @Column(name = "title", unique = false, nullable = false, length = 200)
     @Field(index = Index.TOKENIZED, store = Store.YES)
     public String getTitle() {
         return title;

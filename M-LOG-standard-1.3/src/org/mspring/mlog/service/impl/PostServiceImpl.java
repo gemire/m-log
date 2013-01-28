@@ -235,18 +235,18 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         });
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
-     */
-    @Override
-    public Post getPostByTitle(String title) {
-        // TODO Auto-generated method stub
-        String queryString = "select post from Post post where post.title = ?";
-        return (Post) findUnique(queryString, title);
-    }
+//    /*
+//     * (non-Javadoc)
+//     * 
+//     * @see
+//     * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
+//     */
+//    @Override
+//    public Post getPostByTitle(String title) {
+//        // TODO Auto-generated method stub
+//        String queryString = "select post from Post post where post.title = ?";
+//        return (Post) findUnique(queryString, title);
+//    }
 
     /*
      * (non-Javadoc)

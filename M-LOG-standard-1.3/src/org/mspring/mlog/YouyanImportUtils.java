@@ -123,7 +123,7 @@ public class YouyanImportUtils {
         Post post = null;
         if (StringUtils.isNotBlank(title)) {
             title = title.replaceAll(" - 慕春博客", "");
-            post = ServiceFactory.getPostService().getPostByTitle(title);
+            //post = ServiceFactory.getPostService().getPostByTitle(title);
 
         }
 

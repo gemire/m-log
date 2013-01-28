@@ -47,7 +47,7 @@
 					<tr>
 						<td class="fieldlabel" style="width:60px;">标题</td>
 						<td>
-							<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;" validate=\'{required:true,postTitleExists:{id:"${post.id}"}, messages:{required:"请输入文章标题", postTitleExists:"文章标题已经存在"}}\'' />
+							<@spring.formInput path="post.title" attributes='class="textinput" style="width:98%;" validate=\'{required:true, messages:{required:"请输入文章标题"}}\'' />
 						</td>
 						<td class="fieldlabel" style="width:60px;">分类</td>
 						<td>
