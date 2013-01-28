@@ -12,6 +12,9 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PermissionUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
+import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.utils.ValidatorUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,15 +32,21 @@ public class SingleWidget extends AbstractWebWidget {
     @RequestMapping("/post")
     public String single(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         Object postObj = request.getAttribute("post");
+        String id = request.getParameter("id");
+
+        Post post = null;
         if (postObj != null) {
-            Post post = (Post) postObj;
-            if (!PermissionUtils.hasPostPermission(post, session)) {
-                model.addAttribute("postId", post.getId());
-                model.addAttribute("postUrl", post.getUrl());
-                return "skin:/post-token";
-            }
-            model.addAttribute(FreemarkerVariableNames.POST, postObj);
+            post = (Post) postObj;
+        } else if (StringUtils.isNotBlank(id) && ValidatorUtils.isNumber(id)) {
+            post = postService.getPostById(new Long(id));
         }
+
+        if (post != null && !PermissionUtils.hasPostPermission(post, session)) {
+            model.addAttribute("postId", post.getId());
+            model.addAttribute("postUrl",PostRewriteRule.getPostUrl(post));
+            return "skin:/post-token";
+        }
+        model.addAttribute(FreemarkerVariableNames.POST, post);
         setCurrnetPage(model, PageNames.SINGLE);
         return "skin:/single";
     }

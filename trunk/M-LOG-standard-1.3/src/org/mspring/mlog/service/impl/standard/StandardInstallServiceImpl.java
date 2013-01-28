@@ -90,8 +90,6 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("240", "SEO设置", "2", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("240005", "SEO设置", "240", "/admin/setting/seo", TreeItem.Type.TAB, true));
         
-        items.add(new TreeItem("245", "缓存管理", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("245005", "博客信息", "245", "/admin/cache/config", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("3", "用户", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("305", "用户管理", "3", "", TreeItem.Type.TREE_ITEM, true));
@@ -117,6 +115,11 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("735", "皮肤编辑", "7", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("735005", "皮肤编辑", "735", "/admin/system/skin/list", TreeItem.Type.TAB, true));
         
+        items.add(new TreeItem("740", "缓存管理", "7", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("740005", "博客信息", "740", "/admin/system/cache/config", TreeItem.Type.TAB, true));
+        
+        items.add(new TreeItem("750", "固定连接", "7", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("750005", "固定连接", "750", "/admin/system/permalink/config", TreeItem.Type.TAB, true));
         
         items.add(new TreeItem("8", "插件", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));

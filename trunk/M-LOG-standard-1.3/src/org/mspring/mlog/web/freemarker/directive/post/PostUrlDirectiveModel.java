@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
+import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -25,7 +26,7 @@ import freemarker.template.TemplateModel;
 public class PostUrlDirectiveModel extends AbstractDirectiveModel {
     private static final Logger log = Logger.getLogger(PostUrlDirectiveModel.class);
 
-    public static final String KEY = "post_time";
+    public static final String KEY = "post_url";
 
     /*
      * (non-Javadoc)
@@ -58,7 +59,8 @@ public class PostUrlDirectiveModel extends AbstractDirectiveModel {
         }
         String base = env.__getitem__(FreemarkerVariableNames.BASE).toString();
         Post post = (Post) postObj;
-        env.getOut().append(base + post.getUrl());
+        String postUrl = PostRewriteRule.getPostUrl(post);
+        env.getOut().append(base + postUrl);
     }
 
 }
