@@ -11,7 +11,6 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
@@ -21,7 +20,6 @@ import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -275,15 +273,13 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (postId == null) {
             String queryString = "select count(*) from Post post where post.title = ?";
             count = count(queryString, title);
-        }
-        else {
+        } else {
             String queryString = "select count(*) from Post post where post.title = ? and post.id <> ?";
             count = count(queryString, new Object[] { title, postId });
         }
         if (count > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -312,15 +308,13 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (postId == null) {
             String queryString = "select count(*) from Post post where post.url = ?";
             count = count(queryString, url);
-        }
-        else {
+        } else {
             String queryString = "select count(*) from Post post where post.url = ? and post.id <> ?";
             count = count(queryString, new Object[] { url, postId });
         }
         if (count > 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -467,8 +461,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         Post post = getPostById(postId);
         if (StringUtils.isBlank(post.getPassword())) {
             return true;
-        }
-        else if (post.getPassword().equals(password)) {
+        } else if (post.getPassword().equals(password)) {
             return true;
         }
         return false;

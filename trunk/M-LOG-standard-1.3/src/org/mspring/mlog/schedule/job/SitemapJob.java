@@ -4,21 +4,18 @@
 package org.mspring.mlog.schedule.job;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 import org.mspring.mlog.api.sitemap.ChangeFreq;
 import org.mspring.mlog.api.sitemap.WebSitemapGenerator;
 import org.mspring.mlog.api.sitemap.WebSitemapUrl;
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.entity.Job;
-import org.mspring.mlog.entity.JobLog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.WebUtils;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Gao Youbo
@@ -26,10 +23,8 @@ import org.quartz.JobExecutionException;
  * @description
  * @TODO
  */
-public class SitemapJob extends AbstractJob {
-
-    public static final Long JOB_ID = new Long(2);
-    public static final String JOB_NAME = "UpdateStatInfoJob";
+@Service
+public class SitemapJob extends BaseJob {
 
     private OptionService optionService = ServiceFactory.getOptionService();
     private PostService postService = ServiceFactory.getPostService();
@@ -38,16 +33,12 @@ public class SitemapJob extends AbstractJob {
      * (non-Javadoc)
      * 
      * @see
-     * org.springframework.scheduling.quartz.QuartzJobBean#executeInternal(org
-     * .quartz.JobExecutionContext)
+     * org.mspring.mlog.schedule.job.AbstractJob#nativeExecuteInternal(org.quartz
+     * .JobExecutionContext)
      */
     @Override
-    protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+    public void nativeExecuteInternal(JobExecutionContext context) {
         // TODO Auto-generated method stub
-        JobLog jobLog = new JobLog();
-        jobLog.setTime(new Date());
-        long start = System.currentTimeMillis();
-        boolean success = true;
         try {
             String baseUrl = optionService.getOption("blogurl");
             String baseDirPath = WebUtils.getRealContextPath();
@@ -66,15 +57,8 @@ public class SitemapJob extends AbstractJob {
             generator.write();
         } catch (Exception e) {
             // TODO: handle exception
-            success = false;
-            jobLog.setMessage(e.getMessage());
+            e.printStackTrace();
         }
-        long end = System.currentTimeMillis();
-        jobLog.setUseTime(end - start);
-        jobLog.setJob(new Job(JOB_ID));
-        jobLog.setName(JOB_NAME);
-        jobLog.setSuccess(success);
-        ServiceFactory.getJobLogService().createJobLog(jobLog);
     }
 
 }
