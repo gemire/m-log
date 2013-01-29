@@ -56,10 +56,10 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
         }
-//        if (StringUtils.isBlank(post.getUrl())) {
-//            String url = PermaLinkUtils.getDefaultPostURL();
-//            post.setUrl(url);
-//        }
+        // if (StringUtils.isBlank(post.getUrl())) {
+        // String url = PermaLinkUtils.getDefaultPostURL();
+        // post.setUrl(url);
+        // }
         if (post.getIsTop() == null) {
             post.setIsTop(false);
         }
@@ -180,17 +180,10 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
         }
-        if (StringUtils.isBlank(post.getUrl())) {
-            String url = PermaLinkUtils.getDefaultPostURL();
-            post.setUrl(url);
+        if (post.getIsTop() == null) {
+            post.setIsTop(false);
         }
-        if (post.getCommentCount() == null) {
-            post.setCommentCount(new Long(0));
-        }
-        if (post.getViewCount() == null) {
-            post.setViewCount(new Long(0));
-        }
-        super.update(post);
+        update(post);
     }
 
     /*
@@ -235,18 +228,18 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         });
     }
 
-//    /*
-//     * (non-Javadoc)
-//     * 
-//     * @see
-//     * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
-//     */
-//    @Override
-//    public Post getPostByTitle(String title) {
-//        // TODO Auto-generated method stub
-//        String queryString = "select post from Post post where post.title = ?";
-//        return (Post) findUnique(queryString, title);
-//    }
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see
+    // * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
+    // */
+    // @Override
+    // public Post getPostByTitle(String title) {
+    // // TODO Auto-generated method stub
+    // String queryString = "select post from Post post where post.title = ?";
+    // return (Post) findUnique(queryString, title);
+    // }
 
     /*
      * (non-Javadoc)

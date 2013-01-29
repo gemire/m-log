@@ -25,7 +25,6 @@ import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CatalogService;
-import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.security.UserService;
@@ -56,8 +55,7 @@ public class MetaWeblogAPI {
     private CatalogService catalogService = ServiceFactory.getCatalogService();
     private PostService postService = ServiceFactory.getPostService();
     private OptionService optionService = ServiceFactory.getOptionService();
-    private FileService fileService = ServiceFactory.getFileService();
-
+    
     /**
      * Method name: "blogger.getUsersBlogs".
      */
@@ -158,8 +156,7 @@ public class MetaWeblogAPI {
                 if (!user.getPassword().equals(StringUtils.getMD5(password))) {
                     throw new BusinessException("Wrong password");
                 }
-            }
-            else {
+            } else {
                 final String username = XMLUtils.parseForNode(doc, "/methodCall/params/param[" + INDEX_USER_NAME + "]/value/string").getTextContent();
                 user = userService.getUserByName(username);
                 if (null == user) {
@@ -222,9 +219,8 @@ public class MetaWeblogAPI {
                 renderer.setContent(responseContent);
                 renderer.render(response);
             }
-        }
-        catch (final Exception e) {
-            log.debug(e.getMessage(), e);
+        } catch (final Exception e) {
+            log.error(e.getMessage(), e);
             responseContent = "";
             final StringBuilder stringBuilder = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><fault><value><struct>").append("<member><name>faultCode</name><value><int>500</int></value></member>").append("<member><name>faultString</name><value><string>").append(e.getMessage()).append("</string></value></member></struct></value></fault></methodResponse>");
             responseContent = stringBuilder.toString();
@@ -391,8 +387,7 @@ public class MetaWeblogAPI {
 
                 element.append("                               </struct>\n");
                 element.append("                           </value>\n");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // TODO: handle exception
                 continue;
             }
@@ -525,7 +520,13 @@ public class MetaWeblogAPI {
         if (post.getAuthor() == null) {
             post.setAuthor(user);
         }
-        postService.updatePost(post);
+        Post oldPost = postService.getPostById(post.getId());
+        oldPost.setCatalogs(post.getCatalogs());
+        oldPost.setTitle(post.getTitle());
+        oldPost.setSummary(post.getSummary());
+        oldPost.setContent(post.getContent());
+        oldPost.setStatus(post.getStatus());
+        postService.updatePost(oldPost);
 
         final StringBuilder result = new StringBuilder();
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -549,7 +550,7 @@ public class MetaWeblogAPI {
      * @param base64Data
      * @return
      */
-    public String newMediaObject(HttpServletRequest request, String type, String base64Data) {
+    private String newMediaObject(HttpServletRequest request, String type, String base64Data) {
         // 根据mimetype获取文件后缀名
         String ext = MimeUtil.getSubType(type);
 
@@ -591,29 +592,24 @@ public class MetaWeblogAPI {
                 Date date = null;
                 try {
                     date = (Date) DateFormatUtils.ISO_DATETIME_FORMAT.parseObject(value);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // TODO: handle exception
                     log.warn("Parses article create date failed with ISO8601, retry to parse with pattern[yyyy-MM-dd'T'HH:mm:ss]");
                     date = DateUtils.parse(value, "yyyyMMdd'T'HH:mm:ss");
                 }
                 post.setCreateTime(date);
-            }
-            else if ("title".equals(name)) {
+            } else if ("title".equals(name)) {
                 String value = XMLUtils.parseForString(member, "value/string");
                 post.setTitle(value);
-            }
-            else if ("description".equals(name)) {
+            } else if ("description".equals(name)) {
                 String value = XMLUtils.parseForString(member, "value/string");
                 post.setContent(value);
                 if (value.length() > ARTICLE_ABSTRACT_LENGTH) {
                     post.setSummary(value.substring(0, ARTICLE_ABSTRACT_LENGTH));
-                }
-                else {
+                } else {
                     post.setSummary(value);
                 }
-            }
-            else if ("categories".equals(name)) {
+            } else if ("categories".equals(name)) {
                 List<Node> categories = XMLUtils.parseForNodeList(member, "value/array/data/value");
                 Set<Catalog> catalogSet = new HashSet<Catalog>();
                 for (Node catalogNode : categories) {
@@ -631,8 +627,7 @@ public class MetaWeblogAPI {
         String publish_str = XMLUtils.parseForString(doc, "/methodCall/params/param[" + INDEX_PUBLISH + "]/value/boolean");
         if ("1".equals(publish_str)) {
             post.setStatus(Post.Status.PUBLISH);
-        }
-        else {
+        } else {
             post.setStatus(Post.Status.DRAFT);
         }
         if (post.getCreateTime() == null) {
