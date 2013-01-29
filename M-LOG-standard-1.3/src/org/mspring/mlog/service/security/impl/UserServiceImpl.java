@@ -197,8 +197,7 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
                 UserRolePK PK = new UserRolePK(userEntity, roleEntity);
                 UserRole userRole = new UserRole(PK);
                 merge(userRole);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // TODO: handle exception
                 log.error("setUserRoles failure! user = " + user + ", role = " + role + ", Message:" + e.getMessage());
                 continue;
@@ -218,9 +217,8 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         // TODO Auto-generated method stub
         for (Serializable role : roles) {
             try {
-                executeUpdate("delete UserRole userRole where userRole.PK.user.id = ? and userRole.PK.role.id = ?", new Object[]{user, role});
-            }
-            catch (Exception e) {
+                executeUpdate("delete UserRole userRole where userRole.PK.user.id = ? and userRole.PK.role.id = ?", new Object[] { user, role });
+            } catch (Exception e) {
                 // TODO: handle exception
                 log.error("removeUserRoles failure! user = " + user + ", role = " + role + ", Message:" + e.getMessage());
                 continue;
@@ -228,8 +226,12 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.security.UserService#userNameExists(java.lang.String, java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.security.UserService#userNameExists(java.lang
+     * .String, java.lang.Long)
      */
     @Override
     public boolean userNameExists(String name, Long id) {
@@ -237,15 +239,18 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         int count = 0;
         if (id == null) {
             count = count("select count(*) from User user where user.name = ?", name);
-        }
-        else {
-            count = count("select count(*) from User user where user.name = ? and user.id <> ?", new Object[]{name, id});
+        } else {
+            count = count("select count(*) from User user where user.name = ? and user.id <> ?", new Object[] { name, id });
         }
         return count > 0;
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.security.UserService#userEmailExists(java.lang.String, java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.security.UserService#userEmailExists(java.lang
+     * .String, java.lang.Long)
      */
     @Override
     public boolean userEmailExists(String email, Long id) {
@@ -253,15 +258,18 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         int count = 0;
         if (id == null) {
             count = count("select count(*) from User user where user.email = ?", email);
-        }
-        else {
-            count = count("select count(*) from User user where user.email = ? and user.id <> ?", new Object[]{email, id});
+        } else {
+            count = count("select count(*) from User user where user.email = ? and user.id <> ?", new Object[] { email, id });
         }
         return count > 0;
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.security.UserService#userAliasExists(java.lang.String, java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.security.UserService#userAliasExists(java.lang
+     * .String, java.lang.Long)
      */
     @Override
     public boolean userAliasExists(String alias, Long id) {
@@ -269,11 +277,23 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
         int count = 0;
         if (id == null) {
             count = count("select count(*) from User user where user.alias = ?", alias);
-        }
-        else {
-            count = count("select count(*) from User user where user.alias = ? and user.id <> ?", new Object[]{alias, id});
+        } else {
+            count = count("select count(*) from User user where user.alias = ? and user.id <> ?", new Object[] { alias, id });
         }
         return count > 0;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.security.UserService#findUsersByRole(java.lang
+     * .Long)
+     */
+    @Override
+    public List<User> findUsersByRole(Long roleId) {
+        // TODO Auto-generated method stub
+        return find("select userRole.PK.user from UserRole userRole where userRole.PK.role.id = ?", roleId);
     }
 
 }

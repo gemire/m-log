@@ -40,4 +40,11 @@ public interface RoleResourceService {
      * @return
      */
     List<RoleResource> findRoleResourceByRole(Long roleId);
+    
+    /**
+     * 添加Role-Resource关联
+     * @param roleId
+     * @param resourceId
+     */
+    void createRoleResource(Long roleId, Long resourceId);
 }
