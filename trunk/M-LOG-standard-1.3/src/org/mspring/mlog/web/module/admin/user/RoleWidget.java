@@ -56,8 +56,15 @@ public class RoleWidget extends AbstractAdminWidget {
 
     @RequestMapping("/delete")
     @Premission(item = "310005")
-    public String delete(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
-
+    public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null) {
+            return prompt(model, "删除失败，请选择要删除的角色");
+        }
+        boolean hasUserInRole = roleService.hasUserInRole(id);
+        if (hasUserInRole) {
+            return prompt(model, "删除失败，该角色下存在用户");
+        }
+        roleService.deleteRole(id);
         return list(rolePage, request, response, model);
     }
 
@@ -88,8 +95,10 @@ public class RoleWidget extends AbstractAdminWidget {
         }
 
         Role role = roleService.getRoleById(id);
+        if (role == null) {
+            return prompt(model, "请先选择要修改的角色");
+        }
         model.addAttribute("role", role);
-
         setSessionAttribute(request, "RoleWidget_edit_id", id);
         return "/admin/role/editRole";
     }

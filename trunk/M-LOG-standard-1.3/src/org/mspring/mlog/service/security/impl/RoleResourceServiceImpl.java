@@ -3,7 +3,9 @@ package org.mspring.mlog.service.security.impl;
 import java.util.List;
 
 import org.mspring.mlog.entity.security.Resource;
+import org.mspring.mlog.entity.security.Role;
 import org.mspring.mlog.entity.security.RoleResource;
+import org.mspring.mlog.entity.security.RoleResourcePK;
 import org.mspring.mlog.service.security.RoleResourceService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,7 @@ public class RoleResourceServiceImpl extends AbstractServiceSupport implements R
     @Override
     public boolean hasUserResourcePermission(Long userId, Long resourceId) {
         // TODO Auto-generated method stub
-        int count = count("select count(*) from RoleResource roleResource, UserRole userRole where userRole.PK.role.id = roleResource.PK.role.id and userRole.PK.user.id = ? and roleResource.PK.resource.id = ?", new Long[]{userId, resourceId});
+        int count = count("select count(*) from RoleResource roleResource, UserRole userRole where userRole.PK.role.id = roleResource.PK.role.id and userRole.PK.user.id = ? and roleResource.PK.resource.id = ?", new Long[] { userId, resourceId });
         return count > 0;
     }
 
@@ -49,6 +51,23 @@ public class RoleResourceServiceImpl extends AbstractServiceSupport implements R
     public List<RoleResource> findRoleResourceByRole(Long roleId) {
         // TODO Auto-generated method stub
         return find("select roleResource from RoleResource roleResource where roleResource.PK.role.id = ?", roleId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.security.RoleResourceService#createRoleResource
+     * (java.lang.Long, java.lang.Long)
+     */
+    @Override
+    public void createRoleResource(Long roleId, Long resourceId) {
+        // TODO Auto-generated method stub
+        RoleResourcePK pK = new RoleResourcePK();
+        pK.setRole(new Role(roleId));
+        pK.setResource(new Resource(resourceId));
+        RoleResource roleResource = new RoleResource(pK);
+        create(roleResource);
     }
 
 }

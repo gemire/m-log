@@ -34,7 +34,18 @@ public class Resource implements Serializable {
     private String name;
     private String url;
     private String type;
-    private String treeItem;
+
+    /**
+     * 
+     */
+    public Resource() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public Resource(Long id) {
+        super();
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,18 +84,6 @@ public class Resource implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-    
-    @Column(name = "tree_item", length = 100)
-    public String getTreeItem() {
-        return treeItem;
-    }
-
-    public void setTreeItem(String treeItem) {
-        this.treeItem = treeItem;
-    }
-
-
-
 
     public static class Type {
         public static final String TREE = "tree";

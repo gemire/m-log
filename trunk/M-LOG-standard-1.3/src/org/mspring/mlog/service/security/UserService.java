@@ -142,4 +142,12 @@ public interface UserService {
      * @return
      */
     public boolean userAliasExists(String alias, Long id);
+
+    /**
+     * 根据角色查找该角色下的用户
+     * 
+     * @param roleId
+     * @return
+     */
+    public List<User> findUsersByRole(Long roleId);
 }

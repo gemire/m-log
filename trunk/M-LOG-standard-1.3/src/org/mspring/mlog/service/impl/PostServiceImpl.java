@@ -15,7 +15,6 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.service.PostService;
-import org.mspring.mlog.utils.PermaLinkUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -56,10 +55,6 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         if (post.getCommentCount() == null) {
             post.setCommentCount(new Long(0));
         }
-        // if (StringUtils.isBlank(post.getUrl())) {
-        // String url = PermaLinkUtils.getDefaultPostURL();
-        // post.setUrl(url);
-        // }
         if (post.getIsTop() == null) {
             post.setIsTop(false);
         }
