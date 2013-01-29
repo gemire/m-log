@@ -18,7 +18,7 @@
 				<!-- <bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" /> -->
 				<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
 				<bean class="org.mspring.mlog.web.interceptor.WebContextInterceptor" />
-				<bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" />
+				<!-- <bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" /> -->
 				<bean class="org.mspring.platform.web.query.interceptor.QueryParameterInterceptor" />
   			</list>
   		</property>
