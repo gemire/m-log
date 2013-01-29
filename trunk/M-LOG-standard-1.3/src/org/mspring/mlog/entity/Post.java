@@ -313,7 +313,7 @@ public class Post implements Serializable {
     /**
      * @return the url
      */
-    @Column(name = "url", nullable = false, unique = true, length = 300)
+    @Column(name = "url", length = 300)
     public String getUrl() {
         return url;
     }
