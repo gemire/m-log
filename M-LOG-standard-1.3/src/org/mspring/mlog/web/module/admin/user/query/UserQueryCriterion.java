@@ -3,6 +3,7 @@
  */
 package org.mspring.mlog.web.module.admin.user.query;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.mspring.platform.persistence.query.AbstractQueryCriterion;
@@ -32,18 +33,20 @@ public class UserQueryCriterion extends AbstractQueryCriterion {
         if (queryParams.get("PK.role.id") == null || StringUtils.isBlank(queryParams.get("PK.role.id").toString())) {
             queryString = "select user from User user";
             countString = "select count(*) from User user";
-            
+
             builder.buildLike("user.name", "PK.user.name");
             builder.buildLike("user.alias", "PK.user.alias");
             builder.buildLike("user.email", "PK.user.email");
-        }
-        else {
+            builder.buildBetween("user.createTime", "createTimeBeg", "createTimeEnd", Date.class);
+        } else {
             queryString = "select userRole.PK.user from UserRole userRole";
             countString = "select count(userRole.PK.user) from UserRole userRole";
-            
+
             builder.buildLike("userRole.PK.user.name", "PK.user.name");
             builder.buildLike("userRole.PK.user.alias", "PK.user.alias");
             builder.buildLike("userRole.PK.user.email", "PK.user.email");
+            builder.buildBetween("userRole.PK.user.createTime", "createTimeBeg", "createTimeEnd", Date.class);
+
             builder.buildEqual("userRole.PK.role.id", "PK.role.id", Long.class);
         }
         whereString = builder.endBuild();

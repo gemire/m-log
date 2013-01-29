@@ -20,7 +20,7 @@
 		<tr>
 			<td class="fieldlabel" style="width:60px;">是否可用</td>
 			<td>
-				<@spring.formCheckbox path="role.enabled" />
+				<@spring.formCheckbox path="role.enabled" attributes="checked='checked'" />
 			</td>
 		</tr>
 		<tr>

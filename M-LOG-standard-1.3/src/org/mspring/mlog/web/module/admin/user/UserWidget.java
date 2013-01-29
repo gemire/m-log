@@ -54,7 +54,7 @@ public class UserWidget extends AbstractAdminWidget {
         
         model.addAttribute("userPage", userPage);
         model.addAttribute("roles", roles);
-
+        model.addAllAttributes(queryParams);
         return "/admin/user/listUser";
     }
     
