@@ -1,30 +1,31 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <#include "../inc/header.ftl" />
+<link rel="stylesheet" type="text/css" href="${base}/script/lhgcalendar/skins/lhgcalendar.css">
+<script type="text/javascript" src="${base}/script/lhgcalendar/lhgcalendar.min.js"></script>
 <form id="userForm" name="userForm" action="${base}/admin/user/list" method="POST">
 	<@spring.bind "userRole" />
 	<table class="formtable">
 		<tr>
-			<td class="fieldlabel" style="width:65px;">角色：</td>
 			<td>
-				<@spring.formSingleSelect path="userRole.PK.role.id" options=roles attributes='' has_default=true />
-			</td>
-			<td class="fieldlabel" style="width:65px;">用户名：</td>
-			<td>
+				<span class="fieldlabel">角色：</span>
+				<@spring.formSingleSelect path="userRole.PK.role.id" options=roles attributes='onchange="changeRole();"' has_default=true />
+				
+				<span class="fieldlabel">用户名：</span>
 				<@spring.formInput path="userRole.PK.user.name" attributes='class="textinput"' />
-			</td>
-			
-			<td class="fieldlabel" style="width:65px;">别名：</td>
-			<td>
+				
+				<span class="fieldlabel">别名：</span>
 				<@spring.formInput path="userRole.PK.user.alias" attributes='class="textinput"' />
-			</td>
-			
-			<td class="fieldlabel" style="width:65px;">邮箱：</td>
-			<td>
+				
+				<span class="fieldlabel">邮箱：</span>
 				<@spring.formInput path="userRole.PK.user.email" attributes='class="textinput"' />
+				
+				<span class="fieldlabel">创建时间</span>
+				<input type="text" class="textinput" name="createTimeBeg" id="createTimeBeg" value="${createTimeBeg!""}" style="width:85px;" /> - 
+				<input type="text" class="textinput" name="createTimeEnd" id="createTimeEnd" value="${createTimeEnd!""}" style="width:85px;" />
+				
+				<input type="submit" class="btn" value=" 查 询 " />
 			</td>
-			
-			<td><input type="submit" class="btn" value=" 查 询 " /></td>
 		</tr>
 	</table>
 	<@spring.bind "userPage" />
@@ -79,4 +80,13 @@
 		</tr>
 	</table>
 </form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#createTimeBeg").calendar({ maxDate:'#createTimeEnd', format:'yyyy-MM-dd HH:mm:ss', targetFormat:'yyyy-MM-dd HH:mm:ss' });
+		$("#createTimeEnd").calendar({ minDate:'#createTimeBeg', format:'yyyy-MM-dd HH:mm:ss', targetFormat:'yyyy-MM-dd HH:mm:ss' });
+	});
+	function changeRole(){
+		$('#userForm').submit();
+	}
+</script>
 <#include "../inc/footer.ftl" />
