@@ -121,7 +121,7 @@ $.extend(mlog.editor.KindEditor, {
                 		"link", "unlink", "pagebreak", "|", "emoticons", "image", "flash", "media", "code", "fullscreen", "/",
                 		"undo", "redo", "|", "insertunorderedlist", "insertorderedlist", "indent", "outdent", "|", 
                 		"justifyleft", "justifycenter", "justifyright", "justifyfull", "|", "plainpaste", "wordpaste", "|", 
-                		"clearhtml", "source", "preview", "source"
+                		"clearhtml", "source", "preview"
                 	],
                 afterCreate: function () {
                     // TODO: chrome bug

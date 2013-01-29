@@ -15,9 +15,9 @@
 		<tr>
 			<td class="fieldlabel" style="width:60px;">用户名</td>
 			<td>
-				<@spring.formInput path="user.name" attributes='class="textinput" style="width:98%;" validate=\'{required:true,maxlength:20,messages:{required:"请输入用户名", maxlength:"用户名最大长度不能超过{0}"}}\'' />
+				<@spring.formInput path="user.name" attributes='readonly="readonly" class="textinput" style="width:98%;"'/>
 			</td>
-			<td class="fieldnotice" style="width:300px;">规则：必填、最大长度20</td>
+			<td class="fieldnotice" style="width:300px;">规则：不能修改</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:60px;">昵称</td>

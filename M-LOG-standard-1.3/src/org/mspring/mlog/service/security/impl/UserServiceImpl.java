@@ -138,6 +138,13 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
     public void deleteUser(Long id) {
         // TODO Auto-generated method stub
         remove(User.class, id);
+        
+        //删除用户对应的信息
+        executeUpdate("delete UserRole userRole where userRole.PK.user.id = ?", id);
+        executeUpdate("delete Post post where post.author.id = ?", id);
+        executeUpdate("delete PostCatalog postCatalog where postCatalog.PK.post.id = ?", id);
+        executeUpdate("delete PostTag postTag where postTag.PK.post.id = ?", id);
+        executeUpdate("delete Comment comment where comment.post.id = ?", id);
     }
 
     /*

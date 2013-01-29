@@ -47,30 +47,30 @@ public class UserWidget extends AbstractAdminWidget {
         if (userPage == null) {
             userPage = new Page<User>();
         }
-        //userPage.setSort(new Sort("id", Sort.DESC));
-        
+        // userPage.setSort(new Sort("id", Sort.DESC));
+
         userPage = userService.findUser(userPage, new UserQueryCriterion(queryParams));
         List<Role> roles = roleService.findEnabledRole();
-        
+
         model.addAttribute("userPage", userPage);
         model.addAttribute("roles", roles);
         model.addAllAttributes(queryParams);
         return "/admin/user/listUser";
     }
-    
+
     @RequestMapping("/create")
     @Premission(item = "305010")
-    public String create(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String create(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Role> roles = roleService.findEnabledRole();
         model.addAttribute("roles", roles);
         return "/admin/user/createUser";
     }
-    
+
     @RequestMapping("/doCreate")
     @Premission(item = "305010")
-    public String doCreate(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String doCreate(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = userService.addUser(user);
-        
+
         String userRoles = request.getParameter("selectRoles");
         if (StringUtils.isNotBlank(userRoles)) {
             String[] roles = userRoles.split(",");
@@ -78,10 +78,10 @@ public class UserWidget extends AbstractAdminWidget {
         }
         return "redirect:/admin/user/edit?id=" + user.getId();
     }
-    
+
     @RequestMapping("/edit")
     @Premission(item = "305015")
-    public String edit(@RequestParam(required = false)Long id, @ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String edit(@RequestParam(required = false) Long id, @ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "UserWidget_edit_id");
             if (obj != null) {
@@ -91,36 +91,34 @@ public class UserWidget extends AbstractAdminWidget {
         if (id == null) {
             return prompt(model, "请先选择要修改的角色");
         }
-        
+
         user = userService.getUserById(id);
         List<Role> roles = roleService.findEnabledRole();
         List<Role> userRoles = userService.getUserRoles(id);
-        
+
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
         model.addAttribute("userRoles", userRoles);
-        
+
         setSessionAttribute(request, "UserWidget_edit_id", id);
         return "/admin/user/editUser";
     }
-    
-    
+
     @RequestMapping("/doEdit")
     @Premission(item = "305015")
-    public String doEdit(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String doEdit(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         String newPassword = request.getParameter("newPassword");
         if (StringUtils.isNotBlank(newPassword)) {
             String oldPassword = request.getParameter("oldPassword");
             String MD5OldPassword = StringUtils.getMD5(oldPassword);
             if (MD5OldPassword.equals(user.getPassword())) {
                 user.setPassword(StringUtils.getMD5(newPassword));
-            }
-            else {
+            } else {
                 model.addAttribute("message", "密码修改失败，原始密码输入错误！");
             }
         }
         userService.updateUserInfo(user);
-        
+
         String userRoles = request.getParameter("selectRoles");
         if (StringUtils.isNotBlank(userRoles)) {
             String[] roles = userRoles.split(",");
@@ -128,5 +126,15 @@ public class UserWidget extends AbstractAdminWidget {
         }
         return edit(user.getId(), user, request, response, model);
     }
-    
+
+    @RequestMapping("/delete")
+    @Premission(item = "305005")
+    public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null) {
+            return prompt(model, "请选择要删除的用户。");
+        }
+        userService.deleteUser(id);
+        return list(userPage, userRole, queryParams, request, response, model);
+    }
+
 }
