@@ -39,9 +39,6 @@
 	<@spring.formHiddenInput path="userPage.sort.order" />
 	<table class="dtable" cellspacing="0" cellpadding="0">
 		<tr>
-			<th>
-				<input type="checkbox" onclick="mlog.form.checkAll(this, 'id');" />
-			</th>
 			<th>编号</th>
 			<th>名称</th>
 			<th>别名</th>
@@ -56,14 +53,14 @@
 					<#assign tdClass = "even">
 				</#if>
 				<tr>
-					<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" /></td>
 					<td class="${tdClass}">${item.id} </td>
 					<td class="${tdClass}">${item.name} </td>
 					<td class="${tdClass}">${item.alias!""} </td>
 					<td class="${tdClass}">${item.email!""} </td>
 					<td class="${tdClass}">${item.createTime!""} </td>
 					<td class="${tdClass}">
-						<a href="${base}/admin/user/edit?id=${item.id}">修改</a>
+						<a href="${base}/admin/user/edit?id=${item.id}">修改</a> |
+						<a href="javascript:deleteUser(${item.id});" style="color:red;">删除</a> 
 					</td>
 				</tr>
 			</#list>
@@ -71,9 +68,6 @@
 	</table>
 	<table style="width:100%;">
 		<tr>
-			<td>
-				<input type="button" class="btn" value=" 删除 " onclick="mlog.form.confirmSubmit('userForm', '${base}/admin/user/delete');" />
-			</td>
 			<td>
 				<@mspring.pagingnavigator page=userPage form_id="userForm" />
 			</td>
@@ -87,6 +81,11 @@
 	});
 	function changeRole(){
 		$('#userForm').submit();
+	}
+	function deleteUser(userId){
+		if(confirm('注意：删除该用户会同时删除该用户对应的文章等信息，且删除后将无法恢复，是否继续？')){
+			window.location = "${base}/admin/user/delete?id=" + userId;
+		}
 	}
 </script>
 <#include "../inc/footer.ftl" />
