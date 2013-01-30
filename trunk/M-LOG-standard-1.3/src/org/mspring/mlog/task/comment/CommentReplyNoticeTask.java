@@ -14,20 +14,22 @@ import org.springframework.stereotype.Component;
 /**
  * @author Administrator
  * @since Gao Youbo
- * @description 
+ * @description
  * @TODO
  */
 @Component
 public class CommentReplyNoticeTask extends AbstractTask {
-    
+
     @Autowired
     private CommentService commentService;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.mspring.platform.task.AbstractTask#doTask(java.util.Map)
      */
     @Override
-    protected void doTask(Map<Object, Object> paramMap) throws Exception {
+    protected void doTask(Map<Object, Object> paramMap) {
         // TODO Auto-generated method stub
         if (paramMap != null) {
             Object comment = paramMap.get(CommentAspect.CONTEXT_COMMENT);

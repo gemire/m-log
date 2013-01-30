@@ -14,6 +14,7 @@ import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -161,10 +162,8 @@ public class CommentWidget extends AbstractWebWidget {
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
         model.addAttribute(FreemarkerVariableNames.COMMENT, comment);
-        String postUrl = comment.getPost().getUrl();
-        if (StringUtils.isBlank(postUrl)) {
-            postUrl = postService.getPostUrlByCommentId(comment.getId());
-        }
+        
+        String postUrl = PostRewriteRule.getPostUrl(comment.getPost());
         return String.format("redirect:%s", postUrl);
     }
 

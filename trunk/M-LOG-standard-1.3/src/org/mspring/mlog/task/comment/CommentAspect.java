@@ -54,7 +54,7 @@ public class CommentAspect {
             }
         } catch (Exception e) {
             // TODO: handle exception
-            log.debug("send comment reply notice mail failure.", e);
+            log.debug("send comment reply notice mail failure.");
         }
     }
 }
