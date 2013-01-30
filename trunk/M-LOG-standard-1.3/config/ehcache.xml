@@ -2,16 +2,24 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="ehcache.xsd">
 
-	<!--<diskStore path="java.io.tmpdir"/> -->
 	<diskStore path="java.io.tmpdir/mlog/cache" />
 
-	<defaultCache maxElementsInMemory="10000" eternal="false"
-		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
-		diskSpoolBufferSizeMB="50" maxElementsOnDisk="10000000"
-		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
-		memoryStoreEvictionPolicy="LRU" />
+	<!-- <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" 
+		timeToLiveSeconds="120" overflowToDisk="true" diskSpoolBufferSizeMB="50" 
+		maxElementsOnDisk="10000000" diskPersistent="false" diskExpiryThreadIntervalSeconds="120" 
+		memoryStoreEvictionPolicy="LRU" /> -->
 
+	<!-- 默认的缓存 -->
 	<cache name="DEFAULT_CACHE" maxElementsInMemory="10000" eternal="false"
+		diskPersistent="true" diskSpoolBufferSizeMB="60" timeToIdleSeconds="5"
+		timeToLiveSeconds="5" overflowToDisk="true" />
+
+	<!-- 用户Widget的缓存 -->
+	<cache name="WIDGET_CACHE" maxElementsInMemory="10000" eternal="false"
+		diskPersistent="true" diskSpoolBufferSizeMB="60" timeToIdleSeconds="5"
+		timeToLiveSeconds="5" overflowToDisk="true" />
+		
+	<cache name="OPTION_CACHE" maxElementsInMemory="10000" eternal="false"
 		diskPersistent="true" diskSpoolBufferSizeMB="60" timeToIdleSeconds="5"
 		timeToLiveSeconds="5" overflowToDisk="true" />
 
@@ -34,7 +42,6 @@
 
 	<cache name="org.mspring.mlog.entity.Post" maxElementsInMemory="100000"
 		eternal="false" timeToIdleSeconds="10" overflowToDisk="true" />
-
 
 	<cache name="org.mspring.mlog.entity.LinkType"
 		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="3600"

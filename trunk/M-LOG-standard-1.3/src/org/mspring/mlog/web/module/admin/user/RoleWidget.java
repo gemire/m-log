@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.security.Role;
 import org.mspring.mlog.entity.security.TreeItem;
+import org.mspring.mlog.service.security.RoleResourceService;
 import org.mspring.mlog.service.security.RoleService;
 import org.mspring.mlog.service.security.RoleTreeItemService;
 import org.mspring.mlog.service.security.TreeItemService;
@@ -40,6 +41,8 @@ public class RoleWidget extends AbstractAdminWidget {
     private TreeItemService treeItemService;
     @Autowired
     private RoleTreeItemService roleTreeItemService;
+    @Autowired
+    private RoleResourceService roleResourceService;
 
     @RequestMapping("/list")
     @Premission(item = "310005")
@@ -77,7 +80,8 @@ public class RoleWidget extends AbstractAdminWidget {
     @RequestMapping("/doCreate")
     @Premission(item = "310010")
     public String doCreate(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
-        roleService.createRole(role);
+        role = roleService.createRole(role);
+        roleResourceService.createRoleResource(role.getId(), new Long(1));
         return "redirect:/admin/role/edit?id=" + role.getId();
     }
 
@@ -140,7 +144,6 @@ public class RoleWidget extends AbstractAdminWidget {
         }
         String[] ids = StringUtils.split(checkedItems, ",");
         roleTreeItemService.setPremission(id, ids);
-        
         String[] notIds = StringUtils.split(notCheckedItems, ",");
         roleTreeItemService.removePremission(id, notIds);
         return "redirect:/admin/role/authorize";

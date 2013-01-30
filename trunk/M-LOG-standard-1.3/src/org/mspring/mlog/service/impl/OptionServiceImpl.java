@@ -10,8 +10,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.Option;
-import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.mlog.service.cache.OptionCacheService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.PropertiesUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -34,7 +35,7 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     private static final String DEFAULT_OPTIONS_PROPERTIES = "default_options.properties";
 
     @Autowired
-    private CacheService cacheService;
+    private OptionCacheService optionCacheService;
 
     /*
      * (non-Javadoc)
@@ -54,8 +55,7 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
         Object option = findUnique("select option from Option option where option.name = ?", key);
         if (option == null) { // 如果数据库中没有找到，那么从default_options.properties中查找默认值
             value = getDefaultOptions().get(key);
-        }
-        else {
+        } else {
             value = ((Option) option).getValue();
         }
         // 更新缓存
@@ -151,22 +151,22 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     }
 
     private String getOptionCacheValue(String key) {
-        Object value = cacheService.getCacheValue(key);
+        Object value = optionCacheService.getOptionCacheValue(key);
         return value == null ? null : value.toString();
     }
 
     private void setOptionCacheValue(String key, String value) {
-        cacheService.updateCacheValue(key, value, CacheService.ONE_DAY);
+        optionCacheService.updateOptionCacheValue(key, value, CacheService.ONE_DAY);
         setOptionCacheMap(null);
     }
 
     private Map<String, String> getOptionCacheMap() {
-        Object value = cacheService.getCacheValue(Keys.OPTION_CACHE_MAP_KEY);
+        Object value = optionCacheService.getOptionCacheValue(Keys.OPTION_CACHE_MAP_KEY);
         return value != null ? (Map<String, String>) value : null;
     }
 
     private void setOptionCacheMap(Map<String, String> map) {
-        cacheService.updateCacheValue(Keys.OPTION_CACHE_MAP_KEY, map, CacheService.ONE_DAY);
+        optionCacheService.updateOptionCacheValue(Keys.OPTION_CACHE_MAP_KEY, map, CacheService.ONE_DAY);
     }
 
     /*
@@ -205,15 +205,14 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     private Map<String, String> getDefaultOptions() {
         try {
             log.debug("get default options");
-            Object cached = cacheService.getCacheValue(Keys.DEFAULT_OPTIOINS_KEY);
+            Object cached = optionCacheService.getOptionCacheValue(Keys.DEFAULT_OPTIOINS_KEY);
             if (cached != null && cached instanceof Map) {
                 return (Map<String, String>) cached;
             }
             Map<String, String> map = PropertiesUtils.getPropertyMap(DEFAULT_OPTIONS_PROPERTIES);
-            cacheService.updateCacheValue(Keys.DEFAULT_OPTIOINS_KEY, map, CacheService.ONE_DAY);
+            optionCacheService.updateOptionCacheValue(Keys.DEFAULT_OPTIOINS_KEY, map, CacheService.ONE_DAY);
             return map;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             log.error("get default options error", e);
             return new HashMap<String, String>();

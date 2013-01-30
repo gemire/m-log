@@ -15,6 +15,11 @@ import org.mspring.mlog.web.freemarker.widget.http.HttpWidgetResponse;
  */
 public class DefaultHttpWidget implements HttpWidget {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 9161552432626563867L;
+
     private HttpWidgetRequest widgetRequest;
     private HttpWidgetResponse widgetResponse;
 

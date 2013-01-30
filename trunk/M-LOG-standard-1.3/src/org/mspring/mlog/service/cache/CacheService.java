@@ -1,9 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.service;
-
-import java.util.List;
+package org.mspring.mlog.service.cache;
 
 /**
  * @author Gao Youbo
@@ -26,59 +24,65 @@ public interface CacheService {
     public static final long DEFAULT_EXPIRY = ONE_MINUTE;
 
     /**
-     * 保存所有cache key所用到的cache的标识
-     */
-    public static final String KEYS_CACHE = "CACHE_KEYS_MLOG_KEYS";
-
-    /**
-     * 获取应用的Cache前缀
-     * 
-     * @return
-     */
-    public String getAppCachePrefix();
-
-    /**
-     * 获取cache key
-     * 
-     * @param key
-     * @return
-     */
-    public String getKey(String key);
-
-    /**
      * 将key-value存储在cache中，如果key已经存在，则旧的value将会被当前value所替代；如果key不存在，
      * 则将value存入cache
      * 
+     * @param cacheName
      * @param key
      * @param value
      */
-    public void updateCacheValue(String key, Object value);
+    public void updateCacheValue(String cacheName, String key, Object value);
 
     /**
      * 将key-value存储在cache中，如果key已经存在，则旧的value将会被当前value所替代；如果key不存在，
      * 则将value存入cache
      * 
+     * @param cacheName
      * @param key
      * @param value
      * @param expiry
      *            缓存时间（单位：毫秒）
      */
-    public void updateCacheValue(String key, Object value, long expiry);
+    public void updateCacheValue(String cacheName, String key, Object value, long expiry);
 
     /**
      * 获取缓存
      * 
+     * @param cacheName
      * @param key
      * @return
      */
-    public Object getCacheValue(String key);
+    public Object getCacheValue(String cacheName, String key);
 
     /**
      * 删除缓存
      * 
-     * @param key
+     * @param cacheName
      */
-    public void deleteCache(String key);
+    public void deleteCacheValue(String cacheName, String key);
 
-    public List<String> getCacheKeys();
+    /**
+     * 清空缓存
+     * 
+     * @param cacheName
+     */
+    public void clearCache(String cacheName);
+
+    /**
+     * 获取所有的CacheName
+     * 
+     * @return
+     */
+    public String[] getCacheNames();
+
+    /**
+     * 清空错误缓存
+     */
+    public void clearAllCache();
+
+    public static class CacheName {
+        public static final String DEFAULT_CACHE_NAME = "DEFAULT_CACHE";
+        public static final String WIDGET_CACHE_NAME = "WIDGET_CACHE";
+        public static final String OPTION_CACHE_NAME = "OPTION_CACHE";
+    }
 }

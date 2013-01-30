@@ -20,21 +20,23 @@
 		</table>
 	</form>
 	-->
-	<div style="text-align:center;">
-		<div class="message notice">
-			当发现在后台更新了内容，前台未显示的，可以通过清理缓存来解决！
+	<form name="cacheClearForm" method="POST" action="${base}/admin/system/cache/clear">
+		<div style="text-align:center;">
+			<div class="message notice">
+				当发现在后台更新了内容，前台未显示的，可以通过清理缓存来解决！
+			</div>
+			<div style="text-align:center;">
+				<input type="checkbox" name="defaultCache" id="defaultCache" checked="checked" /><label for="defaultCache">默认缓存</label>
+				<input type="checkbox" name="widgetCache" id="widgetCache" checked="checked" /><label for="widgetCache">Widget缓存</label>
+				<input type="checkbox" name="optionCache" id="optionCache" /><label for="optionCache">设置缓存</label>
+				<input type="checkbox" name="otherCache" id="otherCache" /><label for="otherCache">其他</label>
+			</div>
+			<br/>
+			<input type="submit" class="btn" value="清理选中缓存" />
 		</div>
-		<button class="btn" id="btnClear"> 清 理 缓 存 </button>
-	</div>
+	</form>
 </div>
 <script type="text/javascript">
-	$("#btnClear").click(function(){
-		$.get("${base}/admin/system/cache/clear", function(response){
-			alert('清理完成');
-			document.location.reload();
-		});
-	});
-	
 	$(document).ready(function(){
 		//斑马线
 		var tables=document.getElementsByTagName("table");

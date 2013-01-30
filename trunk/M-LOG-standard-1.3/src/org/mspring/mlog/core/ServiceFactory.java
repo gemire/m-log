@@ -5,7 +5,6 @@ package org.mspring.mlog.core;
 
 import org.hibernate.SessionFactory;
 import org.mspring.mlog.service.AlbumService;
-import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
@@ -21,6 +20,10 @@ import org.mspring.mlog.service.PostMetaService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
+import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.mlog.service.cache.DefaultCacheService;
+import org.mspring.mlog.service.cache.OptionCacheService;
+import org.mspring.mlog.service.cache.WidgetCacheService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.service.security.UserService;
@@ -97,6 +100,18 @@ public class ServiceFactory {
         return ContextManager.getApplicationContext().getBean(CacheService.class);
     }
 
+    public static DefaultCacheService getDefaultCacheService() {
+        return ContextManager.getApplicationContext().getBean(DefaultCacheService.class);
+    }
+
+    public static OptionCacheService getOptionCacheService() {
+        return ContextManager.getApplicationContext().getBean(OptionCacheService.class);
+    }
+
+    public static WidgetCacheService getWidgetCacheService() {
+        return ContextManager.getApplicationContext().getBean(WidgetCacheService.class);
+    }
+
     public static InstallService getInstallService() {
         return ContextManager.getApplicationContext().getBean(InstallService.class);
     }
@@ -108,9 +123,9 @@ public class ServiceFactory {
     public static JobService getJobService() {
         return ContextManager.getApplicationContext().getBean(JobService.class);
     }
-    
-    public static JobLogService getJobLogService(){
-        return ContextManager.getApplicationContext().getBean(JobLogService.class); 
+
+    public static JobLogService getJobLogService() {
+        return ContextManager.getApplicationContext().getBean(JobLogService.class);
     }
 
     public static HibernateSearchService getHibernateSearchService() {

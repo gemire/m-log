@@ -70,20 +70,19 @@ public abstract class AbstractWidgetRender implements WidgetRender {
 
         if (widgetConfig.isCache()) {
             String value = widgetResponse.getResponseAsString();
-            ServiceFactory.getCacheService().updateCacheValue(widgetConfig.getName(), value, widgetConfig.getIdle());
+            ServiceFactory.getWidgetCacheService().updateWidgetCacheValue(widgetConfig.getName(), value, widgetConfig.getIdle());
         }
     }
 
     protected HttpWidget getHttpWidgetCache(WidgetConfig widgetConfig, HttpWidgetRequest widgetRequest, HttpWidgetResponse widgetResponse) {
         HttpWidget httpWidget = null;
         if (widgetConfig.isCache()) {
-            Object obj = ServiceFactory.getCacheService().getCacheValue(widgetConfig.getName());
+            Object obj = ServiceFactory.getWidgetCacheService().getWidgetCacheValue(widgetConfig.getName());
             if (obj != null) {
                 try {
                     widgetResponse.append(obj.toString());
                     httpWidget = new DefaultHttpWidget(widgetRequest, widgetResponse);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
