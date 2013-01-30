@@ -5,6 +5,7 @@ package org.mspring.mlog.web.rulrewrite;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,7 @@ public class PostRewriteRule extends RewriteRule {
         return new SimpleRewriteMatch("/post", queryParams);
     }
     
+    
     /**
      * 获取文章的链接
      * @param post
@@ -77,15 +79,23 @@ public class PostRewriteRule extends RewriteRule {
     public static String getPostUrl(Post post){
         String postUrl = "/post?id=" + post.getId();
         String permalinkType = ServiceFactory.getOptionService().getOption("permalink");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(post.getCreateTime());
         if (StringUtils.isNotBlank(post.getUrl())) {
             postUrl = post.getUrl();
         } else if (Rule.ID.equals(permalinkType)) {
             postUrl = String.format("/post/%s.html", post.getId());
         } else if (Rule.MONTH_ID.equals(permalinkType)) {
+            if (post.getCreateTime() == null) {
+                post = ServiceFactory.getPostService().getPostById(post.getId());
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(post.getCreateTime());
             postUrl = String.format("/post/%s/%s/%s.html", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, post.getId());
         } else if (Rule.DATE_ID.equals(permalinkType)) {
+            if (post.getCreateTime() == null) {
+                post = ServiceFactory.getPostService().getPostById(post.getId());
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(post.getCreateTime());
             postUrl = String.format("/post/%s/%s/%s/%s.html", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), post.getId());
         }
         return postUrl;

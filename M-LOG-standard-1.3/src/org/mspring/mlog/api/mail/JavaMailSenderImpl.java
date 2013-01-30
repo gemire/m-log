@@ -193,13 +193,14 @@ public class JavaMailSenderImpl implements JavaMailSender {
         final int port = MailSenderConf.getPort();
         final String password = MailSenderConf.getPassword();
         
-        Transport transport;
+        Transport transport = null;
         try {
             transport = MailSenderConf.getTransport();
             transport.connect(host, port, username, password);
         }
         catch (AuthenticationFailedException ex) {
-            throw new MailAuthenticationException(ex);
+            log.error("Can't login mail server. MailAuthenticationException", ex);
+            return;
         }
         catch (MessagingException ex) {
             // Effectively, all messages failed...
@@ -207,7 +208,9 @@ public class JavaMailSenderImpl implements JavaMailSender {
                 Object original = (originalMessages != null ? originalMessages[i] : mimeMessages[i]);
                 failedMessages.put(original, ex);
             }
-            throw new MailSendException("Mail server connection failed", ex, failedMessages);
+            //throw new MailSendException("Mail server connection failed", ex, failedMessages);
+            log.error("Mail server connection failed. failedMessages : " + failedMessages, ex);
+            return;
         }
 
         try {
@@ -237,8 +240,7 @@ public class JavaMailSenderImpl implements JavaMailSender {
             }
             catch (MessagingException ex) {
                 if (!failedMessages.isEmpty()) {
-                    throw new MailSendException("Failed to close server connection after message failures", ex,
-                            failedMessages);
+                    throw new MailSendException("Failed to close server connection after message failures", ex, failedMessages);
                 }
                 else {
                     throw new MailSendException("Failed to close server connection after message sending", ex);
