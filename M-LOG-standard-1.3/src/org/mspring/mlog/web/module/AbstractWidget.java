@@ -6,7 +6,6 @@ package org.mspring.mlog.web.module;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mspring.mlog.service.CacheService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.LinkService;
@@ -14,6 +13,7 @@ import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
+import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

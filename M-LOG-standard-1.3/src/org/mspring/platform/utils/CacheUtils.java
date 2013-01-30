@@ -1,13 +1,12 @@
 /**
  * 
  */
-package org.mspring.mlog.utils;
+package org.mspring.platform.utils;
 
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
-import org.mspring.platform.utils.StringUtils;
 
 /**
  * @author Gao Youbo
