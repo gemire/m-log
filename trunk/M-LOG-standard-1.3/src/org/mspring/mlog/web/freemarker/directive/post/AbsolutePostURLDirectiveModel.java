@@ -9,8 +9,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
+import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -38,17 +40,24 @@ public class AbsolutePostURLDirectiveModel extends AbstractDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] model, TemplateDirectiveBody body) throws TemplateException, IOException {
         // TODO Auto-generated method stub
-        Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
-        if (postObj == null || !(postObj instanceof Post)) {
-            log.warn("################post can't be found");
-            return;
-        }
-        Post post = (Post) postObj;
         String blogurl = ServiceFactory.getOptionService().getOption("blogurl");
+        
+        String postUrl = "";
+        Long id = DirectiveUtils.getLong("id", params);
+        if (id != null) {
+            postUrl = PostRewriteRule.getPostUrl(new Post(id));
+        }
+        else {
+            Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
+            if (postObj != null && (postObj instanceof Post)) {
+                Post post = (Post) postObj;
+                postUrl = PostRewriteRule.getPostUrl(post);
+            }    
+        }
         if (blogurl.endsWith("/") || blogurl.endsWith("\\")) {
             blogurl = blogurl.substring(0, blogurl.length() - 1);
         }
-        String absoluteUrl = blogurl + post.getUrl();
+        String absoluteUrl = blogurl + postUrl;
         env.getOut().append(absoluteUrl);
     }
 

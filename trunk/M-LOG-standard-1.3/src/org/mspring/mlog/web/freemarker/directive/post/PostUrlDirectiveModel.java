@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
@@ -52,15 +53,21 @@ public class PostUrlDirectiveModel extends AbstractDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         // TODO Auto-generated method stub
         // 获取当前模板变量中的文章对象
-        Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
-        if (postObj == null || !(postObj instanceof Post)) {
-            log.warn("################post can't be found");
-            return;
-        }
         String base = env.__getitem__(FreemarkerVariableNames.BASE).toString();
-        Post post = (Post) postObj;
-        String postUrl = PostRewriteRule.getPostUrl(post);
-        env.getOut().append(base + postUrl);
+
+        Long id = DirectiveUtils.getLong("id", params);
+        if (id != null) {
+            String postUrl = PostRewriteRule.getPostUrl(new Post(id));
+            env.getOut().append(base + postUrl);
+        }
+        else {
+            Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
+            if (postObj != null && (postObj instanceof Post)) {
+                Post post = (Post) postObj;
+                String postUrl = PostRewriteRule.getPostUrl(post);
+                env.getOut().append(base + postUrl);
+            }    
+        }
     }
 
 }

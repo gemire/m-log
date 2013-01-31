@@ -57,7 +57,7 @@
 							<tr>
 								<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" /></td>
 								<td class="${tdClass}">${item.id}</td>
-								<td class="${tdClass}" title="${item.title}"><@mspring.sub_string content=item.title to=20 suffix="..." /></td>
+								<td class="${tdClass}"><a href="<@post_url id=item.id />" title="${item.title}" target="_blank"><@mspring.sub_string content=item.title to=20 suffix="..." /></a></td>
 								<td class="${tdClass}">
 									<#if (item.catalogs?exists && item.catalogs?size > 0)>
 										<#list item.catalogs as catalog>

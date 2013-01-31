@@ -31,7 +31,7 @@
 						<#if about_posts?exists>
 						<ul>
 							<#list about_posts as p>
-							<li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+							<li><a href="<@post_url id=p.id />" target="_blank">${p.title}</a></li>
 							</#list>
 						</ul>
 						</#if>
@@ -43,7 +43,7 @@
 						<#if rand_posts?exists>
 						<ul>
 							<#list rand_posts as p>
-							<li><a href="${base}${p.url}" target="_blank">${p.title}</a></li>
+							<li><a href="<@post_url id=p.id />" target="_blank">${p.title}</a></li>
 							</#list>
 						</ul>
 						</#if>
