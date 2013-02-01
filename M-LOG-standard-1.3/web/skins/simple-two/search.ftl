@@ -4,7 +4,12 @@
 		<#include "sidebar.ftl" />
 		<div class="span9">
 			<div class="row-fluid">
-			
+				<ul class="breadcrumb">
+					<li>
+						<a href="${blogname}">首页</a> <span class="divider">/</span>
+				  	</li>
+				  	<li class="active">搜索关键字：${searchKeyword!""}</li>
+				</ul>
 				<#if (postPage?exists && postPage.result?size > 0)>
 					<@list_post>
 						<div class="post-entity">

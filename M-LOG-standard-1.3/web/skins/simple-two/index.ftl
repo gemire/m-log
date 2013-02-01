@@ -10,7 +10,7 @@
 							<li>
     							<a href="${blogname}">首页</a> <span class="divider">/</span>
 						  	</li>
-						  	<li class="active">${catalogArchiveName}</li>
+						  	<li class="active">分类：${catalogArchiveName}</li>
 						</ul>
 					</#if>
 					<#if currentPage == "tag_archive">
@@ -18,7 +18,7 @@
 							<li>
     							<a href="${blogname}">首页</a> <span class="divider">/</span>
 						  	</li>
-						  	<li class="active">${tagArchiveName}</li>
+						  	<li class="active">TAG：${tagArchiveName}</li>
 						</ul>
 					</#if>
 					<#if (postPage?exists && postPage.result?size > 0)>
