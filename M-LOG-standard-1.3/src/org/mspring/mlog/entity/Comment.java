@@ -186,7 +186,7 @@ public class Comment implements Serializable {
     /**
      * @return the postIp
      */
-    @Column(name = "post_id", length = 50)
+    @Column(name = "post_ip", length = 50)
     public String getPostIp() {
         return postIp;
     }
