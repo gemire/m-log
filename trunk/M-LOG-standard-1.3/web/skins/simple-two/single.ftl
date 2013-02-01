@@ -5,6 +5,24 @@
 			<div class="span9">
 				<div class="row-fluid">
 					<#if post?exists>
+						<ul class="breadcrumb">
+							<li>
+						    	<a href="${blogurl}">首页</a> <span class="divider">/</span>
+						  	</li>
+						  	<#if (post.catalogs?exists && post.catalogs?size > 0)>
+								<li>
+									分类：<@list_post_catalog><a href="<@catalog_url />" rel="tag"><@catalog_name /></a></@list_post_catalog>
+									<span class="divider">/</span>
+								</li>
+							</#if>
+							<#if (post.tags?exists && post.tags?size > 0)>
+								<li>
+									标签：<@list_post_tag><a href="<@tag_url />" rel="tag"><@tag_name /></a></@list_post_tag>
+									<span class="divider">/</span>
+								</li>
+							</#if>
+						  	<li class="active">${post.title}</li>
+						</ul>
 						<div class="post-entity">
 							<div class="post-title"><@post_title /><#if post.isTop><sup class="tip">置顶！</sup></#if></div>
 							<div class="post-meta">
