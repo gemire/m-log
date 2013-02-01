@@ -46,12 +46,15 @@
 		<#include "sidebar.ftl" />
 		<div class="span9">
 			<div class="row-fluid">
-			
-			
-				<div class="post-interactive">
-					当前位置：<a href="${blogurl}/album/list.html">相册</a> &gt;&gt; 
-					<a href="javascript:void(0);">${album.name}</a>
-				</div>
+				<ul class="breadcrumb">
+					<li>
+						<a href="${blogurl}">首页</a> <span class="divider">/</span>
+				  	</li>
+				  	<li>
+						<a href="${blogurl}/album/list.html">相册列表</a> <span class="divider">/</span>
+				  	</li>
+				  	<li class="active">${album.name}</li>
+				</ul>
 				<#if (photoPage?exists && photoPage.result?size > 0)>
 					<div class="main-albums">
 						<@list_photo>
