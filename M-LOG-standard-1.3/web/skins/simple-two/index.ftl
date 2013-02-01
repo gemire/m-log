@@ -5,6 +5,22 @@
 			<#include "sidebar.ftl" />
 			<div class="span9">
 				<div class="row-fluid">
+					<#if currentPage == "catalog_archive">
+						<ul class="breadcrumb">
+							<li>
+    							<a href="${blogname}">首页</a> <span class="divider">/</span>
+						  	</li>
+						  	<li class="active">${catalogArchiveName}</li>
+						</ul>
+					</#if>
+					<#if currentPage == "tag_archive">
+						<ul class="breadcrumb">
+							<li>
+    							<a href="${blogname}">首页</a> <span class="divider">/</span>
+						  	</li>
+						  	<li class="active">${tagArchiveName}</li>
+						</ul>
+					</#if>
 					<#if (postPage?exists && postPage.result?size > 0)>
 						<@list_post>
 							<div class="post-entity">
