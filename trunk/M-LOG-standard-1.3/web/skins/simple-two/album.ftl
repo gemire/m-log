@@ -53,7 +53,7 @@
 				  	<li class="active">相册列表</li>
 				</ul>
 				<#if (albumPage?exists && albumPage.result?size > 0)>
-					<ul class="thumbnails">
+					<div class="main-albums">
 						<@list_album>
 							<div class="album-item">
 								<#if album.cover?exists>
@@ -66,7 +66,7 @@
 								</div>
 							</div>
 						</@list_album>
-					</ul>
+					</div>
 					<#if (albumPage.totalPages > 1)>
 						<@simple.albumPageNavi />
 					</#if>
