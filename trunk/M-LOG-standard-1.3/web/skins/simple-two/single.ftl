@@ -62,6 +62,10 @@
 								</#if>
 							</div>
 						</div>
+					<#else>
+						<div class="alert alert-error" style="padding:30px;font-size:24px;">
+							404, 没找到您想要的文章。
+						</div>
 					</#if>
 				</div>
 			</div>
