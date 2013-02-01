@@ -4,12 +4,18 @@
 		<#include "sidebar.ftl" />
 		<div class="span9">
 			<div class="row-fluid">
-			
-				<div class="post-interactive">
-					当前位置：<a href="${blogurl}/album/list.html">相册</a> &gt;&gt; 
-					<a href="${blogurl}/album/album-${photo.album.id}-1.html">${photo.album.name}</a> &gt;&gt;
-					<a href="javascript:void(0);">${photo.name}</a>
-				</div>
+				<ul class="breadcrumb">
+					<li>
+						<a href="${blogurl}">首页</a> <span class="divider">/</span>
+				  	</li>
+				  	<li>
+						<a href="${blogurl}/album/list.html">相册列表</a> <span class="divider">/</span>
+				  	</li>
+				  	<li>
+						<a href="${blogurl}/album/album-${photo.album.id}-1.html">${photo.album.name}</a> <span class="divider">/</span>
+				  	</li>
+				  	<li class="active">${photo.name}</li>
+				</ul>
 				<div class="main-posts">
 					<#if photo?exists>
 						<div>
@@ -21,7 +27,9 @@
 							图片描述：${photo.description!""}<br/>
 						</div>
 					<#else>
-						没找到该图片
+						<div class="alert alert-error" style="padding:30px;font-size:24px;">
+							404, 没找到您想要的照片。
+						</div>
 					</#if>
 				</div>
 			</div>

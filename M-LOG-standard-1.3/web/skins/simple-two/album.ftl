@@ -46,9 +46,14 @@
 		<#include "sidebar.ftl" />
 		<div class="span9">
 			<div class="row-fluid">
-			
+				<ul class="breadcrumb">
+					<li>
+						<a href="${blogurl}">首页</a> <span class="divider">/</span>
+				  	</li>
+				  	<li class="active">相册列表</li>
+				</ul>
 				<#if (albumPage?exists && albumPage.result?size > 0)>
-					<div class="main-albums">
+					<ul class="thumbnails">
 						<@list_album>
 							<div class="album-item">
 								<#if album.cover?exists>
@@ -61,7 +66,7 @@
 								</div>
 							</div>
 						</@list_album>
-					</div>
+					</ul>
 					<#if (albumPage.totalPages > 1)>
 						<@simple.albumPageNavi />
 					</#if>

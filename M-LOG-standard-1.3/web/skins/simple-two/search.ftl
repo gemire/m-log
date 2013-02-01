@@ -6,7 +6,7 @@
 			<div class="row-fluid">
 				<ul class="breadcrumb">
 					<li>
-						<a href="${blogname}">首页</a> <span class="divider">/</span>
+						<a href="${blogurl}">首页</a> <span class="divider">/</span>
 				  	</li>
 				  	<li class="active">搜索关键字：${searchKeyword!""}</li>
 				</ul>
