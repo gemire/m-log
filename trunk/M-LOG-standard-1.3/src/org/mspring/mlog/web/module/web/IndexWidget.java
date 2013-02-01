@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.PageNames;
-import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
@@ -50,7 +49,7 @@ public class IndexWidget extends AbstractWebWidget {
         postService.findPost(postPage, "select post from Post post where post.status = ? order by post.isTop desc, post.id desc", Post.Status.PUBLISH);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
         setCurrnetPage(model, PageNames.INDEX);
-        //ServiceFactory.getInstallService().initTreeItems();
+        // ServiceFactory.getInstallService().initTreeItems();
         return "skin:/index";
     }
 
