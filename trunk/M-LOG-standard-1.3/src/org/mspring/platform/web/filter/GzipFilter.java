@@ -5,6 +5,8 @@ package org.mspring.platform.web.filter;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.platform.web.wrapper.GzipResponseWrapper;
+import org.springframework.web.util.UrlPathHelper;
 
 /**
  * @author Gao Youbo
@@ -139,15 +142,20 @@ public class GzipFilter implements Filter {
         excludes = null;
     }
 
+    /**
+     * 检测是否支持gzip压缩
+     * @param req
+     * @return
+     */
     private boolean isGzipSupported(HttpServletRequest req) {
         String browserEncodings = req.getHeader("Accept-Encoding");
         return (browserEncodings != null) && (browserEncodings.indexOf("gzip") != -1);
     }
 
     /***
-     * Determine if uri is eligible for gzip-ing.
+     * 判定请求URI是否进行gzip压缩
      * 
-     * @return true to gzip the uri, otherwise false
+     * @return 可压缩返回true，否则返回false
      */
     private boolean isGzipEligible(HttpServletRequest req) {
         String uri = req.getRequestURI();
@@ -161,10 +169,23 @@ public class GzipFilter implements Filter {
         }
         else {
             for (String extension : extensions) {
-                if (uri.indexOf(extension) != -1) {
-                    result = true; // extension founded
+                try {
+                    Matcher matcher = Pattern.compile(extension).matcher(uri);
+                    if (matcher.find()) {
+                        result = true;
+                        break;
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    result = false;
                     break;
                 }
+                /*
+                 if (uri.indexOf(extension) != -1) {
+                    result = true; // extension founded
+                    break;
+                 } 
+                 */
             }
         }
 
