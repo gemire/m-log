@@ -37,7 +37,7 @@ public class WidgetTag extends TagSupport {
     private static final Logger log = Logger.getLogger(WidgetTag.class);
 
     private String path;
-    private boolean cache = true;
+    private boolean cache = WidgetUtils.DEFAULT_CACHE_ENABLE;
     // 缓存时间， 单位秒
     private Long idle;
 
@@ -102,8 +102,7 @@ public class WidgetTag extends TagSupport {
         widgetConfig.setName(WidgetTokens.WIDGET_CACHE_KEY + path);
         try {
             wp.process(pageContext.getOut(), widgetConfig);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

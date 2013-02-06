@@ -33,7 +33,10 @@ import freemarker.template.TemplateModelException;
  * @TODO
  */
 public class WidgetUtils {
+    // 默认缓存时长
     public static final Long DEFAULT_CACHE_IDLE = new Long(60 * 1000);
+    // 默认是否开启widget缓存
+    public static final boolean DEFAULT_CACHE_ENABLE = true;
 
     public static final String PARAM_WIDGET_PATH = "path";
     public static final String PARAM_CACHE_ENABLED = "cache";
@@ -80,7 +83,7 @@ public class WidgetUtils {
             return "";
         }
         StringBuffer buffer = new StringBuffer(WidgetTokens.WIDGET_CACHE_KEY);
-        for (Map.Entry entry : (Set<Map.Entry>)params.entrySet()) {
+        for (Map.Entry entry : (Set<Map.Entry>) params.entrySet()) {
             Object key = entry.getKey();
             Object value = entry.getValue();
             if (value instanceof TemplateBooleanModel) {
@@ -105,13 +108,16 @@ public class WidgetUtils {
      */
     public static boolean isCacheEnabled(Map params) {
         try {
+            // 如果没设置是否进行缓存,取默认配置
+            if (params == null || params.get(PARAM_CACHE_ENABLED) == null) {
+                return DEFAULT_CACHE_ENABLE;
+            }
             Boolean cache = DirectiveUtils.getBoolean(PARAM_CACHE_ENABLED, params);
             if (cache == null) {
                 return false;
             }
             return cache;
-        }
-        catch (TemplateException e) {
+        } catch (TemplateException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return false;
@@ -131,8 +137,7 @@ public class WidgetUtils {
                 return DEFAULT_CACHE_IDLE;
             }
             return idle * 1000;
-        }
-        catch (TemplateException e) {
+        } catch (TemplateException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return DEFAULT_CACHE_IDLE;
