@@ -12,7 +12,7 @@
 	<#list posts as post>
 		<entry>
 			<title><![CDATA[${post.title}]]></title>
-			<link href="${blogurl}${post.url}" />
+			<link href="<@absolute_post_url />" />
 			<updated>${updated}</updated>
 			<published>${post.createTime}</published>
 			<author>

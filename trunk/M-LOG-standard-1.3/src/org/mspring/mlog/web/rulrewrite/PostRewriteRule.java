@@ -35,52 +35,52 @@ public class PostRewriteRule extends RewriteRule {
         // TODO Auto-generated method stub
         if (!request.getRequestURI().startsWith("/post/"))
             return null;
-        
+
         String id = "";
         String permalinkType = ServiceFactory.getOptionService().getOption("permalink");
         if (Rule.DEFAULT.equals(permalinkType)) {
-            
-        }
-        else if (Rule.ID.equals(permalinkType)) {
+
+        } else if (Rule.ID.equals(permalinkType)) {
             Matcher matcher = Pattern.compile("/post/([0-9]+).html").matcher(request.getRequestURI());
             while (matcher.find()) {
                 id = matcher.group(1);
             }
-        }
-        else if (Rule.MONTH_ID.equals(permalinkType)) {
+        } else if (Rule.MONTH_ID.equals(permalinkType)) {
             Matcher matcher = Pattern.compile("/post/[0-9]+/[0-9]+/([0-9]+).html").matcher(request.getRequestURI());
             while (matcher.find()) {
                 id = matcher.group(1);
             }
-        }
-        else if (Rule.DATE_ID.equals(permalinkType)) {
+        } else if (Rule.DATE_ID.equals(permalinkType)) {
             Matcher matcher = Pattern.compile("/post/[0-9]+/[0-9]+/[0-9]+/([0-9]+).html").matcher(request.getRequestURI());
             while (matcher.find()) {
                 id = matcher.group(1);
             }
         }
-        
+
         if (StringUtils.isBlank(id) || !ValidatorUtils.isNumber(id)) {
             return null;
         }
-        
-        Map<String,Object> queryParams = new HashMap<String, Object>();
+
+        Map<String, Object> queryParams = new HashMap<String, Object>();
         queryParams.put("id", id);
         return new SimpleRewriteMatch("/post", queryParams);
     }
-    
-    
+
     /**
      * 获取文章的链接
+     * 
      * @param post
      * @return
      */
-    public static String getPostUrl(Post post){
+    public static String getPostUrl(Post post) {
         String postUrl = "/post?id=" + post.getId();
         String permalinkType = ServiceFactory.getOptionService().getOption("permalink");
-        if (StringUtils.isNotBlank(post.getUrl())) {
-            postUrl = post.getUrl();
-        } else if (Rule.ID.equals(permalinkType)) {
+        /*
+         * 自定义链接功能渐渐抛弃 
+         * if (StringUtils.isNotBlank(post.getUrl())) { postUrl =
+         * post.getUrl(); } else
+         */
+        if (Rule.ID.equals(permalinkType)) {
             postUrl = String.format("/post/%s.html", post.getId());
         } else if (Rule.MONTH_ID.equals(permalinkType)) {
             if (post.getCreateTime() == null) {
@@ -99,13 +99,13 @@ public class PostRewriteRule extends RewriteRule {
         }
         return postUrl;
     }
-    
+
     public static class Rule {
         public static final String DEFAULT = "default";
         public static final String ID = "id";
         public static final String MONTH_ID = "month_id";
         public static final String DATE_ID = "date_id";
-        
+
         public static final List<String> RULES = Arrays.asList(new String[] { DEFAULT, ID, MONTH_ID, DATE_ID });
 
         public static final Map<String, String> getRuleMap() {

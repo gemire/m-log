@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PermaLinkUtils;
+import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 import org.mspring.platform.utils.StringUtils;
 
 /**
@@ -73,10 +74,14 @@ public class PermaLinkFilter implements Filter {
 
     private void dispatchToPostPage(HttpServletRequest request, HttpServletResponse response, final Post post) throws ServletException, IOException {
         if (post != null) {
-            request.setAttribute("post", post);
-            request.setAttribute("requestURI", "/post");
-            request.setAttribute("method", "GET");
-            request.getRequestDispatcher("/post").forward(request, response);
+            // request.setAttribute("post", post);
+            // request.setAttribute("requestURI", "/post");
+            // request.setAttribute("method", "GET");
+            // request.getRequestDispatcher("/post").forward(request, response);
+
+            // 自定义链接功能抛弃， 现在将自定义链接转到原本连接上
+            String url = PostRewriteRule.getPostUrl(post);
+            response.sendRedirect(url);
         }
     }
 

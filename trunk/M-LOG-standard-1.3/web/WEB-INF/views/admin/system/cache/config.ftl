@@ -28,8 +28,8 @@
 			<div style="text-align:center;">
 				<input type="checkbox" name="defaultCache" id="defaultCache" checked="checked" /><label for="defaultCache">默认缓存</label>
 				<input type="checkbox" name="widgetCache" id="widgetCache" checked="checked" /><label for="widgetCache">Widget缓存</label>
-				<input type="checkbox" name="optionCache" id="optionCache" /><label for="optionCache">设置缓存</label>
-				<input type="checkbox" name="otherCache" id="otherCache" /><label for="otherCache">其他</label>
+				<input type="checkbox" name="optionCache" id="optionCache" checked="checked" /><label for="optionCache">设置缓存</label>
+				<input type="checkbox" name="otherCache" id="otherCache" checked="checked" /><label for="otherCache">其他</label>
 			</div>
 			<br/>
 			<input type="submit" class="btn" value="清理选中缓存" />

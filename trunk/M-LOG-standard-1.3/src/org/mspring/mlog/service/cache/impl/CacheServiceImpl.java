@@ -8,7 +8,7 @@ import net.sf.ehcache.Ehcache;
 
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.cache.CacheService;
-import org.mspring.platform.utils.CacheUtils;
+import org.mspring.platform.cache.CacheUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
