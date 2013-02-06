@@ -44,7 +44,7 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
     }
 
     /**
-     * 将widget.tld标签添加到环境变量
+     * 将tag标签添加到环境变量
      * 
      * @param request
      * @param mv
@@ -54,8 +54,8 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
             if (factory == null) {
                 factory = new TaglibFactory(request.getSession().getServletContext());
             }
-            TemplateModel templateModel = factory.get("/WEB-INF/tld/widget.tld");
-            mv.getModel().put(WidgetTokens.WIDGET_KEY, templateModel);
+            mv.getModel().put("tldwidget", factory.get("/WEB-INF/tld/widget.tld"));
+            mv.getModel().put("cache", factory.get("/WEB-INF/tld/cache.tld"));
         }
         catch (TemplateModelException e) {
             // TODO: handle exception
