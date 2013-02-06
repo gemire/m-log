@@ -15,6 +15,12 @@ import org.mspring.mlog.entity.Option;
  * @TODO
  */
 public interface OptionService {
+    // 保存所有Option缓存的key
+    public static final String OPTION_CACHE_MAP_KEY = "OPTION_CACHE_MAP_KEY";
+
+    // 保存默认配置的缓存KEY
+    public static final String DEFAULT_OPTIOINS_KEY = "DEFAULT_OPTIONS_KEY";
+
     public String getOption(String key);
 
     public Map<String, String> getOptions();

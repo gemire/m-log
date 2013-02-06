@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.Option;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.cache.CacheService;
@@ -161,12 +160,12 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     }
 
     private Map<String, String> getOptionCacheMap() {
-        Object value = optionCacheService.getOptionCacheValue(Keys.OPTION_CACHE_MAP_KEY);
+        Object value = optionCacheService.getOptionCacheValue(OPTION_CACHE_MAP_KEY);
         return value != null ? (Map<String, String>) value : null;
     }
 
     private void setOptionCacheMap(Map<String, String> map) {
-        optionCacheService.updateOptionCacheValue(Keys.OPTION_CACHE_MAP_KEY, map, CacheService.ONE_DAY);
+        optionCacheService.updateOptionCacheValue(OPTION_CACHE_MAP_KEY, map, CacheService.ONE_DAY);
     }
 
     /*
@@ -205,12 +204,12 @@ public class OptionServiceImpl extends AbstractServiceSupport implements OptionS
     private Map<String, String> getDefaultOptions() {
         try {
             log.debug("get default options");
-            Object cached = optionCacheService.getOptionCacheValue(Keys.DEFAULT_OPTIOINS_KEY);
+            Object cached = optionCacheService.getOptionCacheValue(DEFAULT_OPTIOINS_KEY);
             if (cached != null && cached instanceof Map) {
                 return (Map<String, String>) cached;
             }
             Map<String, String> map = PropertiesUtils.getPropertyMap(DEFAULT_OPTIONS_PROPERTIES);
-            optionCacheService.updateOptionCacheValue(Keys.DEFAULT_OPTIOINS_KEY, map, CacheService.ONE_DAY);
+            optionCacheService.updateOptionCacheValue(DEFAULT_OPTIOINS_KEY, map, CacheService.ONE_DAY);
             return map;
         } catch (Exception e) {
             // TODO: handle exception

@@ -25,7 +25,7 @@ public class PermaLinkUtils {
     /**
      * 系统保留的链接
      */
-    public static final String[] RESERVED_LINKS = { "/", "/admin", "/admin/*", "/widget", "/widget/*", "/post", "/album", "/album/*", "/catalog", "/catalog/*", "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", "*.js", "*.png", "*.gif", "*.jpg", "*.bmp", "*.", "/install", "/install/*", "/uploads", "/uploads/*", "/album", "/album/*", "/tag", "/tag/*" };
+    public static final String[] RESERVED_LINKS = { "/", "/admin", "/admin/*", "/script", "/script/*", "/widget", "/widget/*", "/post", "/album", "/album/*", "/catalog", "/catalog/*", "/comment", "/comment/*", "/menu", "/menu/*", "/search", "/search/*", "*.css", "*.js", "*.png", "*.gif", "*.jpg", "*.bmp", "*.", "/install", "/install/*", "/uploads", "/uploads/*", "/album", "/album/*", "/tag", "/tag/*" };
 
     /**
      * 链接非法字符
