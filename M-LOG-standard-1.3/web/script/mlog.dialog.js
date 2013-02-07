@@ -8,16 +8,41 @@ mlog.dialog = {};
 $.extend(mlog.dialog, {
 	/**
 	 * tip
-	 * @param {} msg
+	 * @param {} setting.msg 
+	 * @param {} setting.type error, tip, success, warn
 	 */
-	tip : function(msg){
+	tip : function(setting){
+		if(setting === undefined){
+			return;
+		}
+		if (setting.msg === undefined) {
+			return;
+		}
+		if (setting.type === undefined) {
+			setting.type = 'tips.gif';
+		}
+		
+		var icon = 'tips.gif';
+		if(setting.type == 'error'){
+			icon = 'error.gif';
+		}
+		else if(setting.type == 'success'){
+			icon = 'success.gif';
+		}
+		else if(setting.type == 'warn'){
+			icon = 'alert.gif';
+		}
+		else {
+			icon = 'tips.gif';
+		}
+		
 		$.dialog({
 			title : false,
-			content : msg,
+			content : setting.msg,
 			time : 1,
 			min : false,
 			max : false,
-			icon : 'error.gif',
+			icon : icon,
 			// cancel: function(){},
 			close : function() {
 				var duration = 400, /* 动画时长 */
@@ -36,6 +61,7 @@ $.extend(mlog.dialog, {
 			}
 		});
 	},
+	
 	
 	showModelDialog : function(config){
 		return $.dialog({
