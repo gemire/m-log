@@ -52,7 +52,7 @@ public class FreemarkerUtils {
      * @throws TemplateException
      * @throws IOException
      */
-    public static String render(Configuration cfg, String name, Map<Object, Object> model) {
+    public static String render(Configuration cfg, String name, Object model) {
         try {
             Template template = cfg.getTemplate(name);
             return render(template, model);
@@ -72,7 +72,7 @@ public class FreemarkerUtils {
      * @throws TemplateException
      * @throws IOException
      */
-    public static String render(Template template, Map<Object, Object> model) {
+    public static String render(Template template, Object model) {
         Writer result = new StringWriter();
         try {
             template.process(model, result);
@@ -82,7 +82,7 @@ public class FreemarkerUtils {
         return result.toString();
     }
 
-    public static boolean buildPage(Configuration cfg, String name, Map<Object, Object> model, String fileFullName) {
+    public static boolean buildPage(Configuration cfg, String name, Object model, String fileFullName) {
         Writer result;
         try {
             result = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileFullName), "UTF-8"));

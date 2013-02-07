@@ -3,12 +3,11 @@
  */
 package org.mspring.platform.cache;
 
-import org.mspring.platform.utils.StringUtils;
-
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
+import org.mspring.platform.utils.StringUtils;
 
 /**
  * @author Gao Youbo
@@ -32,11 +31,26 @@ public class CacheUtils {
         return ehcache == null ? null : ehcache.get(key);
     }
 
+    public static Element getElement(Ehcache cache, String key) {
+        if (cache == null || StringUtils.isBlank(key)) {
+            return null;
+        }
+        return cache.get(key);
+    }
+
     public static Object getObjectValue(CacheManager cacheManager, String cacheName, String key) {
         if (cacheManager == null || StringUtils.isBlank(cacheName) || StringUtils.isBlank(key)) {
             return null;
         }
         Element element = getElement(cacheManager, cacheName, key);
+        return element == null ? null : element.getObjectValue();
+    }
+
+    public static Object getObjectValue(Ehcache cache, String key) {
+        if (cache == null || StringUtils.isBlank(key)) {
+            return null;
+        }
+        Element element = getElement(cache, key);
         return element == null ? null : element.getObjectValue();
     }
 
@@ -56,8 +70,10 @@ public class CacheUtils {
         if (cache == null) {
             return;
         }
-        if (value != null) cache.put(new Element(key, value));
-        else invalidateValue(cacheManager, cacheName, key);
+        if (value != null)
+            cache.put(new Element(key, value));
+        else
+            invalidateValue(cacheManager, cacheName, key);
     }
 
     public static void updateValue(CacheManager cacheManager, String cacheName, String key, Object value, int timeToLive) {
@@ -70,9 +86,22 @@ public class CacheUtils {
             element.setTimeToLive(timeToLive);
             element.setTimeToIdle(timeToLive / 2);
             cache.put(element);
-        }
-        else {
+        } else {
             invalidateValue(cacheManager, cacheName, key);
+        }
+    }
+
+    public static void updateValue(Ehcache cache, String key, Object value, int timeToLive) {
+        if (cache == null || StringUtils.isBlank(key)) {
+            return;
+        }
+        if (value != null) {
+            Element element = new Element(key, value);
+            element.setTimeToLive(timeToLive);
+            element.setTimeToIdle(timeToLive / 2);
+            cache.put(element);
+        } else {
+            invalidateValue(cache, key);
         }
     }
 
@@ -81,6 +110,14 @@ public class CacheUtils {
             return;
         }
         Ehcache cache = getCache(cacheManager, cacheName);
-        if (cache != null) cache.remove(key);
+        if (cache != null)
+            cache.remove(key);
+    }
+
+    public static void invalidateValue(Ehcache cache, String key) {
+        if (cache == null || StringUtils.isBlank(key)) {
+            return;
+        }
+        cache.remove(key);
     }
 }
