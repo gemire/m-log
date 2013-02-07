@@ -35,4 +35,8 @@ public interface CatalogService {
     public void updateCatalog(Catalog catalog);
 
     public boolean catalogExists(String name, Long id);
+    
+    public void setCatalogOrders(Long[] ids, Long[] orders);
+    
+    public void setCatalogParent(Long catalogId, Long parentId);
 }

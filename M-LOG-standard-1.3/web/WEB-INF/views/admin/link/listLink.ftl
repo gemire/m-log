@@ -39,7 +39,7 @@
 		<table class="dtable" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>
-					<input type="checkbox" onclick="mlog.form.checkAll(this, 'deleteIds');" />
+					<input type="checkbox" onclick="mlog.form.checkAll(this, 'deleteIds');" />删除
 				</th>
 				<th>排序</th>
 				<th>名称</th>
@@ -102,13 +102,13 @@
 			for(var i = 0; i < orders.length; i++){
 				var value = $(orders[i]).val();
 				if($.trim(value).length > 0 && !(/^\d+$/.test(value))){
-					mlog.dialog.tip('排序号必须为数字');
+					mlog.dialog.tip({msg:'排序号必须为数字', type:'warn'});
 					$(orders[i]).focus();
 					return false;
 				}
 				if($.trim(value).length > 0){
 					if(value < 1 || value > 1000){
-						mlog.dialog.tip('排序号的范围必须在1-1000之间');
+						mlog.dialog.tip({msg:'排序号的范围必须在1-1000之间', type:'warn'});
 						$(orders[i]).focus();
 						return false;
 					}

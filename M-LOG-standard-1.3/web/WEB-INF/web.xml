@@ -3,17 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<!-- 
-	<filter>
-		<filter-name>login</filter-name>
-		<filter-class>org.mspring.platform.security.filter.LoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>login</filter-name>
-		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
-	-->
-
+	
 	<servlet>
 		<servlet-name>SpringMVCDispatcher</servlet-name>
 		<servlet-class>org.mspring.mlog.web.DispatcherServlet</servlet-class>
@@ -75,20 +65,6 @@
         <filter-name>springSecurityFilterChain</filter-name>  
         <url-pattern>/*</url-pattern>  
     </filter-mapping>
-    
-    <!-- 
-    <filter>
-    	<filter-name>CachingFilter</filter-name>
-    	<filter-class>org.mspring.mlog.web.filter.CachingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-    	<filter-name>CachingFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-    	<dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
-    -->
     
     <filter>
     	<filter-name>GzipFilter</filter-name>

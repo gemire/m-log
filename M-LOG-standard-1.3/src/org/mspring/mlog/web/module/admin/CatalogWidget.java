@@ -3,27 +3,30 @@
  */
 package org.mspring.mlog.web.module.admin;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Catalog;
-import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.web.module.admin.query.CatalogQueryCriterion;
 import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
-import org.mspring.platform.support.field.ColumnField;
-import org.mspring.platform.support.field.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Gao Youbo
@@ -52,43 +55,39 @@ public class CatalogWidget extends AbstractAdminWidget {
      */
     @RequestMapping({ "/list" })
     @Premission(item = "11515005")
-    public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
         }
-        catalogPage.setSort(new Sort("id", Sort.DESC));
+        catalogPage.setSort(new Sort("id desc, order asc", ""));
+        catalogPage = catalogService.findCatalog(catalogPage, new CatalogQueryCriterion(queryParams));
+        
+        Collections.sort(catalogPage.getResult(), new Comparator<Catalog>() {
+            @Override
+            public int compare(Catalog c1, Catalog c2) {
+                // TODO Auto-generated method stub
+                int flag = 0;
+                if (c2.getOrder() == null && c1.getOrder() != null) {
+                    flag = 1;
+                }
+                else if(c2.getOrder() != null && c1.getOrder() == null) {
+                    flag = -1;
+                }
+                else if (c2.getOrder() != null && c1.getOrder() != null) {
+                    flag = c1.getOrder() > c2.getOrder() ? -1 : 1;
+                }
+                else if (c2.getOrder() == null && c1.getOrder() == null) {
+                    flag = c1.getId() > c2.getId() ? 1 : -1;
+                }
+                return flag;
+            }
+        });
+        
+        List<Catalog> catalogs = catalogService.findAllCatalog();
 
-        catalogPage = catalogService.findCatalog(catalogPage, "select c from Catalog c");
-
-        List<Field> columnfields = new ArrayList<Field>();
-        columnfields.add(new ColumnField("id", "编号"));
-        columnfields.add(new ColumnField("name", "名称"));
-        columnfields.add(new ColumnField("createTime", "创建时间"));
-        columnfields.add(new ColumnField("modifyTime", "修改时间"));
-        columnfields.add(new ColumnField("order", "排序"));
-
+        model.addAttribute("catalogs", catalogs);
         model.addAttribute("catalogPage", catalogPage);
-        model.addAttribute("columnfields", columnfields);
-
         return "/admin/catalog/listCatalog";
-    }
-
-    /**
-     * 删除
-     * 
-     * @param id
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequestMapping("/delete")
-    @Premission(item = "11515005")
-    public String deleteCatalog(@RequestParam Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (id != null && id.length > 0) {
-            catalogService.deleteCatalog(id);
-        }
-        return "redirect:/admin/catalog/list";
     }
 
     /**
@@ -145,7 +144,7 @@ public class CatalogWidget extends AbstractAdminWidget {
             }
         }
         setSessionAttribute(request, "CatalogWidget_edit_id", catalog.getId());
-        
+
         if (catalog == null || catalog.getId() == null) {
             return prompt(model, "请先选择要修改的分类");
         }
@@ -170,6 +169,41 @@ public class CatalogWidget extends AbstractAdminWidget {
         catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";
     }
-
     
+    /**
+     * ajax设置父分类
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/setParent")
+    public String setParent(@RequestParam(required = false) Long id, @RequestParam(required = false) Long parent, HttpServletRequest request, HttpServletResponse response, Model model){
+        try {
+            catalogService.setCatalogParent(id, parent);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "false";
+        }
+        return "true";
+    }
+
+    @RequestMapping("/ctrl")
+    public String ctrl(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, 
+            @RequestParam(required = false) Long[] ids,
+            @RequestParam(required = false) Long[] deleteIds, 
+            @RequestParam(required = false) Long[] orders,
+            HttpServletRequest request, 
+            HttpServletResponse response, 
+            Model model) {
+        if (deleteIds != null && deleteIds.length > 0) {
+            catalogService.deleteCatalog(deleteIds);
+        }
+        if (orders != null && orders.length > 0) {
+            catalogService.setCatalogOrders(ids, orders);
+        }
+        return listCatalog(catalogPage, catalog, queryParams, request, response, model);
+    }
+
 }

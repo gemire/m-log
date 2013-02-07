@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Link;
-import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
@@ -50,7 +49,7 @@ public class LinkWidget extends AbstractAdminWidget {
             linkPage = new Page<Link>();
         }
         linkPage.setSort(new Sort("type.id desc, order asc, visable desc", ""));
-        //linkPage.setSort(new Sort("type.id asc, visable desc", ""));
+        // linkPage.setSort(new Sort("type.id asc, visable desc", ""));
 
         linkPage = linkService.findLinks(linkPage, new LinkQueryCriterion(queryParams));
 
@@ -104,7 +103,7 @@ public class LinkWidget extends AbstractAdminWidget {
             }
         }
         setSessionAttribute(request, "LinkWidget_edit_id", link.getId());
-        
+
         if (link == null || link.getId() == null) {
             return prompt(model, "请先选择要修改的链接");
         }
@@ -124,7 +123,14 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
-    public String ctrl(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, @RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] orders, @RequestParam(required = false) Long[] deleteIds, @RequestParam(required = false) Long[] visableIds, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String ctrl(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, 
+            @RequestParam(required = false) Long[] ids, 
+            @RequestParam(required = false) Long[] orders, 
+            @RequestParam(required = false) Long[] deleteIds, 
+            @RequestParam(required = false) Long[] visableIds, 
+            HttpServletRequest request, 
+            HttpServletResponse response, 
+            Model model) {
         // 删除
         if (deleteIds != null && deleteIds.length > 0) {
             linkService.deleteLinks(deleteIds);

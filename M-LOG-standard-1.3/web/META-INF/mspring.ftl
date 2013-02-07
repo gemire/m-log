@@ -163,7 +163,7 @@
 			<#assign msg = msg + error.message + "<br />" />
 		</#list>
 		<#if (msg?exists && msg?length > 0)>
-			<script type="text/javascript">mlog.dialog.tip('${msg}');</script>
+			<script type="text/javascript">mlog.dialog.tip(msg:'${msg}', type:'error');</script>
 		</#if>
 	</#if>
 </#macro>
