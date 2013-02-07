@@ -79,13 +79,13 @@
 			for(var i = 0; i < orders.length; i++){
 				var value = $(orders[i]).val();
 				if($.trim(value).length > 0 && !(/^\d+$/.test(value))){
-					mlog.dialog.tip('排序号必须为数字');
+					mlog.dialog.tip({msg:'排序号必须为数字', type:'warn'});
 					$(orders[i]).focus();
 					return false;
 				}
 				if($.trim(value).length > 0){
 					if(value < 1 || value > 1000){
-						mlog.dialog.tip('排序号的范围必须在1-1000之间');
+						mlog.dialog.tip({msg:'排序号的范围必须在1-1000之间', type:'warn'});
 						$(orders[i]).focus();
 						return false;
 					}
@@ -99,12 +99,12 @@
 			for(var i = 0; i < names.length; i++){
 				var value = $(names[i]).val();
 				if($.trim(value).length < 1){
-					mlog.dialog.tip('请输入分类名称');
+					mlog.dialog.tip({msg:'请输入分类名称', type:'warn'});
 					$(names[i]).focus();
 					return false;
 				}
 				if($.trim(value).length > 10){
-					mlog.dialog.tip('分类名字长度不能超过10');
+					mlog.dialog.tip({msg:'分类名字长度不能超过10', type:'warn'});
 					$(names[i]).focus();
 					return false;
 				}

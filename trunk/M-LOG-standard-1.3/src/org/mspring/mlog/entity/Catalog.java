@@ -6,18 +6,26 @@ package org.mspring.mlog.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.platform.utils.StringUtils;
 
 /**
@@ -43,6 +51,7 @@ public class Catalog implements Serializable {
     private Date modifyTime;
     private Long order;
     private String description;
+    private Catalog parent; //父分类
 
     /**
      * 
@@ -154,6 +163,17 @@ public class Catalog implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Catalog.class)
+    @JoinColumn(name = "parent")
+    public Catalog getParent() {
+        return parent;
+    }
+
+    public void setParent(Catalog parent) {
+        this.parent = parent;
     }
 
     /*
