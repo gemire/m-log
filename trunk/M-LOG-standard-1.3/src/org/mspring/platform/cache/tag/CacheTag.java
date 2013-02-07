@@ -14,9 +14,14 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import net.sf.ehcache.CacheException;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.constructs.blocking.BlockingCache;
+
 import org.apache.log4j.Logger;
-import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.platform.cache.CacheUtils;
 import org.mspring.platform.utils.StringUtils;
 
 /**
@@ -27,11 +32,19 @@ import org.mspring.platform.utils.StringUtils;
  */
 public class CacheTag extends BodyTagSupport {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7602820360123796597L;
+
     private static final Logger log = Logger.getLogger(CacheTag.class);
 
-    private CacheService cacheService = ServiceFactory.getCacheService();
+    //private CacheService cacheService = ServiceFactory.getCacheService();
 
     private final static String CACHE_TAG_COUNTER_KEY = "__cache_tag_counter";
+    private final static Integer blockingTimeoutMillis = 1000 * 10;
+
+    private CacheManager cacheManager = CacheManager.getInstance();
 
     private String cacheName;
     private String cacheKey;
@@ -61,42 +74,26 @@ public class CacheTag extends BodyTagSupport {
         this.expiry = expiry;
     }
 
+    protected BlockingCache blockingCache;
+
     @Override
     public int doStartTag() throws JspException {
         // TODO Auto-generated method stub
-        if (StringUtils.isBlank(cacheName)) {
-            cacheName = CacheService.CacheName.WIDGET_CACHE_NAME;
-        }
-        if (StringUtils.isBlank(cacheKey)) {
-            //cacheKey = String.valueOf(new Date().getTime());
-            String suffix = null;
-            synchronized (pageContext.getRequest()) {
-                Object o = pageContext.getRequest().getAttribute(CACHE_TAG_COUNTER_KEY);
-                if (o == null) {
-                    suffix = "1";
-                }
-                else {
-                    suffix = Integer.toString(Integer.parseInt((String) o) + 1);
-                }
-            }
-            pageContext.getRequest().setAttribute(CACHE_TAG_COUNTER_KEY, suffix);
-            cacheKey = generateEntryKey((HttpServletRequest) pageContext.getRequest(), suffix);
-        }
-        if (expiry == 0) {
-            expiry = CacheService.ONE_MINUTE;
-        }
-
         // We can only skip the body if the cache has the data
+        doInit();
+
         int returnCode = EVAL_BODY_BUFFERED;
 
-        Object content = cacheService.getCacheValue(cacheName, cacheKey);
-        if (content != null) {
-            try {
-                pageContext.getOut().write(content.toString());
-                returnCode = SKIP_BODY;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                throw new JspTagException("IO Exception: " + e.getMessage());
+        if (blockingCache != null && StringUtils.isNotBlank(cacheKey)) {
+            Object content = CacheUtils.getObjectValue(blockingCache, cacheKey);
+            if (content != null) {
+                try {
+                    pageContext.getOut().write(content.toString());
+                    returnCode = SKIP_BODY;
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    throw new JspTagException("IO Exception: " + e.getMessage());
+                }
             }
         }
 
@@ -119,7 +116,10 @@ public class CacheTag extends BodyTagSupport {
         try {
             if (bodyContent != null && (body = bodyContent.getString()) != null) {
                 log.debug("<cache>: Updating cache entry with new content : " + cacheKey);
-                cacheService.updateCacheValue(cacheName, cacheKey, body);
+                if (blockingCache != null && StringUtils.isNotBlank(cacheKey)) {
+                    CacheUtils.updateValue(blockingCache, cacheKey, body, new Long(expiry).intValue());
+                }
+                
             } else {
                 log.info("<cache>: Missing cached content : " + cacheKey);
                 body = "Missing cached content";
@@ -134,7 +134,46 @@ public class CacheTag extends BodyTagSupport {
         return SKIP_BODY;
     }
 
-    
+    protected void doInit() {
+        if (StringUtils.isBlank(cacheName)) {
+            this.cacheName = CacheService.CacheName.WIDGET_CACHE_NAME;
+        }
+        if (StringUtils.isBlank(cacheKey)) {
+            // cacheKey = String.valueOf(new Date().getTime());
+            String suffix = null;
+            synchronized (pageContext.getRequest()) {
+                Object o = pageContext.getRequest().getAttribute(CACHE_TAG_COUNTER_KEY);
+                if (o == null) {
+                    suffix = "1";
+                } else {
+                    suffix = Integer.toString(Integer.parseInt((String) o) + 1);
+                }
+            }
+            pageContext.getRequest().setAttribute(CACHE_TAG_COUNTER_KEY, suffix);
+            this.cacheKey = generateEntryKey((HttpServletRequest) pageContext.getRequest(), suffix);
+        }
+        if (expiry == 0) {
+            this.expiry = CacheService.ONE_MINUTE;
+        }
+
+        synchronized (this.getClass()) {
+            if (blockingCache == null) {
+                final String localCacheName = getCacheName();
+                Ehcache cache = cacheManager.getEhcache(localCacheName);
+                if (cache == null) {
+                    throw new CacheException("cache '" + localCacheName + "' not found in configuration");
+                }
+                if (!(cache instanceof BlockingCache)) {
+                    // decorate and substitute
+                    BlockingCache newBlockingCache = new BlockingCache(cache);
+                    cacheManager.replaceCacheWithDecoratedCache(cache, newBlockingCache);
+                }
+                blockingCache = (BlockingCache) cacheManager.getEhcache(localCacheName);
+                blockingCache.setTimeoutMillis(blockingTimeoutMillis);
+            }
+        }
+    }
+
     protected String generateEntryKey(HttpServletRequest request, String suffix) {
         StringBuffer cBuffer = new StringBuffer();
         String generatedKey = request.getRequestURI();
