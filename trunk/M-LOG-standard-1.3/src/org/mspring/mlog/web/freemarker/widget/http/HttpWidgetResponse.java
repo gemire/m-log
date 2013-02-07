@@ -15,6 +15,5 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface HttpWidgetResponse extends HttpServletResponse {
     String getResponseAsString();
-
-    void append(String html) throws IOException;
+    void setResponseContent(String content) throws IOException;
 }
