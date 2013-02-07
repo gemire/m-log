@@ -35,6 +35,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.support.formater.stereotype.CatalogFormat;
 import org.mspring.mlog.support.formater.stereotype.TagFormat;
 
@@ -196,6 +197,7 @@ public class Post implements Serializable {
     /**
      * @return the author
      */
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "post_user")
     public User getAuthor() {
@@ -277,6 +279,7 @@ public class Post implements Serializable {
     /**
      * @return the tags
      */
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToMany(targetEntity = Tag.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "post_tag", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     @TagFormat
@@ -295,6 +298,7 @@ public class Post implements Serializable {
     /**
      * @return the catalogs
      */
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToMany(targetEntity = Catalog.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "post_catalog", joinColumns = { @JoinColumn(name = "post_id") }, inverseJoinColumns = { @JoinColumn(name = "catalog_id") })
     @CatalogFormat

@@ -25,7 +25,7 @@ import org.mspring.platform.utils.StringUtils;
  */
 @Entity
 @Table(name = "tag")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tag implements Serializable {
     /**
      * 

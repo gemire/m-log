@@ -39,7 +39,7 @@
 		<table class="dtable" cellspacing="0" cellpadding="0">
 			<tr>
 				<th>
-					<input type="checkbox" onclick="mlog.form.checkAll(this, 'deleteIds');" />删除
+					<input type="checkbox" onclick="mlog.form.checkAll(this, 'deleteIds');" />
 				</th>
 				<th>排序</th>
 				<th>名称</th>

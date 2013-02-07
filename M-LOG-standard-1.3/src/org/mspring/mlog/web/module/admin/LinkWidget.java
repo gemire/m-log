@@ -50,6 +50,7 @@ public class LinkWidget extends AbstractAdminWidget {
             linkPage = new Page<Link>();
         }
         linkPage.setSort(new Sort("type.id desc, order asc, visable desc", ""));
+        //linkPage.setSort(new Sort("type.id asc, visable desc", ""));
 
         linkPage = linkService.findLinks(linkPage, new LinkQueryCriterion(queryParams));
 
