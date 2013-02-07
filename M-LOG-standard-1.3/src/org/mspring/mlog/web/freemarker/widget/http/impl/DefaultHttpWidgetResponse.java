@@ -28,16 +28,26 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
      * 
      */
     private static final long serialVersionUID = 9031829936948335833L;
-    private PrintWriter responsePrintWriter;
-    private PrintWriter contentPrintWriter;
+
+    private PrintWriter writer;
     private ByteArrayOutputStream content = new ByteArrayOutputStream();
 
-    /**
-     * @param response
-     */
     public DefaultHttpWidgetResponse(HttpServletResponse response) {
         super(response);
-        // TODO Auto-generated constructor stub
+        //
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        return new ResponseServletOutputStream();
+    }
+
+    @Override
+    public PrintWriter getWriter() throws IOException {
+        if (writer == null) {
+            writer = new ResponsePrintWriter(getCharacterEncoding());
+        }
+        return new PrintWriter(content, true);
     }
 
     /*
@@ -49,61 +59,19 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
     @Override
     public String getResponseAsString() {
         // TODO Auto-generated method stub
-        try {
-            return content.toString("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return content.toString();
-        }
+        return content.toString();
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.mspring.mlog.web.freemarker.widget.http.HttpWidgetResponse#append
-     * (java.lang.String)
+     * @see org.mspring.mlog.web.freemarker.widget.http.HttpWidgetResponse#
+     * setResponseContent(java.lang.String)
      */
     @Override
-    public void append(String html) throws UnsupportedEncodingException {
+    public void setResponseContent(String content) throws IOException {
         // TODO Auto-generated method stub
-        if (responsePrintWriter == null) {
-            responsePrintWriter = new ResponsePrintWriter("UTF-8");
-        }
-        if (contentPrintWriter == null) {
-            contentPrintWriter = new ContentPrintWriter("UTF-8");
-        }
-        responsePrintWriter.append(html);
-        contentPrintWriter.append(html);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletResponseWrapper#getOutputStream()
-     */
-    @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        // TODO Auto-generated method stub
-        return new ResponseServletOutputStream();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletResponseWrapper#getWriter()
-     */
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        // TODO Auto-generated method stub
-        if (responsePrintWriter == null) {
-            responsePrintWriter = new ResponsePrintWriter("UTF-8");
-        }
-        if (contentPrintWriter == null) {
-            contentPrintWriter = new ContentPrintWriter("UTF-8");
-        }
-        return contentPrintWriter;
+        this.content.write(content.getBytes());
     }
 
     private class ResponseServletOutputStream extends ServletOutputStream {
@@ -118,42 +86,7 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
         }
     }
 
-    private class ContentPrintWriter extends PrintWriter {
-        
-        public ContentPrintWriter() {
-            // TODO Auto-generated constructor stub
-            super(new OutputStreamWriter(content));
-        }
-
-        private ContentPrintWriter(String characterEncoding) throws UnsupportedEncodingException {
-            super(new OutputStreamWriter(content, characterEncoding));
-        }
-
-        @Override
-        public void write(char buf[], int off, int len) {
-            super.write(buf, off, len);
-            super.flush();
-        }
-
-        @Override
-        public void write(String s, int off, int len) {
-            super.write(s, off, len);
-            super.flush();
-        }
-
-        @Override
-        public void write(int c) {
-            super.write(c);
-            super.flush();
-        }
-    }
-
     private class ResponsePrintWriter extends PrintWriter {
-
-        public ResponsePrintWriter() {
-            // TODO Auto-generated constructor stub
-            super(new OutputStreamWriter(content));
-        }
 
         private ResponsePrintWriter(String characterEncoding) throws UnsupportedEncodingException {
             super(new OutputStreamWriter(content, characterEncoding));
@@ -176,6 +109,5 @@ public class DefaultHttpWidgetResponse extends HttpServletResponseWrapper implem
             super.write(c);
             super.flush();
         }
-
     }
 }

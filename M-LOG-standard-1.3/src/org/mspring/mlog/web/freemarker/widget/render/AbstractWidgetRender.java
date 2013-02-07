@@ -80,7 +80,7 @@ public abstract class AbstractWidgetRender implements WidgetRender {
             Object obj = ServiceFactory.getWidgetCacheService().getWidgetCacheValue(widgetConfig.getName());
             if (obj != null) {
                 try {
-                    widgetResponse.append(obj.toString());
+                    widgetResponse.setResponseContent(obj.toString());
                     httpWidget = new DefaultHttpWidget(widgetRequest, widgetResponse);
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
