@@ -44,7 +44,7 @@
                                     <div  class="post-relative">
                                         <h4>相关文章</h4>				
                                         <#assign catalogs=post.catalogs />
-                                        <@sql_query var="about_posts" sql="select pc.PK.post from PostCatalog pc where pc.PK.catalog.name in (@catalogs.name) and pc.PK.post.id <> @post.id order by pc.PK.post.viewCount desc" max="10" expiry="3600000"/>
+                                        <@sql_query var="about_posts" sql="select pc.PK.post from PostCatalog pc where pc.PK.catalog.name in (@catalogs.name) and pc.PK.post.id <> @post.id order by pc.PK.post.viewCount desc" max="10" cache=true expiry="3600000"/>
                                         <#if about_posts?exists>
                                         <ul>
                                             <#list about_posts as p>
@@ -56,7 +56,7 @@
                                     <div  class="post-relative">
                                         <h4>随机文章</h4>				
                                         <#assign tags=post.tags />
-                                        <@sql_query var="rand_posts" sql="from Post post order by rand()" max="10" cache="false" />
+                                        <@sql_query var="rand_posts" sql="from Post post order by rand()" max="10" cache="true" />
                                         <#if rand_posts?exists>
                                         <ul>
                                             <#list rand_posts as p>
@@ -75,9 +75,11 @@
 							</div>
 							<div class="line_dashed"></div>
 							<div class="comment">
+								
 								<#if post.commentStatus == 'open'>
 									<@tldwidget.placeholder path="/comment?post=${post.id}" cache=false />
 								</#if>
+								
 							</div>
 						</div>
 					<#else>
@@ -88,6 +90,4 @@
 				</div>
 			</div>
 		</div>
-		
-
 <#include "footer.ftl" />

@@ -3,20 +3,16 @@
  */
 package org.mspring.mlog.service.impl;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Stat;
 import org.mspring.mlog.service.StatService;
+import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.mlog.service.cache.DefaultCacheService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class StatServiceImpl extends AbstractServiceSupport implements StatService {
+
+    @Autowired
+    private DefaultCacheService defaultCacheService;
 
     /*
      * (non-Javadoc)
@@ -123,20 +122,13 @@ public class StatServiceImpl extends AbstractServiceSupport implements StatServi
     }
 
     private Stat getSingle(final String type) {
-        return this.getHibernateTemplate().execute(new HibernateCallback<Stat>() {
-            @Override
-            public Stat doInHibernate(Session session) throws HibernateException, SQLException {
-                // TODO Auto-generated method stub
-                Query query = session.createQuery("select s from Stat s where s.type = ? order by id desc");
-                query.setParameter(0, type);
-                query.setMaxResults(1);
-                List<Stat> list = query.list();
-                if (list != null && list.size() > 0) {
-                    return list.get(0);
-                }
-                return null;
-            }
-        });
+        String key = "stat_" + type;
+        Object obj = defaultCacheService.getDefaultCacheValue(key);
+        if (obj == null) {
+            obj = findUnique("select s from Stat s where s.type = ? order by id desc", type);
+            defaultCacheService.updateDefaultCacheValue(key, obj, CacheService.ONE_MINUTE * 10);
+        }
+        return (Stat) obj;
     }
 
 }

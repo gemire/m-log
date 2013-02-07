@@ -29,7 +29,7 @@ import org.mspring.platform.utils.StringUtils;
 @Entity
 @Table(name = "catalog")
 @Embeddable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Catalog implements Serializable {
 
     /**

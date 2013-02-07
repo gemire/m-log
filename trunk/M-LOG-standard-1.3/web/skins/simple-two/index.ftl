@@ -58,6 +58,4 @@
 				</div>
 			</div>
 		</div>
-		
-
 <#include "footer.ftl" />

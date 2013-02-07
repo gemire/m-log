@@ -85,5 +85,6 @@ public interface CacheService {
         public static final String WIDGET_CACHE_NAME = "WIDGET_CACHE";
         public static final String OPTION_CACHE_NAME = "OPTION_CACHE";
         public static final String POST_PAGE_CACHE_NAME = "POST_PAGE_CACHE";
+        public static final String LAZY_CACHE_NAME = "LazyCache";
     }
 }

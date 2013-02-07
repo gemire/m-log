@@ -40,7 +40,7 @@
 						<a class="brand" href="${blogurl}">${blogname}</a>
 						<div class="nav-collapse">
 							<ul class="nav">
-								<@widget path="/widget/menus" cache=false />
+								<@widget path="/widget/menus" />
 							</ul>
 							<div style="float:right;margin-top:3px;">
 								<form action="${base}/search" method="get" style="margin:0px; padding:0px;">

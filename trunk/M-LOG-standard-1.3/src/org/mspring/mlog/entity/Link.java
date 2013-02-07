@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.mspring.mlog.service.cache.CacheService;
 
 /**
  * @author Gao Youbo
@@ -174,6 +175,7 @@ public class Link implements Serializable {
     /**
      * @return the type
      */
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToOne(fetch = FetchType.LAZY, optional = true, targetEntity = LinkType.class)
     @JoinColumn(name = "type")
     public LinkType getType() {

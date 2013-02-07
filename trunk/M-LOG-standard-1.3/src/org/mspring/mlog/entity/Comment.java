@@ -22,6 +22,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.mspring.mlog.service.cache.CacheService;
+
 import com.google.gson.annotations.Expose;
 
 /**
@@ -218,6 +222,7 @@ public class Comment implements Serializable {
     /**
      * @return the post
      */
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Post.class)
     @JoinColumn(name = "post")
     public Post getPost() {
