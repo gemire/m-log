@@ -6,7 +6,6 @@ package org.mspring.mlog.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
@@ -15,16 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.platform.utils.StringUtils;
 
@@ -38,7 +35,7 @@ import org.mspring.platform.utils.StringUtils;
 @Table(name = "catalog")
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Catalog implements Serializable {
+public class Catalog implements Serializable, Comparable<Catalog> {
 
     /**
      * 
@@ -51,7 +48,10 @@ public class Catalog implements Serializable {
     private Date modifyTime;
     private Long order;
     private String description;
-    private Catalog parent; //父分类
+    private Catalog parent; // 父分类
+
+    private int deep = 1;
+    private boolean hasChild = false; // 是否有自分类
 
     /**
      * 
@@ -63,6 +63,13 @@ public class Catalog implements Serializable {
     public Catalog(Long id) {
         super();
         this.id = id;
+    }
+
+    public Catalog(Long id, String name, Long parent) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.parent = new Catalog(parent);
     }
 
     /**
@@ -164,7 +171,7 @@ public class Catalog implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
     @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Catalog.class)
     @JoinColumn(name = "parent")
@@ -174,6 +181,24 @@ public class Catalog implements Serializable {
 
     public void setParent(Catalog parent) {
         this.parent = parent;
+    }
+
+    @Transient
+    public int getDeep() {
+        return deep;
+    }
+
+    public void setDeep(int deep) {
+        this.deep = deep;
+    }
+
+    @Transient
+    public boolean isHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(boolean hasChild) {
+        this.hasChild = hasChild;
     }
 
     /*
@@ -194,6 +219,36 @@ public class Catalog implements Serializable {
             }
         }
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(Catalog c2) {
+        // TODO Auto-generated method stub
+        // int value = 0;
+        // Long o_1 = this.order;
+        // Long o_2 = c2.getOrder();
+        // if (o_2 == null || o_1 == null) {
+        // return 0;
+        // }
+        // value = o_1 > o_2 ? -1 : (o_1.equals(o_2) ? 0 : 1);
+        // return value;
+
+        int flag = 0;
+        if (c2.getOrder() == null && this.getOrder() != null) {
+            flag = -1;
+        } else if (c2.getOrder() != null && this.getOrder() == null) {
+            flag = 1;
+        } else if (c2.getOrder() != null && this.getOrder() != null) {
+            flag = this.getOrder() < c2.getOrder() ? -1 : 1;
+        } else if (c2.getOrder() == null && this.getOrder() == null) {
+            flag = this.getId() < c2.getId() ? 1 : -1;
+        }
+        return flag;
     }
 
 }
