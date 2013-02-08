@@ -10,6 +10,7 @@ import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
+import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.persistence.support.Page;
@@ -48,8 +49,8 @@ public class IndexWidget extends AbstractWebWidget {
         }
         postService.findPost(postPage, "select post from Post post where post.status = ? order by post.isTop desc, post.id desc", Post.Status.PUBLISH);
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
+        model.addAttribute("navs", CatalogUtils.getTreeList(catalogService.findAllCatalog()));
         setCurrnetPage(model, PageNames.INDEX);
-        // ServiceFactory.getInstallService().initTreeItems();
         return "skin:/index";
     }
 

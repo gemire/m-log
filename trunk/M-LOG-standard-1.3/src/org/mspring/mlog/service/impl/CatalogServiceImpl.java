@@ -207,7 +207,7 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public void setCatalogParent(Long catalogId, Long parentId) {
         // TODO Auto-generated method stub
-        if (catalogId == null || parentId == null) {
+        if (catalogId == null) {
             return;
         }
         executeUpdate("update Catalog catalog set catalog.parent.id = ? where catalog.id = ?", parentId, catalogId);

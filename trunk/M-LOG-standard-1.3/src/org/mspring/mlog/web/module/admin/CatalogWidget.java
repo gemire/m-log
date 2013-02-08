@@ -3,8 +3,6 @@
  */
 package org.mspring.mlog.web.module.admin;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Catalog;
-import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.support.resolver.QueryParam;
+import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.CatalogQueryCriterion;
 import org.mspring.mlog.web.security.annotation.Premission;
@@ -59,33 +57,14 @@ public class CatalogWidget extends AbstractAdminWidget {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
         }
-        catalogPage.setSort(new Sort("id desc, order asc", ""));
+        catalogPage.setPageSize(Integer.MAX_VALUE);
+        //catalogPage.setSort(new Sort("id desc, order asc", ""));
         catalogPage = catalogService.findCatalog(catalogPage, new CatalogQueryCriterion(queryParams));
-        
-        Collections.sort(catalogPage.getResult(), new Comparator<Catalog>() {
-            @Override
-            public int compare(Catalog c1, Catalog c2) {
-                // TODO Auto-generated method stub
-                int flag = 0;
-                if (c2.getOrder() == null && c1.getOrder() != null) {
-                    flag = 1;
-                }
-                else if(c2.getOrder() != null && c1.getOrder() == null) {
-                    flag = -1;
-                }
-                else if (c2.getOrder() != null && c1.getOrder() != null) {
-                    flag = c1.getOrder() > c2.getOrder() ? -1 : 1;
-                }
-                else if (c2.getOrder() == null && c1.getOrder() == null) {
-                    flag = c1.getId() > c2.getId() ? 1 : -1;
-                }
-                return flag;
-            }
-        });
-        
-        List<Catalog> catalogs = catalogService.findAllCatalog();
 
-        model.addAttribute("catalogs", catalogs);
+        List<Catalog> result = CatalogUtils.getTreeList(catalogPage.getResult());
+        catalogPage.setResult(result);
+
+        model.addAttribute("catalogs", result);
         model.addAttribute("catalogPage", catalogPage);
         return "/admin/catalog/listCatalog";
     }
@@ -169,9 +148,10 @@ public class CatalogWidget extends AbstractAdminWidget {
         catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";
     }
-    
+
     /**
      * ajax设置父分类
+     * 
      * @param request
      * @param response
      * @param model
@@ -179,7 +159,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      */
     @ResponseBody
     @RequestMapping("/setParent")
-    public String setParent(@RequestParam(required = false) Long id, @RequestParam(required = false) Long parent, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String setParent(@RequestParam(required = false) Long id, @RequestParam(required = false) Long parent, HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             catalogService.setCatalogParent(id, parent);
         } catch (Exception e) {
@@ -190,13 +170,7 @@ public class CatalogWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
-    public String ctrl(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, 
-            @RequestParam(required = false) Long[] ids,
-            @RequestParam(required = false) Long[] deleteIds, 
-            @RequestParam(required = false) Long[] orders,
-            HttpServletRequest request, 
-            HttpServletResponse response, 
-            Model model) {
+    public String ctrl(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, @RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] deleteIds, @RequestParam(required = false) Long[] orders, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (deleteIds != null && deleteIds.length > 0) {
             catalogService.deleteCatalog(deleteIds);
         }

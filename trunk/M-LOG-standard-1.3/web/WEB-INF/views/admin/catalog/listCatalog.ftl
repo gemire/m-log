@@ -15,7 +15,11 @@
 					<option value="">--请选择--</option>
 					<option value="0">--无父级--</option>
 					<#list catalogs as c>
-					<option value="${c.id}" <#if catalog.parent?has_content && catalog.parent.id = c.id>selected="selected"</#if>>${c.name}</option>
+					<#assign c_name = c.name>
+					<#list 1..c.deep as i>
+					<#assign c_name = "—" + c_name>
+					</#list>
+					<option value="${c.id}" <#if catalog.parent?has_content && catalog.parent.id?has_content && catalog.parent.id = c.id>selected="selected"</#if>>${c_name}</option>
 					</#list>
 				</select>
 			</td>
@@ -37,7 +41,6 @@
 			<th>
 				<input type="checkbox" onclick="mlog.form.checkAll(this, 'deleteIds');" />删除
 			</th>
-			<th>编号</th>
 			<th>名称</th>
 			<th>父级</th>
 			<th>排序</th>
@@ -50,16 +53,24 @@
 				<#if item_index%2 == 0>
 					<#assign tdClass = "even">
 				</#if>
+				
+				<#assign deep = "">
+				<#list 1..item.deep as i>
+				<#assign deep = deep + "―">
+				</#list>
 				<tr>
 					<td class="${tdClass}"><input type="checkbox" name="deleteIds" value="${item.id}" /></td>
-					<td class="${tdClass}">${item.id}</td>
-					<td class="${tdClass}">${item.name}</td>
+					<td class="${tdClass}">${deep}${item.name}</td>
 					<td class="${tdClass}">
 						<select onchange="setParent('${item.id}', this.value);">
-						<option>--请选择--</option>
-						<#list catalogs as catalog>
-						<option value="${catalog.id}" <#if item.parent?exists && item.parent.id = catalog.id>selected="selected"</#if>>${catalog.name}</option>
-						</#list>
+							<option value="">--请选择--</option>
+							<#list catalogs as catalog>
+							<#assign c_name = catalog.name>
+							<#list 1..catalog.deep as i>
+							<#assign c_name = "—" + c_name>
+							</#list>
+							<option value="${catalog.id}" <#if item.parent?exists && item.parent.id = catalog.id>selected="selected"</#if>>${c_name}</option>
+							</#list>
 						</select>
 					</td>
 					<td class="${tdClass}">
