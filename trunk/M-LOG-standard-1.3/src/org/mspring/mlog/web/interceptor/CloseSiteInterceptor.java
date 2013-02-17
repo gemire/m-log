@@ -32,14 +32,13 @@ public class CloseSiteInterceptor extends HandlerInterceptorAdapter {
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/script")) {
             return true;
-        }
-        if (requestURI.startsWith("/post")) {
+        } else if (requestURI.startsWith("/post")) {
             return true;
-        }
-        if (requestURI.startsWith("/errors")) {
+        } else if (requestURI.startsWith("/errors")) {
             return true;
-        }
-        else {
+        } else if (requestURI.startsWith("/metaweblog.do")) {
+            return true;
+        } else {
             request.getRequestDispatcher("/errors/site_close").forward(request, response);
             return false;
         }
