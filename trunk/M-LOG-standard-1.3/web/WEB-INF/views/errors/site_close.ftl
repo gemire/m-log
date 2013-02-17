@@ -3,6 +3,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>站点维护中</title>
+	<meta name="description" content="${description!""}" />
+	<meta name="keywords" content="${keyword!""}" />
+	
+	<link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
+	<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
+	<link rel="Shortcut Icon" href="${base}/images/favicon.ico">
+	<link rel="canonical" href="${blogurl!""}" />
+	
 	<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
 	<style type="text/css">
 	    a{color:#a2a2a2;text-decoration:none;}
