@@ -29,4 +29,9 @@ public class ErrorController {
     public String error_500(HttpServletRequest request, HttpServletResponse response, Model model){
         return "/errors/500";
     }
+    
+    @RequestMapping("/site_close")
+    public String error_site_close(HttpServletRequest request, HttpServletResponse response, Model model){
+        return "/errors/site_close";
+    }
 }

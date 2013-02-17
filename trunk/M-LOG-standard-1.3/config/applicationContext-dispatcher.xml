@@ -20,6 +20,7 @@
 				<bean class="org.mspring.mlog.web.interceptor.WebContextInterceptor" />
 				<!-- <bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" /> -->
 				<bean class="org.mspring.platform.web.query.interceptor.QueryParameterInterceptor" />
+				<bean class="org.mspring.mlog.web.interceptor.CloseSiteInterceptor" />
   			</list>
   		</property>
  	</bean>

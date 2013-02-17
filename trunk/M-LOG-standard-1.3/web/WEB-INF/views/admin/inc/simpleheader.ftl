@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="${base}/style/global.css">
 	
 	<script type="text/javascript" src="${base}/script/jquery.js"></script>
-	<script type="text/javascript" src="${base}/script_variable.js"></script>
+	<script type="text/javascript" src="${base}/script/script_variable.js"></script>
 	
 	<#-- jquery ui -->
 	<link rel="stylesheet" type="text/css" href="${base}/script/jquery-ui/themes/base/jquery.ui.all.css">

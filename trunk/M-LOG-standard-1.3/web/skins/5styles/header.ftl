@@ -12,7 +12,7 @@
 	<![endif]-->
 	
 	<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
-	<script type="text/javascript" src="${base}/script_variable.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/script_variable.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/mlog.utils.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${template_url}/script/5style.js" charset="utf-8"></script>
