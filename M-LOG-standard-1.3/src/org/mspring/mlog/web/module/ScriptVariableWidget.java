@@ -28,7 +28,7 @@ import freemarker.template.Configuration;
  * @TODO 向页面输出javascript需要调用的系统变量
  */
 @Widget
-@RequestMapping("/")
+@RequestMapping("/script")
 public class ScriptVariableWidget {
     @Autowired
     private Configuration configuration;

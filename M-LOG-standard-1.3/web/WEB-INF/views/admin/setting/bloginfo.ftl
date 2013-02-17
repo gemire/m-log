@@ -67,6 +67,16 @@
 					&lt;a href="%base%/admin" target="_blank"&gt;管理&lt;/a&gt;
 			</td>
 		</tr>
+		
+		<tr>
+			<td class="fieldlabel" style="width:120px;">关闭站点:</td>
+			<td>
+				<input type="checkbox" <#if site_close?exists && site_close == "true">checked="checked"</#if> onclick='$("#site_close").val(this.checked);' />
+				<input type="hidden" id="site_close" name="site_close" value="${site_close!"false"}" />
+			</td>
+			<td class="fieldnotice" style="width:300px;"></td>
+		</tr>
+		
 		<tr>
 			<td colspan="3" style="text-align:center;"><input type="submit" class="btn" value=" 提 交 " /></td>
 		</tr>
