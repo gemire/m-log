@@ -89,7 +89,7 @@ public abstract class AbstractInstallService implements InstallService {
         user.setAlias(alias);
         user.setEmail(email);
         user.setPassword(password);
-        ServiceFactory.getUserService().addUser(user);
+        ServiceFactory.getUserService().createUser(user);
     }
 
     /*

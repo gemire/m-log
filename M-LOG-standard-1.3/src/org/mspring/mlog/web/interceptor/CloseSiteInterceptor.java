@@ -36,6 +36,8 @@ public class CloseSiteInterceptor extends HandlerInterceptorAdapter {
             return true;
         } else if (requestURI.startsWith("/errors")) {
             return true;
+        } else if (requestURI.startsWith("/common")) {
+            return true;
         } else if (requestURI.startsWith("/metaweblog.do")) {
             return true;
         } else {

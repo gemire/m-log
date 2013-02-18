@@ -3,6 +3,10 @@
  */
 package org.mspring.mlog.service.cache;
 
+import java.util.List;
+
+import net.sf.ehcache.Ehcache;
+
 /**
  * @author Gao Youbo
  * @since 2013-1-30
@@ -21,4 +25,8 @@ public interface OptionCacheService {
     public void deleteOptionCacheValue(String key);
 
     public void clearOptionCache();
+
+    public Ehcache getCache();
+
+    public List getCacheKeys();
 }

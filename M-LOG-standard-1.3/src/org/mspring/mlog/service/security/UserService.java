@@ -63,7 +63,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    public User addUser(User user);
+    public User createUser(User user);
 
     /**
      * 获取数据库中的第一个用户
@@ -78,11 +78,6 @@ public interface UserService {
      * @param id
      */
     public void deleteUser(Long id);
-
-    /**
-     * 清空所有用户
-     */
-    public void clearUser();
 
     /**
      * 分页查找用户

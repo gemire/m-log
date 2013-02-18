@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.security.TreeItemSecurityService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.security.SecurityUtils;
@@ -27,17 +28,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class LeftMenuWidget {
 
-    private TreeItemService treeItemService;
-
     @Autowired
-    public void setTreeItemService(TreeItemService treeItemService) {
-        this.treeItemService = treeItemService;
-    }
+    private TreeItemSecurityService treeItemSecurityService;
 
     @RequestMapping(value = "/leftMenu")
     public String execute(HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = SecurityUtils.getCurrentUser(request);
-        List<TreeItem> items = treeItemService.findTreeItemByUser(user.getId());
+        List<TreeItem> items = treeItemSecurityService.loadTreeByUser(user.getId());
         model.addAttribute("items", items);
         return "/admin/frame/leftMenu";
     }

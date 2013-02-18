@@ -3,6 +3,10 @@
  */
 package org.mspring.mlog.service.cache;
 
+import java.util.List;
+
+import net.sf.ehcache.Ehcache;
+
 /**
  * @author Gao Youbo
  * @since 2012-12-4
@@ -79,6 +83,22 @@ public interface CacheService {
      * 清空错误缓存
      */
     public void clearAllCache();
+
+    /**
+     * 获取Cache对象
+     * 
+     * @param cacheName
+     * @return
+     */
+    public Ehcache getCache(String cacheName);
+
+    /**
+     * 获取Cache中缓存的所有对象的Key
+     * 
+     * @param cacheName
+     * @return
+     */
+    public List getCacheKeys(String cacheName);
 
     public static class CacheName {
         public static final String DEFAULT_CACHE_NAME = "DEFAULT_CACHE";

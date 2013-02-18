@@ -31,9 +31,4 @@ public class ValidateCodeWidget {
         String validateCode = ImageUtils.validateCode(response.getOutputStream(), DEFAULT_ALLOW_VALIDATE_STRING);
         request.getSession().setAttribute(Keys.SESSION_VALIDATE_CODE, validateCode);
     }
-
-    @RequestMapping(value = "validateImage", method = RequestMethod.GET)
-    public String validateImage() {
-        return "common/validateImage";
-    }
 }

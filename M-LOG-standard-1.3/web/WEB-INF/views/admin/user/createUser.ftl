@@ -7,7 +7,7 @@
 <#else>
 <div id="error" class="message error" style="display:none;"></div>
 </#if>
-<form class="form" id="userForm" action="${base}/admin/user/doCreate" method="POST">
+<form class="form" id="userForm" action="${base}/admin/user/create/save" method="POST">
 	<@spring.bind "user" />
 	<table class="infotable">
 		<tr>

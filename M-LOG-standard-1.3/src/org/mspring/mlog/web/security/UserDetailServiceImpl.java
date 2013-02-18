@@ -5,22 +5,26 @@ package org.mspring.mlog.web.security;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.mspring.mlog.entity.security.Resource;
 import org.mspring.mlog.entity.security.Role;
+import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.entity.security.User;
-import org.mspring.mlog.service.security.ResourceService;
-import org.mspring.mlog.service.security.RoleResourceService;
+import org.mspring.mlog.service.security.ResourceSecurityService;
 import org.mspring.mlog.service.security.RoleService;
-import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.mlog.service.security.TreeItemSecurityService;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Gao Youbo
@@ -28,6 +32,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @Description
  * @TODO
  */
+@Component("userDetailService")
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -35,9 +40,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private RoleService roleService;
     @Autowired
-    private RoleResourceService roleResourceService;
+    private TreeItemSecurityService treeItemSecurityService;
     @Autowired
-    private TreeItemService treeItemService;
+    private ResourceSecurityService resourceSecurityService;
 
     /*
      * (non-Javadoc)
@@ -53,7 +58,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         Collection<GrantedAuthority> grantedAuths = obtionGrantedAuthorities(user);
-        
+
         boolean enables = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
@@ -61,8 +66,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         return new UserDetailsImpl(user.getName(), user.getPassword(), enables, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuths, user);
     }
-    
-    
 
     /**
      * 取得用户的权限
@@ -78,11 +81,22 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         for (Role role : roles) {
             // 获取角色所拥有的资源
-            List<Resource> resources = roleResourceService.findResourceByRole(role.getId());
+            List<Resource> resources = resourceSecurityService.findResourceByRole(role.getId());
             for (Resource res : resources) {
-                authSet.add(new GrantedAuthorityImpl(role, res));
+                // authSet.add(new GrantedAuthorityImpl(role, res));
+                authSet.add(new SimpleGrantedAuthority("resource_" + res.getId()));
+            }
+
+            List<TreeItem> items = treeItemSecurityService.getPremissions(role.getId());
+            Iterator<TreeItem> it = items.iterator();
+            while (it.hasNext()) {
+                TreeItem item = it.next();
+                if (StringUtils.isNotBlank(item.getCall())) {
+                    authSet.add(new SimpleGrantedAuthority("treeitem_" + item.getId()));
+                }
             }
         }
+        authSet.add(new SimpleGrantedAuthority("resource_1"));
         return authSet;
     }
 

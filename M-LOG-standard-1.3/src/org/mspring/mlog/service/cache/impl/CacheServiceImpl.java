@@ -3,6 +3,8 @@
  */
 package org.mspring.mlog.service.cache.impl;
 
+import java.util.List;
+
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 
@@ -113,6 +115,35 @@ public class CacheServiceImpl implements CacheService {
     public String[] getCacheNames() {
         // TODO Auto-generated method stub
         return cacheManager.getCacheNames();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.cache.CacheService#getCache(java.lang.String)
+     */
+    @Override
+    public Ehcache getCache(String cacheName) {
+        // TODO Auto-generated method stub
+        return CacheUtils.getCache(cacheManager, cacheName);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.cache.CacheService#getCacheKeys(java.lang.String
+     * )
+     */
+    @Override
+    public List getCacheKeys(String cacheName) {
+        // TODO Auto-generated method stub
+        Ehcache cache = getCache(cacheName);
+        if (cache != null) {
+            return cache.getKeys();
+        }
+        return null;
     }
 
 }

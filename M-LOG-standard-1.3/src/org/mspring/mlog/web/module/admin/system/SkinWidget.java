@@ -21,7 +21,6 @@ import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.SkinService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.utils.ArrayUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class SkinWidget extends AbstractAdminWidget {
     private SkinService skinService;
 
     @RequestMapping("/list")
-    @Premission(item = "735005")
+    // @Premission(item = "735005")
     public String list(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Skin> skins = skinService.scrnSkin();
         model.addAttribute("skins", skins);
@@ -50,18 +49,18 @@ public class SkinWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit_files")
-    @Premission(item = "735005")
+    // @Premission(item = "735005")
     public String edit_files(@RequestParam(required = false) String skin, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         if (StringUtils.isBlank(skin)) {
             return prompt(model, "请选择要编辑的主题");
         }
-        //允许编辑的文件类型
+        // 允许编辑的文件类型
         final String[] allowExts = new String[] { "ftl", "css", "JS", "html", "htm" };
-        //主题文件夹
+        // 主题文件夹
         String skinFolderPath = request.getSession().getServletContext().getRealPath("/skins/" + skin);
         File skinFolder = new File(skinFolderPath);
-        
-        //检索出所有可编辑的文件
+
+        // 检索出所有可编辑的文件
         Iterator<File> files = FileUtils.iterateFilesAndDirs(skinFolder, new IOFileFilter() {
             @Override
             public boolean accept(File file, String arg1) {
@@ -103,8 +102,8 @@ public class SkinWidget extends AbstractAdminWidget {
                 }
             }
         });
-        
-        //将文件列表封装成ztree可用的json格式数据
+
+        // 将文件列表封装成ztree可用的json格式数据
         String contextPath = request.getContextPath();
         StringBuffer treeJson = new StringBuffer();
         while (files.hasNext()) {
@@ -119,10 +118,9 @@ public class SkinWidget extends AbstractAdminWidget {
         model.addAttribute("treeJson", treeJson);
         return "/admin/system/skin/edit_files";
     }
-    
-    
+
     @RequestMapping("/edit_main")
-    @Premission(item = "735005")
+    // @Premission(item = "735005")
     public String edit_main(@RequestParam(required = false) String skin, @RequestParam(required = false) String path, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         if (StringUtils.isBlank(skin)) {
             return prompt(model, "请选择要编辑的主题");
@@ -146,7 +144,7 @@ public class SkinWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    @Premission(item = "735005")
+    // @Premission(item = "735005")
     public String edit(@RequestParam(required = false) String skin, @RequestParam(required = false) String path, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         if (StringUtils.isBlank(skin)) {
             return prompt(model, "请选择要编辑的主题");
@@ -160,8 +158,8 @@ public class SkinWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    @Premission(item = "735005")
-    public String doEdit(@RequestParam(required = false) String skin, @RequestParam(required = false) String path, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+    // @Premission(item = "735005")
+    public String edit_save(@RequestParam(required = false) String skin, @RequestParam(required = false) String path, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         String content = request.getParameter("content");
         String relativePath = "/skins/" + skin + path;
         String editFilePath = request.getSession().getServletContext().getRealPath(relativePath);

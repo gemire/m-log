@@ -13,8 +13,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.entity.security.Resource;
+import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.security.ResourceService;
 import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -35,7 +37,6 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
 
     @Autowired
     private ResourceService resourceService;
-
     @Autowired
     private TreeItemService treeItemService;
 
@@ -48,14 +49,26 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
             List<Resource> resources = resourceService.findAllResources();
             for (Resource resource : resources) {
                 Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-                ConfigAttribute configAttribute = new SecurityConfig(resource.getName());
+                ConfigAttribute configAttribute = new SecurityConfig("resource_" + resource.getId());
                 configAttributes.add(configAttribute);
                 resourceMap.put(resource.getUrl(), configAttributes);
+            }
+
+            List<TreeItem> items = treeItemService.findAllTreeItems();
+            Iterator<TreeItem> it = items.iterator();
+            while (it.hasNext()) {
+                TreeItem item = it.next();
+                if (StringUtils.isNotBlank(item.getCall())) {
+                    Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
+                    ConfigAttribute configAttribute = new SecurityConfig("treeitem_" + item.getId());
+                    configAttributes.add(configAttribute);
+                    String pattern = item.getCall() + "/**";
+                    resourceMap.put(pattern, configAttributes);
+                }
             }
         }
     }
 
-    
     /**
      * 返回所请求资源所需要的权限
      */
@@ -81,7 +94,6 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
         }
         return null;
     }
-    
 
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         // TODO Auto-generated method stub
@@ -92,5 +104,4 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
         // TODO Auto-generated method stub
         return true;
     }
-
 }

@@ -14,7 +14,6 @@ import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.CommentQueryCriterion;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -46,7 +45,7 @@ public class CommentWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
-    @Premission(item = "11520005")
+    // @Premission(item = "11520005")
     public String listComment(@ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (comment == null) {
             comment = new Comment();
@@ -82,7 +81,7 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/delete")
-    @Premission(item = "11520005")
+    // @Premission(item = "11520005")
     public String deleteComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             commentService.deleteComment(id);
@@ -100,7 +99,7 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/view")
-    @Premission(item = "11520005")
+    // @Premission(item = "11520005")
     public String viewComment(@RequestParam(required = true) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
@@ -120,20 +119,17 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/audit")
-    @Premission(item = "11520005")
+    // @Premission(item = "11520005")
     public String auditComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         String status = request.getParameter("type");
         if (id != null && id.length > 0 && StringUtils.isNotBlank(status)) {
             if (Comment.Status.APPROVED.equals(status)) {
                 commentService.approved(id);
-            }
-            else if (Comment.Status.SPAM.equals(status)) {
+            } else if (Comment.Status.SPAM.equals(status)) {
                 commentService.spam(id);
-            }
-            else if (Comment.Status.RECYCLE.equals(status)) {
+            } else if (Comment.Status.RECYCLE.equals(status)) {
                 commentService.recycle(id);
-            }
-            else {
+            } else {
                 log.warn("update comment status failure, status [" + status + "] is illegal");
             }
         }

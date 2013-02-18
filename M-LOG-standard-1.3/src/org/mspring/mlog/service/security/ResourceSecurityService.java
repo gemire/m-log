@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package org.mspring.mlog.service.security;
 
 import java.util.List;
@@ -5,7 +8,13 @@ import java.util.List;
 import org.mspring.mlog.entity.security.Resource;
 import org.mspring.mlog.entity.security.RoleResource;
 
-public interface RoleResourceService {
+/**
+ * @author Gao Youbo
+ * @since 2013-2-17
+ * @description
+ * @TODO
+ */
+public interface ResourceSecurityService {
     /**
      * 根据角色查找该角色拥有的Resource
      * 
@@ -40,9 +49,10 @@ public interface RoleResourceService {
      * @return
      */
     List<RoleResource> findRoleResourceByRole(Long roleId);
-    
+
     /**
      * 添加Role-Resource关联
+     * 
      * @param roleId
      * @param resourceId
      */

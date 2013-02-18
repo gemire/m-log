@@ -2,7 +2,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <div id="error" class="message error" style="display:none;"></div>
-<form class="form" id="roleForm" action="${base}/admin/role/doEdit" method="POST">
+<form class="form" id="roleForm" action="${base}/admin/role/create/save" method="POST">
 	<@spring.bind "role" />
 	<table class="formtable" style="width:100%">
 		<tr>

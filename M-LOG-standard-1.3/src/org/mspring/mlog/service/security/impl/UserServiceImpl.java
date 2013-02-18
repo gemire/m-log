@@ -91,11 +91,11 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
      * (non-Javadoc)
      * 
      * @see
-     * org.mspring.mlog.service.UserService#addUser(org.mspring.mlog.entity.
+     * org.mspring.mlog.service.UserService#createUser(org.mspring.mlog.entity.
      * User)
      */
     @Override
-    public User addUser(User user) {
+    public User createUser(User user) {
         // TODO Auto-generated method stub
         user.setCreateTime(new Date());
         user.setPassword(StringUtils.getMD5(user.getPassword()));
@@ -138,24 +138,13 @@ public class UserServiceImpl extends AbstractServiceSupport implements UserServi
     public void deleteUser(Long id) {
         // TODO Auto-generated method stub
         remove(User.class, id);
-        
-        //删除用户对应的信息
+
+        // 删除用户对应的信息
         executeUpdate("delete UserRole userRole where userRole.PK.user.id = ?", id);
         executeUpdate("delete Post post where post.author.id = ?", id);
         executeUpdate("delete PostCatalog postCatalog where postCatalog.PK.post.id = ?", id);
         executeUpdate("delete PostTag postTag where postTag.PK.post.id = ?", id);
         executeUpdate("delete Comment comment where comment.post.id = ?", id);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.UserService#clearUser()
-     */
-    @Override
-    public void clearUser() {
-        // TODO Auto-generated method stub
-        executeUpdate("delete from User");
     }
 
     /*

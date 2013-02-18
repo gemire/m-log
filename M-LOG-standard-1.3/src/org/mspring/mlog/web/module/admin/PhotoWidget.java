@@ -16,7 +16,6 @@ import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PhotoQueryCriterion;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.ValidatorUtils;
@@ -43,7 +42,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     private AlbumService albumService;
 
     @RequestMapping("/upload")
-    @Premission(item = "125025")
+    // @Premission(item = "125025")
     public String photoUploadView(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
         model.addAttribute("albums", albums);
@@ -74,10 +73,10 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/list")
-    @Premission(item = "125020")
+    // @Premission(item = "125020")
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
-        
+
         Long albumId = null;
         Album albumEntity = null;
         if (photo == null || photo.getAlbum() == null || photo.getAlbum().getId() == null) {
@@ -85,16 +84,14 @@ public class PhotoWidget extends AbstractAdminWidget {
             if (obj != null && ValidatorUtils.isNumber(obj.toString())) {
                 albumId = new Long(obj.toString());
             }
-        }
-        else {
+        } else {
             albumId = photo.getAlbum().getId();
         }
-        
+
         if (albumId == null) {
             albumEntity = albums.get(0);
             albumId = albumEntity.getId();
-        }
-        else {
+        } else {
             albumEntity = albumService.getAlbumById(albumId);
         }
         setSessionAttribute(request, "PhotoWidget_listPost_album", albumId);
@@ -131,7 +128,7 @@ public class PhotoWidget extends AbstractAdminWidget {
             return prompt(model, "请先选择一张照片");
         }
         setSessionAttribute(request, "PhotoWidget_edit_id", id);
-        
+
         photo = photoService.getPhotoById(id);
         Album album = albumService.getAlbumById(photo.getAlbum().getId());
         photo.setAlbum(album);
@@ -141,7 +138,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    public String doEditPhoto(@ModelAttribute Photo photo, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String edit_save(@ModelAttribute Photo photo, HttpServletRequest request, HttpServletResponse response, Model model) {
         photoService.updatePhoto(photo);
         return "redirect:/admin/photo/edit?id=" + photo.getId();
     }

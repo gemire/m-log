@@ -3,6 +3,10 @@
  */
 package org.mspring.mlog.service.cache;
 
+import java.util.List;
+
+import net.sf.ehcache.Ehcache;
+
 /**
  * @author Gao Youbo
  * @since 2013-1-30
@@ -21,4 +25,8 @@ public interface DefaultCacheService {
     public void deleteDefaultCacheValue(String key);
 
     public void clearDefaultCache();
+    
+    public Ehcache getCache();
+    
+    public List getCacheKeys();
 }

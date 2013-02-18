@@ -7,7 +7,7 @@
 <#else>
 <div id="error" class="message error" style="display:none;"></div>
 </#if>
-<form class="form" id="userForm" action="${base}/admin/user/doEdit" method="POST">
+<form class="form" id="userForm" action="${base}/admin/user/edit/save" method="POST">
 	<@spring.bind "user" />
 	<@spring.formHiddenInput path="user.id" />
 	<@spring.formHiddenInput path="user.createTime" />
