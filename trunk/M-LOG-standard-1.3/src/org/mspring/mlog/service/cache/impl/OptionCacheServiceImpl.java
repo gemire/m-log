@@ -3,6 +3,10 @@
  */
 package org.mspring.mlog.service.cache.impl;
 
+import java.util.List;
+
+import net.sf.ehcache.Ehcache;
+
 import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.service.cache.OptionCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +85,28 @@ public class OptionCacheServiceImpl implements OptionCacheService {
     public void clearOptionCache() {
         // TODO Auto-generated method stub
         cacheService.clearCache(CACHE_NAME);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.cache.OptionCacheService#getCache()
+     */
+    @Override
+    public Ehcache getCache() {
+        // TODO Auto-generated method stub
+        return cacheService.getCache(CACHE_NAME);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.mspring.mlog.service.cache.OptionCacheService#getCacheKeys()
+     */
+    @Override
+    public List getCacheKeys() {
+        // TODO Auto-generated method stub
+        return cacheService.getCacheKeys(CACHE_NAME);
     }
 
 }

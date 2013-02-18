@@ -11,7 +11,6 @@ import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.UserService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.security.SecurityUtils;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/info")
-    @Premission(item = "205005")
+    // @Premission(item = "205005")
     public String viewUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = SecurityUtils.getCurrentUser(request);
         model.addAttribute("user", user);
@@ -44,8 +43,8 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/info/save")
-    @Premission(item = "205005")
-    public String doEditUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+    // @Premission(item = "205005")
+    public String edit_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码
             String password = StringUtils.getMD5(user.getPassword());
 

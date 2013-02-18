@@ -4,38 +4,41 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<global-method-security pre-post-annotations="enabled" />
+	<global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
 
 	<!-- 该路径下的资源不用过滤 -->
 	<http pattern="/images/**" security="none" />
 	<http pattern="/script/**" security="none" />
 	<http pattern="/skins/**" security="none" />
 	<http pattern="/style/**" security="none" />
+	<http pattern="/common/**" security="none" />
 
 	<!-- 登录页面不过滤 -->
 	<http pattern="/admin/login" security="none" />
 	<http pattern="/admin/doLogin" security="none" />
 
-
 	<http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
 		<!-- <remember-me key="mlog_security_cookie" /> -->
 		<session-management invalid-session-url="/admin/login">
-			<concurrency-control max-sessions="10"
-				error-if-maximum-exceeded="true" />
+			<concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />
 		</session-management>
 		<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER" />
 		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
 		<custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
 		<custom-filter ref="rememberMeFilter" position="REMEMBER_ME_FILTER"/>
+		
+		<intercept-url pattern="/admin/index" access="authenticated"/>
+		<intercept-url pattern="/admin/about" access="authenticated"/>
+		<intercept-url pattern="/admin/contact" access="authenticated"/>
+		<intercept-url pattern="/admin/redirect/**" access="authenticated"/>
 	</http>
 	
 	<!-- 未登录的切入点 -->
-	<beans:bean id="authenticationProcessingFilterEntryPoint"
-		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
 		<beans:property name="loginFormUrl" value="/admin/login"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="userDetailService" class="org.mspring.mlog.web.security.UserDetailServiceImpl" />
+	<!-- <beans:bean id="userDetailService" class="org.mspring.mlog.web.security.UserDetailServiceImpl" /> -->
 
 	<!-- 登录验证器  start-->
 	<beans:bean id="loginFilter" class="org.mspring.mlog.web.security.UsernamePasswordAuthenticationFilter">
@@ -115,4 +118,22 @@
 	</beans:bean>
 	<beans:bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 	<!-- authenticationManager Configuration end -->
+	
+	
+	<!-- SpEL start-->
+	<!-- 
+	<beans:bean id="hasFunctionWebSecurityExpressionHandler" class="org.mspring.mlog.web.security.spel.handler.HasFunctionWebSecurityExpressionHandler" />
+	<beans:bean id="hasLoginWebSecurityExpressionHandler" class="org.mspring.mlog.web.security.spel.handler.HasLoginWebSecurityExpressionHandler" />
+	-->
+	<!-- SpEl end -->
+	
+	<!-- Voter start -->
+	<!-- 
+	<beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" />
+	<beans:bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
+	<beans:bean id="expressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter">
+		<beans:property name="expressionHandler" ref="hasLoginWebSecurityExpressionHandler"/>		
+	</beans:bean>
+	-->
+	<!-- Voter end -->
 </beans:beans>

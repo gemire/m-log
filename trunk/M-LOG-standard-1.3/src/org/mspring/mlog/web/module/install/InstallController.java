@@ -56,7 +56,6 @@ public class InstallController extends AbstractWidget {
         if (installService.hasInstall()) {
             return prompt(model, "系统消息", "系统已经安装，不能重复运行安装引导", optionService.getOption("blogurl"));
         }
-        ServiceFactory.getUserService().clearUser();
         return "redirect:/install/setup3";
     }
 

@@ -16,7 +16,6 @@ import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.LinkQueryCriterion;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.support.field.ColumnField;
@@ -43,7 +42,7 @@ public class LinkWidget extends AbstractAdminWidget {
     private LinkTypeService linkTypeService;
 
     @RequestMapping("/list")
-    @Premission(item = "120005")
+    // @Premission(item = "120005")
     public String listLinks(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkPage == null) {
             linkPage = new Page<Link>();
@@ -69,7 +68,7 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    @Premission(item = "120010")
+    // @Premission(item = "120010")
     public String createLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("target", Link.Target.getTargetMap());
         model.addAttribute("visable", Link.Visable.getVisableMap());
@@ -78,7 +77,7 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
-    @Premission(item = "120010")
+    // @Premission(item = "120010")
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.createLink(link);
         return "redirect:/admin/link/list";
@@ -93,7 +92,7 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    @Premission(item = "120015")
+    // @Premission(item = "120015")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (link == null || link.getId() == null) {
             Object obj = getSessionAttribute(request, "LinkWidget_edit_id");
@@ -116,21 +115,14 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    @Premission(item = "120015")
-    public String doEditLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
+    // @Premission(item = "120015")
+    public String edit_save(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.updateLink(link);
         return "redirect:/admin/link/list";
     }
 
     @RequestMapping("/ctrl")
-    public String ctrl(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, 
-            @RequestParam(required = false) Long[] ids, 
-            @RequestParam(required = false) Long[] orders, 
-            @RequestParam(required = false) Long[] deleteIds, 
-            @RequestParam(required = false) Long[] visableIds, 
-            HttpServletRequest request, 
-            HttpServletResponse response, 
-            Model model) {
+    public String ctrl(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, @RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] orders, @RequestParam(required = false) Long[] deleteIds, @RequestParam(required = false) Long[] visableIds, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 删除
         if (deleteIds != null && deleteIds.length > 0) {
             linkService.deleteLinks(deleteIds);

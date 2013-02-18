@@ -18,7 +18,6 @@ import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.mlog.web.module.admin.user.query.UserQueryCriterion;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class UserWidget extends AbstractAdminWidget {
     private RoleService roleService;
 
     @RequestMapping("/list")
-    @Premission(item = "305005")
+    // @Premission(item = "305005")
     public String list(@ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (userPage == null) {
             userPage = new Page<User>();
@@ -59,17 +58,17 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    @Premission(item = "305010")
+    // @Premission(item = "305010")
     public String create(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Role> roles = roleService.findEnabledRole();
         model.addAttribute("roles", roles);
         return "/admin/user/createUser";
     }
 
-    @RequestMapping("/doCreate")
-    @Premission(item = "305010")
-    public String doCreate(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
-        user = userService.addUser(user);
+    @RequestMapping("/create/save")
+    // @Premission(item = "305010")
+    public String create_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+        user = userService.createUser(user);
 
         String userRoles = request.getParameter("selectRoles");
         if (StringUtils.isNotBlank(userRoles)) {
@@ -80,7 +79,7 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    @Premission(item = "305015")
+    // @Premission(item = "305015")
     public String edit(@RequestParam(required = false) Long id, @ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "UserWidget_edit_id");
@@ -104,9 +103,9 @@ public class UserWidget extends AbstractAdminWidget {
         return "/admin/user/editUser";
     }
 
-    @RequestMapping("/doEdit")
-    @Premission(item = "305015")
-    public String doEdit(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+    @RequestMapping("/edit/save")
+    // @Premission(item = "305015")
+    public String edit_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         String newPassword = request.getParameter("newPassword");
         if (StringUtils.isNotBlank(newPassword)) {
             String oldPassword = request.getParameter("oldPassword");
@@ -128,7 +127,7 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
-    @Premission(item = "305005")
+    // @Premission(item = "305005")
     public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请选择要删除的用户。");

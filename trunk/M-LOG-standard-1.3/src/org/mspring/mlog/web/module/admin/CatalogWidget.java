@@ -16,9 +16,7 @@ import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.CatalogQueryCriterion;
-import org.mspring.mlog.web.security.annotation.Premission;
 import org.mspring.platform.persistence.support.Page;
-import org.mspring.platform.persistence.support.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,13 +50,13 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping({ "/list" })
-    @Premission(item = "11515005")
+    // @Premission(item = "11515005")
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
         }
         catalogPage.setPageSize(Integer.MAX_VALUE);
-        //catalogPage.setSort(new Sort("id desc, order asc", ""));
+        // catalogPage.setSort(new Sort("id desc, order asc", ""));
         catalogPage = catalogService.findCatalog(catalogPage, new CatalogQueryCriterion(queryParams));
 
         List<Catalog> result = CatalogUtils.getTreeList(catalogPage.getResult());
@@ -79,7 +77,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create")
-    @Premission(item = "11515010")
+    // @Premission(item = "11515010")
     public String createCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/catalog/createCatalog";
     }
@@ -94,8 +92,8 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create/save")
-    @Premission(item = "11515010")
-    public String doCreateCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+    // @Premission(item = "11515010")
+    public String create_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
         }
@@ -113,7 +111,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit")
-    @Premission(item = "11515015")
+    // @Premission(item = "11515015")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog == null || catalog.getId() == null) {
             Object obj = getSessionAttribute(request, "CatalogWidget_edit_id");
@@ -142,8 +140,8 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit/save")
-    @Premission(item = "11515015")
-    public String doEditCatalog(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
+    // @Premission(item = "11515015")
+    public String edit_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);
         return "redirect:/admin/catalog/list";

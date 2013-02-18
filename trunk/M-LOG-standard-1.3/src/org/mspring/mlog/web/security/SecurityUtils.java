@@ -9,7 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.User;
+import org.mspring.platform.core.ContextManager;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 /**
  * @author Administrator
@@ -26,11 +30,11 @@ public class SecurityUtils {
      * @return
      */
     public static UserDetailsImpl getUserDetailsImpl() {
-    	Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	if (obj != null && obj instanceof UserDetailsImpl) {
-			return (UserDetailsImpl) obj;
-		}
-    	return null;
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj != null && obj instanceof UserDetailsImpl) {
+            return (UserDetailsImpl) obj;
+        }
+        return null;
     }
 
     /**
@@ -69,5 +73,21 @@ public class SecurityUtils {
             return (User) obj;
         }
         return null;
+    }
+
+    /**
+     * 重新加载UserDetails
+     * 
+     * @param username
+     * @param request
+     */
+    public static void reloadUserDetails(String username, HttpServletRequest request) {
+        UserDetailServiceImpl userDetailServiceImpl = ContextManager.getApplicationContext().getBean(UserDetailServiceImpl.class);
+        UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
+        PreAuthenticatedAuthenticationToken authentication = new PreAuthenticatedAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        if (request != null) {
+            authentication.setDetails(new WebAuthenticationDetails(request));
+        }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

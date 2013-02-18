@@ -25,9 +25,9 @@
 		<#if treeItems?exists>
 			<#list treeItems as item>
 				<#if item_has_next>
-					{ id:${item.id}, pId:${item.parent?default("0")}, name:'${item.name?default("")}', url:'javascript:void(${item.id});', open:true, target:'${item.target?default("")}' },
+					{ id:${item.id}, pId:${item.parent?default("0")}, name:'${item.name?default("")}', url:'javascript:void(${item.id});', open:false, target:'${item.target?default("")}' },
 				<#else>
-					{ id:${item.id}, pId:${item.parent?default("0")}, name:'${item.name?default("")}', url:'javascript:void(${item.id});', open:true, target:'${item.target?default("")}' }
+					{ id:${item.id}, pId:${item.parent?default("0")}, name:'${item.name?default("")}', url:'javascript:void(${item.id});', open:false, target:'${item.target?default("")}' }
 				</#if>
 			</#list>
 		</#if>
@@ -104,7 +104,7 @@
 		$("#roleForm").submit();
 	}
 </script>
-<form class="form" id="roleForm" action="${base}/admin/role/saveAuthorize" method="POST">
+<form class="form" id="roleForm" action="${base}/admin/role/authorize/save" method="POST">
 	<input type="hidden" id="checkedItems" name="checkedItems" />
 	<input type="hidden" id="notCheckedItems" name="notCheckedItems" />
 	<input type="hidden" id="id" name="id" value="${id}" />
