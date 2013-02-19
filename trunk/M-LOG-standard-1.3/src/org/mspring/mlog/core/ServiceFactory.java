@@ -5,6 +5,7 @@ package org.mspring.mlog.core;
 
 import org.hibernate.SessionFactory;
 import org.mspring.mlog.service.AlbumService;
+import org.mspring.mlog.service.AttachmentService;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.FileService;
@@ -27,6 +28,10 @@ import org.mspring.mlog.service.cache.WidgetCacheService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.platform.core.ContextManager;
+
+import org.mspring.platform.core.ContextManager;
+
 import org.mspring.platform.core.ContextManager;
 
 /**
@@ -128,7 +133,12 @@ public class ServiceFactory {
         return ContextManager.getApplicationContext().getBean(JobLogService.class);
     }
 
+    public static AttachmentService getAttachmentService() {
+        return ContextManager.getApplicationContext().getBean(AttachmentService.class);
+    }
+
     public static HibernateSearchService getHibernateSearchService() {
         return ContextManager.getApplicationContext().getBean(HibernateSearchService.class);
     }
+
 }

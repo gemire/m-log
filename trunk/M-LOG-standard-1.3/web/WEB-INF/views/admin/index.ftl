@@ -2,7 +2,7 @@
 	<div class="ui-layout-north" style="overflow:hidden;"><@widget path="/admin/top" cache=false /></div>
 	<div class="ui-layout-west"><@widget path="/admin/leftMenu" cache=false /></div>
 	<div class="ui-layout-south"><@widget path="/admin/bottom" cache=false /></div>
-	<iframe class="ui-layout-center" id="main-frame" name="main" src="${base}/admin/redirect?id=105001" frameborder="0" scrolling="auto"></iframe>
+	<iframe class="ui-layout-center" id="main-frame" name="main" src="${base}/admin/redirect?id=105010" frameborder="0" scrolling="auto"></iframe>
 	
 	<script type="text/javascript">
 	$(document).ready(function(){

@@ -63,7 +63,6 @@ public class PostWidget extends AbstractAdminWidget {
         if (postPage == null) {
             postPage = new Page<Post>();
         }
-        // postPage.setSort(new Sort("id", Sort.DESC));
         postPage.setSort(new Sort("isTop desc, id desc", ""));
 
         // 默认查看已发布的文章

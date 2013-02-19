@@ -88,7 +88,7 @@
 						</td>
 						
 						<td colspan="2">
-							<table class="formtable">
+							<table class="formtable" style="border:none;">
 								<tr>
 									<td class="fieldlabel">允许评论</td>
 									<td><@spring.formRadioButtons path="post.commentStatus" options=commentStatus defaultValue="open" separator="&nbsp;" /></td>

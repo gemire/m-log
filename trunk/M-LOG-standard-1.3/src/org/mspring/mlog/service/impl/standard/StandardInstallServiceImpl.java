@@ -40,88 +40,92 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         treeItemService.clearItems();
 
         List<TreeItem> items = new ArrayList<TreeItem>();
-        items.add(new TreeItem("1", "基本功能", "0", "", TreeItem.Type.TREE_FOLDER, true));
-        
-        items.add(new TreeItem("105", "首页", "1", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("105001", "首页", "105", "/admin/about", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("115", "文章", "1", "", TreeItem.Type.TREE_FOLDER, true));
-        items.add(new TreeItem("11505", "文章管理", "115", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("11505005", "列表", "11505", "/admin/post/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("11505010", "增加", "11505", "/admin/post/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("11505015", "修改", "11505", "/admin/post/edit", TreeItem.Type.TAB, false));
-        
-        items.add(new TreeItem("11515", "分类管理", "115", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("11515005", "列表", "11515", "/admin/catalog/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("11515010", "增加", "11515", "/admin/catalog/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("11515015", "修改", "11515", "/admin/catalog/edit", TreeItem.Type.TAB, false));
-        
-        items.add(new TreeItem("11520", "评论管理", "115", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("11520005", "评论管理", "11520", "/admin/comment/list", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("120", "链接管理", "1", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("120005", "列表", "120", "/admin/link/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("120010", "增加", "120", "/admin/link/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("120015", "修改", "120", "/admin/link/edit", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("120020", "链接分类", "120", "/admin/linkType/list", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("120025", "新增分类", "120", "/admin/linkType/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("120030", "修改分类", "120", "/admin/linkType/edit", TreeItem.Type.TAB, false));
-        
-        
-        items.add(new TreeItem("125", "相册管理", "1", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("125005", "相册列表", "125", "/admin/album/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("125010", "增加相册", "125", "/admin/album/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("125015", "修改相册", "125", "/admin/album/edit", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("125020", "查看图片", "125", "/admin/photo/list", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("125025", "图片上传", "125", "/admin/photo/upload", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("125030", "相册设置", "125", "/admin/album/config", TreeItem.Type.TAB, false));
-        
 
-        items.add(new TreeItem("2", "个人配置", "0", "", TreeItem.Type.TREE_FOLDER, true));
-        items.add(new TreeItem("205", "个人信息", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("205005", "个人信息", "205", "/admin/self/info", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("220", "博客信息", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("220005", "博客信息", "220", "/admin/setting/bloginfo", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("230", "皮肤设置", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("230005", "皮肤设置", "230", "/admin/setting/skin", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("240", "SEO设置", "2", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("240005", "SEO设置", "240", "/admin/setting/seo", TreeItem.Type.TAB, true));
-        
-        
+        items.add(new TreeItem("1", "内容", "0", "", TreeItem.Type.TREE_FOLDER, true));
+        items.add(new TreeItem("105", "文章管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("105005", "列表", "105", "/admin/post/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("105010", "增加", "105", "/admin/post/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("105015", "修改", "105", "/admin/post/edit", TreeItem.Type.TAB, false));
+
+        items.add(new TreeItem("110", "分类管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("110005", "列表", "110", "/admin/catalog/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("110010", "增加", "110", "/admin/catalog/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("110015", "修改", "110", "/admin/catalog/edit", TreeItem.Type.TAB, false));
+
+        items.add(new TreeItem("115", "评论管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("115005", "评论管理", "115", "/admin/comment/list", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("120", "相册管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("120005", "相册列表", "120", "/admin/album/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("120010", "增加相册", "120", "/admin/album/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("120015", "修改相册", "120", "/admin/album/edit", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("120020", "查看图片", "120", "/admin/photo/list", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("120025", "图片上传", "120", "/admin/photo/upload", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("120030", "相册设置", "120", "/admin/album/config", TreeItem.Type.TAB, false));
+
+        /**********************************************************************************************************/
+
+        items.add(new TreeItem("2", "外观", "0", "", TreeItem.Type.TREE_FOLDER, true));
+        items.add(new TreeItem("205", "皮肤设置", "2", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("205005", "皮肤设置", "205", "/admin/setting/skin", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("210", "皮肤编辑", "2", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("210005", "皮肤编辑", "210", "/admin/system/skin/list", TreeItem.Type.TAB, true));
+
+        /**********************************************************************************************************/
+
         items.add(new TreeItem("3", "用户", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("305", "用户管理", "3", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("305005", "列表", "305", "/admin/user/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("305010", "新增", "305", "/admin/user/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("305015", "修改", "305", "/admin/user/edit", TreeItem.Type.TAB, false));
-        
+
         items.add(new TreeItem("310", "角色", "3", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("310005", "列表", "310", "/admin/role/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("310010", "新增", "310", "/admin/role/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("310015", "修改", "310", "/admin/role/edit", TreeItem.Type.TAB, false));
         items.add(new TreeItem("310020", "授权", "310", "/admin/role/authorize", TreeItem.Type.TAB, false));
 
-        items.add(new TreeItem("7", "系统配置", "0", "", TreeItem.Type.TREE_FOLDER, true));
-        items.add(new TreeItem("725", "邮件设置", "7", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("725001", "邮件", "725", "/admin/system/mail/setting", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("725002", "邮件测试", "725", "/admin/system/mail/test", TreeItem.Type.TAB, false));
-        
-        items.add(new TreeItem("730", "任务管理", "7", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("730005", "列表", "730", "/admin/system/job/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("730010", "任务日志", "730", "/admin/system/job/log", TreeItem.Type.TAB, false));
-        
-        items.add(new TreeItem("735", "皮肤编辑", "7", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("735005", "皮肤编辑", "735", "/admin/system/skin/list", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("740", "缓存管理", "7", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("740005", "缓存管理", "740", "/admin/system/cache/config", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("750", "固定连接", "7", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("750005", "固定连接", "750", "/admin/system/permalink/config", TreeItem.Type.TAB, true));
-        
-        items.add(new TreeItem("8", "插件", "0", "", TreeItem.Type.TREE_FOLDER, true));
+        /**********************************************************************************************************/
+
+        items.add(new TreeItem("4", "设置", "0", "", TreeItem.Type.TREE_FOLDER, true));
+
+        items.add(new TreeItem("405", "个人信息", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("405005", "个人信息", "405", "/admin/self/info", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("410", "博客信息", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("410005", "博客信息", "410", "/admin/setting/bloginfo", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("415", "SEO设置", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("415005", "SEO设置", "415", "/admin/setting/seo", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("420", "邮件设置", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("420005", "邮件", "420", "/admin/system/mail/setting", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("420010", "邮件测试", "420", "/admin/system/mail/test", TreeItem.Type.TAB, false));
+
+        items.add(new TreeItem("425", "任务管理", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("425005", "列表", "425", "/admin/system/job/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("425010", "任务日志", "425", "/admin/system/job/log", TreeItem.Type.TAB, false));
+
+        items.add(new TreeItem("430", "固定连接", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("430005", "固定连接", "430", "/admin/system/permalink/config", TreeItem.Type.TAB, true));
+
+        items.add(new TreeItem("435", "缓存管理", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("435005", "缓存管理", "435", "/admin/system/cache/config", TreeItem.Type.TAB, true));
+
+        /**********************************************************************************************************/
+
+        items.add(new TreeItem("5", "运营", "0", "", TreeItem.Type.TREE_FOLDER, true));
+
+        items.add(new TreeItem("505", "链接管理", "5", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("505005", "列表", "505", "/admin/link/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("505010", "增加", "505", "/admin/link/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("505015", "修改", "505", "/admin/link/edit", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("505020", "链接分类", "505", "/admin/linkType/list", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("505025", "新增分类", "505", "/admin/linkType/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("505030", "修改分类", "505", "/admin/linkType/edit", TreeItem.Type.TAB, false));
+
+        items.add(new TreeItem("8", "工具", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("805005", "金山快盘", "805", "/admin/api/kuaipan/setting", TreeItem.Type.TAB, true));
 

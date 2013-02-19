@@ -3,23 +3,21 @@
  */
 package org.mspring.mlog.web.module.admin;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.service.FileService;
-import org.mspring.mlog.utils.AttachmentUtils;
+import org.mspring.mlog.entity.Attachment;
+import org.mspring.mlog.service.AttachmentService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.platform.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.google.gson.Gson;
 
 /**
  * @author Gao Youbo
@@ -31,12 +29,11 @@ import com.google.gson.Gson;
 @RequestMapping("/admin/attachment")
 public class AttachmentWidget extends AbstractAdminWidget {
     @Autowired
-    private FileService fileService;
+    private AttachmentService attachmentService;
 
     @ResponseBody
     @RequestMapping("/upload")
     public String upload(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String url = "";
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
@@ -48,23 +45,17 @@ public class AttachmentWidget extends AbstractAdminWidget {
                 mf = entity.getValue();
                 break;
             }
-            String fileName = AttachmentUtils.getUploadPath(mf);
-            url = fileService.uploadFile(fileName, mf.getInputStream(), mf.getSize());
-        }
-        catch (Exception e) {
+            Attachment attachment = attachmentService.createAttachment(mf);
+            return JSONUtils.toJson(attachment);
+        } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-            // JSONObject obj = new JSONObject();
-            Map obj = new HashMap();
-            obj.put("error", 1);
-            obj.put("message", "upload failure!");
-            String json = new Gson().toJson(obj);
-            return json;
         }
-        Map obj = new HashMap();
-        obj.put("error", 0);
-        obj.put("url", url);
-        String json = new Gson().toJson(obj);
-        return json;
+        return null;
+    }
+
+    @RequestMapping("/dialog")
+    public String uploadDialog(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "/admin/attachment/dialog";
     }
 }
