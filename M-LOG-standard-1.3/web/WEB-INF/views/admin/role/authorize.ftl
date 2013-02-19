@@ -105,8 +105,8 @@
 	}
 </script>
 <form class="form" id="roleForm" action="${base}/admin/role/authorize/save" method="POST">
-	<input type="text" id="checkedItems" name="checkedItems" />
-	<input type="text" id="notCheckedItems" name="notCheckedItems" />
+	<input type="hidden" id="checkedItems" name="checkedItems" />
+	<input type="hidden" id="notCheckedItems" name="notCheckedItems" />
 	<input type="hidden" id="id" name="id" value="${id}" />
 	<table class="infotable">
 		<tr>
