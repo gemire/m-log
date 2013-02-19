@@ -118,7 +118,7 @@ $.extend(mlog.editor.KindEditor, {
 				//fileManagerJson : mlog.variable.base + '/file_manager_json.jsp',
 				//allowFileManager : true,
                 items: ["formatblock", "fontname", "fontsize", "|", "bold", "italic", "underline", "strikethrough", "forecolor", "|",
-                		"link", "unlink", "pagebreak", "|", "emoticons", "image", "flash", "media", "code", "fullscreen", "/",
+                		"link", "unlink", "pagebreak", "|", "emoticons", "mlog-uploads", /*"image", "multiimage",*/ "flash", "media", "code", "fullscreen", "/",
                 		"undo", "redo", "|", "insertunorderedlist", "insertorderedlist", "indent", "outdent", "|", 
                 		"justifyleft", "justifycenter", "justifyright", "justifyfull", "|", "plainpaste", "wordpaste", "|", 
                 		"clearhtml", "source", "preview"

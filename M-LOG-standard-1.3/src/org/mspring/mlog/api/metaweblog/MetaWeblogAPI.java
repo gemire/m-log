@@ -5,7 +5,6 @@ package org.mspring.mlog.api.metaweblog;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +20,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
+import org.mspring.mlog.entity.Attachment;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.security.User;
@@ -209,7 +209,7 @@ public class MetaWeblogAPI {
             else if (METHOD_NEW_MEDIA_OBJECT.equals(methodName)) {
                 final String type = XMLUtils.parseForString(doc, "/methodCall/params/param[4]/value/struct/member[2]/value/string");
                 final String base64Data = XMLUtils.parseForString(doc, "/methodCall/params/param[4]/value/struct/member[3]/value/base64");
-                responseContent = newMediaObject(request, type, base64Data);
+                responseContent = newMediaObject(request, type, base64Data, user);
             }
             // 方法未实现
             else {
@@ -550,17 +550,12 @@ public class MetaWeblogAPI {
      * @param base64Data
      * @return
      */
-    private String newMediaObject(HttpServletRequest request, String type, String base64Data) {
+    private String newMediaObject(HttpServletRequest request, String type, String base64Data, User user) {
         // 根据mimetype获取文件后缀名
         String ext = MimeUtil.getSubType(type);
-
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String fileName = "/attachment/" + year + "/" + month + "/" + day + "/" + StringUtils.getFileName() + "." + ext;
-        String url = ServiceFactory.getFileService().uploadBase64File(fileName, base64Data);
-
+        Attachment attachment = ServiceFactory.getAttachmentService().createAttachment(base64Data, ext, user.getId());
+        String url = attachment.getPath();
+        
         StringBuffer result = new StringBuffer();
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><methodResponse><params><param><value><struct><member><name>url</name><value><string>");
         result.append(StringEscapeUtils.escapeXml(url));

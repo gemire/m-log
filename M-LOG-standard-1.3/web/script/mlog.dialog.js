@@ -67,7 +67,20 @@ $.extend(mlog.dialog, {
 		return $.dialog({
 			title           : config.title,
 			content         : config.content,
-			lock            : config.lock === undefined ? true : config.lock,
+			lock            : true,
+			button          : config.button,
+			width           : config.width,
+			height          : config.height,
+			max             : config.max,
+			min             : config.min
+		});
+	}, 
+	
+	showDialog : function(config){
+		return $.dialog({
+			title           : config.title,
+			content         : config.content,
+			lock            : config.lock === undefined ? false : config.lock,
 			button          : config.button,
 			width           : config.width,
 			height          : config.height,
