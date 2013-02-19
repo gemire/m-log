@@ -47,6 +47,10 @@ public class AttachmentWidget extends AbstractAdminWidget {
             }
             Attachment attachment = attachmentService.createAttachment(mf);
             return JSONUtils.toJson(attachment);
+            // Map obj = new HashMap();
+            // obj.put("error", 0);
+            // obj.put("url", attachment.getPath());
+            // return JSONUtils.toJson(obj);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
