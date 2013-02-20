@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Photo;
+import org.mspring.mlog.utils.WebUtils;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
@@ -24,11 +25,11 @@ import freemarker.template.TemplateModel;
  * @TODO 图片缩略图URL
  */
 public class PhotoPreviewUrlDirectiveModel extends AbstractDirectiveModel {
-    
+
     private static final Logger log = Logger.getLogger(PhotoPreviewUrlDirectiveModel.class);
-    
+
     public static final String KEY = "photo_preview_url";
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -40,7 +41,6 @@ public class PhotoPreviewUrlDirectiveModel extends AbstractDirectiveModel {
         // TODO Auto-generated method stub
         return KEY;
     }
-
 
     /*
      * (non-Javadoc)
@@ -56,15 +56,13 @@ public class PhotoPreviewUrlDirectiveModel extends AbstractDirectiveModel {
         if (photoObject == null || !(photoObject instanceof Photo)) {
             return;
         }
-        String url = ((Photo)photoObject).getPreviewUrl();
+        String url = ((Photo) photoObject).getPreviewUrl();
         if (url.startsWith("http")) {
             env.getOut().append(url);
-        }
-        else {
-            url = DirectiveUtils.getWebContext(env).getRequest().getContextPath() + url;
+        } else {
+            url = WebUtils.getRequest().getContextPath() + url;
             env.getOut().append(url);
         }
     }
 
- 
 }

@@ -76,7 +76,7 @@
 	                <td>
 	                    <#--
 	                    <input type="text" class="normalInput" id="commentValidate"/>
-	                    <@tldwidget.placeholder path="/common/validateImage" />
+	                    <@m.widget path="/common/validateImage" />
 	                    -->
 	                </td>
 	                <th>

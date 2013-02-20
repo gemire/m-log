@@ -51,7 +51,7 @@
 		<div class="nav">
 		    <div class="wrapper">
 		        <ul>
-		            <@tldwidget.placeholder path="/widget/menus" cache=false />
+		            <@m.widget path="/widget/menus" cache=false />
 		        </ul>
 		        <div class="right">
 		            <#--<span class="translate-ico" onclick="goTranslate()"></span>-->

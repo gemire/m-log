@@ -39,7 +39,7 @@
 	        	<div id="logo-floater">
 	        		<h1><a href="${blogurl}" title="${blogname}"><img src="${template_url}/images/logo.png" alt="${blogname}" id="logo"><span>${blogname}</span></a></h1>
 	        	</div>
-	         	<ul class="links primary-links"><@tldwidget.placeholder path="/widget/menus" /></ul> 
+	         	<ul class="links primary-links"><@m.widget path="/widget/menus" /></ul> 
 	      	</div><!-- /header -->
 	      	
 	      	<div id="center">

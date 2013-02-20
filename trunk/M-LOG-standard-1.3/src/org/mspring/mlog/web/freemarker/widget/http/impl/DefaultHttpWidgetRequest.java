@@ -67,7 +67,12 @@ public class DefaultHttpWidgetRequest extends HttpServletRequestWrapper implemen
     @Override
     public RequestDispatcher getRequestDispatcher(String path) {
         // TODO Auto-generated method stub
-        setAttribute(WebUtils.INCLUDE_PATH_INFO_ATTRIBUTE, path);
+//        try {
+//            setAttribute(WebUtils.INCLUDE_PATH_INFO_ATTRIBUTE, path);
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            e.printStackTrace();
+//        }
         return super.getRequestDispatcher(path);
     }
 

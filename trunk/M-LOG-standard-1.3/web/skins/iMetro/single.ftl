@@ -22,7 +22,7 @@
                 </div>
                 <div class="comment">
 					<#if post.commentStatus == 'open'>
-						<@tldwidget.placeholder path="/comment?post=${post.id}" cache=false />
+						<@m.widget path="/comment?post=${post.id}" cache=false />
 					</#if>
 				</div>
             </div>

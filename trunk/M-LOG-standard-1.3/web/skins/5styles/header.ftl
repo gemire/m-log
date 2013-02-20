@@ -37,7 +37,7 @@
 				</div>
 
 				<div id="menu">
-					<@tldwidget.placeholder path="/widget/menus" cache=false />
+					<@m.widget path="/widget/menus" cache=false />
 				</div>
 			</div>
 		</div>

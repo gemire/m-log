@@ -14,9 +14,9 @@ import net.sf.ehcache.Ehcache;
  * @TODO
  */
 public interface CacheService {
-    public static final long ONE_SECOND = 1000;
+    public static final long ONE_SECOND = 1;
 
-    public static final long ONE_MINUTE = 60 * 1000;
+    public static final long ONE_MINUTE = 60 * ONE_SECOND;
 
     public static final long ONE_HOUR = ONE_MINUTE * 60;
 

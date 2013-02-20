@@ -6,11 +6,9 @@ package org.mspring.mlog.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.web.freemarker.widget.WidgetTokens;
 import org.springframework.web.servlet.ModelAndView;
 
 import freemarker.ext.jsp.TaglibFactory;
-import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 
 /**
@@ -54,10 +52,8 @@ public class DispatcherServlet extends org.mspring.platform.web.servlet.Dispatch
             if (factory == null) {
                 factory = new TaglibFactory(request.getSession().getServletContext());
             }
-            mv.getModel().put("tldwidget", factory.get("/WEB-INF/tld/widget.tld"));
-            mv.getModel().put("cache", factory.get("/WEB-INF/tld/cache.tld"));
-        }
-        catch (TemplateModelException e) {
+            mv.getModel().put("m", factory.get("/WEB-INF/tld/mspring.tld"));
+        } catch (TemplateModelException e) {
             // TODO: handle exception
             e.printStackTrace();
         }

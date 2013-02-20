@@ -10,35 +10,35 @@
 					<li id="categories-3" class="widget widget_categories">
 			        <h3 class="widgettitle">分类目录</h3>
 			        	<ul>
-						<@tldwidget.placeholder path="/widget/listCatalog" />
+						<@m.widget path="/widget/listCatalog" />
 						</ul>
 			        </li>
 			        
 			        <li id="recent-posts-1" class="widget widget_recent_entries">		
 			        <h3 class="widgettitle">最近文章</h3>		
 			        	<ul>
-			        	<@tldwidget.placeholder path="/widget/recentPost" />
+			        	<@m.widget path="/widget/recentPost" />
 						</ul>
 					</li>
 					
 					<li id="recent-posts-1" class="widget widget_recent_entries">		
 			        <h3 class="widgettitle">热门文章</h3>		
 			        	<ul>
-			        	<@tldwidget.placeholder path="/widget/mostViewPost" />
+			        	<@m.widget path="/widget/mostViewPost" />
 						</ul>
 					</li>
 			        
 			        <li id="recent-comments-5" class="widget widget_recent_comments">			
 			        <h3 class="widgettitle">最近评论</h3>			
 			        	<ul id="recentcomments">
-			                <@tldwidget.placeholder path="/widget/recentComment" />
+			                <@m.widget path="/widget/recentComment" />
 			            </ul>
 			        </li>
 			        
 			        <li id="linkcat-2" class="widget widget_links">
 			        <h3 class="widgettitle">友情链接</h3>
 						<ul class='xoxo blogroll'>
-						<@tldwidget.placeholder path="/widget/links" />
+						<@m.widget path="/widget/links" />
 			            </ul>
 			        </li>
 				</ul>

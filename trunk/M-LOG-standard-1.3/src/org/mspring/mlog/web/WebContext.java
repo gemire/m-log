@@ -21,7 +21,7 @@ public class WebContext implements Serializable {
      */
     private static final long serialVersionUID = -5854991708389982695L;
 
-    public static final String WEB_CONTEXT_KEY = "_WEB_CONTEXT_KEY__";
+    // public static final String WEB_CONTEXT_KEY = "_WEB_CONTEXT_KEY__";
 
     private HttpServletRequest request;
     private HttpServletResponse response;

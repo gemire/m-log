@@ -29,7 +29,6 @@ public class WebContextInterceptor extends HandlerInterceptorAdapter {
         // TODO Auto-generated method stub
         WebContext.getInstance().setRequest(request);
         WebContext.getInstance().setResponse(response);
-        request.setAttribute(WebContext.WEB_CONTEXT_KEY, WebContext.getInstance());
-        return true;
+        return super.preHandle(request, response, handler);
     }
 }

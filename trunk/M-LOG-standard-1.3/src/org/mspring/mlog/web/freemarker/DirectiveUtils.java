@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.web.WebContext;
 import org.mspring.mlog.web.freemarker.directive.exception.MustBooleanException;
 import org.mspring.mlog.web.freemarker.directive.exception.MustDateException;
 import org.mspring.mlog.web.freemarker.directive.exception.MustNumberException;
@@ -22,7 +21,6 @@ import org.mspring.platform.utils.StringUtils;
 import org.springframework.web.servlet.support.RequestContext;
 
 import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
 import freemarker.template.AdapterTemplateModel;
 import freemarker.template.TemplateBooleanModel;
 import freemarker.template.TemplateDateModel;
@@ -40,31 +38,29 @@ import freemarker.template.TemplateScalarModel;
  */
 public class DirectiveUtils {
     private static final Logger log = Logger.getLogger(DirectiveUtils.class);
-    
-    public static Object getItem(Environment env, String name){
+
+    public static Object getItem(Environment env, String name) {
         Object ret = null;
         try {
             ret = env.__getitem__(name);
-        }
-        catch (TemplateModelException e) {
+        } catch (TemplateModelException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             log.debug("get item failure, name = " + name, e);
         }
         return ret;
     }
-    
-    public static void setItem(Environment env, String name, Object value){
+
+    public static void setItem(Environment env, String name, Object value) {
         try {
             env.__setitem__(name, value);
-        }
-        catch (TemplateException e) {
+        } catch (TemplateException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             log.debug("set item failure, name = " + name + ", value = " + value, e);
         }
     }
-    
+
     /**
      * 将params的值复制到variable中
      * 
@@ -122,33 +118,9 @@ public class DirectiveUtils {
         TemplateModel ctx = env.getGlobalVariable(SPRING_MACRO_REQUEST_CONTEXT_ATTRIBUTE);
         if (ctx instanceof AdapterTemplateModel) {
             return (RequestContext) ((AdapterTemplateModel) ctx).getAdaptedObject(RequestContext.class);
-        }
-        else {
+        } else {
             throw new TemplateModelException("RequestContext '" + SPRING_MACRO_REQUEST_CONTEXT_ATTRIBUTE + "' not found in DataModel.");
         }
-    }
-
-    /**
-     * 获取webcontenxt
-     * 
-     * 必须添加拦截器<bean
-     * class="org.mspring.mlog.web.interceptor.InstallInterceptor"/>
-     * 
-     * @param env
-     * @return
-     */
-    public static WebContext getWebContext(Environment env) {
-        try {
-            BeanModel webContextBeanModel = (BeanModel) env.getDataModel().get(WebContext.WEB_CONTEXT_KEY);
-            if (webContextBeanModel != null) {
-                return (WebContext) webContextBeanModel.getWrappedObject();
-            }
-        }
-        catch (TemplateModelException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /**
@@ -166,11 +138,9 @@ public class DirectiveUtils {
         }
         if (model instanceof TemplateScalarModel) {
             return ((TemplateScalarModel) model).getAsString();
-        }
-        else if ((model instanceof TemplateNumberModel)) {
+        } else if ((model instanceof TemplateNumberModel)) {
             return ((TemplateNumberModel) model).getAsNumber().toString();
-        }
-        else {
+        } else {
             throw new MustStringException(name);
         }
     }
@@ -195,15 +165,12 @@ public class DirectiveUtils {
             }
             try {
                 return Long.parseLong(s);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new MustNumberException(name);
             }
-        }
-        else if (model instanceof TemplateNumberModel) {
+        } else if (model instanceof TemplateNumberModel) {
             return ((TemplateNumberModel) model).getAsNumber().longValue();
-        }
-        else {
+        } else {
             throw new MustNumberException(name);
         }
     }
@@ -228,15 +195,12 @@ public class DirectiveUtils {
             }
             try {
                 return Integer.parseInt(s);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 throw new MustNumberException(name);
             }
-        }
-        else if (model instanceof TemplateNumberModel) {
+        } else if (model instanceof TemplateNumberModel) {
             return ((TemplateNumberModel) model).getAsNumber().intValue();
-        }
-        else {
+        } else {
             throw new MustNumberException(name);
         }
     }
@@ -262,8 +226,7 @@ public class DirectiveUtils {
                 ids[i++] = Integer.valueOf(s);
             }
             return ids;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new MustSplitNumberException(name, e);
         }
     }
@@ -283,18 +246,15 @@ public class DirectiveUtils {
         }
         if (model instanceof TemplateBooleanModel) {
             return ((TemplateBooleanModel) model).getAsBoolean();
-        }
-        else if (model instanceof TemplateNumberModel) {
+        } else if (model instanceof TemplateNumberModel) {
             return !(((TemplateNumberModel) model).getAsNumber().intValue() == 0);
-        }
-        else if (model instanceof TemplateScalarModel) {
+        } else if (model instanceof TemplateScalarModel) {
             String s = ((TemplateScalarModel) model).getAsString();
             if ("true".equalsIgnoreCase(s) || "yes".equalsIgnoreCase(s) || "1".equals(s)) {
                 return true;
             }
             return false;
-        }
-        else {
+        } else {
             throw new MustBooleanException(name);
         }
     }
@@ -314,12 +274,10 @@ public class DirectiveUtils {
         }
         if (model instanceof TemplateDateModel) {
             return ((TemplateDateModel) model).getAsDate();
-        }
-        else if (model instanceof TemplateScalarModel) {
+        } else if (model instanceof TemplateScalarModel) {
             String dateStr = ((TemplateScalarModel) model).getAsString();
             return DateUtils.parse(dateStr);
-        }
-        else {
+        } else {
             throw new MustDateException(name);
         }
     }

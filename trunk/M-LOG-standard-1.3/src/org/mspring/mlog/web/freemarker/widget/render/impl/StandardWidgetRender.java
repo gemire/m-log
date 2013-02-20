@@ -43,10 +43,14 @@ public class StandardWidgetRender extends AbstractWidgetRender {
         try {
             String path = widgetConfig.getPath();
             if (StringUtils.isNotBlank(path)) {
-                widgetRequest.getRequestDispatcher(path).include(widgetRequest, widgetResponse);
+                try {
+                    widgetRequest.getRequestDispatcher(path).include(widgetRequest, widgetResponse);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             throw new WidgetNotFoundException("widget render exception!", e);
         }

@@ -3,11 +3,11 @@
 		<div>
 			<ul class="nav nav-list">
 				<li class="nav-header">分类目录</li>
-				<@widget path="/widget/listCatalog" />
+				<@m.widget path="/widget/listCatalog" idle=600 />
 				<li class="nav-header">最近文章</li>
-				<@widget path="/widget/recentPost" />
+				<@m.widget path="/widget/recentPost" />
 				<li class="nav-header">热门文章</li>
-				<@widget path="/widget/mostViewPost" />
+				<@m.widget path="/widget/mostViewPost" idle=600 />
 			</ul>
 		</div>
 	</div>
@@ -15,7 +15,7 @@
 		<div>
 			<ul class="nav nav-list">
 				<li class="nav-header">最新评论</li>
-				<@widget path="/widget/recentComment" />
+				<@m.widget path="/widget/recentComment" />
 			</ul>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 		<div>
 			<ul class="nav nav-list">
 				<li class="nav-header">链接</li>
-				<@widget path="/widget/links" />
+				<@m.widget path="/widget/links" idle=600 />
 			</ul>
 		</div>
 	</div>

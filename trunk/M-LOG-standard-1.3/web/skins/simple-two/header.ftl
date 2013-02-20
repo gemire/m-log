@@ -40,13 +40,11 @@
 						<a class="brand" href="${blogurl}">${blogname}</a>
 						<div class="nav-collapse">
 							<ul class="nav">
-								<@widget path="/widget/menus" />
+								<@m.widget path="/widget/menus" />
 							</ul>
-							<div style="float:right;margin-top:3px;">
-								<form action="${base}/search" method="get" style="margin:0px; padding:0px;">
-									<input type="text" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">
-				                </form>
-			                </div>
+							<form class="navbar-search pull-right" action="${base}/search" method="get">
+					            <input type="text" class="search-query span2" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">
+					        </form>
 						</div>
 					</div>
 				</div>

@@ -8,31 +8,31 @@
     <div>
         <h4>分类目录</h4>
         <ul class="side-li">
-            <@tldwidget.placeholder path="/widget/listCatalog" />
+            <@m.widget path="/widget/listCatalog" />
         </ul>
     </div>
     <div>
         <h4>最新文章</h4>
         <ul class="side-li">
-            <@tldwidget.placeholder path="/widget/recentPost" />
+            <@m.widget path="/widget/recentPost" />
         </ul>
     </div>
     <div>
         <h4>热门文章</h4>
         <ul class="side-li">
-            <@tldwidget.placeholder path="/widget/mostViewPost" />
+            <@m.widget path="/widget/mostViewPost" />
         </ul>
     </div>
     <div>
         <h4>最新评论</h4>
         <ul class="side-li">
-            <@tldwidget.placeholder path="/widget/recentComment" />
+            <@m.widget path="/widget/recentComment" />
         </ul>
     </div>
     <div>
         <h4>链接</h4>
         <ul class="side-li">
-            <@tldwidget.placeholder path="/widget/links" />
+            <@m.widget path="/widget/links" />
         </ul>
     </div>
 </div>
