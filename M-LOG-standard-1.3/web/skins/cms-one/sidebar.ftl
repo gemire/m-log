@@ -1,19 +1,19 @@
 				<div class="well sidebar-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">最近文章</li>
-						<@widget path="/widget/recentPost" />
+						<@m.widget path="/widget/recentPost" />
 					</ul>
 					<ul class="nav nav-list">
 						<li class="nav-header">热门文章</li>
-						<@widget path="/widget/mostViewPost" />
+						<@m.widget path="/widget/mostViewPost" />
 					</ul>
 					<ul class="nav nav-list">
 						<li class="nav-header">最新评论</li>
-						<@widget path="/widget/recentComment" />
+						<@m.widget path="/widget/recentComment" />
 					</ul>
 					<ul class="nav nav-list">
 						<li class="nav-header">链接</li>
-						<@widget path="/widget/links" />
+						<@m.widget path="/widget/links" />
 					</ul>
 					<ul class="nav nav-list">
 						<li class="nav-header">统计信息</li>

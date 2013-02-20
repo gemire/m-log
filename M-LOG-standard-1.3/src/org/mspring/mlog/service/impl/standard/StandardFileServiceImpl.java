@@ -10,17 +10,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.impl.AbstractFileService;
+import org.mspring.mlog.utils.WebUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author Gao Youbo
@@ -52,8 +49,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
 
         try {
             FileUtils.copyFile(file, destFile);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -79,8 +75,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
             }
             os.close();
             inputStream.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -127,9 +122,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
      * @return
      */
     private File getDestFile(String fileName) {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        String uploadFolder = request.getSession().getServletContext().getRealPath("/uploads");
+        String uploadFolder = WebUtils.getRealContextPath("/uploads");
 
         if (!fileName.startsWith("/") && !fileName.startsWith("\\")) {
             fileName = "/" + fileName;

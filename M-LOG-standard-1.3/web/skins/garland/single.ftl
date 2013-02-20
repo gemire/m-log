@@ -38,7 +38,7 @@
 	<br />
 	<div>
 		<#-- <#include "comment.ftl"> -->
-		<@tldwidget.placeholder path="/comment?post=${post.id}" cache=false />
+		<@m.widget path="/comment?post=${post.id}" cache=false />
 	</div>
 <#else>
 	<h2>文章未找到</h2>

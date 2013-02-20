@@ -3,7 +3,12 @@
  */
 package org.mspring.mlog.utils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.mspring.mlog.web.WebContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author Gao Youbo
@@ -11,7 +16,7 @@ import org.mspring.mlog.web.WebContext;
  * @Description
  * @TODO
  */
-public class WebUtils {
+public class WebUtils extends org.springframework.web.util.WebUtils {
 
     /**
      * 获取对应文件系统的路径
@@ -30,6 +35,26 @@ public class WebUtils {
      */
     public static String getRealContextPath(String path) {
         return WebContext.getInstance().getServletContext().getRealPath(path);
+    }
+
+    /**
+     * 获取Request
+     * 
+     * @return
+     */
+    public static HttpServletRequest getRequest() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return requestAttributes.getRequest();
+    }
+
+    /**
+     * 获取Response
+     * 
+     * @return
+     */
+    @Deprecated
+    public static HttpServletResponse getResponse() {
+        return WebContext.getInstance().getResponse();
     }
 
 }

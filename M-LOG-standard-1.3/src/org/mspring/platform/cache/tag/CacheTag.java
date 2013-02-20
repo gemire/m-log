@@ -39,8 +39,6 @@ public class CacheTag extends BodyTagSupport {
 
     private static final Logger log = Logger.getLogger(CacheTag.class);
 
-    //private CacheService cacheService = ServiceFactory.getCacheService();
-
     private final static String CACHE_TAG_COUNTER_KEY = "__cache_tag_counter";
     private final static Integer blockingTimeoutMillis = 1000 * 10;
 
@@ -119,7 +117,7 @@ public class CacheTag extends BodyTagSupport {
                 if (blockingCache != null && StringUtils.isNotBlank(cacheKey)) {
                     CacheUtils.updateValue(blockingCache, cacheKey, body, new Long(expiry).intValue());
                 }
-                
+
             } else {
                 log.info("<cache>: Missing cached content : " + cacheKey);
                 body = "Missing cached content";

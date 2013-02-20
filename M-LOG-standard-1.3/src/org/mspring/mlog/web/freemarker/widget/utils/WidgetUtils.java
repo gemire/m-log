@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.web.WebContext;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.widget.WidgetTokens;
@@ -34,7 +35,7 @@ import freemarker.template.TemplateModelException;
  */
 public class WidgetUtils {
     // 默认缓存时长
-    public static final Long DEFAULT_CACHE_IDLE = new Long(60 * 1000);
+    public static final Long DEFAULT_CACHE_IDLE = CacheService.ONE_MINUTE;
     // 默认是否开启widget缓存
     public static final boolean DEFAULT_CACHE_ENABLE = true;
 
@@ -169,13 +170,13 @@ public class WidgetUtils {
     }
 
     public static HttpWidgetRequest createHttpWidgetRequest(Environment env) {
-        WebContext webContext = DirectiveUtils.getWebContext(env);
-        return new DefaultHttpWidgetRequest(webContext.getRequest());
+        HttpServletRequest request = WebContext.getInstance().getRequest();
+        return new DefaultHttpWidgetRequest(request);
     }
 
     public static HttpWidgetResponse createHttpWidgetResponse(Environment env) {
-        WebContext webContext = DirectiveUtils.getWebContext(env);
-        return new DefaultHttpWidgetResponse(webContext.getResponse());
+        HttpServletResponse response = WebContext.getInstance().getResponse();
+        return new DefaultHttpWidgetResponse(response);
     }
 
     public static HttpWidgetRequest createHttpWidgetRequest(HttpServletRequest httpRequest) {

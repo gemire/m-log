@@ -1,5 +1,4 @@
 <#import "/META-INF/spring.ftl" as spring />
-<#import "/META-INF/mspring.ftl" as mspring />
 <#include "../inc/header.ftl" />
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript">
@@ -31,10 +30,10 @@
 			});
 		});
 	</script>
+	<div class="ui-layout-south"><@mspring.widget path="/admin/bottom" cache=false /></div>
 	<div id="error" class="message error" style="display:none;"></div>
 	<form id="postForm" name="postForm" action="${base}/admin/post/create/save" method="POST">
 		<@spring.bind "post" />
-		<@mspring.show_errors />
 		<@spring.formHiddenInput path="post.status" />
 		<table class="formtable">
 			<tr>

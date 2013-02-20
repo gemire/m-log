@@ -2,27 +2,27 @@
 			<div class="side-bar-info">
 				<h2 class="side-bar-title">导航菜单</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/menus" />
+					<@m.widget path="/widget/menus" />
 				</ul>
 				<h2 class="side-bar-title">分类目录</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/listCatalog" />
+					<@m.widget path="/widget/listCatalog" />
 				</ul>
 				<h2 class="side-bar-title">最新文章</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/recentPost" />
+					<@m.widget path="/widget/recentPost" />
 				</ul>
 				<h2 class="side-bar-title">置顶文章</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/topPost" />
+					<@m.widget path="/widget/topPost" />
 				</ul>
 				<h2 class="side-bar-title">最新评论</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/recentComment" />
+					<@m.widget path="/widget/recentComment" />
 				</ul>
 				<h2 class="side-bar-title">链接</h2>
 				<ul class="side-list">
-					<@tldwidget.placeholder path="/widget/links" />
+					<@m.widget path="/widget/links" />
 				</ul>
 				<h2 class="side-bar-title">博客信息</h2>
 				<ul class="side-list">

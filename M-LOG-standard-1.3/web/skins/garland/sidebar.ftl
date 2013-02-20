@@ -4,7 +4,7 @@
 		<div class="content">
 			<div class="item-list" id="item-list-category">
 				<ul>
-					<@tldwidget.placeholder path="/widget/listCatalog" />
+					<@m.widget path="/widget/listCatalog" />
 				</ul>
 			</div>
 		</div>
@@ -15,7 +15,7 @@
 		<div class="content">
 			<div class="item-list" id="item-list-top">
 				<ul>
-					<@tldwidget.placeholder path="/widget/recentPost" />
+					<@m.widget path="/widget/recentPost" />
 				</ul>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 		<div class="content">
 			<div class="item-list" id="item-list-top">
 				<ul>
-					<@tldwidget.placeholder path="/widget/recentComment" />
+					<@m.widget path="/widget/recentComment" />
 				</ul>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 		<div class="content">
 			<div class="item-list" id="item-list-topcomment">
 				<ul>
-					<@tldwidget.placeholder path="/widget/links" />
+					<@m.widget path="/widget/links" />
 				</ul>
 			</div>
 		</div>

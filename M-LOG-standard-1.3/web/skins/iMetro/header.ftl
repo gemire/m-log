@@ -46,7 +46,7 @@
 			<!--end: blogTitle 博客的标题和副标题 -->
 			<div id="navigator">
 				<ul id="navList">
-					<@widget path="/widget/menus" />
+					<@m.widget path="/widget/menus" />
 				</ul>
 				<div class="blogStats">
 					<!--done-->

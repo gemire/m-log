@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Photo;
+import org.mspring.mlog.utils.WebUtils;
 import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
@@ -58,9 +59,8 @@ public class PhotoUrlDirectiveModel extends AbstractDirectiveModel {
         String url = ((Photo) photoObject).getUrl();
         if (url.startsWith("http")) {
             env.getOut().append(url);
-        }
-        else {
-            url = DirectiveUtils.getWebContext(env).getRequest().getContextPath() + url;
+        } else {
+            url = WebUtils.getRequest().getContextPath() + url;
             env.getOut().append(url);
         }
     }
