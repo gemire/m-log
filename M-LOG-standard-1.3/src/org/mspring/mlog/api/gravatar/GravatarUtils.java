@@ -19,6 +19,6 @@ public final class GravatarUtils {
     public static String getGravatarImage(String email) {
         Gravatar gravatar = new Gravatar();
         gravatar.setDefaultImage(GravatarDefaultImage.GRAVATAR_ICON);
-        return gravatar.getUrl("gaoyoubo@foxmail1.com");
+        return gravatar.getUrl(email);
     }
 }
