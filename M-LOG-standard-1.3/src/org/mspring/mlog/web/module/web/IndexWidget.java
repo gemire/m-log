@@ -47,7 +47,7 @@ public class IndexWidget extends AbstractWebWidget {
         if (postPage.getSort() == null) {
             postPage.setSort(new Sort("id", Sort.DESC));
         }
-        postService.findPost(postPage, "select post from Post post where post.status = ? order by post.isTop desc, post.id desc", Post.Status.PUBLISH);
+        postService.findPost(postPage, "select post from Post post where post.status = ? order by post.isTop desc, post.id desc", new Object[] { Post.Status.PUBLISH });
         model.addAttribute(FreemarkerVariableNames.POST_PAGE, postPage);
         model.addAttribute("navs", CatalogUtils.getTreeList(catalogService.findAllCatalog()));
         setCurrnetPage(model, PageNames.INDEX);
