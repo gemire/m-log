@@ -30,7 +30,6 @@
 			});
 		});
 	</script>
-	<div class="ui-layout-south"><@mspring.widget path="/admin/bottom" cache=false /></div>
 	<div id="error" class="message error" style="display:none;"></div>
 	<form id="postForm" name="postForm" action="${base}/admin/post/create/save" method="POST">
 		<@spring.bind "post" />
