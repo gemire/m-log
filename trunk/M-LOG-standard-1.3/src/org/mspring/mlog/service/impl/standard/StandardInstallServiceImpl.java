@@ -88,6 +88,13 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         /**********************************************************************************************************/
 
+        // items.add(new TreeItem("31", "SNS", "0", "",
+        // TreeItem.Type.TREE_FOLDER, true));
+        // items.add(new TreeItem("3105", "站点", "31", "",
+        // TreeItem.Type.TREE_ITEM, true));
+
+        /**********************************************************************************************************/
+
         items.add(new TreeItem("4", "设置", "0", "", TreeItem.Type.TREE_FOLDER, true));
 
         items.add(new TreeItem("405", "个人信息", "4", "", TreeItem.Type.TREE_ITEM, true));
