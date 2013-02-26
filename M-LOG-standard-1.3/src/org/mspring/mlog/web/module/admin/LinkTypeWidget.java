@@ -42,7 +42,6 @@ public class LinkTypeWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/list")
-    // @Premission(item = "120020")
     public String listLinkType(@ModelAttribute Page<LinkType> linkTypePage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkTypePage == null) {
             linkTypePage = new Page<LinkType>();
@@ -72,7 +71,6 @@ public class LinkTypeWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create")
-    // @Premission(item = "120025")
     public String createLinkType(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("visable", LinkType.Visable.getVisableMap());
         return "/admin/link/createLinkType";
@@ -88,14 +86,12 @@ public class LinkTypeWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create/save")
-    // @Premission(item = "120025")
     public String create_save(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkTypeService.createLinkType(linkType);
         return "redirect:/admin/linkType/list";
     }
 
     @RequestMapping("/edit")
-    // @Premission(item = "120030")
     public String editLinkType(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "LinkTypeWidget_edit_id");
@@ -115,7 +111,6 @@ public class LinkTypeWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    // @Premission(item = "120015")
     public String edit_save(@ModelAttribute LinkType linkType, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkTypeService.updateLinkType(linkType);
         return "redirect:/admin/linkType/list";

@@ -42,7 +42,6 @@ public class LinkWidget extends AbstractAdminWidget {
     private LinkTypeService linkTypeService;
 
     @RequestMapping("/list")
-    // @Premission(item = "120005")
     public String listLinks(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkPage == null) {
             linkPage = new Page<Link>();
@@ -68,7 +67,6 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    // @Premission(item = "120010")
     public String createLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("target", Link.Target.getTargetMap());
         model.addAttribute("visable", Link.Visable.getVisableMap());
@@ -77,7 +75,6 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
-    // @Premission(item = "120010")
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.createLink(link);
         return "redirect:/admin/link/list";
@@ -92,7 +89,6 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    // @Premission(item = "120015")
     public String editLinkView(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (link == null || link.getId() == null) {
             Object obj = getSessionAttribute(request, "LinkWidget_edit_id");
@@ -115,7 +111,6 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    // @Premission(item = "120015")
     public String edit_save(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.updateLink(link);
         return "redirect:/admin/link/list";

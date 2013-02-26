@@ -22,10 +22,6 @@ public interface CatalogService {
 
     public List<Catalog> findAllCatalog();
 
-    public Page<Catalog> findCatalog(Page<Catalog> page, String queryString, Object... params);
-
-    public Page<Catalog> findCatalog(Page<Catalog> page, String queryString);
-
     public Page<Catalog> findCatalog(Page<Catalog> page, QueryCriterion criterion);
 
     public Catalog getCatalogById(Long catalogId);
@@ -35,8 +31,12 @@ public interface CatalogService {
     public void updateCatalog(Catalog catalog);
 
     public boolean catalogExists(String name, Long id);
-    
+
     public void setCatalogOrders(Long[] ids, Long[] orders);
-    
+
     public void setCatalogParent(Long catalogId, Long parentId);
+    
+    public List<Catalog> findChildCatalogs(Long parent);
+    
+    public List<Catalog> findAllChildCatalogs(Long parent);
 }

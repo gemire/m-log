@@ -50,19 +50,17 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping({ "/list" })
-    // @Premission(item = "11515005")
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
         }
         catalogPage.setPageSize(Integer.MAX_VALUE);
-        // catalogPage.setSort(new Sort("id desc, order asc", ""));
         catalogPage = catalogService.findCatalog(catalogPage, new CatalogQueryCriterion(queryParams));
 
         List<Catalog> result = CatalogUtils.getTreeList(catalogPage.getResult());
         catalogPage.setResult(result);
 
-        model.addAttribute("catalogs", result);
+        model.addAttribute("catalogs", CatalogUtils.getTreeList(catalogService.findAllCatalog()));
         model.addAttribute("catalogPage", catalogPage);
         return "/admin/catalog/listCatalog";
     }
@@ -77,7 +75,6 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create")
-    // @Premission(item = "11515010")
     public String createCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/catalog/createCatalog";
     }
@@ -92,7 +89,6 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create/save")
-    // @Premission(item = "11515010")
     public String create_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
@@ -111,7 +107,6 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit")
-    // @Premission(item = "11515015")
     public String editCatalogView(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog == null || catalog.getId() == null) {
             Object obj = getSessionAttribute(request, "CatalogWidget_edit_id");
@@ -140,7 +135,6 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit/save")
-    // @Premission(item = "11515015")
     public String edit_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);

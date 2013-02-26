@@ -17,7 +17,6 @@ import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PhotoService;
-import org.mspring.mlog.service.PostMetaService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
@@ -28,10 +27,6 @@ import org.mspring.mlog.service.cache.WidgetCacheService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.service.security.UserService;
-import org.mspring.platform.core.ContextManager;
-
-import org.mspring.platform.core.ContextManager;
-
 import org.mspring.platform.core.ContextManager;
 
 /**
@@ -75,10 +70,6 @@ public class ServiceFactory {
 
     public static FileService getFileService() {
         return ContextManager.getApplicationContext().getBean(FileService.class);
-    }
-
-    public static PostMetaService getPostMetaService() {
-        return ContextManager.getApplicationContext().getBean(PostMetaService.class);
     }
 
     public static AlbumService getAlbumService() {
