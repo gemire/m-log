@@ -18,6 +18,12 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="fieldlabel" style="width:60px;">编码</td>
+			<td>
+				<@spring.formInput path="catalog.code" attributes='class="textinput" style="width:98%;"' />
+			</td>
+		</tr>
+		<tr>
 			<td class="fieldlabel" style="width:60px;">创建时间</td>
 			<td>
 				<@spring.formInput path="catalog.createTime" attributes='class="textinput" style="width:98%;" disabled="disabled"' defaultValue="当前时间" />

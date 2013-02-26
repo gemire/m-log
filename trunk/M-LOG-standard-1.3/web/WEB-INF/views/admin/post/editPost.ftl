@@ -78,7 +78,7 @@
 						
 						<td class="fieldlabel">链接</td>
 						<td>
-							<@spring.formInput path="post.url" attributes='class="textinput" style="width:98%;" validate=\'{postUrlIllegal:true, postUrlExists:{id:"${post.id}"}, messages:{postUrlIllegal:"链接不合法",postUrlExists:"链接已经存在"}}\'' />
+							
 						</td>
 					</tr>
 					<tr>
