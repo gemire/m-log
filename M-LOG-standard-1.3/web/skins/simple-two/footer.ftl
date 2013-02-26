@@ -7,5 +7,13 @@
 			</div>
 		</div>
 	    <script src="${template_url}/script/bootstrap.min.js"></script>
+	    <script src="${base}/script/jquery-lazyload/jquery.lazyload.min.js"></script>
+	    <script type="text/javascript">
+		    $(function(){
+		    	$('img').lazyload({
+		    		effect : "fadeIn"
+		    	});
+		    });
+	    </script>
 	</body>
 </html>
