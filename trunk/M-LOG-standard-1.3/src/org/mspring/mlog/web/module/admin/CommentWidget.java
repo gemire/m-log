@@ -45,7 +45,6 @@ public class CommentWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
-    // @Premission(item = "11520005")
     public String listComment(@ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (comment == null) {
             comment = new Comment();
@@ -81,7 +80,6 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/delete")
-    // @Premission(item = "11520005")
     public String deleteComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             commentService.deleteComment(id);
@@ -99,7 +97,6 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/view")
-    // @Premission(item = "11520005")
     public String viewComment(@RequestParam(required = true) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         Comment comment = commentService.getCommentById(id);
         model.addAttribute("comment", comment);
@@ -119,7 +116,6 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/audit")
-    // @Premission(item = "11520005")
     public String auditComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         String status = request.getParameter("type");
         if (id != null && id.length > 0 && StringUtils.isNotBlank(status)) {

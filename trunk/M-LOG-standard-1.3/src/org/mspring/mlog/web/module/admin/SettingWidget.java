@@ -58,7 +58,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/bloginfo")
-    // @Premission(item = "220005")
     public String infoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -75,7 +74,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveBloginfo")
-    // @Premission(item = "220005")
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/bloginfo";
@@ -91,7 +89,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/skin")
-    // @Premission(item = "230005")
     public String skinSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Skin> skins = skinService.scrnSkin();
         model.addAttribute("skins", skins);
@@ -108,7 +105,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSkin")
-    // @Premission(item = "230005")
     public String saveSkin(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/skin";
@@ -124,7 +120,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/seo")
-    // @Premission(item = "240005")
     public String seoSettingView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         model.addAllAttributes(options);
@@ -141,7 +136,6 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSeo")
-    // @Premission(item = "240005")
     public String saveSeo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/seo";

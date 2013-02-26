@@ -79,28 +79,30 @@ public interface PostService {
     Page<Post> findPost(Page<Post> page, String queryString, Object... queryParams);
 
     /**
+     * 根据Tag分页查询Post
+     * 
+     * @param page
+     * @param tag
+     * @return
+     */
+    public Page<Post> findPostByTag(Page<Post> page, Long tag);
+
+    /**
+     * 根据Catalog分页查询Post
+     * 
+     * @param page
+     * @param catalog
+     * @return
+     */
+    public Page<Post> findPostByCatalog(Page<Post> page, Long catalog);
+
+    /**
      * 根据编号获取
      * 
      * @param postId
      * @return
      */
     Post getPostById(Long postId);
-
-//    /**
-//     * 根据标题获取
-//     * 
-//     * @param title
-//     * @return
-//     */
-//    Post getPostByTitle(String title);
-
-    /**
-     * 根据URL获取
-     * 
-     * @param url
-     * @return
-     */
-    Post getPostByUrl(String url);
 
     /**
      * 更新文章
@@ -118,12 +120,29 @@ public interface PostService {
     List<Post> getRecentPost(int nums);
 
     /**
+     * 分类下最新发表的文章
+     * 
+     * @param nums
+     * @return
+     */
+    List<Post> getRecentCatalogPost(Long catalog, int nums);
+
+    /**
      * 最高点击率文章
      * 
      * @param nums
      * @return
      */
     List<Post> getMostViewPost(int nums);
+
+    /**
+     * 分类下最高点击率文章
+     * 
+     * @param catalog
+     * @param nums
+     * @return
+     */
+    List<Post> getMostViewCatalogPost(Long catalog, int nums);
 
     /**
      * 获取被置顶的文章
@@ -133,32 +152,6 @@ public interface PostService {
      * @return
      */
     List<Post> getTopPosts(int nums);
-
-    /**
-     * 验证文章标题是否存在
-     * 
-     * @param title
-     * @param postId
-     * @return
-     */
-    boolean titleExists(String title, Long postId);
-
-    /**
-     * 验证URL是否存在
-     * 
-     * @param url
-     * @return
-     */
-    boolean urlExists(String url);
-
-    /**
-     * 验证URL是否存在
-     * 
-     * @param url
-     * @param postId
-     * @return
-     */
-    boolean urlExists(String url, Long postId);
 
     /**
      * 更新文章评论数量

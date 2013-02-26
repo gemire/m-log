@@ -23,19 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin/system/cache")
 public class CacheWidget extends AbstractAdminWidget {
     @RequestMapping("/config")
-    // @Premission(item = "740005")
     public String setting(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/system/cache/config";
     }
 
     @RequestMapping("/config/save")
-    // @Premission(item = "740005")
     public String saveSetting(@RequestParam String cache_prefix, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "redirect:/admin/system/cache/config";
     }
 
     @RequestMapping("/clear")
-    // @Premission(item = "740005")
     public String doClear(HttpServletRequest request, HttpServletResponse response, Model model) {
         String defaultCache = request.getParameter("defaultCache");
         String widgetCache = request.getParameter("widgetCache");

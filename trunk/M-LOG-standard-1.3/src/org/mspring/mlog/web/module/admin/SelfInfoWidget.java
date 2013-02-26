@@ -35,7 +35,6 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/info")
-    // @Premission(item = "205005")
     public String viewUserInfo(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = SecurityUtils.getCurrentUser(request);
         model.addAttribute("user", user);
@@ -43,7 +42,6 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/info/save")
-    // @Premission(item = "205005")
     public String edit_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码
             String password = StringUtils.getMD5(user.getPassword());

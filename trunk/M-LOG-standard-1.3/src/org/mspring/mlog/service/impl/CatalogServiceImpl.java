@@ -3,11 +3,13 @@
  */
 package org.mspring.mlog.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -48,7 +50,6 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public void deleteCatalog(Long... idArray) {
         // TODO Auto-generated method stub
-        // delete(Catalog.class, idArray);
         if (idArray != null && idArray.length > 0) {
             String hql = "delete from Catalog c where c.id = ?";
             for (int i = 0; i < idArray.length; i++) {
@@ -56,32 +57,6 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
             }
         }
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.CatalogService#findCatalog(org.mspring.platform
-     * .persistence.support.Page, java.lang.String, java.lang.Object[])
-     */
-    @Override
-    public Page<Catalog> findCatalog(Page<Catalog> page, String queryString, Object... params) {
-        // TODO Auto-generated method stub
-        return findPage(queryString, page, params);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.service.CatalogService#findCatalog(org.mspring.platform
-     * .persistence.support.Page, java.lang.String)
-     */
-    @Override
-    public Page<Catalog> findCatalog(Page<Catalog> page, String queryString) {
-        // TODO Auto-generated method stub
-        return findPage(queryString, page);
     }
 
     /*
@@ -213,4 +188,19 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
         executeUpdate("update Catalog catalog set catalog.parent.id = ? where catalog.id = ?", parentId, catalogId);
     }
 
+    @Override
+    public List<Catalog> findChildCatalogs(Long parent) {
+        // TODO Auto-generated method stub
+        return find("select catalog from Catalog catalog where catalog.parent.id = ?", parent);
+    }
+
+    @Override
+    public List<Catalog> findAllChildCatalogs(Long parent) {
+        // TODO Auto-generated method stub
+        List<Catalog> catalogs = findAllCatalog();
+        Catalog parentCatalog = getCatalogById(parent);
+        List<Catalog> result = new ArrayList<Catalog>();
+        CatalogUtils.getTreeByParent(parentCatalog, catalogs, result);
+        return result;
+    }
 }

@@ -16,6 +16,12 @@ import org.mspring.mlog.entity.Catalog;
  * @TODO
  */
 public class CatalogUtils {
+    
+    /**
+     * 获取根节点
+     * @param catalogs
+     * @return
+     */
     public static List<Catalog> getRootList(List<Catalog> catalogs) {
         List<Catalog> rootCatalogs = new ArrayList<Catalog>();
         for (Catalog catalog : catalogs) {
@@ -26,6 +32,12 @@ public class CatalogUtils {
         return rootCatalogs;
     }
 
+    /**
+     * 根据根节点获取
+     * @param parent
+     * @param catalogs
+     * @return
+     */
     public static List<Catalog> getChildList(Catalog parent, List<Catalog> catalogs) {
         List<Catalog> childs = new ArrayList<Catalog>();
         for (Catalog catalog : catalogs) {
@@ -36,18 +48,30 @@ public class CatalogUtils {
         return childs;
     }
 
+    /**
+     * 获取树形
+     * @param catalogs
+     * @return
+     */
     public static List<Catalog> getTreeList(List<Catalog> catalogs) {
         List<Catalog> tree = new ArrayList<Catalog>();
         List<Catalog> roots = getRootList(catalogs);
         Collections.sort(roots);
         for (Catalog catalog : roots) {
             catalog.setDeep(1);
-            getOne(catalog, catalogs, tree);
+            getTreeByParent(catalog, catalogs, tree);
         }
         return tree;
     }
 
-    public static List<Catalog> getOne(Catalog parent, List<Catalog> catalogs, List<Catalog> tree) {
+    /**
+     * 获取一个节点下的树形
+     * @param parent
+     * @param catalogs
+     * @param tree
+     * @return
+     */
+    public static List<Catalog> getTreeByParent(Catalog parent, List<Catalog> catalogs, List<Catalog> tree) {
         List<Catalog> one = new ArrayList<Catalog>();
         // if (!one.contains(parent)) {
         tree.add(parent);
@@ -58,7 +82,7 @@ public class CatalogUtils {
             parent.setHasChild(true);
             for (Catalog catalog : childs) {
                 catalog.setDeep(parent.getDeep() + 1);
-                List<Catalog> c = getOne(catalog, catalogs, tree);
+                List<Catalog> c = getTreeByParent(catalog, catalogs, tree);
                 tree.addAll(c);
             }
         }

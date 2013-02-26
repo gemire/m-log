@@ -37,7 +37,6 @@ public class AlbumWidget extends AbstractAdminWidget {
     private OptionService optionService;
 
     @RequestMapping({ "/list", "/", "" })
-    // @Premission(item = "125005")
     public String listAlbum(@ModelAttribute Page<Album> albumPage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (albumPage == null) {
             albumPage = new Page<Album>();
@@ -58,14 +57,12 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping({ "/create/save" })
-    // @Premission(item = "125010")
     public String create_save(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         albumService.createAlbum(album);
         return "redirect:/admin/album/list";
     }
 
     @RequestMapping("/delete")
-    // @Premission(item = "125005")
     public String deleteAlbum(@RequestParam Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请选择要删除的相册");
@@ -79,7 +76,6 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    // @Premission(item = "125015")
     public String editAlbumView(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "AlbumWidget_edit_id");
@@ -99,7 +95,6 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    // @Premission(item = "125015")
     public String edit_save(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         album.setModifyTime(new Date());
         albumService.updateAlbum(album);
@@ -107,14 +102,12 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("config")
-    // @Premission(item = "125030")
     public String configAlbumView(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         options = optionService.getOptions();
         return "/admin/album/albumConfig";
     }
 
     @RequestMapping("/config/save")
-    // @Premission(item = "125030")
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/album/config";

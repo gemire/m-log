@@ -44,7 +44,6 @@ public class JobWidget extends AbstractAdminWidget {
     private JobLogService jobLogService;
 
     @RequestMapping("/list")
-    // @Premission(item = "730005")
     public String list(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (jobPage == null) {
             jobPage = new Page<Job>();
@@ -68,7 +67,6 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
-    // @Premission(item = "730005")
     public String ctrl(@RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] enabledIds, @RequestParam(required = false) String[] expressions, @RequestParam(required = false) String[] execTypes, @ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 设置可用
         if (enabledIds != null && enabledIds.length > 0) {
@@ -94,13 +92,11 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/exec")
-    // @Premission(item = "730005")
     public String exec(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         return list(jobPage, queryParams, request, response, model);
     }
 
     @RequestMapping("/log")
-    // @Premission(item = "730010")
     public String log(@ModelAttribute Page<JobLog> jobLogPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (jobLogPage == null) {
             jobLogPage = new Page<JobLog>();
@@ -112,7 +108,6 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/log/clear")
-    // @Premission(item = "730010")
     public String log(@RequestParam(required = false) int days, HttpServletRequest request, HttpServletResponse response, Model model) {
         jobLogService.removeJobLog(days);
         return prompt(model, "系统提示", "JOB调度日志清理成功！", "/admin/system/job/log");

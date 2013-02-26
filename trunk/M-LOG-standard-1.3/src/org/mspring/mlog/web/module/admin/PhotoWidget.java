@@ -42,7 +42,6 @@ public class PhotoWidget extends AbstractAdminWidget {
     private AlbumService albumService;
 
     @RequestMapping("/upload")
-    // @Premission(item = "125025")
     public String photoUploadView(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
         model.addAttribute("albums", albums);
@@ -73,7 +72,6 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/list")
-    // @Premission(item = "125020")
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
 

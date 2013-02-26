@@ -145,8 +145,4 @@ public class PermaLinkUtils {
         log.debug("Get permalinks [" + url + "]");
         return url;
     }
-
-    public final static boolean exists(String link) {
-        return ServiceFactory.getPostService().urlExists(link);
-    }
 }

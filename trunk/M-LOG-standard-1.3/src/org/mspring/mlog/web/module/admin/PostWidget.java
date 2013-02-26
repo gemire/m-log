@@ -58,7 +58,6 @@ public class PostWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
-    // @Premission(item = "11505005")
     public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
             postPage = new Page<Post>();
@@ -81,7 +80,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    // @Premission(item = "11505010")
     public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
@@ -101,7 +99,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
-    // @Premission(item = "11505010")
     public String create_save(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = SecurityUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
@@ -176,7 +173,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    // @Premission(item = "11505015")
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (post == null || post.getId() == null) {
             Object obj = getSessionAttribute(request, "PostWidget_edit_id");
@@ -203,7 +199,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    // @Premission(item = "11505015")
     public String edit_save(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.updatePost(post);
         return "redirect:/admin/post/list";

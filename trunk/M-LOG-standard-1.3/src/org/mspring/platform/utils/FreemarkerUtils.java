@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
+import org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer;
+import org.mspring.platform.core.ContextManager;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -32,12 +32,13 @@ public class FreemarkerUtils {
      * @param name
      * @return
      */
-    public Template getTemplate(Configuration cfg, String name) {
+    public static Template getTemplate(Configuration cfg, String name) {
         Template template = null;
         try {
             template = cfg.getTemplate(name, "UTF-8");
         } catch (IOException e) {
             log.warn("get template error,name:" + name + "." + e.getMessage());
+            e.printStackTrace();
         }
         return template;
     }
@@ -82,6 +83,12 @@ public class FreemarkerUtils {
         return result.toString();
     }
 
+    public static String render(String template, Object Model) {
+        Configuration configuration = getConfiguration();
+        Template temp = getTemplate(configuration, template);
+        return render(temp, Model);
+    }
+
     public static boolean buildPage(Configuration cfg, String name, Object model, String fileFullName) {
         Writer result;
         try {
@@ -95,20 +102,7 @@ public class FreemarkerUtils {
         return true;
     }
 
-    public static Configuration createConfiguration(String encoding, String... templateLoaderPaths) {
-        FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactory();
-        factory.setTemplateLoaderPaths(templateLoaderPaths);
-        factory.setDefaultEncoding(encoding);
-        Configuration cfg = null;
-        try {
-            cfg = factory.createConfiguration();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TemplateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return cfg;
+    public static Configuration getConfiguration() {
+        return ContextManager.getApplicationContext().getBean(ExtendsFreeMarkerConfigurer.class).getConfiguration();
     }
 }

@@ -11,27 +11,34 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
+import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Gao Youbo
- * @since 2012-7-23
+ * @since 2012-7-18
  * @Description
  * @TODO
  */
 @Service
 @Transactional
 public class PostServiceImpl extends AbstractServiceSupport implements PostService {
+
+    @Autowired
+    private CatalogService catalogService;
 
     /*
      * (non-Javadoc)
@@ -141,6 +148,44 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         return super.findPage(queryString, page, queryParams);
     }
 
+    @Override
+    public Page<Post> findPostByTag(Page<Post> page, Long tag) {
+        // TODO Auto-generated method stub
+        if (page == null) {
+            page = new Page<Post>();
+        }
+        if (page.getSort() == null) {
+            page.setSort(new Sort("postTag.PK.post.id", Sort.DESC));
+        }
+        if (tag != null) {
+            findPost(page, "select postTag.PK.post from PostTag postTag where postTag.PK.tag.id = ? and postTag.PK.post.status = ?", new Object[] { tag, Post.Status.PUBLISH });
+        }
+        return page;
+    }
+
+    @Override
+    public Page<Post> findPostByCatalog(Page<Post> page, Long catalog) {
+        // TODO Auto-generated method stub
+        if (page == null) {
+            page = new Page<Post>();
+        }
+        if (page.getSort() == null) {
+            page.setSort(new Sort("postCatalog.PK.post.id", Sort.DESC));
+        }
+        if (catalog != null) {
+            List<Catalog> catalogs = catalogService.findAllChildCatalogs(catalog);
+            StringBuffer in = new StringBuffer();
+            for (int i = 0; i < catalogs.size(); i++) {
+                in.append(catalogs.get(i).getId());
+                if (i != (catalogs.size() - 1)) {
+                    in.append(",");
+                }
+            }
+            findPost(page, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.id in (" + in + ") and postCatalog.PK.post.status = ?", Post.Status.PUBLISH);
+        }
+        return page;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -202,6 +247,33 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         });
     }
 
+    @Override
+    public List<Post> getRecentCatalogPost(final Long catalog, final int nums) {
+        // TODO Auto-generated method stub
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<Post>>() {
+
+            @Override
+            public List<Post> doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                if (catalog != null) {
+                    List<Catalog> catalogs = catalogService.findAllChildCatalogs(catalog);
+                    StringBuffer in = new StringBuffer();
+                    for (int i = 0; i < catalogs.size(); i++) {
+                        in.append(catalogs.get(i).getId());
+                        if (i != (catalogs.size() - 1)) {
+                            in.append(",");
+                        }
+                    }
+                    Query query = session.createQuery("select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.id in (" + in + ") and postCatalog.PK.post.status = ? order by postCatalog.PK.post.createTime desc");
+                    query.setParameter(0, Post.Status.PUBLISH);
+                    query.setMaxResults(nums);
+                    return query.list();
+                }
+                return null;
+            }
+        });
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -222,89 +294,32 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             }
         });
     }
-
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see
-    // * org.mspring.mlog.service.PostService#getPostByTitle(java.lang.String)
-    // */
-    // @Override
-    // public Post getPostByTitle(String title) {
-    // // TODO Auto-generated method stub
-    // String queryString = "select post from Post post where post.title = ?";
-    // return (Post) findUnique(queryString, title);
-    // }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.PostService#getPostByUrl(java.lang.String)
-     */
+    
     @Override
-    public Post getPostByUrl(String url) {
+    public List<Post> getMostViewCatalogPost(final Long catalog, final int nums) {
         // TODO Auto-generated method stub
-        String queryString = "select post from Post post where post.url = ?";
-        return (Post) findUnique(queryString, url);
-    }
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<Post>>() {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.PostService#titleExists(java.lang.String ,
-     * java.lang.Long)
-     */
-    @Override
-    public boolean titleExists(String title, Long postId) {
-        // TODO Auto-generated method stub
-        int count = 0;
-        if (postId == null) {
-            String queryString = "select count(*) from Post post where post.title = ?";
-            count = count(queryString, title);
-        } else {
-            String queryString = "select count(*) from Post post where post.title = ? and post.id <> ?";
-            count = count(queryString, new Object[] { title, postId });
-        }
-        if (count > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.PostService#urlExists(java.lang.String)
-     */
-    @Override
-    public boolean urlExists(String url) {
-        // TODO Auto-generated method stub
-        return urlExists(url, null);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.mspring.mlog.service.PostService#urlExists(java.lang.String,
-     * java.lang.Long)
-     */
-    @Override
-    public boolean urlExists(String url, Long postId) {
-        // TODO Auto-generated method stub
-        int count = 0;
-        if (postId == null) {
-            String queryString = "select count(*) from Post post where post.url = ?";
-            count = count(queryString, url);
-        } else {
-            String queryString = "select count(*) from Post post where post.url = ? and post.id <> ?";
-            count = count(queryString, new Object[] { url, postId });
-        }
-        if (count > 0) {
-            return true;
-        } else {
-            return false;
-        }
+            @Override
+            public List<Post> doInHibernate(Session session) throws HibernateException, SQLException {
+                // TODO Auto-generated method stub
+                if (catalog != null) {
+                    List<Catalog> catalogs = catalogService.findAllChildCatalogs(catalog);
+                    StringBuffer in = new StringBuffer();
+                    for (int i = 0; i < catalogs.size(); i++) {
+                        in.append(catalogs.get(i).getId());
+                        if (i != (catalogs.size() - 1)) {
+                            in.append(",");
+                        }
+                    }
+                    Query query = session.createQuery("select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.id in (" + in + ") and postCatalog.PK.post.status = ? order by postCatalog.PK.post.viewCount desc");
+                    query.setParameter(0, Post.Status.PUBLISH);
+                    query.setMaxResults(nums);
+                    return query.list();
+                }
+                return null;
+            }
+        });
     }
 
     /*
@@ -454,79 +469,5 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         return false;
     }
-
-    // /**
-    // * 获取以ID为标识的文章缓存KEY
-    // *
-    // * @param postId
-    // * @return
-    // */
-    // private final String getPostCacheIdKey(Long postId) {
-    // return "POSTID:" + postId;
-    // }
-    //
-    // /**
-    // * 获取以URL为标识的文章缓存KEY
-    // *
-    // * @param url
-    // * @return
-    // */
-    // private final String getPostCacheUrlKey(String url) {
-    // return "POSTURL:" + url;
-    // }
-    //
-    // /**
-    // * 根据ID获取缓存的文章
-    // *
-    // * @return
-    // */
-    // private final Post getPostCacheById(Long postId) {
-    // if (postId == null) return null;
-    // Object obj = CacheUtils.getObjectValue(cacheManager,
-    // Keys.DEFAULT_CACHE_NAME, getPostCacheIdKey(postId));
-    // if (obj != null && obj instanceof Post) return (Post) obj;
-    // return null;
-    // }
-    //
-    // /**
-    // * 根据URL获取缓存的文章
-    // *
-    // * @return
-    // */
-    // public final Post getPostCacheByUrl(String url) {
-    // if (StringUtils.isBlank(url)) return null;
-    // Object obj = CacheUtils.getObjectValue(cacheManager,
-    // Keys.DEFAULT_CACHE_NAME, getPostCacheUrlKey(url));
-    // if (obj != null && obj instanceof Post) return (Post) obj;
-    // return null;
-    // }
-    //
-    // /**
-    // * 缓存文章
-    // *
-    // * @param post
-    // */
-    // private final void setPostCache(Post post) {
-    // if (post != null) {
-    // CacheUtils.updateValue(cacheManager, Keys.DEFAULT_CACHE_NAME,
-    // getPostCacheIdKey(post.getId()), post);
-    // CacheUtils.updateValue(cacheManager, Keys.DEFAULT_CACHE_NAME,
-    // getPostCacheUrlKey(post.getUrl()), post);
-    // }
-    // }
-    //
-    // /**
-    // * 清空PostCache
-    // *
-    // * @param post
-    // */
-    // private final void cleanPostCache(Post post) {
-    // if (post != null) {
-    // CacheUtils.invalidateValue(cacheManager, Keys.DEFAULT_CACHE_NAME,
-    // getPostCacheIdKey(post.getId()));
-    // CacheUtils.invalidateValue(cacheManager, Keys.DEFAULT_CACHE_NAME,
-    // getPostCacheUrlKey(post.getUrl()));
-    // }
-    // }
 
 }

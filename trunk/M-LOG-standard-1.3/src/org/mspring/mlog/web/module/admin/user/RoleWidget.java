@@ -46,7 +46,6 @@ public class RoleWidget extends AbstractAdminWidget {
     private UserDetailServiceImpl userDetailServiceImpl;
 
     @RequestMapping("/list")
-    // @Premission(item = "310005")
     public String list(@ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (rolePage == null) {
             rolePage = new Page<Role>();
@@ -59,7 +58,6 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
-    // @Premission(item = "310005")
     public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "删除失败，请选择要删除的角色");
@@ -73,13 +71,11 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    // @Premission(item = "310010")
     public String create(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/role/createRole";
     }
 
     @RequestMapping("/create/save")
-    // @Premission(item = "310010")
     public String create_save(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         role = roleService.createRole(role);
         // roleResourceService.createRoleResource(role.getId(), new Long(1));
@@ -87,7 +83,6 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    // @Premission(item = "310015")
     public String edit(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "RoleWidget_edit_id");
@@ -109,14 +104,12 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
-    // @Premission(item = "310015")
     public String edit_save(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         roleService.updateRole(role);
         return "redirect:/admin/role/edit?id=" + role.getId();
     }
 
     @RequestMapping("/authorize")
-    // @Premission(item = "310020")
     public String authorize(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             Object obj = getSessionAttribute(request, "RoleWidget_authorize_id");
@@ -138,7 +131,6 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/authorize/save")
-    // @Premission(item = "310020")
     public String saveAuthorize(@RequestParam(required = false) Long id, @RequestParam(required = false) String checkedItems, @RequestParam(required = false) String notCheckedItems, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请先选择要修改的角色");
