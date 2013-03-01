@@ -191,6 +191,9 @@ public class CatalogServiceImpl extends AbstractServiceSupport implements Catalo
     @Override
     public List<Catalog> findChildCatalogs(Long parent) {
         // TODO Auto-generated method stub
+        if (parent == null || parent.equals(new Long(0))) {
+            return find("select catalog from Catalog catalog where catalog.parent.id is null");
+        }
         return find("select catalog from Catalog catalog where catalog.parent.id = ?", parent);
     }
 

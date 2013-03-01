@@ -31,22 +31,8 @@ import freemarker.template.TemplateModelException;
  * @Description
  * @TODO
  */
+@SuppressWarnings("rawtypes")
 public class WidgetDirectiveModel extends AbstractDirectiveModel {
-
-    public static final String KEY = "widget";
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel#getKey()
-     */
-    @Override
-    public String getKey() {
-        // TODO Auto-generated method stub
-        return KEY;
-    }
-
     /*
      * (non-Javadoc)
      * 

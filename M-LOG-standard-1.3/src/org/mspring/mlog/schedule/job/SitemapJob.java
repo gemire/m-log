@@ -18,8 +18,8 @@ import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.mlog.utils.WebUtils;
-import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Service;
 
@@ -53,10 +53,10 @@ public class SitemapJob extends BaseJob {
             WebSitemapGenerator generator = WebSitemapGenerator.builder(baseUrl, baseDir).fileNamePrefix("sitemap").build();
             GoogleCodeSitemapGenerator googleGenerator = GoogleCodeSitemapGenerator.builder(baseUrl, baseDir).fileNamePrefix("sitemap_google").build();
             GoogleMobileSitemapGenerator googleMobileGenerator = GoogleMobileSitemapGenerator.builder(baseUrl, baseDir).fileNamePrefix("sitemap_google_mobile").build();
-            
+
             List<Post> posts = postService.findAll();
             for (Post post : posts) {
-                String loc = baseUrl + PostRewriteRule.getPostUrl(post);
+                String loc = baseUrl + PostUrlUtils.getPostUrl(post);
                 double priority = 0.9;
                 if (post.getIsTop()) {
                     priority = 1.0;

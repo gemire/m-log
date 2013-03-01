@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+body, table, input, textarea, select {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333333;
+}
+
+.widget {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.widget .title {
+    display: block;
+    background: #eee;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+    overflow: hidden;
+}
+.widget .summary {
+    font-size: 9pt;
+    padding: 5px;
+    color: #666;
+}
+
+.widget .content {
+	padding:5px;
+}

@@ -135,6 +135,9 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("8", "工具", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("805005", "金山快盘", "805", "/admin/api/kuaipan/setting", TreeItem.Type.TAB, true));
+        
+        items.add(new TreeItem("810", "分类搬家", "8", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("810005", "分类搬家", "810", "/admin/tools/movecatalog", TreeItem.Type.TAB, true));
 
         items.add(new TreeItem("9", "关于", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("905", "关于", "9", "", TreeItem.Type.TREE_ITEM, true));

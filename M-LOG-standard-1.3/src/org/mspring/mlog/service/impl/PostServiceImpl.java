@@ -11,6 +11,7 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
@@ -294,7 +295,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             }
         });
     }
-    
+
     @Override
     public List<Post> getMostViewCatalogPost(final Long catalog, final int nums) {
         // TODO Auto-generated method stub
@@ -468,6 +469,36 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void movePostCatalog(Long fromCatalog, Long toCatalog) {
+        // TODO Auto-generated method stub
+        Session session = getSession();
+        try {
+//            //查出已经存在的主键,防止主键冲突
+            Query query1 = session.createQuery("select pc1.PK.post.id from PostCatalog pc1 where pc1.PK.catalog.id = ?");
+            query1.setParameter(0, toCatalog);
+            List list = query1.list();
+            String ids = "";
+            for (int i = 0; i < list.size(); i++) {
+                ids += list.get(i).toString();
+                if (i < list.size() - 1) {
+                    ids += ",";
+                }
+            }
+            
+            Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ? and pc.PK.post.id not in (" + ids + ")");
+            
+            //Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ?"); //这种方式会照成主键冲突
+            //Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ? and pc.PK.post.id not in (select pc1.PK.post.id from PostCatalog pc1 where pc1.PK.catalog.id = ?)"); //mysql不支持这样的sql,报错:You can't specify target table 'table_name' for update in FROM clause
+            query.setParameter(0, toCatalog);
+            query.setParameter(1, fromCatalog);
+            query.executeUpdate();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
     }
 
 }

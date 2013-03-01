@@ -216,8 +216,8 @@ public abstract class AbstractSQLDirectiveModel extends AbstractDirectiveModel {
      * @param params
      * @return
      */
-    protected String getCacheKey(String directiveModelKey, Map params) {
-        String key = directiveModelKey;
+    protected String getCacheKey(Map params) {
+        String key = "";
         Set keySet = SetUtils.orderedSet(params.keySet());
         Iterator it = keySet.iterator();
         while (it.hasNext()) {

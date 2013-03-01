@@ -6,9 +6,9 @@ package org.mspring.mlog.web.module.admin.system;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
-import org.mspring.mlog.web.rulrewrite.PostRewriteRule;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PermaLinkWidget extends AbstractAdminWidget {
     @RequestMapping("/config")
     public String config(HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("rules", PostRewriteRule.Rule.getRuleMap());
+        model.addAttribute("rules", PostUrlUtils.Rule.getRuleMap());
         model.addAttribute("permalink", optionService.getOption("permalink"));
         return "/admin/system/permalink/config";
     }
