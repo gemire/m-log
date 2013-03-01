@@ -12,5 +12,4 @@ import freemarker.template.TemplateDirectiveModel;
  * @TODO
  */
 public abstract class AbstractDirectiveModel implements TemplateDirectiveModel {
-    public abstract String getKey();
 }

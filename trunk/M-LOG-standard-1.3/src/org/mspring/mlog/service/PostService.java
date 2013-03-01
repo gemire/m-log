@@ -215,4 +215,11 @@ public interface PostService {
      * @return
      */
     boolean hasPermisstion(Long postId, String password);
+    
+    /**
+     * 移动文章分类
+     * @param fromCatalog
+     * @param toCatalog
+     */
+    void movePostCatalog(Long fromCatalog, Long toCatalog);
 }

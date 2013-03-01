@@ -61,7 +61,7 @@
 						<td class="${tdClass}">${item.author}</td>
 						<td class="${tdClass}">${item.email!""}</td>
 						<td class="${tdClass}">${item.url!""}</td>
-						<td class="${tdClass}"><a target="_blank" href="<@post_url id=item.post.id />">${item.post.title}</a></td>
+						<td class="${tdClass}"><a target="_blank" href="<@postUrl id=item.post.id />">${item.post.title}</a></td>
 						<td class="${tdClass}">
 							${item.status}
 						</td>

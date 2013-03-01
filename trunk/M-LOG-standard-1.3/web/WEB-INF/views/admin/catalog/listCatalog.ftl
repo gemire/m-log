@@ -59,7 +59,7 @@
 				<#assign deep = deep + "―">
 				</#list>
 				<tr>
-					<td class="${tdClass}"><input type="checkbox" name="deleteIds" value="${item.id}" /></td>
+					<td class="${tdClass}"><input type="checkbox" name="deleteIds" value="${item.id}" />&nbsp;&nbsp;${item.id}</td>
 					<td class="${tdClass}">${deep}${item.name}</td>
 					<td class="${tdClass}">
 						<select onchange="setParent('${item.id}', this.value);">

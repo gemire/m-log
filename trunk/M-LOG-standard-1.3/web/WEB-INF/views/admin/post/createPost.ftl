@@ -13,21 +13,73 @@
 				model : "simple",
 				id : "summary"
 			});
-			
-			$("#catalogs_select").multiselect({
-				header:false,
-				selectedList: 4,
-				click: function(event, ui){
-					var values = $("#catalogs").val();
-					if(ui.checked){
-						values += ui.value + ',';
-					}
-					else{
-						values = values.replace(ui.value + ',', '');
-					}
-					$("#catalogs").val(values);
+		});
+	</script>
+	<script type="text/javascript">
+		var setting = {
+			check: {
+				enable: true,
+				chkboxType: {"Y":"", "N":""}
+			},
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
 				}
-			});
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onCheck: onCheck
+			}
+		};
+		var zNodes =[
+			<#if (catalogs?exists && catalogs?size > 0)>
+				<#list catalogs as catalog>
+					{id:${catalog.id}, pId:<#if catalog.parent?exists>${catalog.parent.id}<#else>0</#if>, name:"${catalog.name}"}
+					<#if catalog_has_next>,</#if>
+				</#list>
+			</#if>
+		];
+		function beforeClick(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("catalogComboTree");
+			zTree.checkNode(treeNode, !treeNode.checked, null, true);
+			return false;
+		}
+		function onCheck(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("catalogComboTree"),
+			nodes = zTree.getCheckedNodes(true),
+			text = "",
+			value = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				text += nodes[i].name + ",";
+				value += nodes[i].id + ",";
+			}
+			if (text.length > 0 ) text = text.substring(0, text.length-1);
+			$("#catalogSel").attr("value", text);
+			
+			if (value.length > 0 ) value = value.substring(0, value.length-1);
+			$("#catalogs").attr("value", value);
+		}
+		function showMenu() {
+			var catalogSelObj = $("#catalogSel");
+			var catalogSelOffset = $("#catalogSel").offset();
+			$("#menuContent").css({left:catalogSelOffset.left + "px", top:catalogSelOffset.top + catalogSelObj.outerHeight() + "px"}).slideDown("fast");
+
+			$("body").bind("mousedown", onBodyDown);
+		}
+		function hideMenu() {
+			$("#menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown);
+		}
+		function onBodyDown(event) {
+			if (!(event.target.id == "menuBtn" || event.target.id == "catalogSel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+				hideMenu();
+			}
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#catalogComboTree"), setting, zNodes);
 		});
 	</script>
 	<div id="error" class="message error" style="display:none;"></div>
@@ -42,14 +94,12 @@
 				</td>
 				<td class="fieldlabel" style="width:60px;">分类</td>
 				<td>
-					<select id="catalogs_select" multiple="multiple">
-						<#if (catalogs?exists && catalogs?size > 0)>
-							<#list catalogs as catalog>
-								<option value="${catalog.id}">${catalog.name}</option>
-							</#list>
-						</#if>
-					</select>
-					<input type="hidden" id="catalogs" name="catalogs" />
+					<input type="text" id="catalogSel" onclick="showMenu();" class="textinput" style="width:98%;"/>
+					<input type="hidden" name="catalogs" id="catalogs"/>
+					<div id="menuContent" class="menuContent" style="display:none; position: absolute; overflow:auto; background:#fff; border:1px solid #cccccc;z-index: 100;">
+						<div style="display:block;float:right; padding:2px;"><input type="button" class="btn" onclick="hideMenu();" value="关闭" /></div>
+						<ul id="catalogComboTree" class="ztree" style="margin-top:0; width:240px; height: 300px;"></ul>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -57,7 +107,6 @@
 				<td>
 					<@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' />
 				</td>
-				
 				<td class="fieldlabel">链接</td>
 				<td>
 					
@@ -79,12 +128,6 @@
 						</tr>
 					</table>
 				</td>
-				<#--
-				<td class="fieldlabel">允许评论</td>
-				<td style="font-size:12px;">
-					<@spring.formRadioButtons path="post.commentStatus" options=commentStatus defaultValue="open" separator="&nbsp;" />
-				</td>
-				-->
 			</tr>
 			<tr>
 				<td class="fieldlabel">内容</td>
@@ -107,6 +150,7 @@
 		</table>
 	</form>
 	<script type="text/javascript">
+		turnHighLight(105010);
 		//发布
 		function publish(){
 			$("#status").val("publish");
