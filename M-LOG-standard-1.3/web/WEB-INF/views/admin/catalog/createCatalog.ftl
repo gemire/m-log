@@ -17,12 +17,14 @@
 				<@spring.formInput path="catalog.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, catalogNameExists:true, messages:{required:"请输入分类名称", catalogNameExists:"分类名字已经存在"}}\'' />
 			</td>
 		</tr>
+		<#--
 		<tr>
 			<td class="fieldlabel" style="width:60px;">编码</td>
 			<td>
 				<@spring.formInput path="catalog.code" attributes='class="textinput" style="width:98%;"' />
 			</td>
 		</tr>
+		-->
 		<tr>
 			<td class="fieldlabel" style="width:60px;">创建时间</td>
 			<td>
