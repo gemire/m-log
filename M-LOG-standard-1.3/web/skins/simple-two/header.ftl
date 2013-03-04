@@ -40,7 +40,7 @@
 						<a class="brand" href="${blogurl}">${blogname}</a>
 						<div class="nav-collapse">
 							<ul class="nav">
-								<#-- <@m.widget path="/widget/menus" /> -->
+								<@m.render_menu template="/widget/menus.ftl" />
 							</ul>
 							<form class="navbar-search pull-right" action="${base}/search" method="get">
 					            <input type="text" class="search-query span2" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">

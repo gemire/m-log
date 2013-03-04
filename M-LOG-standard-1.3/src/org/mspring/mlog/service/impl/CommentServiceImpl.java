@@ -223,9 +223,12 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
             Map<Object, Object> model = new HashMap<Object, Object>();
             String blogurl = optionService.getOption("blogurl");
             String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
+            
+            Post post = postService.getPostById(comment.getPost().getId());
+            
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
-            
+            model.put("post", post);
             
             
             String content = FreemarkerUtils.render(configuration, "mail/comment_reply_notice.ftl", model);
@@ -248,8 +251,13 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         if (comment != null) {
             String blogurl = optionService.getOption("blogurl");
             String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
+            
+            Post post = postService.getPostById(comment.getPost().getId());
+            comment.setPost(post);
+            
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
+            model.put("post", post);
             
             String content = FreemarkerUtils.render(configuration, "mail/new_comment_notice.ftl", model);
             String to = comment.getPost().getAuthor().getEmail();

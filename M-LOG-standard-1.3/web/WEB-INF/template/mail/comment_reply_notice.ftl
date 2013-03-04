@@ -30,5 +30,5 @@ blockquote p {
 	<blockquote>${comment.replyCommentContent}</blockquote>
 	被用户<a href="${comment.url!"#"}" target="_blank">${comment.author!""}</a>回复.</br> 
 	回复内容:<p>${comment.content}<p>
-	详情请<a href="${commentUrl}" target="_blank">点击这里查看...</a>
+	详情请<a href="${commentUrl}#comment-${comment.id}" target="_blank">点击这里查看...</a>
 </dvi>

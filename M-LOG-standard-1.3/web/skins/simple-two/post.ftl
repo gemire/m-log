@@ -39,7 +39,7 @@
 							<div class="post-content">
 								${post.content}
 							</div>
-							<#--
+							
 							<div class="post-meta-bottom">
 								<div class="post-relative-div">
                                     <div  class="post-relative">
@@ -49,7 +49,7 @@
                                         <#if about_posts?exists>
                                         <ul>
                                             <#list about_posts as p>
-                                            <li><a href="<@post_url id=p.id />" target="_blank">${p.title}</a></li>
+                                            <li><a href="<@postUrl post="p" />" target="_blank">${p.title}</a></li>
                                             </#list>
                                         </ul>
                                         </#if>
@@ -61,7 +61,7 @@
                                         <#if rand_posts?exists>
                                         <ul>
                                             <#list rand_posts as p>
-                                            <li><a href="<@post_url id=p.id />" target="_blank">${p.title}</a></li>
+                                            <li><a href="<@postUrl post="p" />" target="_blank">${p.title}</a></li>
                                             </#list>
                                         </ul>
                                         </#if>
@@ -71,11 +71,10 @@
 								<div class="post-copyright">
 									如非注明，本站文章均为原创，转载请注明出处。<br/>
 									本站地址：<a href="${blogurl}" target="_blank" title="${blogname}">${blogname}</a> <a href="${blogurl}" target="_blank" title="${blogname}">${blogurl}</a><br/>
-									本文地址：<a href="<@post_url />" target="_blank" title="${post.title}"><@absolute_post_url /></a><br/>
+									本文地址：<a href="<@postUrl post="post" />" target="_blank" title="${post.title}"><@absolute_post_url /></a><br/>
 								</div>
                               
 							</div>
-							-->
 							<div class="line_dashed"></div>
 							<div class="comment">
 								
