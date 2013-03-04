@@ -159,7 +159,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             page.setSort(new Sort("postTag.PK.post.id", Sort.DESC));
         }
         if (tag != null) {
-            findPost(page, "select postTag.PK.post from PostTag postTag where postTag.PK.tag.id = ? and postTag.PK.post.status = ?", new Object[] { tag, Post.Status.PUBLISH });
+            findPost(page, "select postTag.PK.post from PostTag postTag where postTag.PK.tag.id = ? and postTag.PK.post.status = ? order by postTag.PK.post.isTop desc, postTag.PK.post.id desc", new Object[] { tag, Post.Status.PUBLISH });
         }
         return page;
     }
@@ -182,7 +182,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
                     in.append(",");
                 }
             }
-            findPost(page, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.id in (" + in + ") and postCatalog.PK.post.status = ?", Post.Status.PUBLISH);
+            findPost(page, "select postCatalog.PK.post from PostCatalog postCatalog where postCatalog.PK.catalog.id in (" + in + ") and postCatalog.PK.post.status = ? order by postCatalog.PK.post.isTop desc, postCatalog.PK.post.id desc", Post.Status.PUBLISH);
         }
         return page;
     }

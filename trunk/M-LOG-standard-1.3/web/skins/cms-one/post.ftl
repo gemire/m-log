@@ -54,6 +54,7 @@
 							${post.content}
 						</div>
 					</div>
+					<@m.render_postComment template="/widget/postComment.ftl" post=post.id cache=false />
 				</#if>
 			</div>
 			<div class="span12" style="margin:0px;">
