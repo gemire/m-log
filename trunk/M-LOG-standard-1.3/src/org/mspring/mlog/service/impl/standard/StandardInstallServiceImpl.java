@@ -63,6 +63,11 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("120025", "图片上传", "120", "/admin/photo/upload", TreeItem.Type.TAB, false));
         items.add(new TreeItem("120030", "相册设置", "120", "/admin/album/config", TreeItem.Type.TAB, false));
 
+        items.add(new TreeItem("125", "tag管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("125005", "tag列表", "125", "/admin/tag/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("125010", "增加tag", "125", "/admin/tag/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("125015", "修改tag", "125", "/admin/tag/edit", TreeItem.Type.TAB, false));
+       
         /**********************************************************************************************************/
 
         items.add(new TreeItem("2", "外观", "0", "", TreeItem.Type.TREE_FOLDER, true));
@@ -144,7 +149,8 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("905005", "关于", "905", "/admin/about", TreeItem.Type.TAB, true));
         items.add(new TreeItem("910", "联系我们", "9", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("910005", "联系我们", "910", "/admin/contact", TreeItem.Type.TAB, true));
-
+        
+       
         for (TreeItem item : items) {
             treeItemService.createItem(item);
         }
