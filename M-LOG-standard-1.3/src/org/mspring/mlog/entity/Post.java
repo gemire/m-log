@@ -39,6 +39,8 @@ import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.support.formater.stereotype.CatalogFormat;
 import org.mspring.mlog.support.formater.stereotype.TagFormat;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Gao Youbo
  * @since 2012-7-23
@@ -55,8 +57,11 @@ public class Post implements Serializable {
      */
     private static final long serialVersionUID = -425742660561620768L;
 
+    @Expose
     private Long id;
+    @Expose
     private String title;
+    
     private Set<Catalog> catalogs;
     private Set<Tag> tags;
     private String summary;

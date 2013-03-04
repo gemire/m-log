@@ -58,19 +58,29 @@ public class Comment implements Serializable {
     private String postIp;
     @Expose
     private String agent;
+    @Expose
     private Post post;
     @Expose
     private String status;
 
     // 指定该评论回复的是哪条评论
+    @Expose
     private Long replyComment;
+    
     // 回复评论的内容(引用内容)
+    @Expose
     private String replyCommentContent;
+    
     // 被评论用户
+    @Expose
     private String replyUser;
+    
     // 被评论用户Email
+    @Expose
     private String replyUserEmail;
+    
     // 被评论用户的主页
+    @Expose
     private String replyUserUrl;
 
     /**

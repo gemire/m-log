@@ -19,6 +19,7 @@ import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -220,18 +221,12 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         // TODO Auto-generated method stub
         if (comment != null && StringUtils.isNotBlank(comment.getReplyUserEmail())) {
             Map<Object, Object> model = new HashMap<Object, Object>();
-            
-            String commentUrl = optionService.getOption("blogurl");
-            if (comment.getPost() != null && StringUtils.isNotBlank(comment.getPost().getUrl())) {
-                commentUrl = commentUrl + comment.getPost().getUrl();
-            }
-            else if (comment.getPost() != null && comment.getPost().getId() != null) {
-                Post post = postService.getPostById(comment.getPost().getId());
-                comment.setPost(post);
-                commentUrl = commentUrl + post.getUrl();
-            }
+            String blogurl = optionService.getOption("blogurl");
+            String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
+            
+            
             
             String content = FreemarkerUtils.render(configuration, "mail/comment_reply_notice.ftl", model);
             String to = comment.getReplyUserEmail();
@@ -251,15 +246,8 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         // TODO Auto-generated method stub
         Map<Object, Object> model = new HashMap<Object, Object>();
         if (comment != null) {
-            String commentUrl = optionService.getOption("blogurl");
-            if (comment.getPost() != null && StringUtils.isNotBlank(comment.getPost().getUrl())) {
-                commentUrl = commentUrl + comment.getPost().getUrl();
-            }
-            else if (comment.getPost() != null && comment.getPost().getId() != null) {
-                Post post = postService.getPostById(comment.getPost().getId());
-                comment.setPost(post);
-                commentUrl = commentUrl + post.getUrl();
-            }
+            String blogurl = optionService.getOption("blogurl");
+            String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
             

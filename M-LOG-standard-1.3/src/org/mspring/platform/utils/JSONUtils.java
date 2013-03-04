@@ -62,29 +62,32 @@ public class JSONUtils {
      * @return 目标对象的 {@code JSON} 格式的字符串。
      */
     public static String toJson(Object target, Type targetType, boolean isSerializeNulls, Double version, String datePattern, boolean excludesFieldsWithoutExpose) {
-        if (target == null) return EMPTY_JSON;
+        if (target == null)
+            return EMPTY_JSON;
         GsonBuilder builder = new GsonBuilder();
-        if (isSerializeNulls) builder.serializeNulls();
-        if (version != null) builder.setVersion(version.doubleValue());
-        if (isEmpty(datePattern)) datePattern = DEFAULT_DATE_PATTERN;
+        if (isSerializeNulls)
+            builder.serializeNulls();
+        if (version != null)
+            builder.setVersion(version.doubleValue());
+        if (isEmpty(datePattern))
+            datePattern = DEFAULT_DATE_PATTERN;
         builder.setDateFormat(datePattern);
-        if (excludesFieldsWithoutExpose) builder.excludeFieldsWithoutExposeAnnotation();
+        if (excludesFieldsWithoutExpose)
+            builder.excludeFieldsWithoutExposeAnnotation();
         String result = EMPTY;
         Gson gson = builder.create();
         try {
             if (targetType != null) {
                 result = gson.toJson(target, targetType);
-            }
-            else {
+            } else {
                 result = gson.toJson(target);
             }
-        }
-        catch (Exception ex) {
-            log.warn("目标对象 " + target.getClass().getName() + " 转换 JSON 字符串时，发生异常！", ex);
+        } catch (Exception ex) {
+            log.error("目标对象 " + target.getClass().getName() + " 转换 JSON 字符串时，发生异常！", ex);
             if (target instanceof Collection || target instanceof Iterator || target instanceof Enumeration || target.getClass().isArray()) {
                 result = EMPTY_JSON_ARRAY;
-            }
-            else result = EMPTY_JSON;
+            } else
+                result = EMPTY_JSON;
         }
         return result;
     }
@@ -288,8 +291,7 @@ public class JSONUtils {
         Gson gson = builder.create();
         try {
             return gson.fromJson(json, token.getType());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(json + " 无法转换为 " + token.getRawType().getName() + " 对象!", ex);
             return null;
         }
@@ -335,8 +337,7 @@ public class JSONUtils {
         Gson gson = builder.create();
         try {
             return gson.fromJson(json, clazz);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(json + " 无法转换为 " + clazz.getName() + " 对象!", ex);
             return null;
         }
