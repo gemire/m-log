@@ -19,7 +19,7 @@
 				<div class="main-posts">
 					<#if photo?exists>
 						<div>
-							<img src="<@photo_url/>" style="max-width:${web_photo_max_width}px;max-height:${web_photo_max_height}px;" alt="${photo.description!photo.name}" />
+							<img src="${base}${photo.url}" style="max-width:${web_photo_max_width}px;max-height:${web_photo_max_height}px;" alt="${photo.description!photo.name}" />
 						</div>
 						<div class="post-interactive">
 							上传时间：${photo.createTime}<br/>
