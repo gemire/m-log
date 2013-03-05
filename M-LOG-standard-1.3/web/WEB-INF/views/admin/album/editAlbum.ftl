@@ -53,6 +53,7 @@
 	</table>
 </form>
 <script type="text/javascript">
+	turnHighLight(120015);
 	//控制相册验证码框是否可用
 	function changeAlbumType(obj){
 		if(obj.value === "verified"){
@@ -63,8 +64,6 @@
 		}
 	}
 	$(document).ready(function(){
-		
-		turnHighLight(125015);
 		
 		//斑马线
 		var tables=document.getElementsByTagName("table");

@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 		
-			turnHighLight(125020);
+			turnHighLight(120020);
 			
 			$("#albumSelect").change(function(){
 				location.href = "${base}/admin/photo/list?album.id=" + $("#albumSelect").val(); 
