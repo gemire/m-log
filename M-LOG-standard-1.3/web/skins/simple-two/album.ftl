@@ -54,10 +54,10 @@
 				</ul>
 				<#if (albumPage?exists && albumPage.result?size > 0)>
 					<div class="main-albums">
-						<@list_album>
+						<#list albumPage.result as album>
 							<div class="album-item">
 								<#if album.cover?exists>
-									<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="<@album_cover />" alt="${album.description!album.name}" /></a>
+									<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="${base}${album.cover.url}" alt="${album.description!album.name}" /></a>
 								<#else>
 									<a href="${blogurl}/album/album-${album.id}-1.html" title="${album.description!album.name}"><img class="item-image" src="${base}/images/nophoto.gif" alt="${album.description!album.name}" /></a>
 								</#if>
@@ -65,7 +65,7 @@
 									<a href="#" class="album-title">${album.name!""}</a>
 								</div>
 							</div>
-						</@list_album>
+						</#list>
 					</div>
 					<#if (albumPage.totalPages > 1)>
 						<@simple.albumPageNavi />
