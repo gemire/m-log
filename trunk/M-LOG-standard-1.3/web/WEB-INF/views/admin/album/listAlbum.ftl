@@ -49,6 +49,6 @@
 	</#if>
 </form>
 <script type="text/javascript">
-	turnHighLight(125005);
+	turnHighLight(120005);
 </script>
 <#include "../inc/footer.ftl" />

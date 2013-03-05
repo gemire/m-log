@@ -62,7 +62,7 @@
 	}
 	$(document).ready(function(){
 	
-		turnHighLight(125010);
+		turnHighLight(120010);
 		
 		//斑马线
 		var tables=document.getElementsByTagName("table");
