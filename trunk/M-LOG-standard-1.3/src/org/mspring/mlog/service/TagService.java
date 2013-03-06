@@ -6,6 +6,8 @@ package org.mspring.mlog.service;
 import java.util.List;
 
 import org.mspring.mlog.entity.Tag;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
 
 /**
  * @author Gao Youbo
@@ -45,4 +47,32 @@ public interface TagService {
      * @return
      */
     Tag getTagById(Long id);
+    
+    /**
+     * 查找tag
+     * @param page
+     * @param queryCriterion
+     * @return
+     */
+    Page<Tag> findTag(Page<Tag> page ,QueryCriterion queryCriterion);
+    
+    /**
+     * 删除tag
+     * @param idArray
+     */
+	public void deleteTag(Long... idArray);
+	
+	/**
+	 * 验证改tag是否存在
+	 * @param name
+	 * @param id
+	 * @return
+	 */
+	public boolean checkTagNameExists(String name, Long id);
+
+	/**
+	 * 修改tag
+	 * @param tag
+	 */
+	public void modifyTag(Tag tag);
 }
