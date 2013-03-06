@@ -133,3 +133,23 @@ $(document).ready(
 
 			// //////////////////////////////用户验证 end
 		});
+
+		$.validator.addMethod("tagNameExists", function(value, element,
+				params) {
+			var data = {};
+			if (params.id != undefined) {
+				data["id"] = params.id;
+			}
+			data["name"] = value;
+			var result = $.ajax({
+				url : mlog.variable.base
+						+ "/common/validate/tagNameExists",
+				async : false,
+				data : data
+			}).responseText;
+			if (result == "true") {
+				return false;
+			} else {
+				return true;
+			}
+		});
