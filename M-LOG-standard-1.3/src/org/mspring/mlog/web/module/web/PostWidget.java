@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.core.ServiceFactory;
+import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.utils.PermissionUtils;
@@ -52,6 +53,23 @@ public class PostWidget extends AbstractWebWidget {
         }
         model.addAttribute(FreemarkerVariableNames.POST, post);
         setCurrnetPage(model, PageNames.SINGLE);
+        
+        
+        //seo 信息
+        String keyword = post.getTitle();
+        String description = "";
+        if (StringUtils.isNotBlank(post.getSummary())) {
+            description = StringUtils.contentTransform(post.getSummary(), true, false, null, null);
+        }
+        else {
+            description = StringUtils.contentTransform(post.getContent(), true, true, 0, 200);
+        }
+        //去掉空格和制表符
+        description = description.replaceAll("\n|\t", "");
+        
+        
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("description", description);
         return "skin:/post";
     }
 

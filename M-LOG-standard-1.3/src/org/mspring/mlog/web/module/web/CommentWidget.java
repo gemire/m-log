@@ -15,6 +15,7 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;
+import org.mspring.platform.utils.RequestUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.servlet.renderer.JSONRenderer;
@@ -60,8 +61,8 @@ public class CommentWidget extends AbstractWebWidget {
         String content = request.getParameter("content");
         String email = request.getParameter("email");
         String url = request.getParameter("url");
-        String ip = StringUtils.getIpAddr(request);
-        String agent = StringUtils.getUserAgent(request);
+        String ip = RequestUtils.getRemoteIP(request);
+        String agent = RequestUtils.getUserAgent(request);
 
         String reply_comment_str = request.getParameter("reply_comment");
         Long reply_comment = null;

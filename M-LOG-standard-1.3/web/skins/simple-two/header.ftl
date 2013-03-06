@@ -6,9 +6,8 @@
         <link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 		<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 		<link rel="Shortcut Icon" href="${base}/images/favicon.ico">
-		<meta name="description" content="${description!""}" />
 		<meta name="keywords" content="${keyword!""}" />
-		<link rel="canonical" href="${blogurl!""}" />
+		<meta name="description" content="${description!""}" />
 
         <link href="${template_url}/style/bootstrap.min.css" rel="stylesheet">
         <link href="${template_url}/style/bootstrap-responsive.min.css" rel="stylesheet">

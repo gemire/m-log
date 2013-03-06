@@ -32,35 +32,54 @@ public class ContentTransformDirectiveModel extends AbstractDirectiveModel {
             return;
         }
 
+//        Boolean removeHtml = DirectiveUtils.getBoolean("removeHtml", params); // 是否剔除html
+//        Boolean substring = DirectiveUtils.getBoolean("substring", params); // 是否截取
+//        if (removeHtml == null) {
+//            removeHtml = false;
+//        }
+//        if (substring == null) {
+//            substring = false;
+//        }
+//        
+//
+//        if (removeHtml) {
+//            content = HTMLUtils.getHtmlText(content);
+//        }
+//        if (substring) {
+//            Integer beginIndex = DirectiveUtils.getInt("beginIndex", params);
+//            Integer endIndex = DirectiveUtils.getInt("endIndex", params);
+//
+//            if (beginIndex == null) {
+//                beginIndex = 0;
+//            }
+//            if (endIndex == null) {
+//                if (beginIndex < content.length()) {
+//                    content = StringUtils.substring(content, beginIndex) + "...";
+//                }
+//            } else {
+//                if (endIndex < content.length()) {
+//                    content = StringUtils.substring(content, beginIndex, endIndex) + "...";
+//                }
+//            }
+//        }
+        
         Boolean removeHtml = DirectiveUtils.getBoolean("removeHtml", params); // 是否剔除html
         Boolean substring = DirectiveUtils.getBoolean("substring", params); // 是否截取
+        Integer beginIndex = DirectiveUtils.getInt("beginIndex", params);
+        Integer endIndex = DirectiveUtils.getInt("endIndex", params);
+        
         if (removeHtml == null) {
             removeHtml = false;
         }
         if (substring == null) {
             substring = false;
         }
-
-        if (removeHtml) {
-            content = HTMLUtils.getHtmlText(content);
+        if (beginIndex == null) {
+            beginIndex = 0;
         }
-        if (substring) {
-            Integer beginIndex = DirectiveUtils.getInt("beginIndex", params);
-            Integer endIndex = DirectiveUtils.getInt("endIndex", params);
-
-            if (beginIndex == null) {
-                beginIndex = 0;
-            }
-            if (endIndex == null) {
-                if (beginIndex < content.length()) {
-                    content = StringUtils.substring(content, beginIndex) + "...";
-                }
-            } else {
-                if (endIndex < content.length()) {
-                    content = StringUtils.substring(content, beginIndex, endIndex) + "...";
-                }
-            }
-        }
+        
+        content = StringUtils.contentTransform(content, removeHtml, substring, beginIndex, endIndex);
+        
         env.getOut().append(content);
     }
 
