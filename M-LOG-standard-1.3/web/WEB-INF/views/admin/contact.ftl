@@ -28,6 +28,29 @@
 			<td colspan="2"><a href="https://me.alipay.com/gaoyoubo" target="_blank"><img src="${base}/images/alipay-me.png"></a></td>
 		</tr>
 	</table>
+	<table class="infotable">
+		<tr>
+			<td colspan="2" class="partition">团队成员</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">M-LOG交流群:</td>
+			<td>100231009</td>
+		</tr>
+		<tr>
+			<td>高尤波:</td>
+			<td>E-Mail: <a href="mailto:gaoyoubo@mspring.com">gaoyoubo@mspring.com</a> | QQ: 330721072</td>
+		</tr>
+		<tr>
+			<td>胡洪瑜:</td>
+			<td>E-Mail: <a href="mailto:huhongyu@mspring.org">huhongyu@mspring.org</a> | QQ：429527044</td>
+		</tr>
+		<tr>
+			<td>加入我们:</td>
+			<td style="color:red;">
+				只要有兴趣，就可加入为M-LOG源码做贡献！只要为源码做过贡献的同学，名字就可以出现在这里。 O(∩_∩)O
+			</td>
+		</tr>
+	</table>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
