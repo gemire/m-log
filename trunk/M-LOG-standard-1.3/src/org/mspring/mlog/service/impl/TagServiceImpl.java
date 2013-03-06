@@ -85,14 +85,14 @@ public class TagServiceImpl extends AbstractServiceSupport implements TagService
 	}
 
 	public boolean checkTagNameExists(String name, Long id) {
-		System.out.println(name+""+id);
+		//System.out.println(name+""+id);
 		 int count = 0;
 	        if (id == null) {
 	            count = count("select count(*) from Tag tag where tag.name = ?", name);
 	        } else {
 	            count = count("select count(*) from Tag tag where tag.name = ? and tag.id <> ?", new Object[] { name, id });
 	        }
-	        System.out.println(count);
+	      //  System.out.println(count);
 	     return count > 0;
 	}
 
