@@ -27,99 +27,109 @@ import org.mspring.platform.utils.StringUtils;
 @Table(name = "tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tag implements Serializable {
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = -8479918430075598009L;
-    private Long id;
-    private String name;
-    private Date createTime;
-    private Long count;
+	private static final long serialVersionUID = -8479918430075598009L;
+	private Long id;
+	private String name;
+	private Date createTime;
+	private Long count;
 
-    /**
-     * @return the id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false, length = 30)
-    public Long getId() {
-        return id;
-    }
+	public Tag() {
+		super();
+	}
 
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Tag(Long id) {
+		super();
+		this.id = id;
+	}
 
-    /**
-     * @return the name
-     */
-    @Column(name = "name", unique = true, nullable = false, length = 300)
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return the id
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false, length = 30)
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * @param name
-     *            the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @return the createTime
-     */
-    @Column(name = "create_time", nullable = false, length = 30)
-    public Date getCreateTime() {
-        return createTime;
-    }
+	/**
+	 * @return the name
+	 */
+	@Column(name = "name", unique = true, nullable = false, length = 300)
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @param createTime
-     *            the createTime to set
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @return the count
-     */
-    @Column(name = "count", length = 30)
-    public Long getCount() {
-        return count;
-    }
+	/**
+	 * @return the createTime
+	 */
+	@Column(name = "create_time", nullable = false, length = 30)
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    /**
-     * @param count
-     *            the count to set
-     */
-    public void setCount(Long count) {
-        this.count = count;
-    }
+	/**
+	 * @param createTime
+	 *            the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        // TODO Auto-generated method stub
-        if (obj != null && obj instanceof Tag) {
-            Tag t = (Tag) obj;
-            if (StringUtils.isNotBlank(t.getName()) && t.getName().equals(this.getName())) {
-                return true;
-            }
-            if (t.getId() != null && t.getId().equals(this.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
+	/**
+	 * @return the count
+	 */
+	@Column(name = "count", length = 30)
+	public Long getCount() {
+		return count;
+	}
+
+	/**
+	 * @param count
+	 *            the count to set
+	 */
+	public void setCount(Long count) {
+		this.count = count;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj != null && obj instanceof Tag) {
+			Tag t = (Tag) obj;
+			if (StringUtils.isNotBlank(t.getName())
+					&& t.getName().equals(this.getName())) {
+				return true;
+			}
+			if (t.getId() != null && t.getId().equals(this.getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
