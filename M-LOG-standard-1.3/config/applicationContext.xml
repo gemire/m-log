@@ -23,7 +23,7 @@
 	</bean>
 	
 	<context:annotation-config />
-	<context:component-scan base-package="org.mspring.mlog" />
+	<context:component-scan base-package="org.mspring" />
 	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<task:executor id="taskExecutor" pool-size="5" queue-capacity="25"/>

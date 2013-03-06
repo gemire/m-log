@@ -4,8 +4,8 @@
 		<#list comments as comment>
 			<li>
 				<div id="comment-${comment.id}" class="comment-body">
+					<img class="avatar" alt="${comment.author}" src="<@gravatar email=comment.email />"/>
 					<div class="comment-author">
-						<img class="avatar" alt="${comment.author}" src="<@gravatar email=comment.email />"/>
 						<a href="${comment.url!""}" id="comment-author-${comment.id}" rel="external nofollow" target="_blank">${comment.author}</a>
 						<span class="says">说道：</span>
 					</div>
@@ -14,11 +14,12 @@
 						<a class="comment-reply-link" href="javascript:quote(${comment.id});">回复</a>
 					</div>
 					<div class="comment-content">
-						<#if comment.replyCommentContent?has_content>
+						<#if comment.parent?exists && comment.parent.id != 0>
+							<#assign parent = comment.parentEager />
 							<div class="quotewap">
-								<div class="quotetop">@${comment.replyUser!"蒙面大侠"}</div>
+								<div class="quotetop">@${parent.author!"蒙面大侠"}</div>
 								<div class="quotemain">
-									${comment.replyCommentContent!""}
+									${parent.content!""}
 								</div>
 							</div>
 						</#if>
@@ -45,7 +46,7 @@
 			<textarea name="content" id="comment_content"></textarea>
 		</div>
 		<div class="item">
-			<input type="submit" class="btn btn-primary" value="发表评论" />
+			<input type="button" class="btn btn-primary" value="发表评论" id="btnPostComment" onclick="doSubmit()" />
 		</div>
 	</form>
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
@@ -69,6 +70,16 @@
 			$("#reply_comment").val("");
 		}
 		
+		function doSubmit(){
+			lockSubmit();
+			$("#comment-form").submit();
+		}
+		
+		function lockSubmit(){
+			$("#btnPostComment").val('正在提交...');
+			$("#btnPostComment").attr('disabled', 'disabled');
+			$("#btnPostComment").addClass('disabled');
+		}
 	</script>
 <#else>
 	<h2>评论已关闭</h2>

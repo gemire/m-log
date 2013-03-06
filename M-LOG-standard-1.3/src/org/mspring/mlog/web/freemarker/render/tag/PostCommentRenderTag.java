@@ -40,9 +40,8 @@ public class PostCommentRenderTag extends CacheRenderTag {
             return "";
         }
         List<Comment> comments = ServiceFactory.getCommentService().findCommentsByPost(post);
-
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-
+        
         model.put("comments", comments);
         model.put("postId", post);
         model.put("author", CookieUtils.getCookie(request, Keys.COMMENT_AUTHOR_COOKIE));

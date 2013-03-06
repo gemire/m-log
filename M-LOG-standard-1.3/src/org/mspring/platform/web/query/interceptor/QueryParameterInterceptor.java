@@ -59,34 +59,39 @@ public class QueryParameterInterceptor extends HandlerInterceptorAdapter {
         Map queryParams = new HashMap();
 
         String encodedQueryParams = RequestUtils.getRequestParameter(requestParams, "encodedQueryParams");
-        if (log.isDebugEnabled()) log.debug("encodedQueryParams=" + encodedQueryParams);
+        if (log.isDebugEnabled())
+            log.debug("encodedQueryParams=" + encodedQueryParams);
         Iterator it;
         if (StringUtils.isNotBlank(encodedQueryParams)) {
-            if (log.isDebugEnabled()) log.debug("Set QueryParameterAware's queryParams with encodedQueryParams");
+            if (log.isDebugEnabled())
+                log.debug("Set QueryParameterAware's queryParams with encodedQueryParams");
 
             String[] nameValuePairs = StringUtils.split(encodedQueryParams, '&');
             if (nameValuePairs != null) {
                 for (int i = 0; i < nameValuePairs.length; i++) {
                     addParam(queryParams, nameValuePairs[i]);
-                    if (!log.isDebugEnabled()) continue;
+                    if (!log.isDebugEnabled())
+                        continue;
                     log.debug("Set queryParams with encodedQueryParams:[" + nameValuePairs[i] + "]");
                 }
             }
-        }
-        else {
-            if (log.isDebugEnabled()) log.debug("Set QueryParameterAware's queryParams with ServletRequest's parameters");
+        } else {
+            if (log.isDebugEnabled())
+                log.debug("Set QueryParameterAware's queryParams with ServletRequest's parameters");
 
             for (it = requestParams.keySet().iterator(); it.hasNext();) {
                 String key = (String) it.next();
                 String value = RequestUtils.getRequestParameter(requestParams, key);
                 queryParams.put(key, value);
-                if (!log.isDebugEnabled()) continue;
+                if (!log.isDebugEnabled())
+                    continue;
                 log.debug("Set queryParams with HttpRequest parameter:[" + key + "=" + value + "]");
             }
         }
 
         action.setQueryParameters(queryParams);
-        if (log.isDebugEnabled()) log.debug("Set QueryParameterAware's queryParams with value: " + queryParams);
+        if (log.isDebugEnabled())
+            log.debug("Set QueryParameterAware's queryParams with value: " + queryParams);
 
         QueryContext queryContext = new QueryContext(action, requestParams);
         QueryFilter queryFilter = new SimpleQueryFilter();
@@ -97,12 +102,14 @@ public class QueryParameterInterceptor extends HandlerInterceptorAdapter {
             }
             // return "queryrequired";
         }
-        if (log.isDebugEnabled()) log.debug("End interceptor QueryParameterAware for " + action.getClass());
+        if (log.isDebugEnabled())
+            log.debug("End interceptor QueryParameterAware for " + action.getClass());
     }
 
     private void addParam(Map queryParams, String nameValuePair) {
         String[] nameValue = StringUtils.split(nameValuePair, '=');
-        if ((nameValue != null) && (nameValue.length == 2) && (!nameValue.equals("hasQueried"))) queryParams.put(nameValue[0], nameValue[1]);
+        if ((nameValue != null) && (nameValue.length == 2) && (!nameValue.equals("hasQueried")))
+            queryParams.put(nameValue[0], nameValue[1]);
     }
 
 }

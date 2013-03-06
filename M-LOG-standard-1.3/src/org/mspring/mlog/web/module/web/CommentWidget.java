@@ -13,7 +13,6 @@ import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PostUrlUtils;
-import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -116,14 +115,7 @@ public class CommentWidget extends AbstractWebWidget {
         comment.setCreateTime(new Date());
         comment.setPost(new Post(new Long(postId.trim())));
         if (reply_comment != null) {
-            comment.setReplyComment(reply_comment);
-            Comment replyComment = commentService.getCommentById(reply_comment);
-            if (replyComment != null) {
-                comment.setReplyCommentContent(replyComment.getContent());
-                comment.setReplyUser(replyComment.getAuthor());
-                comment.setReplyUserEmail(replyComment.getEmail());
-                comment.setReplyUserUrl(replyComment.getUrl());
-            }
+            comment.setParent(new Comment(reply_comment));
         }
 
         // 判断评论审核功能是否开启
@@ -135,18 +127,14 @@ public class CommentWidget extends AbstractWebWidget {
         }
         comment = commentService.createComment(comment);
 
-        if (!("true".equals(is_comment_audit))) { // 如果没有开启评论审核
-            // 更新文章评论数量
-            postService.updatePostCommentCount(new Long(postId.trim()));
-        }
+        // 更新文章评论数量
+        // postService.updatePostCommentCount(new Long(postId.trim()));
 
         // 将评论作者的信息保存到cookie中
         CookieUtils.setCookie(response, Keys.COMMENT_AUTHOR_COOKIE, author, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_URL_COOKIE, url, 365);
-        model.addAttribute(FreemarkerVariableNames.COMMENT, comment);
-
         String postUrl = PostUrlUtils.getPostUrl(comment.getPost());
-        return String.format("redirect:%s", postUrl);
+        return String.format("redirect:%s", postUrl + "#comment-" + comment.getId());
     }
 }

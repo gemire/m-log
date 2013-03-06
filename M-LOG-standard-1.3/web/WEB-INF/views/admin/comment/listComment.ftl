@@ -3,7 +3,7 @@
 <#import "/META-INF/mspring.ftl" as mspring />
 	<form id="commentForm" name="commentForm" action="${base}/admin/comment/list" method="POST">
 		<@spring.bind "comment" />
-		<table class="formtable">
+		<table>
 			<tr>
 				<td class="fieldlabel" style="width:50px;">状态</td>
 				<td>
@@ -53,6 +53,7 @@
 					<#if item_index%2 == 0>
 						<#assign tdClass = "even">
 					</#if>
+					<#assign post=item.postEager />
 					<tr>
 						<td class="${tdClass}" rowspan="2" style="border-bottom:solid 5px #AAE8EA;">
 							<input type="checkbox" name="id" value="${item.id}" />

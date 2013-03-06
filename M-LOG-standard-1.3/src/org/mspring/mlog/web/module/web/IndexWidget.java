@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.PageNames;
+import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
