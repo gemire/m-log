@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.security.RoleService;
 import org.mspring.mlog.service.security.UserService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
@@ -35,6 +36,8 @@ public class ValidateMethodWidget {
     private PostService postService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private TagService tagService;
 
     /**
      * 用户名是否存在
@@ -138,6 +141,30 @@ public class ValidateMethodWidget {
         }
         try {
             boolean flag = roleService.checkRoleNameExists(name, id);
+            return flag ? "true" : "false";
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "true";
+        }
+    }
+    
+    /**
+     * 检测角色名字是否存在
+     * 
+     * @param name
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/tagNameExists")
+    @ResponseBody
+    public String tagNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+        if (StringUtils.isBlank(name)) {
+            return "true";
+        }
+        try {
+            boolean flag = tagService.checkTagNameExists(name, id);
             return flag ? "true" : "false";
         } catch (Exception e) {
             // TODO: handle exception
