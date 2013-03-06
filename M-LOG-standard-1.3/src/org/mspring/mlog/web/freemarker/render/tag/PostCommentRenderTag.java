@@ -5,8 +5,12 @@ package org.mspring.mlog.web.freemarker.render.tag;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Comment;
+import org.mspring.platform.utils.CookieUtils;
 
 import freemarker.template.SimpleHash;
 
@@ -36,8 +40,14 @@ public class PostCommentRenderTag extends CacheRenderTag {
             return "";
         }
         List<Comment> comments = ServiceFactory.getCommentService().findCommentsByPost(post);
-        model.put("postId", post);
+
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+
         model.put("comments", comments);
+        model.put("postId", post);
+        model.put("author", CookieUtils.getCookie(request, Keys.COMMENT_AUTHOR_COOKIE));
+        model.put("email", CookieUtils.getCookie(request, Keys.COMMENT_EMAIL_COOKIE));
+        model.put("url", CookieUtils.getCookie(request, Keys.COMMENT_URL_COOKIE));
         return getTemplateString(model);
     }
 
