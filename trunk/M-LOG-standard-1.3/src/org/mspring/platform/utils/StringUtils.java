@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author Gao Youbo
  * @since Feb 20, 2012
@@ -41,11 +39,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             if (first) {
                 pathBuffer.append(part);
                 first = false;
-            }
-            else if (StringUtils.startsWith(part.toString(), ".")) {
+            } else if (StringUtils.startsWith(part.toString(), ".")) {
                 pathBuffer.append(part);
-            }
-            else {
+            } else {
                 pathBuffer.append("/").append(part);
             }
         }
@@ -59,9 +55,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static String getFileExtend(String fn) {
-        if (isEmpty(fn)) return null;
+        if (isEmpty(fn))
+            return null;
         int idx = fn.lastIndexOf('.') + 1;
-        if (idx == 0 || idx >= fn.length()) return null;
+        if (idx == 0 || idx >= fn.length())
+            return null;
         return fn.substring(idx);
     }
 
@@ -82,7 +80,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static List stringToList(String tags, String ch) {
-        if (tags == null) return null;
+        if (tags == null)
+            return null;
         ArrayList tagList = new ArrayList();
         StringTokenizer st = new StringTokenizer(tags, ch);
         while (st.hasMoreElements()) {
@@ -167,14 +166,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static String extractFirst(String s, String delimiter) {
         if (s == null) {
             return null;
-        }
-        else {
+        } else {
             String[] array = split(s, delimiter);
 
             if (array.length > 0) {
                 return array[0];
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -190,14 +187,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static String extractLast(String s, String delimiter) {
         if (s == null) {
             return null;
-        }
-        else {
+        } else {
             String[] array = split(s, delimiter);
 
             if (array.length > 0) {
                 return array[array.length - 1];
-            }
-            else {
+            } else {
                 return null;
             }
         }
@@ -285,8 +280,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
             s = new String(str); // 换后的结果转换为字符串
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return s;
@@ -350,33 +344,31 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return new String(value.getBytes(Charset.forName(formChartSet)), Charset.forName(toChartSet));
     }
 
-    /**
-     * 获取IP地址
-     * 
-     * @param request
-     * @return
-     */
-    public static String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+    public static String contentTransform(String content, Boolean removeHtml, Boolean substring, Integer beginIndex, Integer endIndex) {
+        if (removeHtml == null) {
+            removeHtml = false;
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
+        if (substring == null) {
+            substring = false;
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
 
-    public static String getUserAgent(HttpServletRequest request) {
-        return request.getHeader("user-agent");
+        if (removeHtml) {
+            content = HTMLUtils.getHtmlText(content);
+        }
+        if (substring) {
+            if (beginIndex == null) {
+                beginIndex = 0;
+            }
+            if (endIndex == null) {
+                if (beginIndex < content.length()) {
+                    content = StringUtils.substring(content, beginIndex) + "...";
+                }
+            } else {
+                if (endIndex < content.length()) {
+                    content = StringUtils.substring(content, beginIndex, endIndex) + "...";
+                }
+            }
+        }
+        return content;
     }
 }
