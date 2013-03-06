@@ -4,11 +4,14 @@
 package org.mspring.mlog.service.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.service.TagService;
 import org.mspring.platform.core.AbstractServiceSupport;
+import org.mspring.platform.persistence.query.QueryCriterion;
+import org.mspring.platform.persistence.support.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,5 +74,35 @@ public class TagServiceImpl extends AbstractServiceSupport implements TagService
         // TODO Auto-generated method stub
         return (Tag) getById(Tag.class, id);
     }
+
+	public Page<Tag> findTag(Page<Tag> page, QueryCriterion queryCriterion) {
+
+		return super.findPage(queryCriterion, page);
+	}
+
+	public void deleteTag(Long... idArray) {
+		super.remove(Tag.class, idArray);
+	}
+
+	public boolean checkTagNameExists(String name, Long id) {
+		System.out.println(name+""+id);
+		 int count = 0;
+	        if (id == null) {
+	            count = count("select count(*) from Tag tag where tag.name = ?", name);
+	        } else {
+	            count = count("select count(*) from Tag tag where tag.name = ? and tag.id <> ?", new Object[] { name, id });
+	        }
+	        System.out.println(count);
+	     return count > 0;
+	}
+
+	public void modifyTag(Tag tag) {
+		if(tag.getCreateTime() == null){
+			tag.setCreateTime(new Date());
+		}
+		update(tag);
+	}
+	
+	
 
 }
