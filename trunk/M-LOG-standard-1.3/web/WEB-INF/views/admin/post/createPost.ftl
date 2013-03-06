@@ -94,7 +94,7 @@
 				</td>
 				<td class="fieldlabel" style="width:60px;">分类</td>
 				<td>
-					<input type="text" id="catalogSel" onclick="showMenu();" class="textinput" style="width:98%;"/>
+					<input type="text" id="catalogSel" onclick="showMenu();" class="textinput" readonly="readonly" style="width:98%;"/>
 					<input type="hidden" name="catalogs" id="catalogs"/>
 					<div id="menuContent" class="menuContent" style="display:none; position: absolute; overflow:auto; background:#fff; border:1px solid #cccccc;z-index: 100;">
 						<div style="display:block;float:right; padding:2px;"><input type="button" class="btn" onclick="hideMenu();" value="关闭" /></div>
