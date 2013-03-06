@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.annotations.Synchronize;
 import org.mspring.mlog.entity.Comment;
-import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
@@ -27,6 +27,7 @@ import org.mspring.platform.utils.FreemarkerUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -219,46 +220,47 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
     @Override
     public void commentReplyNotice(Comment comment) {
         // TODO Auto-generated method stub
-        if (comment != null && StringUtils.isNotBlank(comment.getReplyUserEmail())) {
-            Map<Object, Object> model = new HashMap<Object, Object>();
+        comment.getParentEager();
+        if (comment != null && comment.getParent() != null && StringUtils.isNotBlank(comment.getParent().getEmail())) {
+            comment.getPostEager();
+
             String blogurl = optionService.getOption("blogurl");
             String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
-            
-            Post post = postService.getPostById(comment.getPost().getId());
-            
+
+            Map<Object, Object> model = new HashMap<Object, Object>();
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
-            model.put("post", post);
-            
-            
+            model.put("post", comment.getPost());
+
             String content = FreemarkerUtils.render(configuration, "mail/comment_reply_notice.ftl", model);
-            String to = comment.getReplyUserEmail();
-            String personal = comment.getReplyUser();
+            String to = comment.getParent().getEmail();
+            String personal = comment.getParent().getAuthor();
             String subject = optionService.getOption("blogname") + " - 评论回复通知";
             mailService.sendMail(to, personal, subject, content);
         }
-        
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.CommentService#commentNotice(org.mspring.mlog.entity.Comment)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.CommentService#commentNotice(org.mspring.mlog
+     * .entity.Comment)
      */
     @Override
     public void commentNotice(Comment comment) {
         // TODO Auto-generated method stub
         Map<Object, Object> model = new HashMap<Object, Object>();
         if (comment != null) {
+            comment.getPostEager();
+
             String blogurl = optionService.getOption("blogurl");
             String commentUrl = blogurl + PostUrlUtils.getPostUrl(comment.getPost());
-            
-            Post post = postService.getPostById(comment.getPost().getId());
-            comment.setPost(post);
-            
+
             model.put("commentUrl", commentUrl);
             model.put("comment", comment);
-            model.put("post", post);
-            
+            model.put("post", comment.getPost());
+
             String content = FreemarkerUtils.render(configuration, "mail/new_comment_notice.ftl", model);
             String to = comment.getPost().getAuthor().getEmail();
             String personal = comment.getPost().getAuthor().getAlias();

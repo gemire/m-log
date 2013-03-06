@@ -10,7 +10,9 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.impl.AbstractInstallService;
+import org.mspring.mlog.service.security.TreeItemSecurityService;
 import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.platform.core.ContextManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +69,7 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("125005", "tag列表", "125", "/admin/tag/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("125010", "增加tag", "125", "/admin/tag/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("125015", "修改tag", "125", "/admin/tag/edit", TreeItem.Type.TAB, false));
-       
+
         /**********************************************************************************************************/
 
         items.add(new TreeItem("2", "外观", "0", "", TreeItem.Type.TREE_FOLDER, true));
@@ -137,10 +139,15 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("505025", "新增分类", "505", "/admin/linkType/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("505030", "修改分类", "505", "/admin/linkType/edit", TreeItem.Type.TAB, false));
 
+        items.add(new TreeItem("510", "广告管理", "5", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("510005", "列表", "510", "/admin/link/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("510010", "增加", "510", "/admin/link/list", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("510015", "修改", "510", "/admin/link/list", TreeItem.Type.TAB, false));
+
         items.add(new TreeItem("8", "工具", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("805005", "金山快盘", "805", "/admin/api/kuaipan/setting", TreeItem.Type.TAB, true));
-        
+
         items.add(new TreeItem("810", "分类搬家", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("810005", "分类搬家", "810", "/admin/tools/movecatalog", TreeItem.Type.TAB, true));
 
@@ -150,9 +157,17 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("910", "联系我们", "9", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("910005", "联系我们", "910", "/admin/contact", TreeItem.Type.TAB, true));
         
-       
+        
+
         for (TreeItem item : items) {
             treeItemService.createItem(item);
+//            try {
+//                TreeItemSecurityService treeItemSecurityService = ContextManager.getApplicationContext().getBean(TreeItemSecurityService.class);
+//                treeItemSecurityService.setPremission(new Long(1), new String[]{item.getId()});
+//            } catch (Exception e) {
+//                // TODO: handle exception
+//                continue;
+//            }
         }
     }
 

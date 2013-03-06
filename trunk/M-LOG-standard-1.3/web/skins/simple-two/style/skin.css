@@ -194,7 +194,7 @@ h6,section h5,section section h4,section section section h3 {
 }
 
 .comment-list .comment-body {
-	border: none;
+	border-bottom: 1px dotted #ccc;
 	background-color: white;
 	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 	padding: 10px;
@@ -202,7 +202,6 @@ h6,section h5,section section h4,section section section h3 {
 
 .comment-list .comment-content {
 	display: inline;
-	padding: 10px;
 }
 
 .comment-list .avatar {
@@ -216,6 +215,10 @@ h6,section h5,section section h4,section section section h3 {
 
 .comment-list .comment-author {
 	font-weight: bold;
+}
+
+.comment-list .comment-meta {
+	margin-bottom:10px;
 }
 
 .quotetop {

@@ -29,6 +29,7 @@
 	</script>
 </head>
 <body>
+	<#assign post=comment.postEager />
 	<table style="width:100%;">
 		<tr>
 			<td class="fieldlabel" style="width:60px;">编号：</td>

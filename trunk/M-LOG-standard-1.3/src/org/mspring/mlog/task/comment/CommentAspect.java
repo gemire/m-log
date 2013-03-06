@@ -45,7 +45,7 @@ public class CommentAspect {
             context.put(CONTEXT_COMMENT, comment);
 
             // 评论回复邮件通知
-            if (comment != null && comment.getReplyComment() != null) {
+            if (comment != null && comment.getParent() != null) {
                 commentReplyNoticeTask.doAsyncTask(context);
             }
             // 文章评论通知
