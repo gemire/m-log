@@ -48,7 +48,14 @@
 				<bean class="org.mspring.mlog.support.resolver.QueryParamWebArgumentResolver">
 					<property name="conversionService" ref="conversionService"></property>
 				</bean>
-				<bean class="org.mspring.mlog.support.resolver.PathParamWebArgumentRequestResolver"></bean>
+				<bean class="org.mspring.mlog.support.resolver.PathParamWebArgumentRequestResolver">
+					<property name="conversionService" ref="conversionService"></property>
+				</bean>
+				<!--  
+				<bean class="org.mspring.mlog.support.resolver.QueryParamHandlerMethodArgumentResolver">
+					<property name="conversionService" ref="conversionService"></property>
+				</bean>
+				-->
 			</list>
 		</property>
 		
