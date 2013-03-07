@@ -1,19 +1,14 @@
 package org.mspring.mlog.web.module.admin;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
-import org.mspring.mlog.entity.security.Role;
 import org.mspring.mlog.service.TagService;
-import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.TagQueryCriterion;
@@ -24,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Hu Hongyu
@@ -113,6 +107,7 @@ public class TagWidget extends AbstractAdminWidget {
 	@RequestMapping("/create/save")
 	public String createTag(@ModelAttribute Tag tag,HttpServletRequest request, HttpServletResponse response,
 			Model model){
+		System.out.println(tag.getName());
 		tag.setCreateTime(new Date());
 		tagService.createTag(tag);
 		return "redirect:/admin/tag/list";
