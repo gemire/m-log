@@ -30,7 +30,7 @@ public class PostRewriteRule extends RewriteRule {
     @Override
     public RewriteMatch matches(HttpServletRequest request, HttpServletResponse response) {
         // TODO Auto-generated method stub
-        if (!request.getRequestURI().startsWith("/post/"))
+        if (!request.getRequestURI().startsWith(request.getContextPath() + "/post/"))
             return null;
 
         String id = "";
