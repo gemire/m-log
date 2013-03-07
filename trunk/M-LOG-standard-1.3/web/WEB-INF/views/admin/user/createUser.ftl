@@ -95,7 +95,7 @@
 		}
 		
 		$("#roles_select").multiselect({
-			header:false,
+			header:true,
 			selectedList: 4,
 			click: function(event, ui){
 				var values = $("#selectRoles").val();
