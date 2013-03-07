@@ -38,6 +38,25 @@ public class SkinUtils {
         return template_url.toString();
     }
 
+    /**
+     * 获取主题中的widget对应的路径
+     * 
+     * @return
+     */
+    public static String getWidgetUrl(String template) {
+        String skinFolder = ExtendsFreeMarkerViewResolver.getSkinfolder();
+        StringBuffer widgetUrl = new StringBuffer();
+        if (!StringUtils.startsWith(skinFolder, "/")) {
+            widgetUrl.append("/");
+        }
+        widgetUrl.append(skinFolder);
+        if (!StringUtils.endsWith(skinFolder, "/")) {
+            widgetUrl.append("/");
+        }
+        widgetUrl.append(getSkin()).append(template);
+        return widgetUrl.toString();
+    }
+
     public static String getSkin() {
         String skin = ServiceFactory.getOptionService().getOption(OptionKeys.CURRENT_SKIN);
         if (StringUtils.isBlank(skin)) {
