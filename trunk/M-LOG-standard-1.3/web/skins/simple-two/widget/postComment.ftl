@@ -57,11 +57,11 @@
 		});
 		
 		function quote(id){
-			//$("#replycontainer").ScrollTo();
 			var commentAuthor = $("#comment-author-" + id).text();
 			$("#replymsg").html("<font color='red'><b>@" + commentAuthor + "</b></font>&nbsp;&nbsp;<a href='JavaScript:cancel_quote();'>取消回复</a>");
 			$("#replycontainer").fadeIn("normal");
 			$("#reply_comment").val(id);
+			$.scrollTo('#replycontainer', 300);
 		}
 		
 		function cancel_quote(){
