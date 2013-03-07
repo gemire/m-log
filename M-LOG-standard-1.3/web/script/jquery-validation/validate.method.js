@@ -41,8 +41,7 @@ $(document).ready(
 			/**
 			 * 检查角色名称是否存在
 			 */
-			$.validator.addMethod("roleNameExists", function(value, element,
-					params) {
+			$.validator.addMethod("roleNameExists", function(value, element, params) {
 				var data = {};
 				if (params.id != undefined) {
 					data["id"] = params.id;
@@ -52,7 +51,8 @@ $(document).ready(
 					url : mlog.variable.base
 							+ "/common/validate/roleNameExists",
 					async : false,
-					data : data
+					data : data,
+					cache: false
 				}).responseText;
 				if (result == "true") {
 					return false;
@@ -130,26 +130,29 @@ $(document).ready(
 					return true;
 				}
 			});
-
+			
+			
 			// //////////////////////////////用户验证 end
-		});
-
-		$.validator.addMethod("tagNameExists", function(value, element,
-				params) {
-			var data = {};
-			if (params.id != undefined) {
-				data["id"] = params.id;
-			}
-			data["name"] = value;
-			var result = $.ajax({
-				url : mlog.variable.base
-						+ "/common/validate/tagNameExists",
-				async : false,
-				data : data
-			}).responseText;
-			if (result == "true") {
-				return false;
-			} else {
-				return true;
-			}
+			
+			$.validator.addMethod("tagNameExists", function(value, element,
+					params) {
+				var data = {};
+				if (params.id != undefined) {
+					data["id"] = params.id;
+				}
+				data["name"] = value;
+				var result = $.ajax({
+					url : mlog.variable.base
+							+ "/common/validate/tagNameExists",
+					async : false,
+					data : data
+				}).responseText;
+				if (result == "true") {
+					return false;
+				} else {
+					return true;
+				}
+			});
+			
+			
 		});
