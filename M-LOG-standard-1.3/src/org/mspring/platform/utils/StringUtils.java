@@ -14,9 +14,7 @@ import java.util.StringTokenizer;
  * @since Feb 20, 2012
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-    private static final String PASSWORD_CRYPT_KEY = "___mspring.mlog__";
-    private static final String DES = "DES";
-
+    
     public static String joinAndWrap(String[] array, String separator, String wrapWith) {
         List tmp = new ArrayList();
         for (String str : array) {

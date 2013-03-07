@@ -54,20 +54,6 @@ public class AboutWidget extends AbstractAdminWidget {
         model.addAttribute("javaVersion", javaVersion);
 
         // ServiceFactory.getInstallService().initTreeItems();
-
-        final Task task = new AbstractTask() {
-
-            @Override
-            protected void doTask(Map<Object, Object> paramMap) throws Exception {
-                // TODO Auto-generated method stub
-
-                Thread.sleep(2000);
-                System.out.println("doTask...");
-            }
-        };
-        task.doAsyncTask(null);
-        System.out.println("after task...");
-
         return "/admin/about";
     }
 }

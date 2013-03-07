@@ -7,15 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.service.CatalogService;
-import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.security.RoleService;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.mlog.support.resolver.PathParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -33,8 +32,6 @@ public class ValidateMethodWidget {
     @Autowired
     private CatalogService catalogService;
     @Autowired
-    private PostService postService;
-    @Autowired
     private RoleService roleService;
     @Autowired
     private TagService tagService;
@@ -48,7 +45,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/userNameExists")
     @ResponseBody
-    public String userNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String userNameExists(@PathParam(required = false) String name, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(name)) {
             return "true";
         }
@@ -70,7 +67,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/userEmailExists")
     @ResponseBody
-    public String userEmailExists(@RequestParam(required = false) String email, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String userEmailExists(@PathParam(required = false) String email, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(email)) {
             return "true";
         }
@@ -92,7 +89,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/userAliasExists")
     @ResponseBody
-    public String userAliasExists(@RequestParam(required = false) String alias, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String userAliasExists(@PathParam(required = false) String alias, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(alias)) {
             return "true";
         }
@@ -116,7 +113,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/catalogNameExists")
     @ResponseBody
-    public String catalogNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String catalogNameExists(@PathParam(required = false) String name, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(name)) {
             return "true";
         }
@@ -135,7 +132,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/roleNameExists")
     @ResponseBody
-    public String roleNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String roleNameExists(@PathParam(required = false) String name, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(name)) {
             return "true";
         }
@@ -147,7 +144,7 @@ public class ValidateMethodWidget {
             return "true";
         }
     }
-    
+
     /**
      * 检测角色名字是否存在
      * 
@@ -159,7 +156,7 @@ public class ValidateMethodWidget {
      */
     @RequestMapping("/tagNameExists")
     @ResponseBody
-    public String tagNameExists(@RequestParam(required = false) String name, @RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
+    public String tagNameExists(@PathParam(required = false) String name, @PathParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response) {
         if (StringUtils.isBlank(name)) {
             return "true";
         }

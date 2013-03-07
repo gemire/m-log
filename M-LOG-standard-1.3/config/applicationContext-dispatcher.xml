@@ -15,11 +15,12 @@
   		<property name="useDefaultSuffixPattern" value="false" />
   		<property name="interceptors">
   			<list>
-				<!-- <bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" /> -->
+				
 				<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
 				<bean class="org.mspring.mlog.web.interceptor.WebContextInterceptor" />
-				<!-- <bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" /> -->
 				<bean class="org.mspring.platform.web.query.interceptor.QueryParameterInterceptor" />
+				<!-- <bean class="org.mspring.mlog.web.interceptor.RememberMeInterceptor" /> -->
+				<!-- <bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" /> -->
 				<!-- <bean class="org.mspring.mlog.web.interceptor.CloseSiteInterceptor" /> -->
   			</list>
   		</property>
@@ -47,6 +48,7 @@
 				<bean class="org.mspring.mlog.support.resolver.QueryParamWebArgumentResolver">
 					<property name="conversionService" ref="conversionService"></property>
 				</bean>
+				<bean class="org.mspring.mlog.support.resolver.PathParamWebArgumentRequestResolver"></bean>
 			</list>
 		</property>
 		
