@@ -14,7 +14,7 @@
 		<tr>
 			<td class="fieldlabel" style="width:60px;">名称</td>
 			<td>
-				<@spring.formInput path="tag.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, tagNameExists:true, messages:{required:"请输入角色名称", tagNameExists:"角色名称已经存在"}}\'' />
+				<@spring.formInput path="tag.name" attributes='class="textinput" style="width:98%;" validate=\'{required: true, tagNameExists:true, messages:{required:"请输入tag名称", tagNameExists:"tag名称已经存在"}}\'' />
 			</td>
 		</tr>
 		<tr>
