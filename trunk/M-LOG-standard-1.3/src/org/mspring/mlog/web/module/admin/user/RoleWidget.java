@@ -17,7 +17,6 @@ import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.mlog.web.security.SecurityUtils;
-import org.mspring.mlog.web.security.UserDetailServiceImpl;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
@@ -42,8 +41,6 @@ public class RoleWidget extends AbstractAdminWidget {
     private TreeItemService treeItemService;
     @Autowired
     private TreeItemSecurityService treeItemSecurityService;
-    @Autowired
-    private UserDetailServiceImpl userDetailServiceImpl;
 
     @RequestMapping("/list")
     public String list(@ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
