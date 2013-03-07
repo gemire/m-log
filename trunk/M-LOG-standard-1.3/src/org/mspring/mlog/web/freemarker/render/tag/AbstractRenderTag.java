@@ -87,8 +87,7 @@ public abstract class AbstractRenderTag extends TagSupport {
      * @return
      */
     protected String getTemplateString(SimpleHash model) {
-        String view = SkinUtils.getTemplateUrl((HttpServletRequest) pageContext.getRequest());
-        view = view + template;
+        String view = SkinUtils.getWidgetUrl(template);
         return FreemarkerUtils.render(configuration, view, model);
     }
 
