@@ -34,6 +34,7 @@ public class Ad implements Serializable {
     private String name;
     private String description;
     private String code;
+    private Date createTime;
     private Date startDate;
     private Date endDate;
 
@@ -73,6 +74,16 @@ public class Ad implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", nullable = false, length = 30)
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

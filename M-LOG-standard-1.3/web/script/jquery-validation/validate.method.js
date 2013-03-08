@@ -145,7 +145,8 @@ $(document).ready(
 					url : mlog.variable.base
 							+ "/common/validate/tagNameExists",
 					async : false,
-					data : data
+					data : data,
+					cache : false
 				}).responseText;
 				if (result == "true") {
 					return false;

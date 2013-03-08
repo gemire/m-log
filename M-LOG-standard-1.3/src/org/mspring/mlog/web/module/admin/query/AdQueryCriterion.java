@@ -14,7 +14,7 @@ import org.mspring.platform.persistence.query.QueryBuilder;
  * @description
  * @TODO
  */
-public class ChannelQueryCriterion extends AbstractQueryCriterion {
+public class AdQueryCriterion extends AbstractQueryCriterion {
 
     private String queryString;
     private String countString;
@@ -23,7 +23,7 @@ public class ChannelQueryCriterion extends AbstractQueryCriterion {
     /**
      * 
      */
-    public ChannelQueryCriterion(Map queryParams) {
+    public AdQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder builder = new QueryBuilder(queryParams);
         builder.startBuild();
@@ -32,8 +32,8 @@ public class ChannelQueryCriterion extends AbstractQueryCriterion {
         namedQueryParams = builder.getNamedQueryParams();
         queryParamsString = builder.getQueryParamsAsString();
 
-        queryString = "select channel from Channel channel ";
-        countString = "select count(*) from Channel channel ";
+        queryString = "select ad from Ad ad ";
+        countString = "select count(*) from Ad ad ";
     }
 
     /*

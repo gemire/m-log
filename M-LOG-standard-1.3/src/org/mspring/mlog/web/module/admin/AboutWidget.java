@@ -3,15 +3,12 @@
  */
 package org.mspring.mlog.web.module.admin;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.Application;
+import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.platform.task.AbstractTask;
-import org.mspring.platform.task.Task;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,7 +50,7 @@ public class AboutWidget extends AbstractAdminWidget {
         model.addAttribute("os", os);
         model.addAttribute("javaVersion", javaVersion);
 
-        // ServiceFactory.getInstallService().initTreeItems();
+        ServiceFactory.getInstallService().initTreeItems();
         return "/admin/about";
     }
 }
