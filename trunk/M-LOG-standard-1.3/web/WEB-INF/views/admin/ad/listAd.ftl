@@ -35,7 +35,7 @@
 					<td class="${tdClass}">${item.startDate!""} </td>
 					<td class="${tdClass}">${item.endDate!""} </td>
 					<td class="${tdClass}">
-						<a href="${base}/admin/ad/edit?id=${item.id}">修改</a> 
+						<a href="${base}/admin/ad/edit?id=${item.id}">修改</a> | <a href="javascript:code(${item.id});">获取代码</a>
 					</td>
 				</tr>
 			</#list>
@@ -53,11 +53,14 @@
 	</table>
 </form>
 <script type="text/javascript">
-function deleteRole(roleId){
-	if(confirm('确认要删除该角色吗？删除后将无法恢复。')){
-		window.location = "${base}/admin/ad/delete?id=" + roleId;
+	turnHighLight(510005);
+	function code(id){
+		mlog.dialog.showDialog({
+			title: '获取代码',
+			content: '&lt;@ad id=' + id + ' /&gt;',
+			max: false,
+			min: false
+		});
 	}
-}
-turnHighLight(510005);
 </script>
 <#include "../inc/footer.ftl" />
