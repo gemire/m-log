@@ -4,7 +4,7 @@
 <div id="error" class="message error" style="display:none;"></div>
 <form class="form" id="tagForm" action="${base}/admin/tag/create/save" method="POST">
 	<@spring.bind "tag" />
-	<table class="formtable" style="width:30%">
+	<table class="formtable" style="width:100%">
 		<tr>
 			<td class="fieldlabel" style="width:60px;">编号:</td>
 			<td>
