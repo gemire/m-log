@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * @author Gao Youbo
  * @since 2013-3-5
@@ -23,6 +26,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "ad")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Ad implements Serializable {
 
     /**

@@ -4,6 +4,7 @@
 package org.mspring.mlog.core;
 
 import org.hibernate.SessionFactory;
+import org.mspring.mlog.service.AdService;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.AttachmentService;
 import org.mspring.mlog.service.CatalogService;
@@ -130,6 +131,10 @@ public class ServiceFactory {
 
     public static HibernateSearchService getHibernateSearchService() {
         return ContextManager.getApplicationContext().getBean(HibernateSearchService.class);
+    }
+
+    public static AdService getAdService() {
+        return ContextManager.getApplicationContext().getBean(AdService.class);
     }
 
 }
