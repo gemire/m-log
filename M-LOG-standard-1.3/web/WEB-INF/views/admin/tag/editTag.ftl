@@ -5,7 +5,7 @@
 <form class="form" id="tagForm" action="${base}/admin/tag/edit/save" method="POST">
 	<@spring.bind "tag" />
 	<@spring.formHiddenInput path="tag.id" />
-	<table class="formtable" style="width:30%">
+	<table class="formtable" style="width:100%">
 		<tr>
 			<td class="fieldlabel" style="width:60px;">编号:</td>
 			<td>
