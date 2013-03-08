@@ -65,10 +65,10 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("120025", "图片上传", "120", "/admin/photo/upload", TreeItem.Type.TAB, false));
         items.add(new TreeItem("120030", "相册设置", "120", "/admin/album/config", TreeItem.Type.TAB, false));
 
-        items.add(new TreeItem("125", "tag管理", "1", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("125005", "tag列表", "125", "/admin/tag/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("125010", "增加tag", "125", "/admin/tag/create", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("125015", "修改tag", "125", "/admin/tag/edit", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("125", "TAG管理", "1", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("125005", "列表", "125", "/admin/tag/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("125010", "增加", "125", "/admin/tag/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("125015", "修改", "125", "/admin/tag/edit", TreeItem.Type.TAB, false));
 
         /**********************************************************************************************************/
 
@@ -140,9 +140,9 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("505030", "修改分类", "505", "/admin/linkType/edit", TreeItem.Type.TAB, false));
 
         items.add(new TreeItem("510", "广告管理", "5", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("510005", "列表", "510", "/admin/link/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("510010", "增加", "510", "/admin/link/list", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("510015", "修改", "510", "/admin/link/list", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("510005", "列表", "510", "/admin/ad/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("510010", "增加", "510", "/admin/ad/create", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("510015", "修改", "510", "/admin/ad/edit", TreeItem.Type.TAB, false));
 
         items.add(new TreeItem("8", "工具", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("805", "金山快盘", "8", "", TreeItem.Type.TREE_ITEM, true));
