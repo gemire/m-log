@@ -28,10 +28,9 @@ public interface FileService {
      * @param fileName
      * @param inputStream
      * @param contentType
-     * @param contentLength
      * @return
      */
-    public String uploadFile(String fileName, InputStream inputStream, long contentLength);
+    public String uploadFile(String fileName, InputStream inputStream);
 
     /**
      * 上传base64加密文件
@@ -57,16 +56,18 @@ public interface FileService {
      * @return
      */
     public String getMimeType(File file);
-    
+
     /**
      * 获取文件的mimetype
+     * 
      * @param inputStream
      * @return
      */
     public String getMimeType(InputStream inputStream);
-    
+
     /**
      * 获取mimetype
+     * 
      * @param bytes
      * @return
      */

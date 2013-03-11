@@ -46,7 +46,7 @@ public class StandardPhotoUploadServiceImpl extends AbstractPhotoUploadService {
         byte[] bytearray = bos.toByteArray();
         InputStream inputStream = new ByteArrayInputStream(bytearray);
 
-        String url = fileService.uploadFile(fileName, inputStream, bytearray.length);
+        String url = fileService.uploadFile(fileName, inputStream);
 
         inputStream.close();
         bos.close();
