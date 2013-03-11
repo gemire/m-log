@@ -22,8 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import eu.medsea.mimeutil.MimeUtil;
-
 /**
  * @author Gao Youbo
  * @since 2013-2-19
@@ -63,7 +61,7 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
         String url = "";
         try {
             String fileName = AttachmentUtils.getUploadPath(mf);
-            url = fileService.uploadFile(fileName, mf.getInputStream(), mf.getSize());
+            url = fileService.uploadFile(fileName, mf.getInputStream());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -78,8 +76,12 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
         return getAttachmentById(id);
     }
 
-    /* (non-Javadoc)
-     * @see org.mspring.mlog.service.AttachmentService#createAttachment(java.lang.String, java.lang.String, java.lang.Long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.mspring.mlog.service.AttachmentService#createAttachment(java.lang
+     * .String, java.lang.String, java.lang.Long)
      */
     @Override
     public Attachment createAttachment(String base64Data, String ext, Long user) {
@@ -92,7 +94,7 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
             int month = calendar.get(Calendar.MONTH) + 1;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             String fileName = "/attachment/" + year + "/" + month + "/" + day + "/" + StringUtils.getFileName() + "." + ext;
-            
+
             byte[] bytes = StringUtils.decodeBASE64(base64Data.getBytes());
             for (int i = 0; i < bytes.length; ++i) {
                 if (bytes[i] < 0) {// 调整异常数据
@@ -100,7 +102,7 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
                 }
             }
             InputStream inputStream = new ByteArrayInputStream(bytes);
-            url = fileService.uploadFile(fileName, inputStream, bytes.length);
+            url = fileService.uploadFile(fileName, inputStream);
             size = new Long(bytes.length);
         } catch (Exception e) {
             // TODO Auto-generated catch block

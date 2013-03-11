@@ -10,9 +10,7 @@ import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.security.TreeItem;
 import org.mspring.mlog.service.impl.AbstractInstallService;
-import org.mspring.mlog.service.security.TreeItemSecurityService;
 import org.mspring.mlog.service.security.TreeItemService;
-import org.mspring.platform.core.ContextManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,11 +93,6 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         /**********************************************************************************************************/
 
-        // items.add(new TreeItem("31", "SNS", "0", "",
-        // TreeItem.Type.TREE_FOLDER, true));
-        // items.add(new TreeItem("3105", "站点", "31", "",
-        // TreeItem.Type.TREE_ITEM, true));
-
         /**********************************************************************************************************/
 
         items.add(new TreeItem("4", "设置", "0", "", TreeItem.Type.TREE_FOLDER, true));
@@ -151,23 +144,25 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("810", "分类搬家", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("810005", "分类搬家", "810", "/admin/tools/movecatalog", TreeItem.Type.TAB, true));
 
+        // items.add(new TreeItem("815", "采集工具", "8", "",
+        // TreeItem.Type.TREE_FOLDER, true));
+        // items.add(new TreeItem("815005", "采集规则", "815", "",
+        // TreeItem.Type.TREE_ITEM, true));
+        // items.add(new TreeItem("815005005", "列表", "815005", "/admin/about",
+        // TreeItem.Type.TAB, true));
+        // items.add(new TreeItem("815005010", "增加", "815005", "/admin/about",
+        // TreeItem.Type.TAB, false));
+        // items.add(new TreeItem("815005015", "修改", "815005", "/admin/about",
+        // TreeItem.Type.TAB, false));
+
         items.add(new TreeItem("9", "关于", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("905", "关于", "9", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("905005", "关于", "905", "/admin/about", TreeItem.Type.TAB, true));
         items.add(new TreeItem("910", "联系我们", "9", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("910005", "联系我们", "910", "/admin/contact", TreeItem.Type.TAB, true));
-        
-        
 
         for (TreeItem item : items) {
             treeItemService.createItem(item);
-//            try {
-//                TreeItemSecurityService treeItemSecurityService = ContextManager.getApplicationContext().getBean(TreeItemSecurityService.class);
-//                treeItemSecurityService.setPremission(new Long(1), new String[]{item.getId()});
-//            } catch (Exception e) {
-//                // TODO: handle exception
-//                continue;
-//            }
         }
     }
 

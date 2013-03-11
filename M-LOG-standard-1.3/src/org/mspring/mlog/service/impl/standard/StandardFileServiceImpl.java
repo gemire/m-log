@@ -63,7 +63,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
      * java.io.InputStream, long)
      */
     @Override
-    public String uploadFile(String fileName, InputStream inputStream, long contentLength) {
+    public String uploadFile(String fileName, InputStream inputStream) {
         // TODO Auto-generated method stub
         File destFile = getDestFile(fileName);
         try {
@@ -99,7 +99,7 @@ public class StandardFileServiceImpl extends AbstractFileService {
             }
         }
         InputStream inputStream = new ByteArrayInputStream(bytes);
-        return uploadFile(fileName, inputStream, bytes.length);
+        return uploadFile(fileName, inputStream);
     }
 
     /*
