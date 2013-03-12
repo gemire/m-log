@@ -51,7 +51,7 @@ public class AboutWidget extends AbstractAdminWidget {
         model.addAttribute("remoteAddr", remoteAddr);
         model.addAttribute("os", os);
         model.addAttribute("javaVersion", javaVersion);
-        //ServiceFactory.getInstallService().initTreeItems();
+        // ServiceFactory.getInstallService().initTreeItems();
         return "/admin/about";
     }
 }
