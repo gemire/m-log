@@ -35,6 +35,10 @@
 								</#if>
 								时间：${post.createTime}
 								点击量：${post.viewCount}
+								<#if post.site?exists && post.site?has_content>
+										转载自：${post.site!""}
+								</#if>
+								
 							</div>
 							<div class="post-content">
 								${post.content}

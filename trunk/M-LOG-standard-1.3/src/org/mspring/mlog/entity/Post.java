@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -73,11 +74,12 @@ public class Post implements Serializable {
     private String password;
     private String commentStatus;
     private Long commentCount;
-    private String url;
+    private String url;//来源链接
     private String postIp;
     private Long viewCount;
     private Boolean isTop;
     private Set<Comment> comments;
+    private String site;//来源站点
 
     /**
      * 
@@ -336,6 +338,23 @@ public class Post implements Serializable {
             this.url = url.trim();
         }
     }
+    
+    /**
+     * 
+     * @return site
+     */
+    public String getSite() {
+		return site;
+	}
+    
+    /**
+     *  
+     * @param site
+     */
+    @Column(name="site",length=300)
+    public void setSite(String site) {
+		this.site = site;
+	}
 
     /**
      * @return the postIp
