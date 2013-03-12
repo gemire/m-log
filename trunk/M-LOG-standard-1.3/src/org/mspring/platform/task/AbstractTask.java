@@ -4,6 +4,10 @@
 package org.mspring.platform.task;
 
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Gao Youbo
@@ -12,11 +16,10 @@ import java.util.Map;
 public abstract class AbstractTask implements Task {
 
     public void doAsyncTask(final Map<Object, Object> context) {
-        new Thread(new Runnable() {
-
-            @Override
+        BlockingQueue queue = new LinkedBlockingQueue();
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 6, 1, TimeUnit.DAYS, queue);
+        executor.execute(new Runnable() {
             public void run() {
-                // TODO Auto-generated method stub
                 try {
                     AbstractTask.this.doTask(context);
                 } catch (Exception e) {
@@ -24,7 +27,8 @@ public abstract class AbstractTask implements Task {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        executor.shutdown();
     }
 
     public void doSyncTask(Map<Object, Object> context) {
