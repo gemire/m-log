@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.CookieUtils;
@@ -19,6 +22,7 @@ import org.mspring.platform.utils.RequestUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.web.render.JSONRender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +36,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget("webCommentWidget")
 @RequestMapping("/comment")
 public class CommentWidget extends AbstractWebWidget {
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private OptionService optionService;
+
     @RequestMapping("/get_json")
     public void get_json(@RequestParam(required = false) Long post, HttpServletRequest request, HttpServletResponse response) {
         if (post == null) {

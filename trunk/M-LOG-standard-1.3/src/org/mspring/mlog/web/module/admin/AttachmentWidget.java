@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Attachment;
 import org.mspring.mlog.service.AttachmentService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class AttachmentWidget extends AbstractAdminWidget {
 
     @ResponseBody
     @RequestMapping("/upload")
+    @Log
     public String upload(HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

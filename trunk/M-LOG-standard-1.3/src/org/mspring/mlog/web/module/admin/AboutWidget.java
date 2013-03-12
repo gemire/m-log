@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.Application;
-import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +27,6 @@ public class AboutWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/about")
-    @Log
     public String about(HttpServletRequest request, HttpServletResponse response, Model model) {
         Application app = Application.getInstance();
         model.addAttribute("app", app);

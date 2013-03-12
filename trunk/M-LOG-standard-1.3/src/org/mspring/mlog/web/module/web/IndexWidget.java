@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.common.PageNames;
-import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Widget("webIndexWidget")
 @RequestMapping({ "/", "" })
 public class IndexWidget extends AbstractWebWidget {
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private CatalogService catalogService;
 
     /**
      * 文章首页

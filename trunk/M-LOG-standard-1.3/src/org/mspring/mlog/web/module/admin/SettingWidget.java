@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.SkinService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -74,6 +75,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveBloginfo")
+    @Log
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/bloginfo";
@@ -105,6 +107,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSkin")
+    @Log
     public String saveSkin(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/skin";
@@ -136,6 +139,7 @@ public class SettingWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSeo")
+    @Log
     public String saveSeo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/setting/seo";

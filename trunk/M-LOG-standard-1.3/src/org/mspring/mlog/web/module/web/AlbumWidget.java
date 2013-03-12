@@ -11,6 +11,7 @@ import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.service.AlbumService;
+import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.utils.PermissionUtils;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
@@ -33,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget("webAlbumWidget")
 @RequestMapping("/album")
 public class AlbumWidget extends AbstractWebWidget {
+    @Autowired
+    private OptionService optionService;
     @Autowired
     private AlbumService albumService;
     @Autowired

@@ -11,15 +11,16 @@ import java.util.Map;
  */
 public abstract class AbstractTask implements Task {
 
-    // @Async
     public void doAsyncTask(final Map<Object, Object> context) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 // TODO Auto-generated method stub
                 try {
                     AbstractTask.this.doTask(context);
                 } catch (Exception e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

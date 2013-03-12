@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.service.CommentService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.CommentQueryCriterion;
@@ -45,6 +46,7 @@ public class CommentWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
+    @Log
     public String listComment(@ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (comment == null) {
             comment = new Comment();
@@ -80,6 +82,7 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/delete")
+    @Log
     public String deleteComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             commentService.deleteComment(id);
@@ -116,6 +119,7 @@ public class CommentWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/audit")
+    @Log
     public String auditComment(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Comment> commentPage, @ModelAttribute Comment comment, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         String status = request.getParameter("type");
         if (id != null && id.length > 0 && StringUtils.isNotBlank(status)) {

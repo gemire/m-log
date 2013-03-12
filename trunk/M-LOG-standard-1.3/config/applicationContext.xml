@@ -9,7 +9,9 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd" default-lazy-init="true">
-
+	
+	<!-- <context:annotation-config /> -->
+	<context:component-scan base-package="org.mspring" />
 
 	<!-- 定义受环境影响的变量 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -22,13 +24,8 @@
 		</property>
 	</bean>
 	
-	<context:annotation-config />
-	<context:component-scan base-package="org.mspring" />
-	<task:executor id="taskExecutor" pool-size="5" queue-capacity="25"/>
-	<task:scheduler id="taskScheduler" pool-size="5"/>
-	<task:annotation-driven executor="taskExecutor" scheduler="taskScheduler"/>
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
-
+	
 	<!-- datasource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<!-- connection info -->

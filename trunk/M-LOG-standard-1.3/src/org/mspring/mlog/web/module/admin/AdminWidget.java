@@ -3,6 +3,7 @@
  */
 package org.mspring.mlog.web.module.admin;
 
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +22,7 @@ public class AdminWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping({ "", "/" })
+    @Log(action = "登录后台")
     public String index() {
         return "redirect:/admin/index";
     }

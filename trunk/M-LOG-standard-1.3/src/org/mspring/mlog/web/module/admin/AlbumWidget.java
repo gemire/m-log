@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -37,6 +38,7 @@ public class AlbumWidget extends AbstractAdminWidget {
     private OptionService optionService;
 
     @RequestMapping({ "/list", "/", "" })
+    @Log
     public String listAlbum(@ModelAttribute Page<Album> albumPage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (albumPage == null) {
             albumPage = new Page<Album>();
@@ -57,12 +59,14 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping({ "/create/save" })
+    @Log
     public String create_save(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         albumService.createAlbum(album);
         return "redirect:/admin/album/list";
     }
 
     @RequestMapping("/delete")
+    @Log
     public String deleteAlbum(@RequestParam Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请选择要删除的相册");
@@ -95,6 +99,7 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Album album, HttpServletRequest request, HttpServletResponse response, Model model) {
         album.setModifyTime(new Date());
         albumService.updateAlbum(album);
@@ -108,6 +113,7 @@ public class AlbumWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/config/save")
+    @Log
     public String saveBloginfo(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/album/config";

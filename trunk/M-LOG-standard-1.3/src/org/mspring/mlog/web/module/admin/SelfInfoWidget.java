@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.utils.CookieUtils;
@@ -42,6 +43,7 @@ public class SelfInfoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/info/save")
+    @Log
     public String edit_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (StringUtils.isNotBlank(user.getPassword())) { // 如果密码框不为空，那么修改密码
             String password = StringUtils.getMD5(user.getPassword());

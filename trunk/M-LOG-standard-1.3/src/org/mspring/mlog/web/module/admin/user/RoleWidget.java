@@ -14,6 +14,7 @@ import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.RoleService;
 import org.mspring.mlog.service.security.TreeItemSecurityService;
 import org.mspring.mlog.service.security.TreeItemService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.mlog.web.security.SecurityUtils;
@@ -43,6 +44,7 @@ public class RoleWidget extends AbstractAdminWidget {
     private TreeItemSecurityService treeItemSecurityService;
 
     @RequestMapping("/list")
+    @Log
     public String list(@ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (rolePage == null) {
             rolePage = new Page<Role>();
@@ -55,6 +57,7 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
+    @Log
     public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<Role> rolePage, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "删除失败，请选择要删除的角色");
@@ -73,6 +76,7 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String create_save(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         role = roleService.createRole(role);
         // roleResourceService.createRoleResource(role.getId(), new Long(1));
@@ -101,6 +105,7 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response, Model model) {
         roleService.updateRole(role);
         return "redirect:/admin/role/edit?id=" + role.getId();
@@ -128,6 +133,7 @@ public class RoleWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/authorize/save")
+    @Log
     public String saveAuthorize(@RequestParam(required = false) Long id, @RequestParam(required = false) String checkedItems, @RequestParam(required = false) String notCheckedItems, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请先选择要修改的角色");

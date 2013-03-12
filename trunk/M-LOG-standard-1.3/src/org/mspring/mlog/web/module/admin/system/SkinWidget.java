@@ -19,6 +19,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.SkinService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.utils.ArrayUtils;
@@ -154,6 +155,7 @@ public class SkinWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@RequestParam(required = false) String skin, @RequestParam(required = false) String path, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
         String content = request.getParameter("content");
         String relativePath = "/skins/" + skin + path;

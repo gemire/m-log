@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
@@ -50,6 +51,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping({ "/list" })
+    @Log
     public String listCatalog(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalogPage == null) {
             catalogPage = new Page<Catalog>();
@@ -89,6 +91,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/create/save")
+    @Log
     public String create_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (catalog.getCreateTime() == null) {
             catalog.setCreateTime(new Date());
@@ -135,6 +138,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Catalog catalog, HttpServletRequest request, HttpServletResponse response, Model model) {
         catalog.setModifyTime(new Date());
         catalogService.updateCatalog(catalog);
@@ -151,6 +155,7 @@ public class CatalogWidget extends AbstractAdminWidget {
      */
     @ResponseBody
     @RequestMapping("/setParent")
+    @Log
     public String setParent(@RequestParam(required = false) Long id, @RequestParam(required = false) Long parent, HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             catalogService.setCatalogParent(id, parent);
@@ -162,6 +167,7 @@ public class CatalogWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
+    @Log
     public String ctrl(@ModelAttribute Page<Catalog> catalogPage, @ModelAttribute Catalog catalog, @QueryParam Map queryParams, @RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] deleteIds, @RequestParam(required = false) Long[] orders, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (deleteIds != null && deleteIds.length > 0) {
             catalogService.deleteCatalog(deleteIds);

@@ -14,6 +14,7 @@ import org.mspring.mlog.entity.Job;
 import org.mspring.mlog.entity.JobLog;
 import org.mspring.mlog.service.JobLogService;
 import org.mspring.mlog.service.JobService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
@@ -44,6 +45,7 @@ public class JobWidget extends AbstractAdminWidget {
     private JobLogService jobLogService;
 
     @RequestMapping("/list")
+    @Log
     public String list(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (jobPage == null) {
             jobPage = new Page<Job>();
@@ -67,6 +69,7 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/ctrl")
+    @Log
     public String ctrl(@RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] enabledIds, @RequestParam(required = false) String[] expressions, @RequestParam(required = false) String[] execTypes, @ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 设置可用
         if (enabledIds != null && enabledIds.length > 0) {
@@ -92,6 +95,7 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/exec")
+    @Log
     public String exec(@ModelAttribute Page<Job> jobPage, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         return list(jobPage, queryParams, request, response, model);
     }
@@ -108,6 +112,7 @@ public class JobWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/log/clear")
+    @Log
     public String log(@RequestParam(required = false) int days, HttpServletRequest request, HttpServletResponse response, Model model) {
         jobLogService.removeJobLog(days);
         return prompt(model, "系统提示", "JOB调度日志清理成功！", "/admin/system/job/log");
