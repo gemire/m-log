@@ -33,7 +33,7 @@ import org.mspring.platform.utils.DateUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
 import org.mspring.platform.utils.XMLUtils;
-import org.mspring.platform.web.servlet.renderer.XMLRenderer;
+import org.mspring.platform.web.render.XMLRender;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -126,7 +126,7 @@ public class MetaWeblogAPI {
      *            the specified http request context
      */
     public void metaWeblog(final HttpServletRequest request, final HttpServletResponse response) {
-        XMLRenderer renderer = new XMLRenderer();
+        XMLRender renderer = new XMLRender();
 
         String responseContent = null;
         try {

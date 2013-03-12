@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.core.ServiceFactory;
+import org.mspring.platform.spring.web.view.freemarker.ExtendsFreeMarkerViewResolver;
 import org.mspring.platform.utils.StringUtils;
-import org.mspring.platform.web.view.freemarker.ExtendsFreeMarkerViewResolver;
 
 /**
  * @author Gao Youbo

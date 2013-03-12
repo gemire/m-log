@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.view.freemarker;
+package org.mspring.platform.spring.web.view.freemarker;
 
 import java.util.Locale;
 import java.util.Map;
@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.platform.spring.web.view.ExtendsViewUtil;
 import org.mspring.platform.utils.StringUtils;
-import org.mspring.platform.web.view.ExtendsViewUtil;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
 /**

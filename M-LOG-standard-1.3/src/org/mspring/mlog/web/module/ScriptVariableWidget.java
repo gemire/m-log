@@ -14,7 +14,7 @@ import org.mspring.mlog.common.OptionKeys;
 import org.mspring.mlog.utils.SkinUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.utils.FreemarkerUtils;
-import org.mspring.platform.web.servlet.renderer.ScriptRenderer;
+import org.mspring.platform.web.render.ScriptRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +43,7 @@ public class ScriptVariableWidget {
         mapModel.put("variables", variables);
         
         String script = FreemarkerUtils.render(configuration, "script/scriptVariable.ftl", mapModel);
-        ScriptRenderer renderer = new ScriptRenderer(script);
+        ScriptRender renderer = new ScriptRender(script);
         renderer.render(response);
     }
 }

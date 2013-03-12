@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.servlet.renderer;
+package org.mspring.platform.web.render;
 
 import java.io.PrintWriter;
 
@@ -15,8 +15,8 @@ import org.mspring.platform.utils.JSONUtils;
  * @author Gao Youbo
  * @since Apr 16, 2012
  */
-public class JSONRenderer extends AbstractResponseRenderer {
-    private static final Logger log = Logger.getLogger(JSONRenderer.class);
+public class JSONRender extends AbstractResponseRender {
+    private static final Logger log = Logger.getLogger(JSONRender.class);
 
     private Object content;
     private boolean excludesFieldsWithoutExpose = false;
@@ -40,14 +40,14 @@ public class JSONRenderer extends AbstractResponseRenderer {
     /**
      * 
      */
-    public JSONRenderer() {
+    public JSONRender() {
         // TODO Auto-generated constructor stub
     }
 
     /**
      * @param content
      */
-    public JSONRenderer(Object content) {
+    public JSONRender(Object content) {
         super();
         this.content = content;
     }
@@ -56,7 +56,7 @@ public class JSONRenderer extends AbstractResponseRenderer {
      * @param content
      * @param excludesFieldsWithoutExpose
      */
-    public JSONRenderer(Object content, boolean excludesFieldsWithoutExpose) {
+    public JSONRender(Object content, boolean excludesFieldsWithoutExpose) {
         super();
         this.content = content;
         this.excludesFieldsWithoutExpose = excludesFieldsWithoutExpose;

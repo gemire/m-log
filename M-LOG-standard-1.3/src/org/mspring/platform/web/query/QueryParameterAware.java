@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.mspring.platform.web.query;
 
 import java.util.Map;

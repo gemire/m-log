@@ -1,62 +1,66 @@
 /**
  * 
  */
-package org.mspring.platform.web.servlet.renderer;
+package org.mspring.platform.web.render;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Gao Youbo
- * @since 2013-2-6
- * @description 
- * @TODO
+ * @since Apr 20, 2012
  */
-public class ScriptRenderer extends AbstractResponseRenderer {
-    
-    private String script;
-    
-    public String getScript() {
-        return script;
+public class TextRender extends AbstractResponseRender {
+    private static final Logger log = Logger.getLogger(TextRender.class);
+
+    private String content;
+
+    public String getContent() {
+        return content;
     }
 
-    public void setScript(String script) {
-        this.script = script;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     /**
      * 
      */
-    public ScriptRenderer() {
+    public TextRender() {
         // TODO Auto-generated constructor stub
     }
 
     /**
      * @param content
      */
-    public ScriptRenderer(String script) {
+    public TextRender(String content) {
         super();
-        this.script = script;
+        this.content = content;
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.mspring.platform.web.servlet.renderer.AbstractResponseRenderer#render(javax.servlet.http.HttpServletResponse)
      */
     @Override
     public void render(HttpServletResponse response) {
         // TODO Auto-generated method stub
         try {
-            response.setContentType("text/javascript");
             response.setCharacterEncoding("UTF-8");
-            
             PrintWriter writer = response.getWriter();
 
-            writer.write(this.script);
+            writer.write(this.content);
             writer.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
+            log.debug("Text Render failed", e);
         }
+
     }
 
 }
