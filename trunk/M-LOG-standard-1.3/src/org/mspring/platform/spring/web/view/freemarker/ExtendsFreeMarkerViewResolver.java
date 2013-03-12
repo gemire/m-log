@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.view.freemarker;
+package org.mspring.platform.spring.web.view.freemarker;
 
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;

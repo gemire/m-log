@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.servlet.renderer;
+package org.mspring.platform.web.render;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
  * @author Gao Youbo
  * @since Apr 16, 2012
  */
-public class XMLRenderer extends AbstractResponseRenderer {
+public class XMLRender extends AbstractResponseRender {
 
-    private static final Logger log = Logger.getLogger(XMLRenderer.class);
+    private static final Logger log = Logger.getLogger(XMLRender.class);
 
     private String content;
 

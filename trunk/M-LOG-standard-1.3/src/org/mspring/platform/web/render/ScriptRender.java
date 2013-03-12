@@ -1,38 +1,45 @@
 /**
  * 
  */
-package org.mspring.platform.web.servlet.renderer;
+package org.mspring.platform.web.render;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 /**
  * @author Gao Youbo
- * @since May 12, 2012
+ * @since 2013-2-6
+ * @description 
+ * @TODO
  */
-public class AtomRenderer extends AbstractResponseRenderer {
+public class ScriptRender extends AbstractResponseRender {
     
-    private static final Logger log = Logger.getLogger(AtomRenderer.class);
+    private String script;
     
-    private String content;
-    
+    public String getScript() {
+        return script;
+    }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setScript(String script) {
+        this.script = script;
     }
 
     /**
      * 
      */
-    public AtomRenderer(String content) {
+    public ScriptRender() {
         // TODO Auto-generated constructor stub
-        this.content = content;
     }
 
+    /**
+     * @param content
+     */
+    public ScriptRender(String script) {
+        super();
+        this.script = script;
+    }
     /* (non-Javadoc)
      * @see org.mspring.platform.web.servlet.renderer.AbstractResponseRenderer#render(javax.servlet.http.HttpServletResponse)
      */
@@ -40,15 +47,16 @@ public class AtomRenderer extends AbstractResponseRenderer {
     public void render(HttpServletResponse response) {
         // TODO Auto-generated method stub
         try {
-            response.setContentType("application/atom+xml");
+            response.setContentType("text/javascript");
             response.setCharacterEncoding("UTF-8");
-
+            
             PrintWriter writer = response.getWriter();
-            writer.write(this.content);
+
+            writer.write(this.script);
             writer.close();
-          } catch (IOException e) {
-            log.warn("Atom Render failed", e);
-          }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+        }
     }
 
 }

@@ -18,6 +18,7 @@ import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.search.HibernateSearchService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
@@ -58,6 +59,7 @@ public class PostWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
+    @Log
     public String listPost(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (postPage == null) {
             postPage = new Page<Post>();
@@ -80,6 +82,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
+    @Log
     public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
@@ -99,6 +102,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String create_save(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         User user = SecurityUtils.getCurrentUser(request);
         if (post.getAuthor() == null) {
@@ -119,6 +123,7 @@ public class PostWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/trash")
+    @Log
     public String trashPost(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             postService.discardPost(id);
@@ -136,6 +141,7 @@ public class PostWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/trash2Publish")
+    @Log
     public String trash2Publish(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             postService.trash2Publish(id);
@@ -154,6 +160,7 @@ public class PostWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/delete")
+    @Log
     public String deletePost(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             postService.deletePost(id);
@@ -167,12 +174,14 @@ public class PostWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("clearTrash")
+    @Log
     public String clearTrash(@ModelAttribute Page<Post> postPage, @ModelAttribute Post post, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.clearTrash();
         return listPost(postPage, post, queryParams, request, response, model);
     }
 
     @RequestMapping("/edit")
+    @Log
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (post == null || post.getId() == null) {
             Object obj = getSessionAttribute(request, "PostWidget_edit_id");
@@ -199,6 +208,7 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.updatePost(post);
         return "redirect:/admin/post/list";
@@ -211,6 +221,7 @@ public class PostWidget extends AbstractAdminWidget {
      */
     @RequestMapping("/updateIndex")
     @ResponseBody
+    @Log
     public String updateLuceneIndex() {
         try {
             HibernateSearchService hibernateSearchService = ServiceFactory.getHibernateSearchService();

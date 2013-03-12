@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.view;
+package org.mspring.platform.spring.web.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.view;
+package org.mspring.platform.spring.web.view;
 
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;

@@ -26,7 +26,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.servlet.renderer;
+package org.mspring.platform.web.render;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -44,9 +44,9 @@ import org.apache.log4j.Logger;
  * @date 2012-7-6 下午03:00:55
  * @version V1.0
  */
-public class JPEGRenderer extends AbstractResponseRenderer {
+public class JPEGRender extends AbstractResponseRender {
 
-    private static final Logger log = Logger.getLogger(JPEGRenderer.class);
+    private static final Logger log = Logger.getLogger(JPEGRender.class);
 
     private BufferedImage buffImg;
 
@@ -57,7 +57,7 @@ public class JPEGRenderer extends AbstractResponseRenderer {
     /**
      * 
      */
-    public JPEGRenderer(BufferedImage buffImg) {
+    public JPEGRender(BufferedImage buffImg) {
         // TODO Auto-generated constructor stub
         this.buffImg = buffImg;
     }

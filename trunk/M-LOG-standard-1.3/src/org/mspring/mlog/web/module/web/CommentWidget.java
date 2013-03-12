@@ -18,7 +18,7 @@ import org.mspring.platform.utils.CookieUtils;
 import org.mspring.platform.utils.RequestUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.utils.ValidatorUtils;
-import org.mspring.platform.web.servlet.renderer.JSONRenderer;
+import org.mspring.platform.web.render.JSONRender;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +38,7 @@ public class CommentWidget extends AbstractWebWidget {
             return;
         }
         List<Comment> comments = commentService.findCommentsByPost(post);
-        JSONRenderer renderer = new JSONRenderer(comments, true);
+        JSONRender renderer = new JSONRender(comments, true);
         renderer.render(response);
     }
 

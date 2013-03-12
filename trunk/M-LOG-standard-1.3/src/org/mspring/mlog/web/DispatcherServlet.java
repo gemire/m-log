@@ -17,7 +17,7 @@ import freemarker.template.TemplateModelException;
  * @Description
  * @TODO
  */
-public class DispatcherServlet extends org.mspring.platform.web.servlet.DispatcherServlet {
+public class DispatcherServlet extends org.mspring.platform.spring.web.DispatcherServlet {
 
     /**
      * 
