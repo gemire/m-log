@@ -11,7 +11,9 @@
 
 	<context:component-scan base-package="org.mspring" />
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="useDefaultSuffixPattern" value="false" />
   		<property name="interceptors">
   			<list>
 				<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
@@ -50,11 +52,6 @@
 				<bean class="org.mspring.mlog.support.resolver.PathParamWebArgumentRequestResolver">
 					<property name="conversionService" ref="conversionService"></property>
 				</bean>
-				<!--  
-				<bean class="org.mspring.mlog.support.resolver.QueryParamHandlerMethodArgumentResolver">
-					<property name="conversionService" ref="conversionService"></property>
-				</bean>
-				-->
 			</list>
 		</property>
 		
