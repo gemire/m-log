@@ -10,12 +10,12 @@ import javax.servlet.http.HttpSession;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.utils.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +40,8 @@ public class LoginWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping(value = { "/login" }, method = { RequestMethod.GET })
-    public String login(@ModelAttribute User user, BindingResult result, HttpServletRequest request) {
+    @Log
+    public String login(@ModelAttribute User user, HttpServletRequest request) {
         User currentUser = SecurityUtils.getCurrentUser(request);
         if (currentUser != null) {
             return "redirect:/admin/index";
@@ -49,7 +50,7 @@ public class LoginWidget extends AbstractAdminWidget {
     }
 
     // @RequestMapping(value = { "/doLogin" }, method = { RequestMethod.POST })
-    public String doLogin(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+    public String doLogin(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         Object sessionValidateCode = session.getAttribute(Keys.SESSION_VALIDATE_CODE);
         if (sessionValidateCode == null) {
             // 验证码超时
@@ -77,7 +78,7 @@ public class LoginWidget extends AbstractAdminWidget {
     }
 
     // @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(@ModelAttribute User user, BindingResult result, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+    public String logout(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
         session.invalidate();
         CookieUtils.setCookie(response, Keys.IS_REMEMBER_USER_COOKIE, "false", 365);
         return "/admin/login";

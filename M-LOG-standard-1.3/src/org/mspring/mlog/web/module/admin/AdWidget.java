@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.entity.Ad;
 import org.mspring.mlog.service.AdService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.AdQueryCriterion;
@@ -35,6 +36,7 @@ public class AdWidget extends AbstractWebWidget {
     private AdService adService;
 
     @RequestMapping("/list")
+    @Log
     public String list(@ModelAttribute Page<Ad> adPage, @ModelAttribute Ad ad, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (adPage == null) {
             adPage = new Page<Ad>();
@@ -51,6 +53,7 @@ public class AdWidget extends AbstractWebWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String create_save(@ModelAttribute Ad ad, HttpServletRequest request, HttpServletResponse response, Model model) {
         ad = adService.createAd(ad);
         return "redirect:/admin/ad/list";
@@ -78,12 +81,14 @@ public class AdWidget extends AbstractWebWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Ad ad, HttpServletRequest request, HttpServletResponse response, Model model) {
         adService.updateAd(ad);
         return "redirect:/admin/ad/list";
     }
 
     @RequestMapping("/delete")
+    @Log
     public String delete(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Ad> adPage, @ModelAttribute Ad ad, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         adService.deleteAd(id);
         return list(adPage, ad, queryParams, request, response, model);

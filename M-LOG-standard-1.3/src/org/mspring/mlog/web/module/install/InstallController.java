@@ -6,8 +6,8 @@ package org.mspring.mlog.web.module.install;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.service.InstallService;
+import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.module.AbstractWidget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/install")
 public class InstallController extends AbstractWidget {
-
+    @Autowired
+    private OptionService optionService;
+    
     @Autowired
     private InstallService installService;
 
@@ -104,8 +106,7 @@ public class InstallController extends AbstractWidget {
             installService.initTreeItems();
             installService.initPosts();
             installService.initLinks();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
             return "/install/failure";

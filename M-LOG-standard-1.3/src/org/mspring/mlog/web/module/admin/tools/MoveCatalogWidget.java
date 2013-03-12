@@ -6,10 +6,14 @@ package org.mspring.mlog.web.module.admin.tools;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.utils.CatalogUtils;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,6 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Widget
 @RequestMapping("/admin/tools/movecatalog")
 public class MoveCatalogWidget extends AbstractAdminWidget {
+    @Autowired
+    private CatalogService catalogService;
+
+    @Autowired
+    private PostService postService;
+
     @RequestMapping({ "/", "" })
     public String move(HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("catalogs", CatalogUtils.getTreeList(catalogService.findAllCatalog()));
@@ -29,6 +39,7 @@ public class MoveCatalogWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/move")
+    @Log
     public String doMove(HttpServletRequest request, HttpServletResponse response, Model model) {
         String from = request.getParameter("from");
         String to = request.getParameter("to");

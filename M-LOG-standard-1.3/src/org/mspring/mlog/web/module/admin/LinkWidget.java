@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Link;
 import org.mspring.mlog.service.LinkService;
 import org.mspring.mlog.service.LinkTypeService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.LinkQueryCriterion;
@@ -42,6 +43,7 @@ public class LinkWidget extends AbstractAdminWidget {
     private LinkTypeService linkTypeService;
 
     @RequestMapping("/list")
+    @Log
     public String listLinks(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (linkPage == null) {
             linkPage = new Page<Link>();
@@ -75,12 +77,14 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String createLink(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.createLink(link);
         return "redirect:/admin/link/list";
     }
 
     @RequestMapping("/delete")
+    @Log
     public String deleteLink(@RequestParam(required = false) Long[] id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             linkService.deleteLinks(id);
@@ -111,12 +115,14 @@ public class LinkWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Link link, HttpServletRequest request, HttpServletResponse response, Model model) {
         linkService.updateLink(link);
         return "redirect:/admin/link/list";
     }
 
     @RequestMapping("/ctrl")
+    @Log
     public String ctrl(@ModelAttribute Page<Link> linkPage, @ModelAttribute Link link, @QueryParam Map queryParams, @RequestParam(required = false) Long[] ids, @RequestParam(required = false) Long[] orders, @RequestParam(required = false) Long[] deleteIds, @RequestParam(required = false) Long[] visableIds, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 删除
         if (deleteIds != null && deleteIds.length > 0) {

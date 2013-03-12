@@ -4,7 +4,6 @@
 package org.mspring.mlog.web.module.admin;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,10 @@ import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.service.TagService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.support.log.Log;
+import org.mspring.mlog.support.resolver.PathParam;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PostQueryCriterion;
@@ -30,11 +31,11 @@ import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.render.JSONRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -49,18 +50,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PostWidget extends AbstractAdminWidget {
     private static final Logger log = Logger.getLogger(PostWidget.class);
 
+    @Autowired
     private PostService postService;
+    @Autowired
     private CatalogService catalogService;
-
     @Autowired
-    public void setPostService(PostService postService) {
-        this.postService = postService;
-    }
-
-    @Autowired
-    public void setCatalogService(CatalogService catalogService) {
-        this.catalogService = catalogService;
-    }
+    private TagService tagService;
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
@@ -87,7 +82,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create")
-    @Log
     public String createPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         // 文章分类
         List<Catalog> catalogs = catalogService.findAllCatalog();
@@ -186,7 +180,6 @@ public class PostWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit")
-    @Log
     public String editPostView(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (post == null || post.getId() == null) {
             Object obj = getSessionAttribute(request, "PostWidget_edit_id");
@@ -238,30 +231,11 @@ public class PostWidget extends AbstractAdminWidget {
         }
         return "true";
     }
-    
-    @RequestMapping(value="/autocomplete")
-    private void loadingTags(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(123);
-    	request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json; charset=utf-8");
 
-		StringBuilder returnValue = new StringBuilder();
-		String keyword = request.getParameter("keyword"); 		
-		
-		//returnValue.append("{\"label\":\""+ rs.getString("addrname")+"\",\"value\":\""+ rs.getString("addrname") +"\",\"id\":\""+ rs.getString("addrid") +"\"},");
-		
-		List<Tag> tagsList = new ArrayList<Tag>();
-		tagsList = tagService.findLikeByName(keyword);
-		if(tagsList!=null){
-			for (Tag tag : tagsList) {
-				returnValue.append("{\"label\":\""+ tag.getName()+"\",\"value\":\""+ tag.getName() +"\",\"id\":\""+ tag.getId() +"\"},");
-			}
-		}
-		String returnValueString = returnValue.toString().trim();
-		if (!StringUtils.isEmpty(returnValueString)) {
-			returnValueString = returnValueString.substring(0, returnValueString.length()-1);
-			returnValueString = "["+ returnValueString +"]";
-		}
-		response.getWriter().write(returnValueString);
-	}
+    @RequestMapping(value = "/autocomplete")
+    public void autocomplete(@PathParam(required = false) String keyword, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Tag> tags = tagService.findLikeByName(keyword);
+        JSONRender render = new JSONRender(tags, false);
+        render.render(response);
+    }
 }

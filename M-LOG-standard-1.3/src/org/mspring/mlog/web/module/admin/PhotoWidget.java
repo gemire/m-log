@@ -13,6 +13,7 @@ import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.service.AlbumService;
 import org.mspring.mlog.service.PhotoService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.PhotoQueryCriterion;
@@ -50,6 +51,7 @@ public class PhotoWidget extends AbstractAdminWidget {
 
     @RequestMapping("/doUpload")
     @ResponseBody
+    @Log
     public String doUpload(@RequestParam(required = false) Long album, HttpServletRequest request, HttpServletResponse response) {
         // JSONObject res = new JSONObject();
         if (album == null) {
@@ -72,6 +74,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/list")
+    @Log
     public String listPost(@ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<Album> albums = albumService.findAllAlbum();
 
@@ -109,6 +112,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
+    @Log
     public String deletePhoto(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Photo> photoPage, @ModelAttribute Photo photo, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         photoService.deletePhoto(id);
         return listPost(photoPage, photo, queryParams, request, response, model);
@@ -136,6 +140,7 @@ public class PhotoWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute Photo photo, HttpServletRequest request, HttpServletResponse response, Model model) {
         photoService.updatePhoto(photo);
         return "redirect:/admin/photo/edit?id=" + photo.getId();
@@ -143,6 +148,7 @@ public class PhotoWidget extends AbstractAdminWidget {
 
     @RequestMapping("/cover")
     @ResponseBody
+    @Log
     public String setCover(@RequestParam(required = false) Long albumId, @RequestParam(required = false) Long photoId, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (albumId == null || photoId == null) {
             return "false";

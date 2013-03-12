@@ -14,6 +14,7 @@ import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.entity.security.UserRole;
 import org.mspring.mlog.service.security.RoleService;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
@@ -41,6 +42,7 @@ public class UserWidget extends AbstractAdminWidget {
     private RoleService roleService;
 
     @RequestMapping("/list")
+    @Log
     public String list(@ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (userPage == null) {
             userPage = new Page<User>();
@@ -64,6 +66,7 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String create_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         user = userService.createUser(user);
 
@@ -100,6 +103,7 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String edit_save(@ModelAttribute User user, HttpServletRequest request, HttpServletResponse response, Model model) {
         String newPassword = request.getParameter("newPassword");
         if (StringUtils.isNotBlank(newPassword)) {
@@ -122,6 +126,7 @@ public class UserWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
+    @Log
     public String delete(@RequestParam(required = false) Long id, @ModelAttribute Page<User> userPage, @ModelAttribute UserRole userRole, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             return prompt(model, "请选择要删除的用户。");

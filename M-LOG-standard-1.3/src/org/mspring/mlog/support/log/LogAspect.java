@@ -37,7 +37,7 @@ import com.google.gson.GsonBuilder;
 @Component
 public class LogAspect {
     @AfterReturning("within(org.mspring.mlog..*) && @annotation(logAnno)")
-    public void log(JoinPoint jp, Log logAnno) {
+    public void log(final JoinPoint jp, final Log logAnno) {
         try {
             HttpServletRequest request = WebUtils.getRequest();
 
@@ -59,7 +59,7 @@ public class LogAspect {
             log.setClassName(className);
             log.setMethodName(methodName);
             log.setArguments(arguments);
-            
+
             ContextManager.getApplicationContext().getBean(LogService.class).createLog(log);
         } catch (Exception e) {
             // TODO: handle exception
@@ -93,9 +93,7 @@ class ExclusionStrategyEntity implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes f) {
         // TODO Auto-generated method stub
-        if (f.getDeclaredClass().getName().indexOf("org.mspring.mlog") != -1 
-                || f.getDeclaredClass().isAssignableFrom(Collection.class) 
-                || f.getDeclaredClass().isAssignableFrom(Set.class)) {
+        if (f.getDeclaredClass().getName().indexOf("org.mspring.mlog") != -1 || f.getDeclaredClass().isAssignableFrom(Collection.class) || f.getDeclaredClass().isAssignableFrom(Set.class)) {
             return true;
         }
         if (f.getDeclaringClass().isAssignableFrom(Page.class) && "result".equals(f.getName())) {

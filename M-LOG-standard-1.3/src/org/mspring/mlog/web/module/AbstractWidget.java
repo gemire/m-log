@@ -6,17 +6,7 @@ package org.mspring.mlog.web.module;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mspring.mlog.service.CatalogService;
-import org.mspring.mlog.service.CommentService;
-import org.mspring.mlog.service.LinkService;
-import org.mspring.mlog.service.OptionService;
-import org.mspring.mlog.service.PostService;
-import org.mspring.mlog.service.StatService;
-import org.mspring.mlog.service.TagService;
-import org.mspring.mlog.service.cache.CacheService;
-import org.mspring.mlog.service.security.UserService;
 import org.mspring.platform.utils.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 /**
@@ -26,60 +16,6 @@ import org.springframework.ui.Model;
  * @TODO
  */
 public abstract class AbstractWidget {
-    protected PostService postService;
-    protected CatalogService catalogService;
-    protected CommentService commentService;
-    protected OptionService optionService;
-    protected LinkService linkService;
-    protected StatService statService;
-    protected UserService userService;
-    protected TagService tagService;
-    protected CacheService cacheService;
-
-    @Autowired
-    public void setPostService(PostService postService) {
-        this.postService = postService;
-    }
-
-    @Autowired
-    public void setCatalogService(CatalogService catalogService) {
-        this.catalogService = catalogService;
-    }
-
-    @Autowired
-    public void setCommentService(CommentService commentService) {
-        this.commentService = commentService;
-    }
-
-    @Autowired
-    public void setOptionService(OptionService optionService) {
-        this.optionService = optionService;
-    }
-
-    @Autowired
-    public void setLinkService(LinkService linkService) {
-        this.linkService = linkService;
-    }
-
-    @Autowired
-    public void setStatService(StatService statService) {
-        this.statService = statService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
 
     /**
      * 提示消息

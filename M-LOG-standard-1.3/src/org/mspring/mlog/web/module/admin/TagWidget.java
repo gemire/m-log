@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.service.TagService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.query.TagQueryCriterion;
@@ -38,6 +39,7 @@ public class TagWidget extends AbstractAdminWidget {
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
+    @Log
     public String listTag(@ModelAttribute Page<Tag> tagPage, @ModelAttribute Tag tag, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (tagPage == null) {
             tagPage = new Page<Tag>();
@@ -53,6 +55,7 @@ public class TagWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/delete")
+    @Log
     public String deleteTag(@RequestParam(required = false) Long[] id, @ModelAttribute Page<Tag> tagPage, @ModelAttribute Tag tag, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id != null && id.length > 0) {
             tagService.deleteTag(id);
@@ -82,6 +85,7 @@ public class TagWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/edit/save")
+    @Log
     public String editTagSave(@ModelAttribute Tag tag, HttpServletRequest request, HttpServletResponse response, Model model) {
         tagService.modifyTag(tag);
         return "redirect:/admin/tag/list";
@@ -93,6 +97,7 @@ public class TagWidget extends AbstractAdminWidget {
     }
 
     @RequestMapping("/create/save")
+    @Log
     public String createTag(@ModelAttribute Tag tag, HttpServletRequest request, HttpServletResponse response, Model model) {
         System.out.println(tag.getName());
         tag.setCreateTime(new Date());

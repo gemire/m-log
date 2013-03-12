@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.service.MailService;
 import org.mspring.mlog.service.OptionService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
 import org.mspring.platform.core.ContextManager;
@@ -56,6 +57,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/saveSetting")
+    @Log
     public String saveMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         optionService.setOptions(options);
         return "redirect:/admin/system/mail/setting";
@@ -85,6 +87,7 @@ public class MailWidget extends AbstractAdminWidget {
      * @return
      */
     @RequestMapping("/sendTestMail")
+    @Log
     public String sendTestMail(@RequestParam Map<String, String> options, HttpServletRequest request, HttpServletResponse response, Model model) {
         boolean success = true;
         String message = "success!";

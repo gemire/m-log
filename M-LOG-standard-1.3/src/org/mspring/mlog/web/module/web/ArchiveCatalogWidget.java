@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Post;
+import org.mspring.mlog.service.CatalogService;
+import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.platform.persistence.support.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget
 @RequestMapping("/")
 public class ArchiveCatalogWidget extends AbstractWebWidget {
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private CatalogService catalogService;
+
     @RequestMapping("/catalog")
     public String archiveByCatalog(@ModelAttribute Page<Post> postPage, @RequestParam(required = false) Long catalogId, HttpServletRequest request, HttpServletResponse response, Model model) {
         postService.findPostByCatalog(postPage, catalogId);

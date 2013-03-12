@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,17 +24,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Widget
 @RequestMapping("/admin/system/cache")
 public class CacheWidget extends AbstractAdminWidget {
+    @Autowired
+    private CacheService cacheService;
+
     @RequestMapping("/config")
+    @Log
     public String setting(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/admin/system/cache/config";
     }
 
     @RequestMapping("/config/save")
+    @Log
     public String saveSetting(@RequestParam String cache_prefix, HttpServletRequest request, HttpServletResponse response, Model model) {
         return "redirect:/admin/system/cache/config";
     }
 
     @RequestMapping("/clear")
+    @Log
     public String doClear(HttpServletRequest request, HttpServletResponse response, Model model) {
         String defaultCache = request.getParameter("defaultCache");
         String widgetCache = request.getParameter("widgetCache");
