@@ -131,30 +131,31 @@
 						<td>
 							<@spring.formInput path="post.tags" attributes='class="textinput" style="width:98%;"' />
 						</td>
-						
-						<td class="fieldlabel">链接</td>
-						<td>
-							
-						</td>
-					</tr>
-					<tr>
 						<td class="fieldlabel">访问密码</td>
 						<td>
 							<@spring.formInput path="post.password" attributes='class="textinput" style="width:98%;"' />
 						</td>
-						
-						<td colspan="2">
-							<table class="formtable" style="border:none;">
-								<tr>
-									<td class="fieldlabel">允许评论</td>
-									<td><@spring.formRadioButtons path="post.commentStatus" options=commentStatus defaultValue="open" separator="&nbsp;" /></td>
-									<td class="fieldlabel">是否置顶</td>
-									<td><@spring.formRadioButtons path="post.isTop" options=isTop defaultValue="1" separator="&nbsp;" /></td>
-								</tr>
-							</table>
+					</tr>
+					<tr>
+						<td class="fieldlabel">来源站点</td>
+						<td>
+							<@spring.formInput path="post.site" attributes='class="textinput" style="width:98%;"' />
+						</td>
+						<td class="fieldlabel">来源链接</td>
+						<td>
+							<@spring.formInput path="post.url" attributes='class="textinput" style="width:98%;"' />
 						</td>
 					</tr>
 					<tr>
+						<td class="fieldlabel">允许评论</td>
+						<td>
+						<@spring.formRadioButtons path="post.commentStatus" options=commentStatus defaultValue="open" separator="&nbsp;" />
+						</td>
+						<td class="fieldlabel">是否置顶</td>
+						<td>
+						<@spring.formRadioButtons path="post.isTop" options=isTop defaultValue="false" separator="&nbsp;" />
+						</td>
+					</tr>
 						<td class="fieldlabel">内容</td>
 						<td colspan="3">
 							<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;"' />
