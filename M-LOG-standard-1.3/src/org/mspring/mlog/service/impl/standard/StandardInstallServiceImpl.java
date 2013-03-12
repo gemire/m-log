@@ -119,6 +119,10 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         items.add(new TreeItem("435", "缓存管理", "4", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("435005", "缓存管理", "435", "/admin/system/cache/config", TreeItem.Type.TAB, true));
+        
+        items.add(new TreeItem("495", "系统日志", "4", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("495005", "列表", "495", "/admin/log/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("495010", "明细", "495", "/admin/log/view", TreeItem.Type.TAB, false));
 
         /**********************************************************************************************************/
 
