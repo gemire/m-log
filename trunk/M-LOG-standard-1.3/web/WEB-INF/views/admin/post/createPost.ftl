@@ -1,6 +1,9 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#include "../inc/header.ftl" />
+	<link rel="stylesheet" href="${base}/style/autocomplete/jquery.ui.all.css"></link>
+	<script type="text/javascript" src="${base}/script/jquery-ui/jquery.ui.all.js"></script>
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/autocomplete.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			mlog.editor.ins.createPostEditor = mlog.editor.init({
