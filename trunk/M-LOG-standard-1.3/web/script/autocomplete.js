@@ -9,7 +9,7 @@ $(function() {
 				                dataType: "json",
 				                success: function (data) {
 			            			response($.map(data, function (item) {
-				                        return { label: item.label, value: item.value, id: item.id };
+				                        return { label: item.name, value: item.name, id: item.id };
 				                    }));
 				                },
 				                error: function () {
