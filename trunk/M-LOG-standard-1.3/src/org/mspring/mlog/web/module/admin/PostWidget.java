@@ -273,13 +273,8 @@ public class PostWidget extends AbstractAdminWidget {
 	public void autocomplete(@PathParam(required = false) String keyword,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		List<Tag> tags = tagService.findLikeByName(keyword);
-		List<String>tagNames = new ArrayList<String>();
-		for (Tag tag : tags) {
-			tagNames.add(tag.getName());
-		}
-		JSONRender render = new JSONRender(tagNames, false);
+		JSONRender render = new JSONRender(tags, false);
 		render.render(response);
 	}
 }

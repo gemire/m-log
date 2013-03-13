@@ -15,7 +15,7 @@ $(function() {
         }
       })
       .autocomplete({
-        minLength: 0,
+        minLength: 1,
         source: function (request, response) {
             $.ajax({
                 type: "POST",
@@ -24,7 +24,9 @@ $(function() {
                 dataType: "json",
                 success: function (data) {
                 	response( $.ui.autocomplete.filter(
-                			data, extractLast( request.term ) ) );
+                			$.map(data, function(item){
+                				return item.name
+                			}), extractLast( request.term ) ) );
                 },
                 error: function () {
                     alert("补全失败");
