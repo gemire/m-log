@@ -72,5 +72,29 @@
 			};
 		}
 	});
+	
+	/*
+	exec_api(
+		'team_members', 
+		[{name: 'token', value: '8m3qt7i1ja22gm9c87inhgnl41'}], 
+		function(data){
+			alert(data.length);
+		}
+	);
+	
+	function exec_api(action, params, callback){
+		var url = 'http://team.mspring.org/?c=api';
+		if(!action){
+			return;
+		}
+		var api_url = url + '&a=' + action;
+		for(var i = 0; i < params.length; i++){
+			api_url += '&' + params[i].name + '=' + params[i].value;
+		}
+		mlog.utils.loader.loadJavaScript(api_url, function(){
+			alert(err_code);
+		});
+	}
+	*/
 </script>
 <#include "inc/footer.ftl" />
