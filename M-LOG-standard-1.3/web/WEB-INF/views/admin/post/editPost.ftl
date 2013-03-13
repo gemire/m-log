@@ -1,6 +1,7 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
 <#include "../inc/header.ftl" />
+	<script type="text/javascript" src="${base}/script/autocomplete.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		turnHighLight(11505015);
