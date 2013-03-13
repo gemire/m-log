@@ -38,7 +38,7 @@
 		</tr>
 		<tr>
 			<td>高尤波:</td>
-			<td>E-Mail: <a href="mailto:gaoyoubo@mspring.com">gaoyoubo@mspring.com</a> | QQ: 330721072</td>
+			<td>E-Mail: <a href="mailto:gaoyoubo@mspring.com">gaoyoubo@mspring.org</a> | QQ: 330721072</td>
 		</tr>
 		<tr>
 			<td>胡洪瑜:</td>
