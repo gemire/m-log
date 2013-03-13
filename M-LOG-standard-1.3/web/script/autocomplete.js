@@ -29,7 +29,9 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                	cache[ term ] = data;
+                	cache[ term ] = $.map(data, function(item){
+        				return item.name
+        			});
                 	response( $.ui.autocomplete.filter(
                 			$.map(data, function(item){
                 				return item.name
