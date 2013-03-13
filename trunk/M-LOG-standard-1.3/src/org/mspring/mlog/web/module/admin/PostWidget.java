@@ -274,21 +274,12 @@ public class PostWidget extends AbstractAdminWidget {
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String key ="";
-		String prefixKey="";
-		
-		prefixKey = keyword.substring(0, keyword.lastIndexOf(",")+1);
-		key = keyword.substring(keyword.lastIndexOf(",")+1, keyword.length());
-		List<Tag> tags = new ArrayList<Tag>();
-		
-		if(key!=null&&!key.equals("")){
-			tags = tagService.findLikeByName(key);
-			for (Tag tag : tags) {
-				tag.setName(prefixKey+tag.getName());
-			}
+		List<Tag> tags = tagService.findLikeByName(keyword);
+		List<String>tagNames = new ArrayList<String>();
+		for (Tag tag : tags) {
+			tagNames.add(tag.getName());
 		}
-		
-		JSONRender render = new JSONRender(tags, false);
+		JSONRender render = new JSONRender(tagNames, false);
 		render.render(response);
 	}
 }
