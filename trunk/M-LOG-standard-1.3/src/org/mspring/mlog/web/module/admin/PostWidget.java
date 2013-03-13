@@ -273,12 +273,14 @@ public class PostWidget extends AbstractAdminWidget {
 	public void autocomplete(@PathParam(required = false) String keyword,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String key ="";
 		String prefixKey="";
-		prefixKey = keyword.substring(0, keyword.lastIndexOf(",")+1);
 		
+		prefixKey = keyword.substring(0, keyword.lastIndexOf(",")+1);
 		key = keyword.substring(keyword.lastIndexOf(",")+1, keyword.length());
 		List<Tag> tags = new ArrayList<Tag>();
+		
 		if(key!=null&&!key.equals("")){
 			tags = tagService.findLikeByName(key);
 			for (Tag tag : tags) {
@@ -288,12 +290,5 @@ public class PostWidget extends AbstractAdminWidget {
 		
 		JSONRender render = new JSONRender(tags, false);
 		render.render(response);
-	}
-	
-	public static void main(String[] args) {
-		String key="你好";
-		key = key.substring(key.lastIndexOf(",")+1, key.length());
-		//key = key.substring(0, key.lastIndexOf(",")+1);
-		System.out.println(key);
 	}
 }
