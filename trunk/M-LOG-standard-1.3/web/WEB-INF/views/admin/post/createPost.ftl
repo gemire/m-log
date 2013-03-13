@@ -1,7 +1,5 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#include "../inc/header.ftl" />
- 	<script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script><script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="${base}/script/jquery-ui/jquery.ui.all.js"></script>
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/autocomplete.js" charset="utf-8"></script>
 	<script type="text/javascript">
