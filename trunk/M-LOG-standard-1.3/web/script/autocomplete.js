@@ -9,11 +9,11 @@ $(function() {
 				                dataType: "json",
 				                success: function (data) {
 			            			response($.map(data, function (item) {
-				                        return { label: item.name, value: item.name, id: item.id };
+				                        return { label: (item.name.toString()).substring((item.name.toString()).lastIndexOf(",")+1,(item.name.toString()).length), value: item.name, id: item.id };
 				                    }));
 				                },
 				                error: function () {
-				                    alert(url);
+				                    alert("补全失败");
 				                }
 				            });
 		        		},
