@@ -1,4 +1,5 @@
 $(function() {
+	var cache = {};
     function split( val ) {
       return val.split( /,\s*/ );
     }
@@ -17,12 +18,18 @@ $(function() {
       .autocomplete({
         minLength: 1,
         source: function (request, response) {
+        	var term = request.term;
+            if ( term in cache ) {
+              response( cache[ term ] );
+              return;
+            }
             $.ajax({
                 type: "POST",
                 url: mlog.variable.base+"/admin/post/autocomplete?keyword=" +  extractLast( request.term ) ,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
+                	cache[ term ] = data;
                 	response( $.ui.autocomplete.filter(
                 			$.map(data, function(item){
                 				return item.name
