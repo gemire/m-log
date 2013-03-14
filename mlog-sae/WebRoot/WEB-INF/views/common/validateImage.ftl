@@ -1,1 +1,0 @@
-<img src="${base}/common/validateCode.do" />
