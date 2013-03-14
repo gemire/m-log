@@ -1,4 +1,15 @@
 <#include "inc/header.ftl" />
+<style type="text/css">
+#members img {
+	width: 52px;
+	height: 52px;
+	padding: 1px;
+	margin-bottom: 3px;
+	max-width: 100%;
+	vertical-align: middle;
+	border: 1px solid #e8e8e8;
+}
+</style>
 <div>
 	<table class="infotable">
 		<tr>
@@ -28,10 +39,11 @@
 			<td colspan="2"><a href="https://me.alipay.com/gaoyoubo" target="_blank"><img src="${base}/images/alipay-me.png"></a></td>
 		</tr>
 	</table>
-	<table class="infotable">
+	<table class="infotable" id="members">
 		<tr>
 			<td colspan="2" class="partition">团队成员</td>
 		</tr>
+		<#--
 		<tr>
 			<td style="width:120px;">M-LOG交流群:</td>
 			<td>100231009</td>
@@ -50,6 +62,7 @@
 				只要有兴趣，就可加入为M-LOG源码做贡献！只要为源码做过贡献的同学，名字就可以出现在这里。 O(∩_∩)O
 			</td>
 		</tr>
+		-->
 	</table>
 </div>
 <script type="text/javascript">
@@ -71,6 +84,28 @@
 					b=true;
 				};
 			};
+		}
+	});
+	
+	$(document).ready(function(){
+		$.getJSON('${base}/common/teamtoy/team_members', function(JSON){
+			for(var i = 0; i < JSON.data.length; i++){
+				var cls = i % 2 === 0 ? 'color2' : 'color3';
+				var img = JSON.data[i].avatar_small;
+				if(!img){
+					img = 'http://team.mspring.org/static/image/user.avatar.png';
+				}
+				var email = JSON.data[i].email;
+				var tr = '<tr colspan="2"><td class="' + cls + '"><img src="' + img + '"/>' + JSON.data[i].name + ' &nbsp;&nbsp;E-Mail:<a href="mailto:' + email + '">' + email + '</a></td></tr>';
+				addRow('members', tr);
+			}
+		});
+		
+		function addRow(table_id, tr){
+			var rows=$("#"+table_id);
+			var vNum=$("#"+table_id+" tr").size();
+			var tr_Num = vNum - 1;
+			$(tr).insertAfter($("#"+table_id+" tr:eq("+tr_Num+")"));  
 		}
 	});
 </script>

@@ -50,6 +50,11 @@
 			<td>${javaVersion}</td>
 		</tr>
 	</table>
+	<table class="infotable" id="dongtai">
+		<tr>
+			<td colspan="2" class="partition">M-LOG最新动态</td>
+		</tr>
+	</table>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -73,28 +78,23 @@
 		}
 	});
 	
-	/*
-	exec_api(
-		'team_members', 
-		[{name: 'token', value: '8m3qt7i1ja22gm9c87inhgnl41'}], 
-		function(data){
-			alert(data.length);
-		}
-	);
 	
-	function exec_api(action, params, callback){
-		var url = 'http://team.mspring.org/?c=api';
-		if(!action){
-			return;
-		}
-		var api_url = url + '&a=' + action;
-		for(var i = 0; i < params.length; i++){
-			api_url += '&' + params[i].name + '=' + params[i].value;
-		}
-		mlog.utils.loader.loadJavaScript(api_url, function(){
-			alert(err_code);
+	$(document).ready(function(){
+		$.getJSON('${base}/common/teamtoy/todo_list', function(JSON){
+			for(var i = 0; i < JSON.data.length; i++){
+				var cls = i % 2 === 0 ? 'color2' : 'color3';
+				var tr = '<tr><td class=' + cls + '><a href="javascript:void(0);">' + JSON.data[i].content + '</a><span style="float:right;">' + JSON.data[i].last_action_at + '</span></td></tr>';
+				addRow('dongtai', tr);
+			}
 		});
-	}
-	*/
+		
+		function addRow(table_id, tr){
+			var rows=$("#"+table_id);
+			var vNum=$("#"+table_id+" tr").size();
+			var tr_Num = vNum - 1;
+			$(tr).insertAfter($("#"+table_id+" tr:eq("+tr_Num+")"));  
+		}
+	});
+	
 </script>
 <#include "inc/footer.ftl" />
