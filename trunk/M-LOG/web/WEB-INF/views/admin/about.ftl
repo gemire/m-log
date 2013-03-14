@@ -83,7 +83,7 @@
 		$.getJSON('${base}/common/teamtoy/todo_list', function(JSON){
 			for(var i = 0; i < JSON.data.length; i++){
 				var cls = i % 2 === 0 ? 'color2' : 'color3';
-				var tr = '<tr><td class=' + cls + '><a href="javascript:void(0);">' + JSON.data[i].content + '</a><span style="float:right;">' + JSON.data[i].last_action_at + '</span></td></tr>';
+				var tr = '<tr><td colspan="2" class=' + cls + '><a href="javascript:void(0);">' + JSON.data[i].content + '</a><span style="float:right;">' + JSON.data[i].last_action_at + '</span></td></tr>';
 				addRow('dongtai', tr);
 			}
 		});
