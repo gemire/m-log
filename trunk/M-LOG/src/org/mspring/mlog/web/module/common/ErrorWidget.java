@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Widget
 @RequestMapping(value = "/errors")
-public class ErrorController {
+public class ErrorWidget {
     
     @RequestMapping("/404")
     public String error_404(HttpServletRequest request, HttpServletResponse response, Model model){
