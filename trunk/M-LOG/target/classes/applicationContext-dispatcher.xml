@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="org.mspring" />
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="useDefaultSuffixPattern" value="false" />
+  		<property name="interceptors">
+  			<list>
+				<bean class="org.mspring.mlog.web.interceptor.SettingInterceptor" />
+				<bean class="org.mspring.mlog.web.interceptor.WebContextInterceptor" />
+				<bean class="org.mspring.platform.web.query.interceptor.QueryParameterInterceptor" />
+				<!-- <bean class="org.mspring.mlog.web.interceptor.InstallInterceptor" /> -->
+				<!-- <bean class="org.mspring.mlog.web.interceptor.CloseSiteInterceptor" /> -->
+  			</list>
+  		</property>
+ 	</bean>
+ 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+ 	
+ 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.mspring.platform.web.converter.StringHttpMessageConverter">
+					<constructor-arg value="UTF-8" />
+				</bean>
+				<!-- 
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />  
+				<bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />  
+				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />  
+				<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />  
+				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />  
+				-->
+			</list>
+		</property>
+		<property name="customArgumentResolvers">
+			<list>
+				<bean class="org.mspring.mlog.support.resolver.QueryParamWebArgumentResolver">
+					<property name="conversionService" ref="conversionService"></property>
+				</bean>
+				<bean class="org.mspring.mlog.support.resolver.PathParamWebArgumentRequestResolver">
+					<property name="conversionService" ref="conversionService"></property>
+				</bean>
+			</list>
+		</property>
+		
+		<property name="webBindingInitializer">
+			<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="conversionService" ref="conversionService"/>
+			</bean>
+		</property>
+	</bean>
+ 	
+ 	<!-- RESTful风格链接,处理静态资源无法访问的问题 -->
+    <mvc:default-servlet-handler />
+    
+    
+    <!-- 1,注册ConversionService -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="org.mspring.platform.web.converter.DateConverter">
+					<property name="pattern" value="yyyy-MM-dd HH:mm:ss" />
+				</bean>
+			</list>
+		</property>
+		<property name="formatters">
+			<list>
+				<bean class="org.mspring.mlog.support.formater.factory.CatalogFormatAnnotationFormatterFactory"></bean>
+				<bean class="org.mspring.mlog.support.formater.factory.TagFormatAnnotationFormatterFactory"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">        
+        <property name="defaultEncoding" value="utf-8"></property>        
+    </bean>
+
+	<bean id="ftlViewResolver" class="org.mspring.platform.spring.web.view.freemarker.ExtendsFreeMarkerViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html;charset=UTF-8"/>
+		<property name="order" value="2"/>
+		<!-- <property name="exposeRequestAttributes" value="true" /> -->
+        <property name="exposeSpringMacroHelpers" value="true"/>  
+	</bean>
+</beans>

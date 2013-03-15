@@ -1,0 +1,126 @@
+@CHARSET "UTF-8";
+html {
+	background-color: #E9EEF0
+}
+.wrapper {
+	margin: 140px auto;
+	width: 884px;
+}
+.loginBox {
+	background-color: #FEFEFE;
+	border: 1px solid #BfD6E1;
+	border-radius: 5px;
+	color: #444;
+	font: 14px 'Microsoft YaHei','微软雅黑';
+	margin: 0 auto;
+	width: 388px
+}
+.loginBox .loginBoxCenter {
+	border-bottom: 1px solid #DDE0E8;
+	padding: 24px;
+}
+.loginBox .loginBoxCenter p {
+	/*margin-bottom: 10px*/
+	margin: 2px;
+	
+}
+.loginBox .loginBoxButtons {
+	background-color: #F0F4F6;
+	border-top: 1px solid #FFF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	line-height: 28px;
+	overflow: hidden;
+	padding: 20px 24px;
+	vertical-align: center;
+}
+.loginBox .loginInput {
+	border: 1px solid #D2D9dC;
+	border-radius: 2px;
+	color: #444;
+	font: 12px 'Microsoft YaHei','微软雅黑';
+	padding: 8px 14px;
+	margin-bottom: 8px;
+	width: 310px;
+}
+.loginBox .loginInput:FOCUS {
+	border: 1px solid #B7D4EA;
+	box-shadow: 0 0 8px #B7D4EA;
+}
+.loginBox .loginBtn {
+	/*
+	background-image: -moz-linear-gradient(to bottom, #B5DEF2, #85CFEE);
+	border: 1px solid #98CCE7;
+	border-radius: 20px;
+	box-shadow:inset rgba(255,255,255,0.6) 0 1px 1px, rgba(0,0,0,0.1) 0 1px 1px;
+	color: #FFF;
+	cursor: pointer;
+	float: right;
+	font: bold 13px Arial;
+	padding: 5px 14px;
+	*/
+	
+	display:inline-block;
+  	padding:3px 10px 4px;
+  	background-repeat:no-repeat;
+  	background-image:-moz-linear-gradient(top,#629cfa,#3582eb);
+    background-image:-o-linear-gradient(top,#629cfa,#3582eb);
+    background-image: -webkit-gradient(
+    linear,
+    top,
+    bottom,
+    color-stop(0, #629cfa),
+    color-stop(1, #3582eb)
+    );
+    background-image: -webkit-linear-gradient(top, #629cfa, #3582eb);
+    background-image: linear-gradient(#629cfa, #3582eb);
+  	background-image: -ms-linear-gradient(#629cfa, #3582eb);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#629cfa', endColorstr='#3582eb', GradientType=0);
+  	background-color:#3582eb;
+  	color:#fff;
+  	border:1px solid #417fe5;
+  	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  	text-shadow:0px 1px 0 rgba(0,0,0,0.2);
+  	font-weight:bolder;
+    border-radius: 3px;
+  	line-height:1.5;
+    cursor:pointer;
+}
+.loginBox .loginBtn:HOVER {
+	/*
+	background-image: -moz-linear-gradient(to top, #B5DEF2, #85CFEE);
+	*/
+	color:#fff;
+  	text-decoration:none;
+  	background-position:0 -15px;
+}
+.loginBox a.forgetLink {
+	color: #ABABAB;
+	cursor: pointer;
+	float: right;
+	font: 11px/20px Arial;
+	text-decoration: none;
+	vertical-align: middle;
+}
+.loginBox a.forgetLink:HOVER {
+	text-decoration: underline;
+}
+.loginBox input#remember {
+	vertical-align: middle;
+}
+.loginBox label[for="remember"] {
+	font: 11px Arial;
+}
+
+/*提示消息*/
+.message { padding:10px; margin:10px; display:block; text-align:left }
+.message-title { font-weight:bold; font-size:1.25em }
+.message-body { margin-top:4px }
+.message.error, .message.notice, .message.success { padding:.8em; margin-bottom:1em; border:2px solid #ddd }
+.message.error { background:#FBE3E4; color:#8a1f11; border-color:#FBC2C4 }
+.message.notice { background:#FFF6BF; color:#514721; border-color:#FFD324 }
+.message.success { background:#E6EFC2; color:#264409; border-color:#C6D880 }
+.message.error a { color:#8a1f11 }
+.message.notice a { color:#514721 }
+.message.success a { color:#264409 }
+.message ul, .message li {list-style: none;}
