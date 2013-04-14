@@ -18,8 +18,8 @@ import javax.persistence.Table;
  * @description
  * @TODO
  */
-// @Entity
-// @Table(name = "spider_rule")
+@Entity
+@Table(name = "spider_rule")
 public class Rule implements Serializable {
     /**
      * 
@@ -35,9 +35,9 @@ public class Rule implements Serializable {
     private String contentRule;
     private Boolean enabled;
 
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "id", unique = true, nullable = false, length = 30)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false, length = 30)
     public Long getId() {
         return id;
     }
@@ -46,7 +46,7 @@ public class Rule implements Serializable {
         this.id = id;
     }
 
-    // @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     public String getName() {
         return name;
     }
@@ -55,7 +55,7 @@ public class Rule implements Serializable {
         this.name = name;
     }
 
-    // @Column(name = "description", length = 800)
+    @Column(name = "description", length = 800)
     public String getDescription() {
         return description;
     }
@@ -64,7 +64,7 @@ public class Rule implements Serializable {
         this.description = description;
     }
 
-    // @Column(name = "url", nullable = false, length = 200)
+    @Column(name = "url", nullable = false, length = 200)
     public String getUrl() {
         return url;
     }
@@ -73,7 +73,7 @@ public class Rule implements Serializable {
         this.url = url;
     }
 
-    // @Column(name = "list_rule", nullable = false, length = 200)
+    @Column(name = "list_rule", nullable = false, length = 200)
     public String getListRule() {
         return listRule;
     }
@@ -82,7 +82,7 @@ public class Rule implements Serializable {
         this.listRule = listRule;
     }
 
-    // @Column(name = "title_rule", nullable = false, length = 200)
+    @Column(name = "title_rule", nullable = false, length = 200)
     public String getTitleRule() {
         return titleRule;
     }
@@ -91,7 +91,7 @@ public class Rule implements Serializable {
         this.titleRule = titleRule;
     }
 
-    // @Column(name = "content_rule", nullable = false, length = 200)
+    @Column(name = "content_rule", nullable = false, length = 200)
     public String getContentRule() {
         return contentRule;
     }
@@ -100,7 +100,7 @@ public class Rule implements Serializable {
         this.contentRule = contentRule;
     }
 
-    // @Column(name = "enabled")
+    @Column(name = "enabled")
     public Boolean getEnabled() {
         return enabled;
     }
