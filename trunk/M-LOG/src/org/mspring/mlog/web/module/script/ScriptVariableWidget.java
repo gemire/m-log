@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module;
+package org.mspring.mlog.web.module.script;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class ScriptVariableWidget {
     @Autowired
     private Configuration configuration;
     
-    @RequestMapping("/script_variable.js")
+    @RequestMapping("/script_variable")
     public void execute(HttpServletRequest request, HttpServletResponse response, Model model) {
         Map<Object, Object> variables = new HashMap<Object, Object>();
         variables.put("base", StringEscapeUtils.escapeEcmaScript(request.getContextPath()));
