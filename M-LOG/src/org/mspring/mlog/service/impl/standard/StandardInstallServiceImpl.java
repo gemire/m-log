@@ -120,7 +120,7 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         items.add(new TreeItem("435", "缓存管理", "4", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("435005", "缓存管理", "435", "/admin/system/cache/config", TreeItem.Type.TAB, true));
-        
+
         items.add(new TreeItem("495", "系统日志", "4", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("495005", "列表", "495", "/admin/log/list", TreeItem.Type.TAB, true));
         items.add(new TreeItem("495010", "明细", "495", "/admin/log/view", TreeItem.Type.TAB, false));
@@ -149,16 +149,11 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
         items.add(new TreeItem("810", "分类搬家", "8", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("810005", "分类搬家", "810", "/admin/tools/movecatalog", TreeItem.Type.TAB, true));
 
-        // items.add(new TreeItem("815", "采集工具", "8", "",
-        // TreeItem.Type.TREE_FOLDER, true));
-        // items.add(new TreeItem("815005", "采集规则", "815", "",
-        // TreeItem.Type.TREE_ITEM, true));
-        // items.add(new TreeItem("815005005", "列表", "815005", "/admin/about",
-        // TreeItem.Type.TAB, true));
-        // items.add(new TreeItem("815005010", "增加", "815005", "/admin/about",
-        // TreeItem.Type.TAB, false));
-        // items.add(new TreeItem("815005015", "修改", "815005", "/admin/about",
-        // TreeItem.Type.TAB, false));
+        items.add(new TreeItem("815", "采集工具", "8", "", TreeItem.Type.TREE_FOLDER, true));
+        items.add(new TreeItem("815005", "采集规则", "815", "", TreeItem.Type.TREE_ITEM, true));
+        items.add(new TreeItem("815005005", "列表", "815005", "/admin/about", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("815005010", "增加", "815005", "/admin/about", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("815005015", "修改", "815005", "/admin/about", TreeItem.Type.TAB, false));
 
         items.add(new TreeItem("9", "关于", "0", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("905", "关于", "9", "", TreeItem.Type.TREE_ITEM, true));
