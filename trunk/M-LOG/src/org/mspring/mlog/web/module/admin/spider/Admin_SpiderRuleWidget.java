@@ -93,9 +93,19 @@ public class Admin_SpiderRuleWidget extends AbstractSpiderWidget {
         spiderRuleService.updateRule(rule);
         return prompt(model, "系统提示", "规则修改成功", "/admin/spider/rule/list");
     }
+    
+    @RequestMapping("/run_view")
+    public String run_view(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model){
+        if (id == null) {
+            return prompt(model, "请选择要运行的规则");
+        }
+        Rule rule = spiderRuleService.getRuleById(id);
+        model.addAttribute("rule", rule);
+        return "/admin/spider/rule/run";
+    }
 
     @RequestMapping("/run")
-    public void spider(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public void run(@RequestParam(required = false) Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (id == null) {
             DWRPush.sendMessage("请选择要运行的规则");
             return;

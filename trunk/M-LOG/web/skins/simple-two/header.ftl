@@ -6,16 +6,16 @@
         <link rel="alternate" type="application/rss+xml" href="${base}/rss.xml" title="${blogname}" />
 		<link rel="alternate" type="application/atom+xml" href="${base}/atom.xml" title="${blogname}" />
 		<link rel="Shortcut Icon" href="${base}/images/favicon.ico">
-		<meta name="keywords" content="${keyword!""}" />
-		<meta name="description" content="${description!""}" />
+		<meta name="keywords" content="${keyword?default("")}" />
+		<meta name="description" content="${description?default("")}" />
 
         <link href="${template_url}/style/bootstrap.min.css" rel="stylesheet">
         <link href="${template_url}/style/bootstrap-responsive.min.css" rel="stylesheet">
         <link href="${template_url}/style/skin.css" rel="stylesheet">
         
         <script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
+        <@m.widget path="/script/script_variable" cache=false />
 		<script type="text/javascript" src="${base}/script/jquery-scrollto/jquery.scrollto.js" charset="utf-8"></script>
-		<script type="text/javascript" src="${base}/script/script_variable" charset="utf-8"></script>
 		<script type="text/javascript" src="${base}/script/mlog.utils.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${base}/script/mlog.stat.js" charset="utf-8"></script>
 		<script type="text/javascript" src="${base}/script/custom.js" charset="utf-8"></script>
@@ -42,7 +42,7 @@
 								<@m.render_menu template="/widget/menus.ftl" />
 							</ul>
 							<form class="navbar-search pull-right" action="${base}/search" method="get">
-					            <input type="text" class="search-query span2" value="${searchKeyword!""}" placeholder="请输入搜索的关键字" name="keyword">
+					            <input type="text" class="search-query span2" value="${searchKeyword?default("")}" placeholder="请输入搜索的关键字" name="keyword">
 					        </form>
 						</div>
 					</div>
