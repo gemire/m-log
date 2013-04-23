@@ -28,7 +28,8 @@
 					<td class="${tdClass}">${item.id} </td>
 					<td class="${tdClass}">${item.name} </td>
 					<td class="${tdClass}">
-						<a href="${base}/admin/spider/rule/edit?id=${item.id}">修改</a>
+						<a href="${base}/admin/spider/rule/edit?id=${item.id}">修改</a> | 
+						<a href="${base}/admin/spider/rule/run_view?id=${item.id}">运行</a>
 					</td>
 				</tr>
 			</#list>

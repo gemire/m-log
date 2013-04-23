@@ -7,8 +7,8 @@
 <link href="${template_url}/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="${template_url}/style/style.css" rel="stylesheet">
 <script type="text/javascript" src="${base}/script/jquery.js"></script>
+<@m.widget path="/script/script_variable" cache=false />
 <script type="text/javascript" src="${base}/script/jquery-scrollto/jquery.scrollto.js"></script>
-<script type="text/javascript" src="${base}/script/script_variable"></script>
 <script type="text/javascript" src="${base}/script/mlog.utils.js"></script>
 <script type="text/javascript" src="${base}/script/custom.js"></script>
 </head>

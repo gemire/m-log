@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="${base}/style/global.css">
 	
 	<script type="text/javascript" src="${base}/script/jquery.js"></script>
-	<script type="text/javascript" src="${base}/script/script_variable"></script>
+	<@m.widget path="/script/script_variable" cache=false />
 	
 	<#-- jquery ui -->
 	<link rel="stylesheet" type="text/css" href="${base}/script/jquery-ui/themes/base/jquery.ui.all.css">

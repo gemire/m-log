@@ -20,7 +20,6 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	
-	
 	<servlet>
 		<servlet-name>dwr-invoker</servlet-name>
 		<servlet-class>
@@ -30,14 +29,14 @@
 			<param-name>debug</param-name>
 			<param-value>true</param-value>
 		</init-param>
-
+		
 	    <!-- DWR默认采用piggyback方式 -->  
 	    <!-- 使用polling和comet的方式 -->  
 	    <init-param>  
 	        <param-name>pollAndCometEnabled</param-name>  
 	        <param-value>true</param-value>  
 	    </init-param>
-
+	       
 	    <!-- comet方式 -->  
 	    <!--    
 	    <init-param>  
@@ -45,7 +44,7 @@
 	        <param-value>true</param-value>  
 	    </init-param>  
 	     -->  
-
+	        
 	    <!-- polling方式：在comet方式的基础之上，再配置以下参数 -->  
 	    <!--    
 	    <init-param>  
@@ -53,7 +52,7 @@
 	        <param-value>org.directwebremoting.impl.PollingServerLoadMonitor</param-value>  
 	    </init-param>  
 	     -->  
-
+	         
 	    <!-- 毫秒数。页面默认的请求间隔时间是5秒 -->  
 	    <!--    
 	    <init-param>  
@@ -65,14 +64,34 @@
 			<param-name>crossDomainSessionSecurity</param-name>
 			<param-value>false</param-value>
 		</init-param>
-
+		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dwr-invoker</servlet-name>
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
-
+	
+	<!--  多对多关联中的 lazy加载问题。。start -->
+	<filter> 
+		<filter-name>OpenSessionInViewFilter</filter-name> 
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class> 
+		<init-param> 
+			<param-name>sessionFactoryBeanName</param-name> 
+			<param-value>sessionFactory</param-value> 
+		</init-param>
+		<init-param> 
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value> 
+		</init-param> 
+	</filter> 
+	
+	<filter-mapping> 
+		<filter-name>OpenSessionInViewFilter</filter-name> 
+		<url-pattern>/*</url-pattern> 
+	</filter-mapping> 
+	<!--  多对多关联中的 lazy加载问题。。end -->
+	
 	<filter>
 		<filter-name>encoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -86,6 +105,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- 
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.mspring.platform.web.urlrewrite.UrlRewriteFilter</filter-class>
@@ -98,6 +118,7 @@
 		<filter-name>UrlRewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	-->
 	
 	<filter>  
         <filter-name>springSecurityFilterChain</filter-name>  
@@ -140,8 +161,8 @@
 			classpath:applicationContext-security.xml
 		</param-value>
 	</context-param>
-
-
+	
+	
 	<listener>
 		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextAttributeListener</listener-class>  
 	</listener>	

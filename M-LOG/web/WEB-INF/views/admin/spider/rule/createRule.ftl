@@ -53,6 +53,7 @@
 </form>
 
 <script type="text/javascript">
+	turnHighLight(815005010);
 	$(document).ready(function(){
 		//斑马线
 		var tables=document.getElementsByTagName("table");

@@ -1,3 +1,4 @@
+<script type="text/javascript">
 if(typeof(mlog) === "undefined") {var mlog = {};}
 mlog.variable = function(){};
 $.extend(mlog.variable,{
@@ -11,3 +12,4 @@ $.extend(mlog.variable,{
 		</#list>
 	</#if>
 });
+</script>
