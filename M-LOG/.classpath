@@ -63,5 +63,6 @@
 	<classpathentry kind="lib" path="lib/urlrewritefilter-4.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/aspectjweaver-1.6.12.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/dwr-3.0.M1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

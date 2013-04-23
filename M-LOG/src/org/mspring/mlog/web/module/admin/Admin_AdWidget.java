@@ -35,6 +35,7 @@ public class Admin_AdWidget extends AbstractWebWidget {
     @Autowired
     private AdService adService;
 
+    @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
     @Log
     public String list(@ModelAttribute Page<Ad> adPage, @ModelAttribute Ad ad, @QueryParam Map queryParams, HttpServletRequest request, HttpServletResponse response, Model model) {
