@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.api.spider;
+package org.mspring.mlog.api.spider.utils;
 
 import java.util.Map;
 

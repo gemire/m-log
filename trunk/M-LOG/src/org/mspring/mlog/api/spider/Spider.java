@@ -83,6 +83,15 @@ public class Spider {
         titleHandlers.add(titleHandler);
     }
 
+    public List<String> getUrls(Document doc, Rule rule) {
+        if (crawler == null) {
+            log.warn("Crawler is null");
+            return null;
+        }
+        List<String> urls = crawler.getUrls(doc, rule);
+        return urls;
+    }
+
     public String getTitle(Document doc, Rule rule) {
         if (crawler == null) {
             log.warn("Crawler is null");

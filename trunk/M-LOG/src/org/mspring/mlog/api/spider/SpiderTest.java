@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.mspring.mlog.api.spider.crawler.DefaultCrawler;
 import org.mspring.mlog.api.spider.handler.impl.ContentImageHandler;
+import org.mspring.mlog.api.spider.utils.ConnectionUtils;
 import org.mspring.mlog.api.spider.vo.Rule;
 
 /**

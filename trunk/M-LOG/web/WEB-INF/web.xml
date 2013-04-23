@@ -19,6 +19,59 @@
 		<servlet-name>SpringMVCDispatcher</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>
+			org.directwebremoting.servlet.DwrServlet
+		</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+	    <!-- DWR默认采用piggyback方式 -->  
+	    <!-- 使用polling和comet的方式 -->  
+	    <init-param>  
+	        <param-name>pollAndCometEnabled</param-name>  
+	        <param-value>true</param-value>  
+	    </init-param>
+
+	    <!-- comet方式 -->  
+	    <!--    
+	    <init-param>  
+	        <param-name>activeReverseAjaxEnabled</param-name>  
+	        <param-value>true</param-value>  
+	    </init-param>  
+	     -->  
+
+	    <!-- polling方式：在comet方式的基础之上，再配置以下参数 -->  
+	    <!--    
+	    <init-param>  
+	        <param-name>org.directwebremoting.extend.ServerLoadMonitor</param-name>  
+	        <param-value>org.directwebremoting.impl.PollingServerLoadMonitor</param-value>  
+	    </init-param>  
+	     -->  
+
+	    <!-- 毫秒数。页面默认的请求间隔时间是5秒 -->  
+	    <!--    
+	    <init-param>  
+	        <param-name>disconnectedTime</param-name>  
+	        <param-value>60000</param-value>    
+	    </init-param>  
+	     --> 
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
 
 	<filter>
 		<filter-name>encoding</filter-name>
@@ -89,6 +142,12 @@
 	</context-param>
 
 
+	<listener>
+		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextAttributeListener</listener-class>  
+	</listener>	
+	<listener>
+		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextListener</listener-class>  
+	</listener>
 	<listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
 	</listener>
