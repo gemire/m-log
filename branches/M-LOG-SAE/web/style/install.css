@@ -1,0 +1,143 @@
+@CHARSET "UTF-8";
+
+img {
+	border: none;
+}
+
+body {
+	font: 12px/1.5 Arial, Helvetica, sans-serif;
+	color: #555;
+}
+
+.textinput {
+	padding-right: 1px;
+	padding-left: 1px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border: 1px solid #cccccc;
+	background: expression(this.readOnly ?   "#efefef" : this.disabled ? "#efefef" :"#ffffff");
+	width:80%;
+}
+.fieldlabel {
+	line-height: 2em;
+	text-decoration: none;
+	cursor: default;
+	vertical-align: baseline;
+	text-align: right;
+	color: #003399;
+	font-family: '新宋体';
+	font-size: 12px;
+}
+
+.field {
+	text-align: left;
+}
+
+.bodybg { /*background:url('/images/install_bg.jpg');*/
+	
+}
+
+.btn {
+	padding: 2px 4px 0px 4px;
+	font-size: 12px;
+	height: 23px;
+	background-color: #d5d5d5;
+	border-width: 1px;
+	cursor: pointer;
+}
+
+#wrap {
+	margin-left: auto;
+	margin-right: auto;
+	width: 980px;
+	height: 100%;
+}
+
+.bodycenter {
+	width: auto;
+	height: auto;
+}
+
+.flink {
+	width: 980px;
+	text-align: center;
+}
+
+.flink .hd span.hd1 {
+	font-size: 14px;
+	font-weight: bold;
+	height: 32px;
+	color: #4F7404;
+	margin-left: 15px;
+	_margin-left: 10px;
+	width: 100px;
+	display: block;
+	float: left;
+}
+
+.flink .hd {
+	width: auto;
+	height: 32px;
+	line-height: 32px;
+	overflow: auto;
+	text-align: left !important;
+	background: #F0FFDF;
+	border-top: 1px #d6d6d6 solid;
+	border-left: 1px #d6d6d6 solid;
+	border-right: 1px #d6d6d6 solid;
+	border-bottom: 1px #C4C4C4 solid;
+}
+
+.flink .bd {
+	border-width: 0 1px 1px 1px;
+	border-color: #D7D7D7;
+	border-style: solid;
+	padding: 10px;
+	width: 958px;
+	background-color: #ffffff;
+}
+
+#foot {
+	padding: 1px 0px 0 0px;
+	line-height: 20px;
+	clear: both;
+	text-align: center;
+}
+
+#bottomnav {
+	height: 35px;
+	width: 100%;
+}
+
+#bottomnav a{
+	color: #666666;
+	text-decoration: none;	
+}
+#bottomnav a:VISITED{
+	color: #666666;
+	text-decoration: none;
+}
+#bottomnav a:HOVER{
+	color: #68c45b;
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+	height: 10px;
+	visibility: hidden;
+	overflow: hidden;
+}
+
+/*提示消息*/
+.message { padding:10px; margin:10px; display:block; text-align:left }
+.message-title { font-weight:bold; font-size:1.25em }
+.message-body { margin-top:4px }
+.message.error, .message.notice, .message.success { padding:.8em; margin-bottom:1em; border:2px solid #ddd }
+.message.error { background:#FBE3E4; color:#8a1f11; border-color:#FBC2C4 }
+.message.notice { background:#FFF6BF; color:#514721; border-color:#FFD324 }
+.message.success { background:#E6EFC2; color:#264409; border-color:#C6D880 }
+.message.error a { color:#8a1f11 }
+.message.notice a { color:#514721 }
+.message.success a { color:#264409 }
+.message ul, .message li {list-style: none;}

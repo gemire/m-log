@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+	<rule>
+		<from>^/post/page-([0-9]+).html$</from>
+		<to>/?pageNo=$1</to>
+	</rule>
+	
+	<class-rule class="org.mspring.mlog.web.rulrewrite.PostRewriteRule"/>
+	
+	<!-- 根据catalog归档 -->
+	<rule>
+		<from>^/catalog/catalog-([0-9]+)-([0-9]+).html$</from>
+		<to>/catalog?catalogId=$1&amp;pageNo=$2</to>
+	</rule>
+	<rule>
+		<from>^/catalog/catalog-([0-9]+).html$</from>
+		<to>/catalog?catalogId=$1</to>
+	</rule>
+
+	<!-- 根据tag归档 -->
+	<rule>
+		<from>^/tag/tag-([0-9]+)-([0-9]+).html$</from>
+		<to>/tag?tagId=$1&amp;pageNo=$2</to>
+	</rule>
+	<rule>
+		<from>^/tag/tag-([0-9]+).html$</from>
+		<to>/tag?tagId=$1</to>
+	</rule>
+
+	<!-- 相册列表页 -->
+	<rule>
+		<from>^/album/list.html</from>
+		<to>/album/list</to>
+	</rule>
+	<rule>
+		<from>^/album/list-([0-9]+).html</from>
+		<to>/album/list?pageNo=$1</to>
+	</rule>
+
+
+	<!-- 图片列表页，规则：/album-相册ID-页码.html -->
+	<rule>
+		<from>^/album/album-([0-9]+)-([0-9]+).html</from>
+		<to>/album/photo/list?album=$1&amp;pageNo=$2</to>
+	</rule>
+
+	<!-- 图片查看页, 规则: /photo-图片编号.html -->
+	<rule>
+		<from>^/album/photo-([0-9]+).html</from>
+		<to>/album/photo/view?id=$1</to>
+	</rule>
+</urlrewrite>
