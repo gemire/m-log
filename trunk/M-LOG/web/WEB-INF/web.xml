@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 	
 	<servlet>
 		<servlet-name>SpringMVCDispatcher</servlet-name>
@@ -14,65 +20,15 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SpringMVCDispatcher</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>dwr-invoker</servlet-name>
-		<servlet-class>
-			org.directwebremoting.servlet.DwrServlet
-		</servlet-class>
-		<init-param>
-			<param-name>debug</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		
-	    <!-- DWR默认采用piggyback方式 -->  
-	    <!-- 使用polling和comet的方式 -->  
-	    <init-param>  
-	        <param-name>pollAndCometEnabled</param-name>  
-	        <param-value>true</param-value>  
-	    </init-param>
-	       
-	    <!-- comet方式 -->  
-	    <!--    
-	    <init-param>  
-	        <param-name>activeReverseAjaxEnabled</param-name>  
-	        <param-value>true</param-value>  
-	    </init-param>  
-	     -->  
-	        
-	    <!-- polling方式：在comet方式的基础之上，再配置以下参数 -->  
-	    <!--    
-	    <init-param>  
-	        <param-name>org.directwebremoting.extend.ServerLoadMonitor</param-name>  
-	        <param-value>org.directwebremoting.impl.PollingServerLoadMonitor</param-value>  
-	    </init-param>  
-	     -->  
-	         
-	    <!-- 毫秒数。页面默认的请求间隔时间是5秒 -->  
-	    <!--    
-	    <init-param>  
-	        <param-name>disconnectedTime</param-name>  
-	        <param-value>60000</param-value>    
-	    </init-param>  
-	     --> 
-		<init-param>
-			<param-name>crossDomainSessionSecurity</param-name>
-			<param-value>false</param-value>
-		</init-param>
-		
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dwr-invoker</servlet-name>
-		<url-pattern>/dwr/*</url-pattern>
-	</servlet-mapping>
 	
-	<!--  多对多关联中的 lazy加载问题。。start -->
+	<!--  多对多关联中的 lazy加载问题...start -->
 	<filter> 
 		<filter-name>OpenSessionInViewFilter</filter-name> 
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class> 
@@ -83,14 +39,15 @@
 		<init-param> 
 			<param-name>singleSession</param-name>
 			<param-value>true</param-value> 
-		</init-param> 
+		</init-param>
+		<async-supported>true</async-supported>
 	</filter> 
 	
 	<filter-mapping> 
 		<filter-name>OpenSessionInViewFilter</filter-name> 
 		<url-pattern>/*</url-pattern> 
 	</filter-mapping> 
-	<!--  多对多关联中的 lazy加载问题。。end -->
+	<!--  多对多关联中的 lazy加载问题...end -->
 	
 	<filter>
 		<filter-name>encoding</filter-name>
@@ -99,13 +56,13 @@
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 
 	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.mspring.platform.web.urlrewrite.UrlRewriteFilter</filter-class>
@@ -113,18 +70,19 @@
 			<param-name>logLevel</param-name>
 			<param-value>INFO</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	-->
 	
 	<filter>  
         <filter-name>springSecurityFilterChain</filter-name>  
         <filter-class>  
             org.springframework.web.filter.DelegatingFilterProxy
-        </filter-class>  
+        </filter-class>
+        <async-supported>true</async-supported>
    	</filter>  
     <filter-mapping>  
         <filter-name>springSecurityFilterChain</filter-name>  
@@ -146,6 +104,7 @@
     		<param-name>exclude</param-name>
     		<param-value></param-value>
     	</init-param>
+    	<async-supported>true</async-supported>
     </filter>
     <filter-mapping>
     	<filter-name>GzipFilter</filter-name>
@@ -162,13 +121,6 @@
 		</param-value>
 	</context-param>
 	
-	
-	<listener>
-		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextAttributeListener</listener-class>  
-	</listener>	
-	<listener>
-		<listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextListener</listener-class>  
-	</listener>
 	<listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
 	</listener>
