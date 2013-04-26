@@ -151,8 +151,8 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         items.add(new TreeItem("815", "采集工具", "8", "", TreeItem.Type.TREE_FOLDER, true));
         items.add(new TreeItem("815005", "采集规则", "815", "", TreeItem.Type.TREE_ITEM, true));
-        items.add(new TreeItem("815005005", "列表", "815005", "/admin/spider/rule/list", TreeItem.Type.TAB, false));
-        items.add(new TreeItem("815005010", "增加", "815005", "/admin/spider/rule/create", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("815005005", "列表", "815005", "/admin/spider/rule/list", TreeItem.Type.TAB, true));
+        items.add(new TreeItem("815005010", "增加", "815005", "/admin/spider/rule/create", TreeItem.Type.TAB, false));
         items.add(new TreeItem("815005015", "修改", "815005", "/admin/spider/rule/edit", TreeItem.Type.TAB, false));
         items.add(new TreeItem("815005020", "采集", "815005", "/admin/spider/rule/run_view", TreeItem.Type.TAB, false));
 

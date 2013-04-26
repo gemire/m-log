@@ -34,8 +34,7 @@ public class DefaultCrawler implements Crawler {
                 } else {
                     Elements a_elements = ele.select("a");
                     if (a_elements != null && a_elements.size() > 0) {
-                        url = a_elements.get(0).attr("href");
-                        url = a_elements.get(0).absUrl(url);
+                        url = a_elements.get(0).absUrl("href");
                     }
                 }
                 ret.add(url);

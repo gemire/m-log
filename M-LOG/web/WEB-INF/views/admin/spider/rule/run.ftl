@@ -1,23 +1,19 @@
 <#include "/WEB-INF/views/admin/inc/header.ftl" />
 <#import "/META-INF/spring.ftl" as spring />
 <#import "/META-INF/mspring.ftl" as mspring />
-<script type='text/javascript' src='${base}/dwr/interface/dwrPush.js'></script>
-<script type='text/javascript' src='${base}/dwr/engine.js'></script>
-<script type='text/javascript' src='${base}/dwr/util.js'></script>
-<div id="error" class="message error" style="display:none;"></div>
-<textarea id="content" style="width:100%; height:300px;"></textarea>
+<div id="message" class="message notice" style="height:300px;word-break:break-all;OVERFLOW:auto"></div>
 <input type="button" class="btn" value="运行" onclick="run();" />
+<iframe id="comet-frame" style="display: none;" src="${base}/common/push"></iframe>
 <script type="text/javascript">
-	window.onload = function(){
-		dwr.engine.setActiveReverseAjax(true);
-	}
-	function run(){
-		$.get("${base}/admin/spider/rule/run?id=${rule.id}", function(){});
+	function pushMessage(data) {
+		//$('#message').val($('#content').val() + data + '\n');
+		$('#message').append(data + '<br/>');
+		var d = document.getElementById('message');
+		message.scrollTop = message.scrollHeight;
 	}
 	
-	function receiveMessages(message) {
-   		var c = document.getElementById('content');
-   		c.value = '\n' + message + c.value
+	function run(){
+		$.get('${base}/admin/spider/rule/run?id=${rule.id}', function(){});
 	}
 	
 	turnHighLight(815005020);
