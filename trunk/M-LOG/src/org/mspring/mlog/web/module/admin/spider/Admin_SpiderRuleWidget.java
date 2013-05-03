@@ -13,9 +13,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.mspring.mlog.api.spider.Spider;
 import org.mspring.mlog.api.spider.crawler.DefaultCrawler;
+import org.mspring.mlog.api.spider.service.SpiderPostService;
 import org.mspring.mlog.api.spider.service.SpiderRuleService;
 import org.mspring.mlog.api.spider.utils.DocumentUtils;
 import org.mspring.mlog.api.spider.vo.Rule;
+import org.mspring.mlog.api.spider.vo.SpiderPost;
 import org.mspring.mlog.support.log.Log;
 import org.mspring.mlog.support.resolver.QueryParam;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
@@ -41,6 +43,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Admin_SpiderRuleWidget extends AbstractSpiderWidget {
     @Autowired
     private SpiderRuleService spiderRuleService;
+    @Autowired
+    private SpiderPostService spiderPostService;
 
     @SuppressWarnings("rawtypes")
     @RequestMapping("/list")
@@ -107,6 +111,11 @@ public class Admin_SpiderRuleWidget extends AbstractSpiderWidget {
             return prompt(model, "请选择要运行的规则");
         }
         Rule rule = spiderRuleService.getRuleById(id);
+        
+        if (!rule.getEnabled()) {
+            return prompt(model, "该规则已被禁用");
+        }
+        
         model.addAttribute("rule", rule);
         setSessionAttribute(request, "SpiderRuleWidget_run_view_id", id);
         return "/admin/spider/rule/run";
@@ -119,6 +128,12 @@ public class Admin_SpiderRuleWidget extends AbstractSpiderWidget {
             return;
         }
         Rule rule = spiderRuleService.getRuleById(id);
+        
+        if (!rule.getEnabled()) {
+            PushMessage.push("<font style='color:red;'><b>该规则已被禁用</b></font>");
+            return;
+        }
+        
         Spider spilder = new Spider(new DefaultCrawler());
 
         PushMessage.push("开始...");
@@ -128,14 +143,50 @@ public class Admin_SpiderRuleWidget extends AbstractSpiderWidget {
         List<String> urls = spilder.getUrls(listPageDoc, rule);
 
         Document contentDoc = null;
+        SpiderPost spiderPost = null;
         for (String url : urls) {
             if (StringUtils.isNotBlank(url)) {
                 PushMessage.push("分析网址：" + url);
-                contentDoc = DocumentUtils.getDocument(url);
-                String title = spilder.getTitle(contentDoc, rule);
-                Element content = spilder.getContent(contentDoc, rule);
-                PushMessage.push("标题：" + title);
+
+                String title = null;
+                Element content = null;
+
+                try {
+                    contentDoc = DocumentUtils.getDocument(url);
+                    title = spilder.getTitle(contentDoc, rule);
+                    content = spilder.getContent(contentDoc, rule);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    PushMessage.push("<font style='color:red;'>抓取文章失败</font>");
+                    PushMessage.push("<font style='color:green;'>******************************************************************************************************************************************************</font><br/>");
+                    continue;
+                }
+
+                if (StringUtils.isBlank(title) || content == null) {
+                    PushMessage.push("<font style='color:red;'>抓取文章失败</font>");
+                    PushMessage.push("<font style='color:green;'>******************************************************************************************************************************************************</font><br/>");
+                    continue;
+                }
+
+                PushMessage.push("文章：" + title);
+                try {
+                    spiderPost = new SpiderPost();
+                    spiderPost.setRule(rule);
+                    spiderPost.setTitle(title);
+                    spiderPost.setContent(content.html());
+                    spiderPostService.createSpiderPost(spiderPost);
+
+                    PushMessage.push("<font style='color:green;'>导入成功</font>");
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    PushMessage.push("<font style='color:red;'>导入失败</font>");
+                    PushMessage.push("<font style='color:green;'>******************************************************************************************************************************************************</font><br/>");
+                    continue;
+                }
+
+                PushMessage.push("<font style='color:green;'>******************************************************************************************************************************************************</font><br/>");
             }
         }
+        PushMessage.push("<font style='color:blue;'>全部执行完成。</font><br/>");
     }
 }

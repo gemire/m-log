@@ -1,8 +1,11 @@
 /**
  * 
  */
-package org.mspring.mlog.api.spider.service;
+package org.mspring.mlog.api.spider.service.impl;
 
+import java.util.List;
+
+import org.mspring.mlog.api.spider.service.SpiderRuleService;
 import org.mspring.mlog.api.spider.vo.Rule;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
@@ -29,6 +32,7 @@ public class SpiderRuleServiceImpl extends AbstractServiceSupport implements Spi
     @Override
     public Rule createRule(Rule rule) {
         // TODO Auto-generated method stub
+        rule.setEnabled(true);
         Long id = (Long) create(rule);
         return getRuleById(id);
     }
@@ -49,6 +53,12 @@ public class SpiderRuleServiceImpl extends AbstractServiceSupport implements Spi
     public Page<Rule> findRulePage(QueryCriterion queryCriterion, Page<Rule> rulePage) {
         // TODO Auto-generated method stub
         return findPage(queryCriterion, rulePage);
+    }
+
+    @Override
+    public List<Rule> findAllEnabledRules() {
+        // TODO Auto-generated method stub
+        return find("select rule from Rule rule where rule.enabled = true");
     }
 
 }

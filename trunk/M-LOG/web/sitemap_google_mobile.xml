@@ -2039,18 +2039,6 @@
     <mobile:mobile/>
   </url>
   <url>
-    <loc>http://localhost:8080/post/307.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  <url>
-    <loc>http://localhost:8080/post/308.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <mobile:mobile/>
-  </url>
-  <url>
     <loc>http://localhost:8080/post/309.html</loc>
     <lastmod>2013-02-25T12:54:10+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -2212,6 +2200,12 @@
   <url>
     <loc>http://localhost:8080/post/335.html</loc>
     <lastmod>2013-04-07T19:48:45+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <mobile:mobile/>
+  </url>
+  <url>
+    <loc>http://localhost:8080/post/337.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>

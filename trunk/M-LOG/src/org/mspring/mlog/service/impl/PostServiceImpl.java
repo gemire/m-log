@@ -18,6 +18,7 @@ import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.entity.Tag;
 import org.mspring.mlog.service.CatalogService;
 import org.mspring.mlog.service.PostService;
+import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -65,6 +66,9 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         if (post.getIsTop() == null) {
             post.setIsTop(false);
+        }
+        if (post.getAuthor() == null) {
+            post.setAuthor(SecurityUtils.getCurrentUser());
         }
         post.setCommentCount(new Long(0));
         post.setViewCount(new Long(0));

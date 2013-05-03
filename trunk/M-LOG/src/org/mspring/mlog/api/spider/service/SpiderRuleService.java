@@ -3,6 +3,8 @@
  */
 package org.mspring.mlog.api.spider.service;
 
+import java.util.List;
+
 import org.mspring.mlog.api.spider.vo.Rule;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
@@ -23,4 +25,6 @@ public interface SpiderRuleService {
     void deleteRule(Long... id);
 
     Page<Rule> findRulePage(QueryCriterion queryCriterion, Page<Rule> rulePage);
+    
+    List<Rule> findAllEnabledRules();
 }
