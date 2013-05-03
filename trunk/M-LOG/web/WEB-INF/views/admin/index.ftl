@@ -6,19 +6,27 @@
 	<iframe class="ui-layout-center" id="main-frame" name="main" src="${base}/admin/redirect?id=905" frameborder="0" scrolling="auto"></iframe>
 	
 	<script type="text/javascript">
-	$(document).ready(function(){
-		$('body').layout({
-			north__closable:false,
-			north__size:65,
-			north__resizable:false,
-			south__closable:false,
-			south__size:20,
-			south__resizable:false,
-			west__size:160,
-			togglerTip_open : "关闭",
-			togglerTip_closed : "打开",
-			resizerTip:"调整宽度"
+		var layout;
+		$(document).ready(function(){
+			layout = $('body').layout({
+				north__closable:                      true,
+				north__size:                          65,
+				north__resizable:                     false,
+				
+				south__closable:                      true,
+				south__size:                          20,
+				south__resizable:                     false,
+				
+				west__size:                           160,
+				
+				togglerTip_open:                      "关闭",
+				togglerTip_closed:                    "打开",
+				resizerTip:                           "调整宽度",
+				
+				livePaneResizing:                     true,
+				animatePaneSizing:                    true,
+				stateManagement__enabled:             true
+			});
 		});
-	});
 	</script>
 <#include "inc/simplefooter.ftl" />
