@@ -52,7 +52,7 @@
 					操作
 				</th>
 			</tr>
-			<#if linkPage??>
+			<#if linkPage?exists>
 				<#list linkPage.result as item>
 					<#assign tdClass = "odd">
 					<#if item_index%2 == 0>
@@ -61,7 +61,7 @@
 					<tr>
 						<td class="${tdClass}"><input type="checkbox" name="deleteIds" value="${item.id}" /></td>
 						<td class="${tdClass}">
-							<input type="text" class="textinput" style="width:40px;" name="orders" value="${item.order!""}" />
+							<input type="text" class="textinput" style="width:40px;" name="orders" value="${item.order?default("")}" />
 						</td>
 						<td class="${tdClass}">${item.name}</td>
 						<td class="${tdClass}">${item.url}</td>
