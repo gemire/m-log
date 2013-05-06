@@ -54,7 +54,7 @@ public class StandardInstallServiceImpl extends AbstractInstallService {
 
         items.add(new TreeItem("115", "评论管理", "1", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("115005", "评论管理", "115", "/admin/comment/list", TreeItem.Type.TAB, true));
-        items.add(new TreeItem("115010", "反垃圾", "115", "/admin/comment/list", TreeItem.Type.TAB, false));
+        items.add(new TreeItem("115010", "反垃圾", "115", "/admin/comment/spam/config", TreeItem.Type.TAB, false));
 
         items.add(new TreeItem("120", "相册管理", "1", "", TreeItem.Type.TREE_ITEM, true));
         items.add(new TreeItem("120005", "相册列表", "120", "/admin/album/list", TreeItem.Type.TAB, true));

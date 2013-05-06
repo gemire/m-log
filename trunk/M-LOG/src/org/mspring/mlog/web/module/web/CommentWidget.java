@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.api.akisment.Akismet;
 import org.mspring.mlog.common.Keys;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
@@ -137,8 +138,25 @@ public class CommentWidget extends AbstractWebWidget {
         } else {
             comment.setStatus(Comment.Status.APPROVED);
         }
+
+        // 判断是否开启Akismet反垃圾评论系统
+        String akismet_enable = optionService.getOption("akismet_enable");
+        if ("true".equals(akismet_enable)) {
+            String akismet_key = optionService.getOption("akismet_key");
+            if (StringUtils.isNotBlank(akismet_key)) {
+                String blogurl = optionService.getOption("blogurl");
+                Akismet akismet = new Akismet(akismet_key, blogurl);
+
+                String referrer = request.getHeader("referrer");
+                boolean spam = akismet.commentCheck(ip, agent, referrer, null /* permalink */, Akismet.COMMENT_TYPE_COMMENT, author, email, url, content, null);
+                if (spam) {
+                    comment.setStatus(Comment.Status.SPAM);
+                }
+            }
+        }
+
         comment = commentService.createComment(comment);
-        
+
         // 将评论作者的信息保存到cookie中
         CookieUtils.setCookie(response, Keys.COMMENT_AUTHOR_COOKIE, author, 365);
         CookieUtils.setCookie(response, Keys.COMMENT_EMAIL_COOKIE, email, 365);
