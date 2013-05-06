@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.script.stat;
+package org.mspring.mlog.web.module.stat.factory;
 
 import javax.servlet.http.HttpServletRequest;
 

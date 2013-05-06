@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.script;
+package org.mspring.mlog.web.module.js;
 
 import java.util.HashMap;
 import java.util.Map;

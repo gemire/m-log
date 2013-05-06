@@ -1,11 +1,12 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.script;
+package org.mspring.mlog.web.module.stat;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.mspring.mlog.web.module.AbstractWidget;
 import org.mspring.platform.utils.RequestUtils;
 import org.springframework.web.servlet.support.WebContentGenerator;
 
@@ -15,8 +16,8 @@ import org.springframework.web.servlet.support.WebContentGenerator;
  * @Description
  * @TODO
  */
-public abstract class AbstractScriptController {
-    private static final Logger log = Logger.getLogger(AbstractScriptController.class);
+public class AbstractStatWidget extends AbstractWidget {
+    private static final Logger log = Logger.getLogger(AbstractStatWidget.class);
 
     /**
      * 验证请求的合法性

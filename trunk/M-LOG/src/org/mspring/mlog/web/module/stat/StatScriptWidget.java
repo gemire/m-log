@@ -1,15 +1,15 @@
 /**
  * 
  */
-package org.mspring.mlog.web.module.script;
+package org.mspring.mlog.web.module.stat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
-import org.mspring.mlog.web.module.script.stat.AbstractStatCmd;
-import org.mspring.mlog.web.module.script.stat.StatCmdFactory;
+import org.mspring.mlog.web.module.stat.factory.AbstractStatCmd;
+import org.mspring.mlog.web.module.stat.factory.StatCmdFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @TODO 提供统计的Controller
  */
 @Widget
-@RequestMapping("/script")
-public class StatScriptController extends AbstractScriptController {
-    private static final Logger log = Logger.getLogger(StatScriptController.class);
+@RequestMapping("/")
+public class StatScriptWidget extends AbstractStatWidget {
+    private static final Logger log = Logger.getLogger(StatScriptWidget.class);
 
     @RequestMapping("/stat")
     @ResponseBody
