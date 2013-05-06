@@ -148,9 +148,13 @@ public class CommentWidget extends AbstractWebWidget {
                 Akismet akismet = new Akismet(akismet_key, blogurl);
 
                 String referrer = request.getHeader("referrer");
-                boolean spam = akismet.commentCheck(ip, agent, referrer, null /* permalink */, Akismet.COMMENT_TYPE_COMMENT, author, email, url, content, null);
-                if (spam) {
-                    comment.setStatus(Comment.Status.SPAM);
+                try {
+                    boolean spam = akismet.commentCheck(ip, agent, referrer, null /* permalink */, Akismet.COMMENT_TYPE_COMMENT, author, email, url, content, null);
+                    if (spam) {
+                        comment.setStatus(Comment.Status.SPAM);
+                    }
+                } catch (Exception e) {
+                    // TODO: handle exception
                 }
             }
         }

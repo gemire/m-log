@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.annotations.Synchronize;
+import org.mspring.mlog.api.akisment.Akismet;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.service.CommentService;
 import org.mspring.mlog.service.MailService;
@@ -27,7 +27,6 @@ import org.mspring.platform.utils.FreemarkerUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -177,6 +176,19 @@ public class CommentServiceImpl extends AbstractServiceSupport implements Commen
         // TODO Auto-generated method stub
         for (Long id : ids) {
             updateCommentStatus(id, Comment.Status.SPAM);
+
+            // 标记垃圾评论，提交垃圾评论规则
+            try {
+                String akismet_key = optionService.getOption("akismet_key");
+                if (StringUtils.isNotBlank(akismet_key)) {
+                    Akismet akismet = new Akismet(akismet_key, optionService.getOption("blogurl"));
+                    Comment comment = getCommentById(id);
+                    akismet.submitSpam(comment.getPostIp(), comment.getAgent(), null, null, Akismet.COMMENT_TYPE_COMMENT, comment.getAuthor(), comment.getEmail(), comment.getUrl(), comment.getContent(), null);
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                continue;
+            }
         }
     }
 
