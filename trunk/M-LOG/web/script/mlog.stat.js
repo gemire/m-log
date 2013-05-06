@@ -15,7 +15,7 @@ $.extend(mlog.stat, {
 		if (!post_id) {
 			return;
 		}
-		$.get(mlog.variable.base + "/stat?cmd=post_click&post_id=" + post_id, function(data){alert(data)});
+		$.get(mlog.variable.base + "/stat?cmd=post_click&post_id=" + post_id);
 	},
 	blogClick : function() {
 		$.get(mlog.variable.base + "/stat?cmd=blog_click");
