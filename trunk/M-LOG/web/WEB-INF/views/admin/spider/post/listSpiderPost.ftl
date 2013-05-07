@@ -51,7 +51,6 @@
 			<th>编号</th>
 			<th>标题</th>
 			<th>状态</th>
-			<th>操作</th>
 		</tr>
 		<#if spiderPostPage?exists>
 			<#list spiderPostPage.result as item>
@@ -64,9 +63,6 @@
 					<td class="${tdClass}">${item.id} </td>
 					<td class="${tdClass}">${item.title} </td>
 					<td class="${tdClass}">${item.posted?string("<font style='color:blue;'>已发布</font>","<font style='color:red;'>未发布</font>")} </td>
-					<td class="${tdClass}">
-						<a href="${base}/admin/spider/post/edit?id=${item.id}">查看</a>
-					</td>
 				</tr>
 			</#list>
 		</#if>
