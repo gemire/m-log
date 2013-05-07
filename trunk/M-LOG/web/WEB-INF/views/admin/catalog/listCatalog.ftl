@@ -99,6 +99,7 @@
 	</table>
 </form>
 <script type="text/javascript">
+	turnHighLight(110005);
 	function ctrl(){
 		var flagOrders = validateOrders();
 		if(!flagOrders){
