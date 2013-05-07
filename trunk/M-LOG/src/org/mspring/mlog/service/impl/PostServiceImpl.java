@@ -11,7 +11,6 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.mspring.mlog.entity.Catalog;
 import org.mspring.mlog.entity.Comment;
 import org.mspring.mlog.entity.Post;
@@ -480,7 +479,7 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         // TODO Auto-generated method stub
         Session session = getSession();
         try {
-//            //查出已经存在的主键,防止主键冲突
+            // //查出已经存在的主键,防止主键冲突
             Query query1 = session.createQuery("select pc1.PK.post.id from PostCatalog pc1 where pc1.PK.catalog.id = ?");
             query1.setParameter(0, toCatalog);
             List list = query1.list();
@@ -491,11 +490,16 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
                     ids += ",";
                 }
             }
-            
+
             Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ? and pc.PK.post.id not in (" + ids + ")");
-            
-            //Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ?"); //这种方式会照成主键冲突
-            //Query query = session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ? and pc.PK.post.id not in (select pc1.PK.post.id from PostCatalog pc1 where pc1.PK.catalog.id = ?)"); //mysql不支持这样的sql,报错:You can't specify target table 'table_name' for update in FROM clause
+
+            // Query query =
+            // session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ?");
+            // //这种方式会照成主键冲突
+            // Query query =
+            // session.createQuery("update PostCatalog pc set pc.PK.catalog.id = ? where pc.PK.catalog.id = ? and pc.PK.post.id not in (select pc1.PK.post.id from PostCatalog pc1 where pc1.PK.catalog.id = ?)");
+            // //mysql不支持这样的sql,报错:You can't specify target table 'table_name'
+            // for update in FROM clause
             query.setParameter(0, toCatalog);
             query.setParameter(1, fromCatalog);
             query.executeUpdate();
@@ -503,6 +507,15 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
             // TODO: handle exception
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setPostTop(Long id, boolean top) {
+        // TODO Auto-generated method stub
+        if (id == null) {
+            return;
+        }
+        executeUpdate("update Post post set post.isTop = ? where post.id = ?", new Object[] { top, id });
     }
 
 }

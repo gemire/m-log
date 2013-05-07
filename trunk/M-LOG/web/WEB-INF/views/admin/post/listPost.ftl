@@ -66,7 +66,10 @@
 							</#if>
 						</td>
 						<td class="${tdClass}">${item.createTime}</td>
-						<td class="${tdClass}"><#if item.isTop><font color="red">是</font><#else>否</#if></td>
+						<td class="${tdClass}">
+							<a href="javascript:setTop(${item.id}, 'false')" id="top_true_${item.id}" style="color:red;<#if !item.isTop>display:none;</#if>">是</a>
+							<a href="javascript:setTop(${item.id}, 'true')" id="top_false_${item.id}" <#if item.isTop>style="display:none;"</#if>>否</a>
+						</td>
 						<td class="${tdClass}">
 							<a href="${base}/admin/post/edit?id=${item.id}">修改</a>
 						</td>
@@ -98,19 +101,44 @@
 
 	
 	<script type="text/javascript">
-	turnHighLight(105005);
-	function updateLuceneIndex(){
-		$.get("${base}/admin/post/updateIndex", function(data){
-			if(data == "true"){
-				alert("更新成功");
-			}
-			else{
-				alert("更新失败");
-			}
-		});
-	}
-	function changeStatus(){
-		$("#postForm").submit();
-	}
+		turnHighLight(105005);
+		function updateLuceneIndex(){
+			$.get("${base}/admin/post/updateIndex", function(data){
+				if(data == "true"){
+					alert("更新成功");
+				}
+				else{
+					alert("更新失败");
+				}
+			});
+		}
+		function changeStatus(){
+			$("#postForm").submit();
+		}
+		
+		//设置文章置顶
+		function setTop(id, top){
+			$.get('${base}/admin/post/top?id=' + id + '&top=' + top, function(response){
+				if(response == 'true'){
+					if(top == 'true'){
+						$("#top_true_" + id).css('display', 'inline');
+						$("#top_false_" + id).css('display', 'none');
+					}
+					else{
+						$("#top_true_" + id).css('display', 'none');
+						$("#top_false_" + id).css('display', 'inline');
+					}
+					mlog.dialog.tip({
+						msg:'设置成功'
+					});
+				}
+				else {
+					mlog.dialog.tip({
+						msg:'设置失败',
+						type:'error'
+					});
+				}
+			});
+		}
 	</script>
 <#include "../inc/footer.ftl" />

@@ -246,4 +246,28 @@ public class Admin_PostWidget extends AbstractAdminWidget {
         JSONRender render = new JSONRender(tags, false);
         render.render(response);
     }
+
+    /**
+     * 设置或取消文章置顶
+     * 
+     * @param id
+     * @param top
+     * @param request
+     * @param response
+     * @param model
+     */
+    @RequestMapping("/top")
+    @ResponseBody
+    public String top(@RequestParam(required = false) Long id, @RequestParam(required = false) String top, HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (id == null || StringUtils.isBlank(top)) {
+            return "false";
+        }
+        try {
+            postService.setPostTop(id, "true".equals(top));
+            return "true";
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "false";
+        }
+    }
 }
