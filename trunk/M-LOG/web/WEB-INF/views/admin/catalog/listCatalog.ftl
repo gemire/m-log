@@ -14,6 +14,7 @@
 				<select name="parent.id">
 					<option value="">--请选择--</option>
 					<option value="0">--无父级--</option>
+					<#if (catalogs?exists && catalogs?size > 0)>
 					<#list catalogs as c>
 					<#assign c_name = c.name>
 					<#list 1..c.deep as i>
@@ -21,6 +22,7 @@
 					</#list>
 					<option value="${c.id}" <#if catalog.parent?has_content && catalog.parent.id?has_content && catalog.parent.id = c.id>selected="selected"</#if>>${c_name}</option>
 					</#list>
+					</#if>
 				</select>
 			</td>
 			<td><input type="submit" class="btn" value=" 查 询 " /></td>
@@ -47,7 +49,7 @@
 			<th>创建时间</th>
 			<th>操作</th>
 		</tr>
-		<#if catalogPage??>
+		<#if catalogPage?exists && catalogPage.result?exists>
 			<#list catalogPage.result as item>
 				<#assign tdClass = "odd">
 				<#if item_index%2 == 0>
