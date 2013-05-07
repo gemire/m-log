@@ -5,7 +5,7 @@
 		<@spring.bind "tag" />
 		<table>
 			<tr>
-				<td class="fieldlabel" style="width:70px;">tag名称</td>
+				<td class="fieldlabel" style="width:70px;">名称</td>
 				<td>
 					<@spring.formInput path="tag.name" attributes='class="textinput"' />
 				</td>
@@ -36,7 +36,7 @@
 					操作
 				</th>
 			</tr>
-			<#if tagPage??>
+			<#if tagPage?? && tagPage.result??>
 				<#list tagPage.result as item>
 					<#assign tdClass = "odd">
 					<#if item_index%2 == 0>
