@@ -7,7 +7,7 @@
 			<tr>
 				<td class="fieldlabel" style="width:50px;">状态</td>
 				<td>
-					<@spring.formSingleSelect path="comment.status" options=commentStatus attributes='style="onchange="changeStatus();"' />
+					<@spring.formSingleSelect path="comment.status" options=commentStatus attributes='onchange="changeStatus();"' />
 				</td>
 				
 				<td class="fieldlabel" style="width:40px;">内容</td>
@@ -47,7 +47,7 @@
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
-			<#if commentPage??>
+			<#if commentPage?? && commentPage.result??>
 				<#list commentPage.result as item>
 					<#assign tdClass = "odd">
 					<#if item_index%2 == 0>
