@@ -1,0 +1,491 @@
+.navbar .navbar-inner {
+	background-image: none;
+	filter: none;
+}
+
+.navbar .nav>li>a {
+	color: #eee;
+	text-shadow: none;
+}
+
+.navbar .nav .active>a,.navbar .nav .active>a:hover,.navbar .nav>li>a:hover
+	{
+	background-color: #4480A1;
+}
+
+.line_dashed {
+	border-top: 1px dashed #C6C6C6;
+	margin-top: 15px;
+	margin-bottom: 15px
+}
+
+.well {
+	border: 1px;
+	color: #0078B6;
+}
+
+.nav-list>li>a,.nav-list .nav-header {
+	text-shadow: none;
+	top: 10px;
+}
+
+.sidebar-nav {
+	padding: 0;
+	word-wrap: break-word;
+}
+
+.nav .nav-header {
+	color: #0;
+}
+
+body {
+	padding-bottom: 40px;
+	padding-top: 60px;
+}
+
+.heading,body>header h1,h1,h2,h3,h4,h5,h6 {
+	font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif
+}
+
+.sans,body>header h2,article header p.meta,article>footer,#content .blog-index footer,html .gist .gist-file .gist-meta,#blog-archives a.category,#blog-archives time,aside.sidebar section,body>footer
+	{
+	font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif
+}
+
+.serif,body,#content .blog-index a[rel=full-article] {
+	font-family: "PT Serif", Georgia, Times, "Times New Roman", serif
+}
+
+.mono,pre,code,tt,p code,li code {
+	font-family: Menlo, Monaco, "Andale Mono", "lucida console",
+		"Courier New", monospace
+}
+
+body>header h1 {
+	font-size: 2.2em;
+	font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif;
+	font-weight: normal;
+	line-height: 1.2em;
+	margin-bottom: 0.6667em
+}
+
+body>header h2 {
+	font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif
+}
+
+h1 {
+	font-size: 2.6em;
+	line-height: 1.2em
+}
+
+}
+h1,h2,h3,h4,h5,h6 {
+	text-rendering: optimizelegibility;
+	margin-bottom: 1em;
+	font-weight: bold
+}
+
+h2,section h1 {
+	font-size: 1.5em
+}
+
+h3,section h2,section section h1 {
+	font-size: 1.3em
+}
+
+h4,section h3,section section h2,section section section h1 {
+	font-size: 1em
+}
+
+h5,section h4,section section h3 {
+	font-size: .9em
+}
+
+h6,section h5,section section h4,section section section h3 {
+	font-size: .8em
+}
+
+.footer {
+	text-align: center;
+}
+
+.tip {
+	font-size: 10px;
+	font-weight: bold;
+	color: red;
+}
+
+.post-entity {
+	
+}
+
+.post-title {
+	font-size: 2.6em;
+	line-height: 1.2em;
+}
+
+.post-title a {
+	text-decoration: none;
+}
+
+.post-title a:HOVER {
+	text-decoration: none;
+}
+
+.post-meta {
+	margin-bottom: 10px;
+}
+
+.post-meta-bottom {
+	display: inline-block;
+	width: 98%;
+}
+
+.post-summary {
+	margin-bottom: 10px;
+	word-wrap: break-word;
+}
+
+.post-content {
+	margin-bottom: 10px;
+	word-wrap: break-word;
+}
+
+.post-summary img,.post-content img {
+	max-width: 900px;
+}
+
+.post-copyright {
+	padding: 10px;
+	overflow: hidden;
+	background: #FBE3E4;
+	color: #8a1f11;
+	border-color: #FBC2C4;
+	width: 98%;
+}
+
+.post-pages {
+	
+}
+
+.post-relative-div {
+	padding: 10px;
+	overflow: hidden;
+}
+
+.post-relative {
+	background-color: #FCFCFC;
+	box-shadow: 0 0 2px #D5D5D5;
+	float: left;
+	margin: 10px;
+	padding: 10px;
+	width: 400px;
+}
+
+/****** comment ******/
+.comment-list {
+	list-style: none;
+	margin: 1em 0 3em;
+	padding: 0;
+}
+
+.comment-list li {
+	list-style: none;
+}
+
+.comment-list .comment-body {
+	border-bottom: 1px dotted #ccc;
+	background-color: white;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+	padding: 10px;
+}
+
+.comment-list .comment-content {
+	display: inline;
+}
+
+.comment-list .avatar {
+	border: 1px dotted #ccc;
+	float: left;
+	margin-right: 10px;
+	padding: 2px;
+	height: 32px;
+	width: 32px;
+}
+
+.comment-list .comment-author {
+	font-weight: bold;
+}
+
+.comment-list .comment-meta {
+	margin-bottom:10px;
+}
+
+.quotetop {
+	background: #E4EAF2 url(../images/css_img_quote.gif) no-repeat right;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+	border-bottom: 0;
+	border-left: 4px solid #8394B2;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 3px;
+	border: none;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+	padding: 5px;
+}
+
+.quotemain {
+	background: #FAFCFE;
+	border-left: 4px solid #8394B2;
+	border-top: 0;
+	color: #465584;
+	padding: 2px 2px 2px 2px;
+	margin: 0 0 10px 0;
+	border: none;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+	padding: 5px;
+}
+
+.quotewap {
+	margin-left: 8px;
+}
+
+/****** comment end ******/
+
+/* scrolltab */
+.scrolltab {
+	position: relative;
+	width: 990px;
+	margin: 0 auto;
+}
+
+.scrolltab .ulBigPic {
+	width: 868px;
+	height: 444px;
+	padding: 20px 60px 0;
+	overflow: hidden;
+}
+
+.scrolltab .ulBigPic li {
+	width: 868px;
+	height: 444px;
+	display: none;
+}
+
+.scrolltab .ulBigPic .liSelected {
+	display: block;
+}
+
+.scrolltab .ulBigPic img {
+	border: 1px solid #dedede;
+	padding: 2px;
+	background-color: #fff;
+}
+
+.scrolltab .ulBigPic .sPic {
+	width: 570px;
+	float: left;
+	overflow: hidden;
+}
+
+.scrolltab .ulBigPic .sSideBox {
+	width: 290px;
+	float: right;
+	overflow: hidden;
+}
+
+.scrolltab .sSideBox span {
+	width: 290px;
+	display: block;
+	overflow: hidden;
+}
+
+.scrolltab .ulBigPic .sTitle {
+	height: 32px;
+	line-height: 32px;
+	font-size: 14px;
+	font-weight: 700;
+	color: #333;
+}
+
+.scrolltab .ulBigPic .sIntro {
+	line-height: 24px;
+	color: #666;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.scrolltab .ulBigPic .sMore {
+	height: 24px;
+	line-height: 24px;
+}
+
+.scrolltab .ulBigPic .sMore a {
+	color: #841;
+}
+
+.scrolltab .ulBigPic .sTitle a {
+	color: #333;
+}
+
+.scrolltab .ulBigPic .sTitle a:hover {
+	color: #840;
+}
+
+.scrolltab .sLeftBtnA,.scrolltab .sLeftBtnASel,.scrolltab .sLeftBtnABan,.scrolltab .sRightBtnA,.scrolltab .sRightBtnASel,.scrolltab .sRightBtnABan
+	{
+	width: 38px;
+	height: 86px;
+	display: block;
+	position: absolute;
+	top: 190px;
+	background: url(../images/bgArt.png) no-repeat;
+}
+
+.scrolltab .sLeftBtnA,.scrolltab .sLeftBtnASel,.scrolltab .sRightBtnA,.scrolltab .sRightBtnASel
+	{
+	cursor: pointer;
+}
+
+.scrolltab .sLeftBtnA,.scrolltab .sLeftBtnASel,.scrolltab .sLeftBtnABan
+	{
+	left: 10px;
+}
+
+.scrolltab .sLeftBtnA {
+	background-position: -5px -2px;
+}
+
+.scrolltab .sLeftBtnASel {
+	background-position: -80px 0;
+}
+
+.scrolltab .sLeftBtnABan {
+	background-position: -161px 0;
+}
+
+.scrolltab .sRightBtnA,.scrolltab .sRightBtnASel,.scrolltab .sRightBtnABan
+	{
+	right: 10px;
+}
+
+.scrolltab .sRightBtnA {
+	background-position: -36px 0;
+}
+
+.scrolltab .sRightBtnASel {
+	background-position: -116px 0;
+}
+
+.scrolltab .sRightBtnABan {
+	background-position: -192px 0;
+}
+
+.scrolltab .dSmallPicBox {
+	width: 988px;
+	height: 154px;
+	position: relative;
+}
+
+.scrolltab .dSmallPic {
+	width: 882px;
+	height: 144px;
+	position: absolute;
+	left: 53px;
+	top: 0px;
+	overflow: hidden;
+}
+
+.scrolltab .dSmallPic ul {
+	position: absolute;
+}
+
+.scrolltab .dSmallPic li {
+	width: 141px;
+	height: 139px;
+	border: 1px solid #fff;
+	padding: 3px 2px 0;
+	float: left;
+	display: inline;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.scrolltab .dSmallPic .sPic {
+	width: 141px;
+	height: 106px;
+	display: block;
+}
+
+.scrolltab .dSmallPic .sPic img {
+	border: 1px solid #ddd;
+	padding: 2px;
+}
+
+.scrolltab .dSmallPic .sTitle {
+	width: 141px;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	text-align: center;
+	color: #333;
+	overflow: hidden;
+}
+
+.scrolltab .dSmallPic .liSelected {
+	border-color: #e9c184;
+}
+
+.scrolltab .dSmallPic .liSelected .sPic img {
+	border-color: #fff;
+}
+
+.scrolltab .sLeftBtnB,.scrolltab .sLeftBtnBSel,.scrolltab .sLeftBtnBBan,.scrolltab .sRightBtnB,.scrolltab .sRightBtnBSel,.scrolltab .sRightBtnBBan
+	{
+	width: 18px;
+	height: 37px;
+	display: block;
+	position: absolute;
+	top: 45px;
+	background: url(../images/bgArt.png) no-repeat;
+}
+
+.scrolltab .sLeftBtnB,.scrolltab .sLeftBtnBSel,.scrolltab .sRightBtnB,.scrolltab .sRightBtnBSel
+	{
+	cursor: pointer;
+}
+
+.scrolltab .sLeftBtnB,.scrolltab .sLeftBtnBSel,.scrolltab .sLeftBtnBBan
+	{
+	left: 20px;
+}
+
+.scrolltab .sLeftBtnB {
+	background-position: 0 -87px;
+}
+
+.scrolltab .sLeftBtnBSel {
+	background-position: -36px -87px;
+}
+
+.scrolltab .sLeftBtnBBan {
+	background-position: -73px -87px;
+}
+
+.scrolltab .sRightBtnB,.scrolltab .sRightBtnBSel,.scrolltab .sRightBtnBBan
+	{
+	right: 20px;
+}
+
+.scrolltab .sRightBtnB {
+	background-position: -16px -87px;
+}
+
+.scrolltab .sRightBtnBSel {
+	background-position: -52px -87px;
+}
+
+.scrolltab .sRightBtnBBan {
+	background-position: -88px -87px;
+}
