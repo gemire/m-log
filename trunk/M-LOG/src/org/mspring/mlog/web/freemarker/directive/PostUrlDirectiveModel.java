@@ -9,8 +9,9 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.utils.PostUrlUtils;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
-import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
+import org.mspring.platform.web.freemarker.FreemarkerVariableNames;
+import org.mspring.platform.web.freemarker.directive.AbstractDirectiveModel;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

@@ -8,7 +8,8 @@ import java.util.Map;
 
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Ad;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
+import org.mspring.platform.web.freemarker.directive.AbstractDirectiveModel;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

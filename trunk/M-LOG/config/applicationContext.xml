@@ -117,7 +117,7 @@
 	</bean>
 
 	<!-- Freemarker Configuration -->
-	<bean id="freemarkerConfigurer" class="org.mspring.mlog.web.freemarker.ExtendsFreeMarkerConfigurer">
+	<bean id="freemarkerConfigurer" class="org.mspring.platform.web.freemarker.ExtendsFreeMarkerConfigurer">
 		<property name="templateLoaderPaths">
 			<array>
 				<value>/</value>

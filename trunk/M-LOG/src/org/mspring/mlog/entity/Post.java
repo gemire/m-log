@@ -35,9 +35,9 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 import org.mspring.mlog.entity.security.User;
-import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.mlog.support.formater.stereotype.CatalogFormat;
 import org.mspring.mlog.support.formater.stereotype.TagFormat;
+import org.mspring.platform.cache.service.CacheService;
 
 import com.google.gson.annotations.Expose;
 

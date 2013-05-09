@@ -7,7 +7,8 @@ import javax.servlet.ServletContextEvent;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.common.WebContext;
+import org.mspring.platform.web.WebContext;
+import org.mspring.platform.web.listener.AbstractStartupListener;
 
 /**
  * @author Gao Youbo

@@ -6,9 +6,10 @@ package org.mspring.mlog.web.freemarker.directive;
 import java.io.IOException;
 import java.util.Map;
 
-import org.mspring.mlog.api.gravatar.GravatarUtils;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
+import org.mspring.platform.api.gravatar.GravatarUtils;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
+import org.mspring.platform.web.freemarker.directive.AbstractDirectiveModel;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

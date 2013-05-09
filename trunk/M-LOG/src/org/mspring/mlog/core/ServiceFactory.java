@@ -21,13 +21,13 @@ import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.service.StatService;
 import org.mspring.mlog.service.TagService;
-import org.mspring.mlog.service.cache.CacheService;
-import org.mspring.mlog.service.cache.DefaultCacheService;
-import org.mspring.mlog.service.cache.OptionCacheService;
-import org.mspring.mlog.service.cache.WidgetCacheService;
 import org.mspring.mlog.service.search.HibernateSearchService;
 import org.mspring.mlog.service.security.TreeItemService;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.platform.cache.service.CacheService;
+import org.mspring.platform.cache.service.DefaultCacheService;
+import org.mspring.platform.cache.service.OptionCacheService;
+import org.mspring.platform.cache.service.WidgetCacheService;
 import org.mspring.platform.core.ContextManager;
 
 /**

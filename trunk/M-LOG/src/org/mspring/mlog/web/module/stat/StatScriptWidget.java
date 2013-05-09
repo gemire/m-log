@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
 import org.mspring.mlog.web.module.stat.factory.AbstractStatCmd;
 import org.mspring.mlog.web.module.stat.factory.StatCmdFactory;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 

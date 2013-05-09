@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.ehcache.CacheManager;
 
-import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.platform.cache.filter.CacheConfig;
+import org.mspring.platform.cache.service.CacheService;
 import org.mspring.platform.utils.StringUtils;
 
 /**

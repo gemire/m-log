@@ -8,9 +8,9 @@ import java.util.Map;
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.mlog.web.freemarker.directive.sql.filter.SQLValidateUtils;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

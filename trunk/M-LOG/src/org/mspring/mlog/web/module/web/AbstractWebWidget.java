@@ -3,8 +3,8 @@
  */
 package org.mspring.mlog.web.module.web;
 
-import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
 import org.mspring.mlog.web.module.AbstractWidget;
+import org.mspring.platform.web.freemarker.FreemarkerVariableNames;
 import org.springframework.ui.Model;
 
 /**

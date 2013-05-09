@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
 
 import freemarker.core.Environment;
 

@@ -20,8 +20,8 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.constructs.blocking.BlockingCache;
 
 import org.apache.log4j.Logger;
-import org.mspring.mlog.service.cache.CacheService;
 import org.mspring.platform.cache.CacheUtils;
+import org.mspring.platform.cache.service.CacheService;
 import org.mspring.platform.utils.StringUtils;
 
 /**

@@ -8,16 +8,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.api.kuaipan.KuaipanUtils;
-import org.mspring.mlog.api.kuaipan.MKuaipanAPI;
-import org.mspring.mlog.api.kuaipan.client.KuaipanAPI;
-import org.mspring.mlog.api.kuaipan.client.exception.KuaipanAuthExpiredException;
-import org.mspring.mlog.api.kuaipan.client.exception.KuaipanIOException;
-import org.mspring.mlog.api.kuaipan.client.exception.KuaipanServerException;
-import org.mspring.mlog.api.kuaipan.client.session.OauthSession;
+import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.service.OptionService;
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.mlog.utils.KuaipanUtils;
 import org.mspring.mlog.web.module.admin.AbstractAdminWidget;
+import org.mspring.platform.api.kuaipan.MKuaipanAPI;
+import org.mspring.platform.api.kuaipan.client.KuaipanAPI;
+import org.mspring.platform.api.kuaipan.client.exception.KuaipanAuthExpiredException;
+import org.mspring.platform.api.kuaipan.client.exception.KuaipanIOException;
+import org.mspring.platform.api.kuaipan.client.exception.KuaipanServerException;
+import org.mspring.platform.api.kuaipan.client.session.OauthSession;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +67,7 @@ public class Admin_KuaipanWidget extends AbstractAdminWidget {
         String consumer_key = optionService.getOption("api_kuaipan_key");
         String consumer_secret = optionService.getOption("api_kuaipan_secret");
         OauthSession session = new OauthSession(consumer_key, consumer_secret, OauthSession.Root.APP_FOLDER);
-        api = new MKuaipanAPI(session);
+        api = new MKuaipanAPI(session, ServiceFactory.getOptionService().getOption("blogurl"));
         String url = api.requestToken();
         return "redirect:" + url;
     }

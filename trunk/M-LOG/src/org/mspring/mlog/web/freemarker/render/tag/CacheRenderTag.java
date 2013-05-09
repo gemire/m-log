@@ -4,7 +4,7 @@
 package org.mspring.mlog.web.freemarker.render.tag;
 
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.platform.cache.service.CacheService;
 
 import freemarker.template.SimpleHash;
 

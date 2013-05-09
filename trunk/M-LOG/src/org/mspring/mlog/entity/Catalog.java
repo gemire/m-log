@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.mspring.mlog.service.cache.CacheService;
+import org.mspring.platform.cache.service.CacheService;
 import org.mspring.platform.utils.StringUtils;
 
 /**

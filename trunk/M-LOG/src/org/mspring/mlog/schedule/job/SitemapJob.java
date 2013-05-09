@@ -6,20 +6,20 @@ package org.mspring.mlog.schedule.job;
 import java.io.File;
 import java.util.List;
 
-import org.mspring.mlog.api.sitemap.ChangeFreq;
-import org.mspring.mlog.api.sitemap.GoogleCodeSitemapGenerator;
-import org.mspring.mlog.api.sitemap.GoogleCodeSitemapUrl;
-import org.mspring.mlog.api.sitemap.GoogleCodeSitemapUrl.FileType;
-import org.mspring.mlog.api.sitemap.GoogleMobileSitemapGenerator;
-import org.mspring.mlog.api.sitemap.GoogleMobileSitemapUrl;
-import org.mspring.mlog.api.sitemap.WebSitemapGenerator;
-import org.mspring.mlog.api.sitemap.WebSitemapUrl;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Post;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.PostService;
 import org.mspring.mlog.utils.PostUrlUtils;
 import org.mspring.mlog.utils.WebUtils;
+import org.mspring.platform.api.sitemap.ChangeFreq;
+import org.mspring.platform.api.sitemap.GoogleCodeSitemapGenerator;
+import org.mspring.platform.api.sitemap.GoogleCodeSitemapUrl;
+import org.mspring.platform.api.sitemap.GoogleMobileSitemapGenerator;
+import org.mspring.platform.api.sitemap.GoogleMobileSitemapUrl;
+import org.mspring.platform.api.sitemap.WebSitemapGenerator;
+import org.mspring.platform.api.sitemap.WebSitemapUrl;
+import org.mspring.platform.api.sitemap.GoogleCodeSitemapUrl.FileType;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,7 @@ package org.mspring.mlog.web.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.common.WebContext;
+import org.mspring.platform.web.WebContext;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**

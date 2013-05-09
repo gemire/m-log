@@ -11,9 +11,9 @@ import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Album;
 import org.mspring.mlog.entity.Photo;
 import org.mspring.mlog.entity.Post;
-import org.mspring.mlog.web.freemarker.FreemarkerVariableNames;
-import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 import org.mspring.platform.utils.StringUtils;
+import org.mspring.platform.web.freemarker.FreemarkerVariableNames;
+import org.mspring.platform.web.freemarker.directive.AbstractDirectiveModel;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

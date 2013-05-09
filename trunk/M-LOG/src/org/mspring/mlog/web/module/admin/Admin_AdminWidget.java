@@ -4,7 +4,7 @@
 package org.mspring.mlog.web.module.admin;
 
 import org.mspring.mlog.support.log.Log;
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**

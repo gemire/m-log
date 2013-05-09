@@ -13,7 +13,7 @@ import org.mspring.mlog.entity.Skin;
 import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.service.SkinService;
 import org.mspring.mlog.support.log.Log;
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

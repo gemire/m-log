@@ -6,7 +6,7 @@ package org.mspring.mlog.web.module.common;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 

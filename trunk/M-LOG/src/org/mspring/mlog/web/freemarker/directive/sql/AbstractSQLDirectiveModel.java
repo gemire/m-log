@@ -10,10 +10,10 @@ import java.util.Set;
 import org.apache.commons.collections.SetUtils;
 import org.apache.log4j.Logger;
 import org.mspring.mlog.core.ServiceFactory;
-import org.mspring.mlog.service.cache.CacheService;
-import org.mspring.mlog.web.freemarker.DirectiveUtils;
-import org.mspring.mlog.web.freemarker.directive.AbstractDirectiveModel;
 import org.mspring.mlog.web.freemarker.directive.sql.filter.SQLValidateCommand;
+import org.mspring.platform.cache.service.CacheService;
+import org.mspring.platform.web.freemarker.DirectiveUtils;
+import org.mspring.platform.web.freemarker.directive.AbstractDirectiveModel;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateException;

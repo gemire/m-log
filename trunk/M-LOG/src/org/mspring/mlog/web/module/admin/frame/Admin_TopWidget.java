@@ -6,7 +6,7 @@ package org.mspring.mlog.web.module.admin.frame;
 import javax.servlet.http.HttpSession;
 
 import org.mspring.mlog.common.Keys;
-import org.mspring.mlog.web.freemarker.widget.stereotype.Widget;
+import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 

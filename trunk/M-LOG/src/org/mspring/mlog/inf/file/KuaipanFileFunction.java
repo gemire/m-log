@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import org.mspring.mlog.api.kuaipan.KuaipanUtils;
-import org.mspring.mlog.api.kuaipan.MKuaipanAPI;
-import org.mspring.mlog.api.kuaipan.client.hook.CountingOutputStream;
-import org.mspring.mlog.api.kuaipan.client.model.KuaipanFile;
-import org.mspring.mlog.api.kuaipan.client.model.KuaipanHTTPResponse;
+import org.mspring.mlog.utils.KuaipanUtils;
+import org.mspring.platform.api.kuaipan.MKuaipanAPI;
+import org.mspring.platform.api.kuaipan.client.hook.CountingOutputStream;
+import org.mspring.platform.api.kuaipan.client.model.KuaipanFile;
+import org.mspring.platform.api.kuaipan.client.model.KuaipanHTTPResponse;
 import org.mspring.platform.utils.StringUtils;
 
 /**
