@@ -4,19 +4,25 @@
 package org.mspring.platform.api.akisment;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
-import org.apache.commons.httpclient.HostConfiguration;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 /**
  * @author Gao Youbo
@@ -52,7 +58,7 @@ public class Akismet {
     public static final String COMMENT_TYPE_TRACKBACK = "trackback";
     public static final String COMMENT_TYPE_PINGBACK = "pingback";
 
-    private HttpClient httpClient;
+    private DefaultHttpClient httpClient;
     private String apiKey;
     private String blog;
     private boolean verifiedKey = false;
@@ -98,12 +104,8 @@ public class Akismet {
             throw new IllegalArgumentException("Blog cannot be null");
         }
 
-        httpClient = new HttpClient();
-        HttpClientParams httpClientParams = new HttpClientParams();
-        DefaultHttpMethodRetryHandler defaultHttpMethodRetryHandler = new DefaultHttpMethodRetryHandler(0, false);
-        httpClientParams.setParameter(USER_AGENT_HEADER, USER_AGENT_VALUE);
-        httpClientParams.setParameter(HttpClientParams.RETRY_HANDLER, defaultHttpMethodRetryHandler);
-        httpClient.setParams(httpClientParams);
+        httpClient = new DefaultHttpClient();
+        httpClient.getParams().setParameter(USER_AGENT_HEADER, USER_AGENT_VALUE);
     }
 
     /**
@@ -135,10 +137,8 @@ public class Akismet {
      *            Proxy port
      */
     public void setProxyConfiguration(String proxyHost, int proxyPort) {
-        HostConfiguration hostConfiguration = new HostConfiguration();
-        hostConfiguration.setProxy(proxyHost, proxyPort);
-
-        httpClient.setHostConfiguration(hostConfiguration);
+        HttpHost host = new HttpHost(proxyHost, proxyPort);
+        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, host);
     }
 
     /**
@@ -163,7 +163,7 @@ public class Akismet {
      *            Password to access proxy
      */
     public void setProxyAuthenticationConfiguration(String proxyUsername, String proxyPassword) {
-        httpClient.getState().setProxyCredentials(AuthScope.ANY, new UsernamePasswordCredentials(proxyUsername, proxyPassword));
+        httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(proxyUsername, proxyPassword));
     }
 
     /**
@@ -175,13 +175,23 @@ public class Akismet {
     public boolean verifyAPIKey() {
         boolean callResult = true;
 
-        PostMethod post = new PostMethod("http://rest.akismet.com/1.1/verify-key");
-        post.addParameter(API_PARAMETER_KEY, apiKey);
-        post.addParameter(API_PARAMETER_BLOG, blog);
+        HttpPost post = new HttpPost("http://rest.akismet.com/1.1/verify-key");
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair(API_PARAMETER_KEY, apiKey));
+        nvps.add(new BasicNameValuePair(API_PARAMETER_BLOG, blog));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps));
+        } catch (UnsupportedEncodingException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
         try {
-            httpResult = httpClient.executeMethod(post);
-            String result = post.getResponseBodyAsString();
+            HttpResponse response = httpClient.execute(post);
+
+            httpResult = response.getStatusLine().getStatusCode();
+            String result = EntityUtils.toString(response.getEntity());
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Akismet response: " + result);
@@ -247,37 +257,40 @@ public class Akismet {
 
         String akismetURL = "http://" + apiKey + ".rest.akismet.com/1.1/" + function;
 
-        PostMethod post = new PostMethod(akismetURL);
-        post.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-        post.addParameter(new NameValuePair(API_PARAMETER_BLOG, blog));
+        HttpPost post = new HttpPost(akismetURL);
+        post.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+
+        nvps.add(new BasicNameValuePair(API_PARAMETER_BLOG, blog));
         if (ipAddress != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_USER_IP, ipAddress));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_USER_IP, ipAddress));
         } else {
-            post.addParameter(new NameValuePair(API_PARAMETER_USER_IP, ""));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_USER_IP, ""));
         }
         if (userAgent != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_USER_AGENT, userAgent));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_USER_AGENT, userAgent));
         }
         if (referrer != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_REFERRER, referrer));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_REFERRER, referrer));
         }
         if (permalink != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_PERMALINK, permalink));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_PERMALINK, permalink));
         }
         if (commentType != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_COMMENT_TYPE, commentType));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_COMMENT_TYPE, commentType));
         }
         if (author != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_COMMENT_AUTHOR, author));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_COMMENT_AUTHOR, author));
         }
         if (authorEmail != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_COMMENT_AUTHOR_EMAIL, authorEmail));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_COMMENT_AUTHOR_EMAIL, authorEmail));
         }
         if (authorURL != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_COMMENT_AUTHOR_URL, authorURL));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_COMMENT_AUTHOR_URL, authorURL));
         }
         if (commentContent != null) {
-            post.addParameter(new NameValuePair(API_PARAMETER_COMMENT_CONTENT, commentContent));
+            nvps.add(new BasicNameValuePair(API_PARAMETER_COMMENT_CONTENT, commentContent));
         }
 
         if (other != null && other.size() > 0) {
@@ -285,14 +298,23 @@ public class Akismet {
             while (keyIterator.hasNext()) {
                 String key = (String) keyIterator.next();
                 if ((key != null) && (other.get(key) != null)) {
-                    post.addParameter(new NameValuePair(key, other.get(key).toString()));
+                    nvps.add(new BasicNameValuePair(key, other.get(key).toString()));
                 }
             }
         }
+        
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps));
+        } catch (UnsupportedEncodingException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
         try {
-            httpResult = httpClient.executeMethod(post);
-            String result = post.getResponseBodyAsString();
+            HttpResponse response = httpClient.execute(post);
+
+            httpResult = response.getStatusLine().getStatusCode();
+            String result = EntityUtils.toString(response.getEntity());
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Akismet response: " + result);
