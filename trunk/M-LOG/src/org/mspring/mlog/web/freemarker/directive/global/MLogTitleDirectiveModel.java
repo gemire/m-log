@@ -6,6 +6,7 @@ package org.mspring.mlog.web.freemarker.directive.global;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.mspring.mlog.common.PageNames;
 import org.mspring.mlog.core.ServiceFactory;
 import org.mspring.mlog.entity.Album;
@@ -40,34 +41,34 @@ public class MLogTitleDirectiveModel extends AbstractDirectiveModel {
             } else if (currentPage.equals(PageNames.SINGLE)) {
                 Object postObj = env.__getitem__(FreemarkerVariableNames.POST);
                 if (postObj != null && (postObj instanceof Post)) {
-                    title = ((Post) postObj).getTitle() + " - " + title;
+                    title = StringEscapeUtils.escapeHtml4(((Post) postObj).getTitle()) + " - " + title;
                 }
             } else if (currentPage.equals(PageNames.SEARCH)) {
                 Object keyword = env.__getitem__(FreemarkerVariableNames.SEARCH_KEYWORD);
                 if (keyword != null && StringUtils.isNotBlank(keyword.toString())) {
-                    title = keyword + " 搜索 -" + title;
+                    title = StringEscapeUtils.escapeHtml4(keyword.toString()) + " 搜索 -" + title;
                 }
             } else if (currentPage.equals(PageNames.CATALOG_ARCHIVE)) {
                 Object catalogName = env.__getitem__(FreemarkerVariableNames.CATALOG_ARCHIVE_NAME);
                 if (catalogName != null && StringUtils.isNotBlank(catalogName.toString())) {
-                    title = "" + catalogName + " - " + title;
+                    title = StringEscapeUtils.escapeHtml4(catalogName.toString()) + " - " + title;
                 }
             } else if (currentPage.equals(PageNames.TAG_ARCHIVE)) {
                 Object tagname = env.__getitem__(FreemarkerVariableNames.TAG_ARCHIVE_NAME);
                 if (tagname != null && StringUtils.isNotBlank(tagname.toString())) {
-                    title = "" + tagname + " - " + title;
+                    title = StringEscapeUtils.escapeHtml4(tagname.toString()) + " - " + title;
                 }
             } else if (currentPage.equals(PageNames.ALBUM)) {
                 title = "相册 - " + title;
             } else if (currentPage.equals(PageNames.PHOTO_LIST)) {
                 Object albumObj = env.__getitem__(FreemarkerVariableNames.ALBUM);
                 if (albumObj != null && albumObj instanceof Album) {
-                    title = ((Album) albumObj).getName() + " - " + title;
+                    title = StringEscapeUtils.escapeHtml4(((Album) albumObj).getName()) + " - " + title;
                 }
             } else if (currentPage.equals(PageNames.PHOTO_VIEW)) {
                 Object photoObj = env.__getitem__(FreemarkerVariableNames.PHOTO);
                 if (photoObj != null && photoObj instanceof Photo) {
-                    title = ((Photo) photoObj).getName() + " - " + title;
+                    title = StringEscapeUtils.escapeHtml4(((Photo) photoObj).getName()) + " - " + title;
                 }
             }
         }
