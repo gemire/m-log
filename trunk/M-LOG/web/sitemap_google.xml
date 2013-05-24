@@ -3043,4 +3043,13 @@
       <codesearch:filetype>html</codesearch:filetype>
     </codesearch:codesearch>
   </url>
+  <url>
+    <loc>http://localhost:8080/post/393.html</loc>
+    <lastmod>2013-05-24T14:17:24+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <codesearch:codesearch>
+      <codesearch:filetype>html</codesearch:filetype>
+    </codesearch:codesearch>
+  </url>
 </urlset>

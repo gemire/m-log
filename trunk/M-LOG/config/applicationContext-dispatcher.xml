@@ -30,7 +30,10 @@
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean class="org.mspring.platform.web.converter.StringHttpMessageConverter">
+				<bean class="org.mspring.platform.spring.converter.StringHttpMessageConverter">
+					<constructor-arg value="UTF-8" />
+				</bean>
+				<bean class="org.mspring.platform.spring.converter.ResponseEntityConverter">
 					<constructor-arg value="UTF-8" />
 				</bean>
 				<!-- 
@@ -71,7 +74,7 @@
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
-				<bean class="org.mspring.platform.web.converter.DateConverter">
+				<bean class="org.mspring.platform.spring.converter.DateConverter">
 					<property name="pattern" value="yyyy-MM-dd HH:mm:ss" />
 				</bean>
 			</list>

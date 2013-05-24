@@ -63,4 +63,7 @@
 	
 	<cache name="org.mspring.mlog.entity.Ad" maxElementsInMemory="100000"
 		eternal="false" timeToIdleSeconds="86400" overflowToDisk="true" />
+		
+	<cache name="org.mspring.mlog.entity.Jaw" maxElementsInMemory="100000"
+		eternal="false" timeToIdleSeconds="86400" overflowToDisk="true" />
 </ehcache>
