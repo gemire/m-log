@@ -24,10 +24,10 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-//import com.gif4j.GifDecoder;
-//import com.gif4j.GifEncoder;
-//import com.gif4j.GifImage;
-//import com.gif4j.GifTransformer;
+import com.gif4j.GifDecoder;
+import com.gif4j.GifEncoder;
+import com.gif4j.GifImage;
+import com.gif4j.GifTransformer;
 import com.mortennobel.imagescaling.AdvancedResizeOp;
 import com.mortennobel.imagescaling.ResampleOp;
 
@@ -53,7 +53,8 @@ public class ImageUtils {
      * @return
      */
     public static boolean isJPG(String fn) {
-        if (fn == null) return false;
+        if (fn == null)
+            return false;
         String s_fn = fn.toLowerCase();
         return s_fn.endsWith("jpg") || s_fn.endsWith("jpge");
     }
@@ -65,9 +66,57 @@ public class ImageUtils {
      * @return
      */
     public static boolean isBMP(String fn) {
-        if (fn == null) return false;
+        if (fn == null)
+            return false;
         String s_fn = fn.toLowerCase();
         return s_fn.endsWith("bmp");
+    }
+
+    /**
+     * 判断图片是否是gif
+     * 
+     * @param fn
+     * @return
+     */
+    public static boolean isGif(String fn) {
+        if (fn == null)
+            return false;
+        String s_fn = fn.toLowerCase();
+        return s_fn.endsWith("gif");
+    }
+
+    /**
+     * 获取图片尺寸
+     * 
+     * @param stream
+     * @return
+     */
+    public static Size getImageSize(InputStream stream) {
+        try {
+            BufferedImage sourceImg = ImageIO.read(stream);
+            return new Size(sourceImg.getWidth(), sourceImg.getHeight());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new Size(0, 0);
+        }
+    }
+
+    /**
+     * 获取图片尺寸
+     * 
+     * @param file
+     * @return
+     */
+    public static Size getImageSize(File file) {
+        try {
+            BufferedImage sourceImg = ImageIO.read(file);
+            return new Size(sourceImg.getWidth(), sourceImg.getHeight());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new Size(0, 0);
+        }
     }
 
     /**
@@ -81,8 +130,6 @@ public class ImageUtils {
      */
     public static void saveImage(File formImage, File saveImage, int maxWidth, int maxHeight) throws IOException {
         BufferedImage srcImage;
-        // String ex =
-        // fromFileStr.substring(fromFileStr.indexOf("."),fromFileStr.length());
         String imgType = "JPEG";
         if (formImage.getName().toLowerCase().endsWith(".png")) {
             imgType = "PNG";
@@ -91,19 +138,18 @@ public class ImageUtils {
         if (!saveImage.getParentFile().exists()) {
             saveImage.getParentFile().mkdirs();
         }
-//        // 处理GIF动态图片
-//        if (formImage.getName().toLowerCase().endsWith(".gif")) {
-//            GifImage gifImage = GifDecoder.decode(formImage);
-//            GifImage newGif = GifTransformer.resize(gifImage, maxWidth, maxHeight, false);
-//            GifEncoder.encode(newGif, saveImage);
-//        }
-//        else {
+        // // 处理GIF动态图片
+        if (formImage.getName().toLowerCase().endsWith(".gif")) {
+            GifImage gifImage = GifDecoder.decode(formImage);
+            GifImage newGif = GifTransformer.resize(gifImage, maxWidth, maxHeight, false);
+            GifEncoder.encode(newGif, saveImage);
+        } else {
             srcImage = ImageIO.read(formImage);
             if (maxWidth > 0 || maxHeight > 0) {
                 srcImage = resize(srcImage, maxWidth, maxHeight);
             }
             ImageIO.write(srcImage, imgType, saveImage);
-//        }
+        }
     }
 
     public static String BMP_TO_JPG(String imgPath) throws IOException {
@@ -112,10 +158,11 @@ public class ImageUtils {
         String jpgName = imgPath + ".jpg";
         FileOutputStream newimage = new FileOutputStream(jpgName);
         try {
-            if (ImageIO.write(oldImage, "jpg", newimage)) return jpgName;
-        }
-        finally {
-            if (newimage != null) newimage.close();
+            if (ImageIO.write(oldImage, "jpg", newimage))
+                return jpgName;
+        } finally {
+            if (newimage != null)
+                newimage.close();
         }
         return null;
     }
@@ -139,8 +186,7 @@ public class ImageUtils {
         if (sx > sy) {
             sx = sy;
             targetW = (int) (sx * source.getWidth());
-        }
-        else {
+        } else {
             sy = sx;
             targetH = (int) (sy * source.getHeight());
         }
@@ -149,8 +195,9 @@ public class ImageUtils {
             WritableRaster raster = cm.createCompatibleWritableRaster(targetW, targetH);
             boolean alphaPremultiplied = cm.isAlphaPremultiplied();
             target = new BufferedImage(cm, raster, alphaPremultiplied, null);
-        }
-        else target = new BufferedImage(targetW, targetH, type);
+        } else
+            target = new BufferedImage(targetW, targetH, type);
+
         Graphics2D g = target.createGraphics();
         // smoother than exlax:
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -170,8 +217,7 @@ public class ImageUtils {
     public static void resize(File originalFile, File thumnailFile, int newWidth, int newHeight, String format) {
         try {
             resize(new FileInputStream(originalFile), new FileOutputStream(thumnailFile), newWidth, newHeight, format);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -189,8 +235,7 @@ public class ImageUtils {
                 BufferedImage thumbnailImage = resampleOp.filter(originalImage, null);
                 ImageIO.write(thumbnailImage, format, thumnailStream);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -267,8 +312,7 @@ public class ImageUtils {
         FileOutputStream out = new FileOutputStream(dest_fn);
         try {
             ImageIO.write(new_img, "JPG", out);
-        }
-        finally {
+        } finally {
             out.close();
         }
         return true;
@@ -323,7 +367,8 @@ public class ImageUtils {
         for (int i = 0; i < 4; i++) {
             // 得到随机产生的验证码数字。
             int randomIndex = random.nextInt(allowValidateString.length());
-            if (randomIndex == 0) randomIndex = 1;
+            if (randomIndex == 0)
+                randomIndex = 1;
             String strRand = allowValidateString.substring(randomIndex - 1, randomIndex);
 
             // 产生随机的颜色分量来构造颜色值，这样输出的每位数字的颜色值都将不同。
@@ -340,8 +385,7 @@ public class ImageUtils {
         }
         try {
             ImageIO.write(buffImg, "jpeg", outputStream);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -368,8 +412,7 @@ public class ImageUtils {
             out.write(bytes);
             out.flush();
             out.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

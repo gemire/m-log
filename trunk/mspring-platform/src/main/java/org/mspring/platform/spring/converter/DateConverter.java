@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.mspring.platform.web.converter;
+package org.mspring.platform.spring.converter;
 
 import java.util.Date;
 
