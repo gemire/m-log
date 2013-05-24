@@ -2039,13 +2039,13 @@
     <mobile:mobile/>
   </url>
   <url>
-    <loc>http://localhost:8080/post/307.html</loc>
+    <loc>http://localhost:8080/post/387.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
   </url>
   <url>
-    <loc>http://localhost:8080/post/308.html</loc>
+    <loc>http://localhost:8080/post/388.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
@@ -2319,6 +2319,30 @@
   </url>
   <url>
     <loc>http://localhost:8080/post/352.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <mobile:mobile/>
+  </url>
+  <url>
+    <loc>http://localhost:8080/post/390.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <mobile:mobile/>
+  </url>
+  <url>
+    <loc>http://localhost:8080/post/389.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <mobile:mobile/>
+  </url>
+  <url>
+    <loc>http://localhost:8080/post/391.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <mobile:mobile/>
+  </url>
+  <url>
+    <loc>http://localhost:8080/post/392.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>

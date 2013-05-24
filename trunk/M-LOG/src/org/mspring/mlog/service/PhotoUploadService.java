@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mspring.mlog.entity.Photo;
-import org.mspring.mlog.entity.Size;
+import org.mspring.platform.utils.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

@@ -40,6 +40,11 @@ public class Attachment implements Serializable {
     private Long size;
     private Date uploadTime;
     private User user;
+    private String from = AttachFrom.FROM_POST; // 附件来源
+    private Long fid;
+    private Boolean isImage = false;
+    private Double imageWidth;
+    private Double imageHeight;
 
     /**
      * 
@@ -101,4 +106,64 @@ public class Attachment implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Column(name = "from", length = 100)
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    @Column(name = "fid", length = 30)
+    public Long getFid() {
+        return fid;
+    }
+
+    public void setFid(Long fid) {
+        this.fid = fid;
+    }
+
+    @Column(name = "is_image")
+    public Boolean getIsImage() {
+        return isImage;
+    }
+
+    public void setIsImage(Boolean isImage) {
+        this.isImage = isImage;
+    }
+
+    @Column(name = "image_width", length = 30)
+    public Double getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(Double imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    @Column(name = "image_height", length = 30)
+    public Double getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageHeight(Double imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
+    /**
+     * 附件来源
+     * 
+     * @author Gao Youbo
+     * @since 2013-5-23
+     * @description
+     * @TODO
+     */
+    public static final class AttachFrom {
+        public static final String FROM_POST = "POST"; // 文章
+        public static final String FROM_JAW = "JAW"; // 叨叨
+        public static final String FROM_METAWEBLOG = "METAWEBLOG"; // metaweblog
+    }
+
 }

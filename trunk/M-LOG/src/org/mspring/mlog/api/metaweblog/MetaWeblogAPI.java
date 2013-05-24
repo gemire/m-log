@@ -552,7 +552,7 @@ public class MetaWeblogAPI {
     private String newMediaObject(HttpServletRequest request, String type, String base64Data, User user) {
         // 根据mimetype获取文件后缀名
         String ext = MimeTypeUtils.getExtension(type);
-        Attachment attachment = ServiceFactory.getAttachmentService().createAttachment(base64Data, ext, user.getId());
+        Attachment attachment = ServiceFactory.getAttachmentService().createAttachment(base64Data, ext, user.getId(), Attachment.AttachFrom.FROM_METAWEBLOG, null);
         String url = request.getContextPath() + attachment.getPath();
 
         StringBuffer result = new StringBuffer();

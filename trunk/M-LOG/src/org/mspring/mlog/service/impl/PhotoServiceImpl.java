@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Photo;
-import org.mspring.mlog.entity.Size;
 import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.service.PhotoService;
 import org.mspring.mlog.service.PhotoUploadService;
@@ -20,6 +19,7 @@ import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.ImageUtils;
+import org.mspring.platform.utils.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

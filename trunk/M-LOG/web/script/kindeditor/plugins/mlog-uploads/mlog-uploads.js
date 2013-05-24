@@ -54,6 +54,8 @@ function imageContains(image){
 	return false;
 }
 
+
+
 //向编辑器插入置顶图片
 function insertImage(id){
 	for(var i = 0; i < images.length; i++){

@@ -1,20 +1,57 @@
 <#import "/META-INF/spring.ftl" as spring />
 <#include "../inc/header.ftl" />
 	<script type="text/javascript" src="${base}/script/kindeditor/kindeditor.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${base}/script/jquery.form.js" charset="utf-8"></script>
 	<script type="text/javascript" src="${base}/script/autocomplete.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			mlog.editor.ins.createPostEditor = mlog.editor.init({
-				type : "kindeditor",
+			mlog.editor.init({
 				model : "all",
 				id : "content"
 			});
-			mlog.editor.ins.createPostSummaryEditor = mlog.editor.init({
-				type : "kindeditor",
+			mlog.editor.init({
 				model : "simple",
 				id : "summary"
 			});
 		});
+		
+		//自动保存	
+		function autosave(callback){
+			$('#postForm').ajaxSubmit({
+				url : '${base}/admin/post/autosave',
+				success: function(responseText, statusText, xhr, $form){
+					$("#id").val(responseText);
+					if(callback !== undefined){
+						callback(responseText, statusText);
+					}
+				}
+			});
+			setTimeout("autosave()", 60000);
+		}
+		autosave();
+		
+		function displayToggle(){
+			autosave(function(responseText, statusText){
+				$('#attach_frame').attr('src', '${base}/admin/attachment/uploadview?post=' + responseText);
+				$('#attachment').fadeToggle();
+			});
+		}
+		
+		function addAttachFile(path,name){
+			if (mlog.editor.map['content'].designMode === false){
+				alert('请先切换到所见所得模式');
+			} else {
+				mlog.editor.map['content'].insertHtml('<span class=\"attachment\"><a target=\"_blank\" href=\"'+path+'\" >'+name+'</a></span>');
+			}
+		}
+		
+		function addAttachImage(path,id){
+			if (mlog.editor.map['content'].designMode === false){
+				alert('请先切换到所见所得模式');
+			}else if (path != "") {
+				mlog.editor.map['content'].insertHtml('<a target=\"_blank\" href=\"'+path+'\" id=\"ematt:'+id+'\"><img src=\"'+path+'\" title="点击查看原图" border=\"0\" /></a>');
+			}
+		}
 	</script>
 	<script type="text/javascript">
 		var setting = {
@@ -87,6 +124,7 @@
 	<form id="postForm" name="postForm" action="${base}/admin/post/create/save" method="POST">
 		<@spring.bind "post" />
 		<@spring.formHiddenInput path="post.status" />
+		<@spring.formHiddenInput path="post.id" />
 		<table class="formtable">
 			<tr>
 				<td class="fieldlabel" style="width:60px;">标题</td>
@@ -133,9 +171,16 @@
 				<@spring.formRadioButtons path="post.isTop" options=isTop defaultValue="false" separator="&nbsp;" />
 				</td>
 			</tr>
-		
+			<tr id="attachment" style="display: none;">
+				<td colspan="4">
+					<iframe id="attach_frame" width="100%" height="230" frameborder="0"></iframe>
+				</td>
+			</tr>
 			<tr>
-				<td class="fieldlabel">内容</td>
+				<td class="fieldlabel">
+					内容<br/>
+					<a href="javascript:displayToggle();" style="font-weight: bold; color:red;">插入附件</a><br/>
+				</td>
 				<td colspan="3">
 					<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;"' />
 				</td>

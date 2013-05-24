@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.mspring.mlog.entity.Attachment;
@@ -17,6 +18,8 @@ import org.mspring.mlog.service.FileService;
 import org.mspring.mlog.utils.AttachmentUtils;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
+import org.mspring.platform.utils.ImageUtils;
+import org.mspring.platform.utils.Size;
 import org.mspring.platform.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +60,7 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
      * springframework.web.multipart.MultipartFile)
      */
     @Override
-    public Attachment createAttachment(MultipartFile mf) {
+    public Attachment createAttachment(MultipartFile mf, String from, Long fid) {
         // TODO Auto-generated method stub
         String url = "";
         try {
@@ -73,6 +76,21 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
         attachment.setSize(mf.getSize());
         attachment.setUploadTime(new Date());
         attachment.setUser(SecurityUtils.getCurrentUser());
+        attachment.setFrom(from);
+        attachment.setFid(fid);
+        
+        // 判断是否为图片
+        String ext = StringUtils.getFileExtend(mf.getOriginalFilename());
+        if (ImageUtils.isImage(ext)) {
+            attachment.setIsImage(true);
+            try {
+                Size size = ImageUtils.getImageSize(mf.getInputStream());
+                attachment.setImageWidth(size.getWidth());
+                attachment.setImageHeight(size.getHeight());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+        }
         Long id = (Long) create(attachment);
         return getAttachmentById(id);
     }
@@ -85,10 +103,8 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
      * .String, java.lang.String, java.lang.Long)
      */
     @Override
-    public Attachment createAttachment(String base64Data, String ext, Long user) {
+    public Attachment createAttachment(String base64Data, String ext, Long user, String from, Long fid) {
         // TODO Auto-generated method stub
-        String url = "";
-        Long size = null;
         try {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -103,20 +119,46 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
                 }
             }
             InputStream inputStream = new ByteArrayInputStream(bytes);
-            url = fileService.uploadFile(fileName, inputStream);
-            size = new Long(bytes.length);
+            String url = fileService.uploadFile(fileName, inputStream);
+            Long size = new Long(bytes.length);
+
+            Attachment attachment = new Attachment();
+            attachment.setPath(url);
+            attachment.setSize(size);
+            attachment.setUploadTime(new Date());
+            attachment.setUser(new User(user));
+            attachment.setFrom(from);
+            attachment.setFid(fid);
+
+            // 判断是否为图片
+            if (ImageUtils.isImage(ext)) {
+                attachment.setIsImage(true);
+                Size imageSize = ImageUtils.getImageSize(inputStream);
+                attachment.setImageWidth(imageSize.getWidth());
+                attachment.setImageHeight(imageSize.getHeight());
+            }
+            Long id = (Long) create(attachment);
+            return getAttachmentById(id);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             log.error("upload file error, " + e.getMessage());
+            return null;
         }
-        Attachment attachment = new Attachment();
-        attachment.setPath(url);
-        attachment.setSize(size);
-        attachment.setUploadTime(new Date());
-        attachment.setUser(new User(user));
-        Long id = (Long) create(attachment);
-        return getAttachmentById(id);
+    }
+
+    @Override
+    public List<Attachment> findAttachmentsByPost(Long post) {
+        // TODO Auto-generated method stub
+        return find("select a from Attachment a where a.from = ? and a.fid = ?", new Object[] { Attachment.AttachFrom.FROM_POST, post });
+    }
+
+    @Override
+    public void deleteAttachment(Long id) {
+        // TODO Auto-generated method stub
+        Attachment a = getAttachmentById(id);
+        fileService.deleteFile(a.getPath());
+        remove(Attachment.class, id);
     }
 
 }

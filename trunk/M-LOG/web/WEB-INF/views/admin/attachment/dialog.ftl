@@ -28,6 +28,9 @@
 	</style>
 </head>
 <body>
+	<div>
+	这里是保存图片列表的数据
+	</div>
 	<div style="padding: 10px; display: block;">
 		<div style="padding-bottom: 10px !important;border-bottom: 1px dashed #CDCDCD; margin-top: -1px;height: auto !important;max-height: 350px; overflow: auto;overflow-x: hidden;">
 			<div id="imgattachlist" class="imgattachlist">
@@ -42,12 +45,9 @@
 		$(document).ready(function(){
 			$("#uploadify").uploadify({
 		    	debug            : false,
-		        height           : 20,
-		        width            : 60,
 		        swf              : '${base}/script/uploadify/uploadify.swf',
 		        uploader         : '${base}/admin/attachment/upload',
 		        method           : 'GET',
-		        buttonClass      : 'btn',
 		        buttonText       : '选择图片',
 		        progressData     : 'speed',
 		        auto             : false,
@@ -107,7 +107,7 @@
 			$('#uploadify').uploadify('stop');
 		}
 		
-		//没上传成功一张图片就在突破列表中追加一张
+		//每上传成功一张图片就在图片列表中追加一张
 		function appendImageList(image){
 			$("#imgattachlist").append('<img src="' + image.path + '" id="attachment_' + image.id + '" onclick="insertImage(' + image.id + ')" />');
 			W.addImage(image);

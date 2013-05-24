@@ -20,12 +20,9 @@
 			$(function() {
 			    $("#uploadify").uploadify({
 			    	debug            : false,
-			        height           : 20,
-			        width            : 60,
 			        swf              : '${base}/script/uploadify/uploadify.swf',
 			        uploader         : '${base}/admin/photo/doUpload',
 			        method           : 'GET',
-			        buttonClass      : 'btn',
 			        buttonText       : '选择图片',
 			        progressData     : 'speed',
 			        auto             : false,

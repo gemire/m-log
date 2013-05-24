@@ -71,9 +71,11 @@ public class PostServiceImpl extends AbstractServiceSupport implements PostServi
         }
         post.setCommentCount(new Long(0));
         post.setViewCount(new Long(0));
-        Long id = (Long) super.create(post);
+        // Long id = (Long) super.create(post);
 
-        return getPostById(id);
+        // Long id = (Long) super.merge(post);
+        // return getPostById(id);
+        return (Post) merge(post);
     }
 
     /*

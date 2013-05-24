@@ -112,6 +112,22 @@ public class Admin_PostWidget extends AbstractAdminWidget {
         return "redirect:/admin/post/list";
     }
 
+    @RequestMapping("/autosave")
+    @ResponseBody
+    public String autosave(@ModelAttribute Post post, HttpServletRequest request, HttpServletResponse response, Model model) {
+        User user = SecurityUtils.getCurrentUser(request);
+        if (post.getAuthor() == null) {
+            post.setAuthor(user);
+        }
+        if (StringUtils.isBlank(post.getTitle())) {
+            post.setTitle("无标题");
+        }
+        post.setPostIp(request.getRemoteAddr());
+        post.setStatus(Post.Status.DRAFT);
+        post = postService.createPost(post);
+        return post.getId().toString();
+    }
+
     /**
      * 将文章移入回收站
      * 

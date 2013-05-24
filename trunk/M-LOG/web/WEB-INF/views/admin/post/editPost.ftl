@@ -7,16 +7,35 @@
 		turnHighLight(11505015);
 		$(document).ready(function(){
 			mlog.editor.init({
-				type : "kindeditor",
 				model : "all",
 				id : "content"
 			});
 			mlog.editor.init({
-				type : "kindeditor",
 				model : "simple",
 				id : "summary"
 			});
 		});
+		
+		function displayToggle(){
+			$('#attach_frame').attr('src', '${base}/admin/attachment/uploadview?post=${post.id}');
+			$('#attachment').fadeToggle();
+		}
+		
+		function addAttachFile(path,name){
+			if (mlog.editor.map['content'].designMode === false){
+				alert('请先切换到所见所得模式');
+			} else {
+				mlog.editor.map['content'].insertHtml('<span class=\"attachment\"><a target=\"_blank\" href=\"'+path+'\" >'+name+'</a></span>');
+			}
+		}
+		
+		function addAttachImage(path,id){
+			if (mlog.editor.map['content'].designMode === false){
+				alert('请先切换到所见所得模式');
+			}else if (path != "") {
+				mlog.editor.map['content'].insertHtml('<a target=\"_blank\" href=\"'+path+'\" id=\"ematt:'+id+'\"><img src=\"'+path+'\" title="点击查看原图" border=\"0\" /></a>');
+			}
+		}
 	</script>
 	<script type="text/javascript">
 		var setting = {
@@ -157,7 +176,16 @@
 						<@spring.formRadioButtons path="post.isTop" options=isTop defaultValue="false" separator="&nbsp;" />
 						</td>
 					</tr>
-						<td class="fieldlabel">内容</td>
+					<tr id="attachment" style="display: none;">
+						<td colspan="4">
+							<iframe id="attach_frame" width="100%" height="230" frameborder="0"></iframe>
+						</td>
+					</tr>
+					<tr>
+						<td class="fieldlabel">
+							内容<br/>
+							<a href="javascript:displayToggle();" style="font-weight: bold; color:red;">插入附件</a><br/>
+						</td>
 						<td colspan="3">
 							<@spring.formTextarea path="post.content" attributes='style="height:200px;width:100%;"' />
 						</td>

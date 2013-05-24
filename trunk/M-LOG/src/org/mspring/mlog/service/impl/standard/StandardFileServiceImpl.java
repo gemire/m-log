@@ -128,8 +128,16 @@ public class StandardFileServiceImpl extends AbstractFileService {
             fileName = "/" + fileName;
         }
 
-        String filePath = uploadFolder + fileName;
-        File destFile = new File(filePath);
+        File destFile = null;
+        // 如果传过来的参数是以/uploads开头
+        if (fileName.startsWith("/uploads")) {
+            File parent = new File(uploadFolder);
+            String filePath = parent.getParent() + fileName;
+            destFile = new File(filePath);
+        } else {
+            String filePath = uploadFolder + fileName;
+            destFile = new File(filePath);
+        }
 
         if (!destFile.getParentFile().exists()) {
             destFile.getParentFile().mkdirs();
