@@ -10,7 +10,7 @@
 					<div>
 						<form id="jaw-form" action="${base}/jaw/add" method="POST">
 							<div>
-								<textarea id="jaw-input" class="jaw-input"></textarea>
+								<textarea id="jaw-input" class="jaw-input" name="content"></textarea>
 							</div>
 							<div>
 								<div class="pull-left">

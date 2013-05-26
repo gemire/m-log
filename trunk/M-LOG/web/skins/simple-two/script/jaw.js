@@ -35,13 +35,21 @@ $(document).ready(function(){
 function add(){
 	$("#jaw-form").ajaxSubmit({
 		success:function(response, statusText, xhr, $form){
-			alert(statusText);
 			if (response.success === true) {
 				alert('发条成功');
 			}
 			else {
-				alert(2);
+				alert(response.message);
 			}
 		}
 	});
 }
+
+//加载
+function loadJaw(){
+	$.get(mlog.variable.base + '/jaw/get', function(response){
+		alert(response);
+	});
+}
+
+window.load = loadJaw;

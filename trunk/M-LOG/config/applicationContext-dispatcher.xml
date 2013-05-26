@@ -33,9 +33,7 @@
 				<bean class="org.mspring.platform.spring.converter.StringHttpMessageConverter">
 					<constructor-arg value="UTF-8" />
 				</bean>
-				<bean class="org.mspring.platform.spring.converter.ResponseEntityConverter">
-					<constructor-arg value="UTF-8" />
-				</bean>
+				<bean class="org.mspring.platform.spring.converter.ResponseEntityConverter" />
 				<!-- 
 				<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
 				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />  

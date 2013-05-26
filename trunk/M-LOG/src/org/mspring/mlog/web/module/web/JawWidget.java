@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.mspring.mlog.entity.Jaw;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.JawService;
+import org.mspring.mlog.web.query.JawQueryCriterion;
 import org.mspring.mlog.web.security.SecurityUtils;
+import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.ResponseEntity;
 import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
@@ -68,5 +70,16 @@ public class JawWidget extends AbstractWebWidget {
             rsp.setMessage("发表内容失败");
             return rsp;
         }
+    }
+
+    @RequestMapping("/get")
+    @ResponseBody
+    public ResponseEntity get(@RequestParam Integer page, HttpServletRequest request, HttpServletResponse response, Model model) {
+        ResponseEntity rsp = new ResponseEntity();
+        Page<Jaw> p = new Page<Jaw>();
+        jawService.findJawPage(new JawQueryCriterion(null), p);
+        rsp.setSuccess(true);
+        rsp.addData("jaw", p.getResult());
+        return rsp;
     }
 }
