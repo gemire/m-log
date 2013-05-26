@@ -20,7 +20,7 @@ import org.springframework.util.FileCopyUtils;
  * @TODO 解决spring默认提供的StringHttpMessageConverter在@ResponseBody中文时乱码
  */
 public class StringHttpMessageConverter extends org.springframework.http.converter.StringHttpMessageConverter {
-    
+
     private Charset charset;
 
     /**

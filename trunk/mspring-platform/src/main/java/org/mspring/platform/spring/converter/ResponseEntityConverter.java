@@ -6,8 +6,6 @@ package org.mspring.platform.spring.converter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.mspring.platform.utils.JSONUtils;
 import org.mspring.platform.web.ResponseEntity;
@@ -21,24 +19,16 @@ import org.springframework.util.FileCopyUtils;
 
 /**
  * @author Gao Youbo
- * @since 2013-5-24
- * @description
+ * @since 2013-5-26
+ * @Description
  * @TODO
  */
 public class ResponseEntityConverter extends AbstractHttpMessageConverter<Object> {
 
-    private Charset charset;
+    private Charset charset = Charset.forName("UTF-8");
 
-    /**
-    *
-    */
-    public ResponseEntityConverter(String charsetName) {
-        // TODO Auto-generated constructor stub
-        this.charset = Charset.forName(charsetName);
-        List<MediaType> mediaTypeList = new ArrayList<MediaType>();
-        mediaTypeList.add(new MediaType("text", "plain", this.charset));
-        mediaTypeList.add(MediaType.ALL);
-        super.setSupportedMediaTypes(mediaTypeList);
+    public void setCharset(Charset charset) {
+        this.charset = charset;
     }
 
     @Override
@@ -58,7 +48,7 @@ public class ResponseEntityConverter extends AbstractHttpMessageConverter<Object
         // TODO Auto-generated method stub
         String JSON = JSONUtils.toJson(t);
         if (JSON != null) {
-            // outputMessage.getBody().write(JSON.toString().getBytes());
+            outputMessage.getHeaders().setContentType(new MediaType("text", "json", this.charset));
             FileCopyUtils.copy(JSON, new OutputStreamWriter(outputMessage.getBody(), this.charset));
         }
     }
