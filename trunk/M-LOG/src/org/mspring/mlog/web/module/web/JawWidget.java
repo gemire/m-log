@@ -12,6 +12,7 @@ import org.mspring.mlog.service.JawService;
 import org.mspring.mlog.web.query.JawQueryCriterion;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.persistence.support.Page;
+import org.mspring.platform.persistence.support.Sort;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.ResponseEntity;
 import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
@@ -60,9 +61,10 @@ public class JawWidget extends AbstractWebWidget {
         jaw.setContent(content);
         try {
             Long id = jawService.createJaw(jaw);
+            jaw = jawService.getJawById(id);
             rsp.setSuccess(true);
             rsp.setMessage("发表成功");
-            rsp.addData("id", id);
+            rsp.addData("jaw", new Jaw[] { jaw });
             return rsp;
         } catch (Exception e) {
             // TODO: handle exception
@@ -74,9 +76,13 @@ public class JawWidget extends AbstractWebWidget {
 
     @RequestMapping("/get")
     @ResponseBody
-    public ResponseEntity get(@RequestParam Integer page, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public ResponseEntity get(@RequestParam(required = false) Integer page, HttpServletRequest request, HttpServletResponse response, Model model) {
         ResponseEntity rsp = new ResponseEntity();
+        
         Page<Jaw> p = new Page<Jaw>();
+        p.setPageNo(page);
+        p.setSort(new Sort("id", Sort.DESC));
+        
         jawService.findJawPage(new JawQueryCriterion(null), p);
         rsp.setSuccess(true);
         rsp.addData("jaw", p.getResult());

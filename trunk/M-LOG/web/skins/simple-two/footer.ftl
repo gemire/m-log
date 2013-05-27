@@ -6,7 +6,7 @@
 				</p>
 			</div>
 		</div>
-	    <script src="${template_url}/script/bootstrap.min.js"></script>
+	    <script src="${template_url}/bootstrap/js/bootstrap.min.js"></script>
 
 		<!-- Baidu Button BEGIN -->
 		<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=2416003" ></script>

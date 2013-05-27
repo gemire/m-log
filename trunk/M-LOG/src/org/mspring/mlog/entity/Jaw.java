@@ -72,7 +72,7 @@ public class Jaw implements Serializable {
     }
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "author")
     public User getAuthor() {
         return author;

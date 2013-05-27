@@ -9,8 +9,8 @@
 		<meta name="keywords" content="${keyword?default("")}" />
 		<meta name="description" content="${description?default("")}" />
 
-        <link href="${template_url}/style/bootstrap.min.css" rel="stylesheet">
-        <link href="${template_url}/style/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="${template_url}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <#-- <link href="${template_url}/style/bootstrap-responsive.min.css" rel="stylesheet"> -->
         <link href="${template_url}/style/skin.css" rel="stylesheet">
         
         <script type="text/javascript" src="${base}/script/jquery.js" charset="utf-8"></script>
