@@ -1,47 +1,5 @@
 @CHARSET "UTF-8";
-
-.jaw-input {
-	width: 98%;
-	height: 52px;
-	display: block;
-	overflow-y: auto;
-	padding: 5px;
-	font-size: 14px;
-	line-height: 18px;
-	cursor: text;
-	outline: none;
-	border: #ddd solid 1px;
-	background: #fff;
-	box-shadow: 1px 1px 3px #dcdcdc inset;
-	-moz-box-shadow: 1px 1px 3px #dcdcdc inset;
-	-khtml-box-shadow: 1px 1px 3px #dcdcdc inset;
-	border-radius: 0px;
-	resize: none;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-}
-
-/*
-input,textarea,keygen,select,button,isindex {
-	margin: 0em;
-	font: -webkit-small-control;
-	color: initial;
-	letter-spacing: normal;
-	word-spacing: normal;
-	text-transform: none;
-	text-indent: 0px;
-	text-shadow: none;
-	display: inline-block;
-	text-align: start;
-}
-
-input,textarea,keygen,select,button,isindex,meter,progress {
-	-webkit-writing-mode: horizontal-tb;
-}
-*/
-
 ul.jaws { list-style-type: none; margin: 20px 0 0 0; }
-
 ul.jaws li {
 	overflow:hidden;
 	padding: 0 0 10px 0;
@@ -49,7 +7,6 @@ ul.jaws li {
 	border-bottom: 1px solid #eee;
 }
 ul.jaws li a {text-decoration:none;}
-
 ul.jaws li .portrait {float:left; width:50px;}
 ul.jaws li .portrait img {width:40px;height:40px;margin-top:2px;}
 ul.jaws li .jaw {float:left;}

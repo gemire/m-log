@@ -1,10 +1,3 @@
-$(document).ready(function() {
-	$("#jaw-input").ctrlSubmit(function(event) {
-		mlog.jaw.add();
-	});
-	mlog.jaw.load();
-});
-
 /**
  * @author GaoYoubo
  * @since 2012-09-25
@@ -13,33 +6,15 @@ $(document).ready(function() {
 if(typeof(mlog) === "undefined"){var mlog = function(){}};
 mlog.jaw = {};
 
-var template = [
-        '<#list data.jaw as jaw>',
-        '<li link="http://my.oschina.net/wangxuanyihaha/tweet/2056406">',
-		'	<a href="http://my.oschina.net/wangxuanyihaha" target="_blank" class="portrait">',
-		'		<img src="http://www.gravatar.com/avatar/ab7a087849cdbae54bab1676cc07e374.jpg" align="absmiddle" alt="${jaw.author.alias?jaw.author.alias:jaw.author.name}" title="${jaw.author.alias?jaw.author.alias:jaw.author.name}">',
-		'	</a>',
-		'	<div class="jaw">',
-		'		<p class="content"><a href="http://my.oschina.net/wangxuanyihaha" target="_blank">${jaw.author.alias?jaw.author.alias:jaw.author.name}</a> : ${jaw.content}</p>',
-		'		<p class="meta">发布于${jaw.createTime}</p>',
-		'	</div>',
-		'</li>',
-		'</#list>'
-].join("");
-
 $.extend(mlog.jaw,{
 	//发布JAW
 	add : function(){
-		var content = $('#jaw-input').text();
-		$('#content').val(content);
 		$("#jaw-form").ajaxSubmit({
 			success : function(response) {
 				if (response.success === true) {
-					var html = easyTemplate(template, response.data);
+					var html = mlog.jaw.getListHTML(response.data.jaw);
 					$("#jaws").html(html + $("#jaws").html());
-					
-					//清空输入框中的值
-					$('#jaw-input').text('');
+					mlog.jaw.editor.setValue('content', '');
 				} else {
 					alert(response.message);
 				}
@@ -55,7 +30,7 @@ $.extend(mlog.jaw,{
 			page = 1;
 		}
 		$.get(mlog.variable.base + '/jaw/get?page=' + page, function(response) {
-			var html = easyTemplate(template, response.data);
+			var html = mlog.jaw.getListHTML(response.data.jaw);
 			$("#jaws").html($("#jaws").html() + html);
 			mlog.jaw.showLoading(false);
 		});
@@ -71,28 +46,25 @@ $.extend(mlog.jaw,{
 		}
 	},
 	
-});
-
-
-/******************************************************************/
-/******************************************************************/
-/******************************************************************/
-jQuery.fn.extend({
-	ctrlSubmit : function(fn, thisObj) {
-		var obj = thisObj || this;
-		var stat = false;
-		return this.each(function() {
-			$(this).keyup(function(event) {
-				if (event.keyCode == 17) {
-					stat = true;
-					setTimeout(function() {
-						stat = false;
-					}, 300);
-				}
-				if (event.keyCode == 13 && (stat || event.ctrlKey)) {
-					fn.call(obj, event);
-				}
-			});
-		});
-	}
+	getListHTML : function(data){
+		var html = '';
+		for(var i = 0; i < data.length; i++){
+			var author = data[i].author.alias ? data[i].author.alias : data[i].author.name;
+			var createTime = data[i].createTime;
+			var content = data[i].content;
+			content = mlog.jaw.editor.showEmotion(content);
+			
+            html += '<li link="http://my.oschina.net/wangxuanyihaha/tweet/2056406">';
+            html += '	<a href="http://my.oschina.net/wangxuanyihaha" target="_blank" class="portrait">';
+            html += '		<img src="http://www.gravatar.com/avatar/ab7a087849cdbae54bab1676cc07e374.jpg" align="absmiddle" alt="' + author + '" title="' + author + '">';
+            html += '	</a>';
+            html += '	<div class="jaw">';
+            html += '		<p class="content"><a href="http://my.oschina.net/wangxuanyihaha" target="_blank">' + author + '</a> : ' + content + '</p>';
+            html += '		<p class="meta">发布于' + createTime + '</p>';
+            html += '	</div>';
+            html += '</li>';
+		}
+		return html;
+	},
+	
 });

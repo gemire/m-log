@@ -170,3 +170,23 @@ String.prototype.endWith = function(s) {
 		return false;
 	return true;
 }
+
+$.fn.extend({
+	ctrlSubmit : function(fn, thisObj) {
+		var obj = thisObj || this;
+		var stat = false;
+		return this.each(function() {
+			$(this).keyup(function(event) {
+				if (event.keyCode == 17) {
+					stat = true;
+					setTimeout(function() {
+						stat = false;
+					}, 300);
+				}
+				if (event.keyCode == 13 && (stat || event.ctrlKey)) {
+					fn.call(obj, event);
+				}
+			});
+		});
+	}
+});
