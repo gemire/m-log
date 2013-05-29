@@ -40,6 +40,11 @@ public class User implements Serializable {
     private String email;
     private Date createTime;
 
+    // 腾讯微博相关配置
+    private String tencentWeiboAccessToken;
+    private String tencentWeiboOpenid;
+    private String tencentWeiboOpenkey;
+
     private boolean rememberMe;
 
     /**
@@ -154,6 +159,33 @@ public class User implements Serializable {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Column(name = "tencent_weibo_accesstoken", length = 200)
+    public String getTencentWeiboAccessToken() {
+        return tencentWeiboAccessToken;
+    }
+
+    public void setTencentWeiboAccessToken(String tencentWeiboAccessToken) {
+        this.tencentWeiboAccessToken = tencentWeiboAccessToken;
+    }
+
+    @Column(name = "tencent_weibo_openid", length = 200)
+    public String getTencentWeiboOpenid() {
+        return tencentWeiboOpenid;
+    }
+
+    public void setTencentWeiboOpenid(String tencentWeiboOpenid) {
+        this.tencentWeiboOpenid = tencentWeiboOpenid;
+    }
+
+    @Column(name = "tencent_weibo_openkey", length = 200)
+    public String getTencentWeiboOpenkey() {
+        return tencentWeiboOpenkey;
+    }
+
+    public void setTencentWeiboOpenkey(String tencentWeiboOpenkey) {
+        this.tencentWeiboOpenkey = tencentWeiboOpenkey;
     }
 
     /**

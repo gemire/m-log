@@ -6,6 +6,7 @@ package org.mspring.mlog.web.module.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mspring.mlog.api.weibo.tencent.service.TencentWeiboService;
 import org.mspring.mlog.entity.Jaw;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.JawService;
@@ -13,6 +14,7 @@ import org.mspring.mlog.web.query.JawQueryCriterion;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
+import org.mspring.platform.utils.RequestUtils;
 import org.mspring.platform.utils.StringUtils;
 import org.mspring.platform.web.ResponseEntity;
 import org.mspring.platform.web.freemarker.widget.stereotype.Widget;
@@ -34,6 +36,8 @@ public class JawWidget extends AbstractWebWidget {
 
     @Autowired
     private JawService jawService;
+    @Autowired
+    private TencentWeiboService tencentWeiboService;
 
     @RequestMapping({ "/", "" })
     public String show(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -65,6 +69,10 @@ public class JawWidget extends AbstractWebWidget {
             rsp.setSuccess(true);
             rsp.setMessage("发表成功");
             rsp.addData("jaw", new Jaw[] { jaw });
+
+            String ip = RequestUtils.getRemoteIP(request);
+            ResponseEntity twbRsp = tencentWeiboService.postWeibo(user.getId(), content, ip);
+
             return rsp;
         } catch (Exception e) {
             // TODO: handle exception
@@ -78,11 +86,11 @@ public class JawWidget extends AbstractWebWidget {
     @ResponseBody
     public ResponseEntity get(@RequestParam(required = false) Integer page, HttpServletRequest request, HttpServletResponse response, Model model) {
         ResponseEntity rsp = new ResponseEntity();
-        
+
         Page<Jaw> p = new Page<Jaw>();
         p.setPageNo(page);
         p.setSort(new Sort("id", Sort.DESC));
-        
+
         jawService.findJawPage(new JawQueryCriterion(null), p);
         rsp.setSuccess(true);
         rsp.addData("jaw", p.getResult());
