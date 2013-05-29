@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -359,11 +361,25 @@ public class JSONUtils {
         return fromJson(json, clazz, null);
     }
 
-    public static boolean isEmpty(String inStr) {
-        boolean reTag = false;
-        if (inStr == null || "".equals(inStr)) {
-            reTag = true;
+    /**
+     * 获取JSONOBJECT
+     * 
+     * @param jsonStr
+     * @return
+     */
+    public static JsonObject getAsJsonObject(String jsonStr) {
+        if (isEmpty(jsonStr)) {
+            return null;
         }
-        return reTag;
+        return new JsonParser().parse(jsonStr).getAsJsonObject();
+    }
+
+    private static boolean isEmpty(String inStr) {
+        return StringUtils.isBlank(inStr);
+        // boolean reTag = false;
+        // if (inStr == null || "".equals(inStr)) {
+        // reTag = true;
+        // }
+        // return reTag;
     }
 }
