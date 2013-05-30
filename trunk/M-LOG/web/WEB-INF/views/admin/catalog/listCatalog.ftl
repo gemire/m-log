@@ -76,7 +76,7 @@
 						</select>
 					</td>
 					<td class="${tdClass}">
-						<input type="text" class="textinput" style="width:45px;" name="orders" value="${item.order!""}"/>
+						<input type="text" class="textinput" style="width:45px;" name="orders" value="${item.order?default("")}"/>
 					</td>
 					<td class="${tdClass}">${item.createTime}</td>
 					<td class="${tdClass}">

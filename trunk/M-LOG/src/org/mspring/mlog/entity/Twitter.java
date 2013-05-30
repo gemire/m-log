@@ -28,9 +28,9 @@ import org.mspring.platform.cache.service.CacheService;
  * @TODO
  */
 @Entity
-@Table(name = "jaw")
+@Table(name = "twitter")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Jaw implements Serializable {
+public class Twitter implements Serializable {
 
     /**
      * 
@@ -41,6 +41,7 @@ public class Jaw implements Serializable {
     private String content;
     private Date createTime;
     private User author;
+    private String tencentWeiboId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,6 +81,15 @@ public class Jaw implements Serializable {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    @Column(name = "tencent_weibo_id", length = 100)
+    public String getTencentWeiboId() {
+        return tencentWeiboId;
+    }
+
+    public void setTencentWeiboId(String tencentWeiboId) {
+        this.tencentWeiboId = tencentWeiboId;
     }
 
 }

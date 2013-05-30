@@ -8,7 +8,7 @@
 }
 
 /*文本输入框*/
-.jaw-input {
+.twitter-input {
 	width: 98%;
 	height: 52px;
 	display: block;
@@ -28,7 +28,7 @@
 	white-space: pre-wrap;
 	word-wrap: break-word;
 }
-.jaw-input p {
+.twitter-input p {
 	margin:0;
 }
 

@@ -47,7 +47,7 @@
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
-			<#if commentPage?? && commentPage.result??>
+			<#if commentPage?exists && commentPage.result?exists>
 				<#list commentPage.result as item>
 					<#assign tdClass = "odd">
 					<#if item_index%2 == 0>
@@ -60,8 +60,8 @@
 						</td>
 						<td class="${tdClass}">${item.id}</td>
 						<td class="${tdClass}">${item.author}</td>
-						<td class="${tdClass}">${item.email!""}</td>
-						<td class="${tdClass}">${item.url!""}</td>
+						<td class="${tdClass}">${item.email?default("")}</td>
+						<td class="${tdClass}">${item.url?default("")}</td>
 						<td class="${tdClass}"><a target="_blank" href="<@postUrl id=item.post.id />">${item.post.title}</a></td>
 						<td class="${tdClass}">
 							${item.status}

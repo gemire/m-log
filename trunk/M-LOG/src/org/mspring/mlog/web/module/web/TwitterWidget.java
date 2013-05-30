@@ -6,11 +6,12 @@ package org.mspring.mlog.web.module.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.mspring.mlog.api.weibo.tencent.service.TencentWeiboService;
-import org.mspring.mlog.entity.Jaw;
+import org.mspring.mlog.entity.Twitter;
 import org.mspring.mlog.entity.security.User;
-import org.mspring.mlog.service.JawService;
-import org.mspring.mlog.web.query.JawQueryCriterion;
+import org.mspring.mlog.service.TwitterService;
+import org.mspring.mlog.web.query.TwitterQueryCriterion;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.persistence.support.Page;
 import org.mspring.platform.persistence.support.Sort;
@@ -31,17 +32,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @TODO
  */
 @Widget
-@RequestMapping("/jaw")
-public class JawWidget extends AbstractWebWidget {
+@RequestMapping("/t")
+public class TwitterWidget extends AbstractWebWidget {
+
+    private static final Logger log = Logger.getLogger(TwitterWidget.class);
 
     @Autowired
-    private JawService jawService;
+    private TwitterService jawService;
     @Autowired
     private TencentWeiboService tencentWeiboService;
 
     @RequestMapping({ "/", "" })
     public String show(HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "skin:/jaw";
+        return "skin:/twitter";
     }
 
     @RequestMapping("/add")
@@ -60,18 +63,31 @@ public class JawWidget extends AbstractWebWidget {
             return rsp;
         }
 
-        Jaw jaw = new Jaw();
-        jaw.setAuthor(user);
-        jaw.setContent(content);
         try {
-            Long id = jawService.createJaw(jaw);
-            jaw = jawService.getJawById(id);
+            String weiboId = null;
+
+            try {
+                // 同步腾讯微博
+                ResponseEntity twbRsp = tencentWeiboService.postWeibo(user.getId(), content, RequestUtils.getRemoteIP(request));
+                if (twbRsp.getSuccess()) {
+                    weiboId = twbRsp.getData().get("id").toString();
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                log.error(e.getMessage());
+            }
+
+            Twitter twitter = new Twitter();
+            twitter.setAuthor(user);
+            twitter.setContent(content);
+            twitter.setTencentWeiboId(weiboId);
+
+            Long id = jawService.createTwitter(twitter);
+            twitter = jawService.getTwitterById(id);
+
             rsp.setSuccess(true);
             rsp.setMessage("发表成功");
-            rsp.addData("jaw", new Jaw[] { jaw });
-
-            String ip = RequestUtils.getRemoteIP(request);
-            ResponseEntity twbRsp = tencentWeiboService.postWeibo(user.getId(), content, ip);
+            rsp.put("twitter", new Twitter[] { twitter });
 
             return rsp;
         } catch (Exception e) {
@@ -86,14 +102,19 @@ public class JawWidget extends AbstractWebWidget {
     @ResponseBody
     public ResponseEntity get(@RequestParam(required = false) Integer page, HttpServletRequest request, HttpServletResponse response, Model model) {
         ResponseEntity rsp = new ResponseEntity();
+        
+        if (page == null || page < 1) {
+            page = 1;
+        }
 
-        Page<Jaw> p = new Page<Jaw>();
+        Page<Twitter> p = new Page<Twitter>();
         p.setPageNo(page);
+        p.setPageSize(12);
         p.setSort(new Sort("id", Sort.DESC));
 
-        jawService.findJawPage(new JawQueryCriterion(null), p);
+        jawService.findTwitterPage(new TwitterQueryCriterion(null), p);
         rsp.setSuccess(true);
-        rsp.addData("jaw", p.getResult());
+        rsp.put("twitter", p.getResult());
         return rsp;
     }
 }

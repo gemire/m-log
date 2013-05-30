@@ -36,7 +36,7 @@
 									时间：${post.createTime}
 									点击量：${post.viewCount}
 									<#if post.site?exists && post.site?has_content>
-										转载自：${post.site!""}
+										转载自：${post.site?default("")}
 									</#if>
 								</div>
 								<div class="post-summary">
@@ -44,9 +44,9 @@
 						        		该文章需要密码访问！
 						        	<#else>
 						        		<#if post.summary?has_content>
-						        		${post.summary}
+						        			<@contentTransform content=post.summary />
 						        		<#else>
-						        		<@contentTransform content=post.content removeHtml=true substring=true endIndex=500 />
+						        			<@contentTransform content=post.content removeHtml=true substring=true endIndex=600 />
 						        		</#if>
 						        	</#if>
 								</div>

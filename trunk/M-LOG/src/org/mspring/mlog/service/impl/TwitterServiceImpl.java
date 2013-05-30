@@ -5,8 +5,8 @@ package org.mspring.mlog.service.impl;
 
 import java.util.Date;
 
-import org.mspring.mlog.entity.Jaw;
-import org.mspring.mlog.service.JawService;
+import org.mspring.mlog.entity.Twitter;
+import org.mspring.mlog.service.TwitterService;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.persistence.query.QueryCriterion;
@@ -22,33 +22,33 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class JawServiceImpl extends AbstractServiceSupport implements JawService {
+public class TwitterServiceImpl extends AbstractServiceSupport implements TwitterService {
 
     @Override
-    public Jaw getJawById(Long id) {
+    public Twitter getTwitterById(Long id) {
         // TODO Auto-generated method stub
-        Object obj = getById(Jaw.class, id);
-        return obj == null ? null : (Jaw) obj;
+        Object obj = getById(Twitter.class, id);
+        return obj == null ? null : (Twitter) obj;
     }
 
     @Override
-    public Long createJaw(Jaw jaw) {
+    public Long createTwitter(Twitter twitter) {
         // TODO Auto-generated method stub
-        jaw.setCreateTime(new Date());
-        if (jaw.getAuthor() == null) {
-            jaw.setAuthor(SecurityUtils.getCurrentUser());
+        twitter.setCreateTime(new Date());
+        if (twitter.getAuthor() == null) {
+            twitter.setAuthor(SecurityUtils.getCurrentUser());
         }
-        return (Long) create(jaw);
+        return (Long) create(twitter);
     }
 
     @Override
-    public void deleteJaw(Long... id) {
+    public void deleteTwitter(Long... id) {
         // TODO Auto-generated method stub
-        remove(Jaw.class, id);
+        remove(Twitter.class, id);
     }
 
     @Override
-    public Page<Jaw> findJawPage(QueryCriterion queryCriterion, Page<Jaw> page) {
+    public Page<Twitter> findTwitterPage(QueryCriterion queryCriterion, Page<Twitter> page) {
         // TODO Auto-generated method stub
         return findPage(queryCriterion, page);
     }

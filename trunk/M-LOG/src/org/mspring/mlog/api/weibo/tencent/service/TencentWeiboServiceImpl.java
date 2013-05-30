@@ -73,11 +73,12 @@ public class TencentWeiboServiceImpl extends AbstractServiceSupport implements T
         }
         TAPI tAPI = new TAPI(oAuthV2.getOauthVersion());
         try {
-            String responseString = tAPI.add(oAuthV2, "json", content, ip);
+            String responseString = tAPI.add(oAuthV2, "json", content, ip, "0");
             JsonObject jsonObject = JSONUtils.getAsJsonObject(responseString);
             int errcode = jsonObject.get("errcode").getAsInt();
             if (errcode == 0) {
                 response.setSuccess(true);
+                response.put("id", jsonObject.get("data").getAsJsonObject().get("id").getAsString());
             } else {
                 response.setSuccess(false);
                 response.setMessage(jsonObject.get("msg").getAsString());

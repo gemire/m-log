@@ -35,7 +35,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.params.SyncBasicHttpParams;
 import org.apache.http.util.EntityUtils;
-
+import org.mspring.mlog.api.weibo.HttpClientWrapper;
 import org.mspring.mlog.api.weibo.tencent.beans.RouteCfg;
 
 /**
@@ -58,17 +58,24 @@ public class QHttpClient {
     private HttpClient httpClient;
 
     public QHttpClient() {
-        this(MAX_CONNECTIONS_PER_HOST, MAX_TOTAL_CONNECTIONS, CON_TIME_OUT_MS, SO_TIME_OUT_MS,null,null);
+        this(MAX_CONNECTIONS_PER_HOST, MAX_TOTAL_CONNECTIONS, CON_TIME_OUT_MS, SO_TIME_OUT_MS, null, null);
     }
 
     /**
      * 个性化配置连接管理器
-     * @param maxConnectionsPerHost 设置默认的连接到每个主机的最大连接数
-     * @param maxTotalConnections 设置整个管理连接器的最大连接数
-     * @param conTimeOutMs  连接超时
-     * @param soTimeOutMs socket超时
-     * @param routeCfgList 特殊路由配置列表，若无请填null
-     * @param proxy 代理设置，若无请填null
+     * 
+     * @param maxConnectionsPerHost
+     *            设置默认的连接到每个主机的最大连接数
+     * @param maxTotalConnections
+     *            设置整个管理连接器的最大连接数
+     * @param conTimeOutMs
+     *            连接超时
+     * @param soTimeOutMs
+     *            socket超时
+     * @param routeCfgList
+     *            特殊路由配置列表，若无请填null
+     * @param proxy
+     *            代理设置，若无请填null
      */
     public QHttpClient(int maxConnectionsPerHost, int maxTotalConnections, int conTimeOutMs, int soTimeOutMs, List<RouteCfg> routeCfgList, HttpHost proxy) {
 
@@ -84,29 +91,29 @@ public class QHttpClient {
 
         httpParams.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, conTimeOutMs);
         httpParams.setParameter(CoreConnectionPNames.SO_TIMEOUT, soTimeOutMs);
-        //与之前两行作用相同
-//        HttpConnectionParams.setConnectionTimeout(httpParams, conTimeOutMs);
-//        HttpConnectionParams.setSoTimeout(httpParams, soTimeOutMs);
-        
+        // 与之前两行作用相同
+        // HttpConnectionParams.setConnectionTimeout(httpParams, conTimeOutMs);
+        // HttpConnectionParams.setSoTimeout(httpParams, soTimeOutMs);
+
         HttpProtocolParams.setUseExpectContinue(httpParams, false);
 
         connectionManager.setDefaultMaxPerRoute(maxConnectionsPerHost);
         connectionManager.setMaxTotal(maxTotalConnections);
 
         HttpClientParams.setCookiePolicy(httpParams, CookiePolicy.IGNORE_COOKIES);
-        
-        // 对特定路由修改最大连接数 
-        if(null!=routeCfgList){
-            for(RouteCfg routeCfg:routeCfgList){
+
+        // 对特定路由修改最大连接数
+        if (null != routeCfgList) {
+            for (RouteCfg routeCfg : routeCfgList) {
                 HttpHost localhost = new HttpHost(routeCfg.getHost(), routeCfg.getPort());
                 connectionManager.setMaxForRoute(new HttpRoute(localhost), routeCfg.getMaxConnetions());
             }
-        }  
-        
-        httpClient = new DefaultHttpClient(connectionManager, httpParams);
-        
-        //设置代理
-        if(null!=proxy){
+        }
+
+        httpClient = HttpClientWrapper.wrapClient(new DefaultHttpClient(connectionManager, httpParams));
+
+        // 设置代理
+        if (null != proxy) {
             httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
         }
     }
@@ -114,8 +121,10 @@ public class QHttpClient {
     /**
      * Get方法传送消息
      * 
-     * @param url  连接的URL
-     * @param queryString  请求参数串
+     * @param url
+     *            连接的URL
+     * @param queryString
+     *            请求参数串
      * @return 服务器返回的信息
      * @throws Exception
      */
@@ -149,16 +158,17 @@ public class QHttpClient {
     /**
      * Post方法传送消息
      * 
-     * @param url  连接的URL
-     * @param queryString 请求参数串
+     * @param url
+     *            连接的URL
+     * @param queryString
+     *            请求参数串
      * @return 服务器返回的信息
      * @throws Exception
      */
     public String httpPost(String url, String queryString) throws Exception {
         String responseData = null;
         URI tmpUri = new URI(url);
-        URI uri = URIUtils.createURI(tmpUri.getScheme(), tmpUri.getHost(), tmpUri.getPort(), tmpUri.getPath(),
-                queryString, null);
+        URI uri = URIUtils.createURI(tmpUri.getScheme(), tmpUri.getHost(), tmpUri.getPort(), tmpUri.getPath(), queryString, null);
         log.info("QHttpClient httpPost [1] url = " + uri.toURL());
 
         HttpPost httpPost = new HttpPost(uri);
@@ -188,8 +198,10 @@ public class QHttpClient {
     /**
      * Post方法传送消息
      * 
-     * @param url  连接的URL
-     * @param queryString 请求参数串
+     * @param url
+     *            连接的URL
+     * @param queryString
+     *            请求参数串
      * @return 服务器返回的信息
      * @throws Exception
      */
@@ -198,8 +210,7 @@ public class QHttpClient {
         String responseData = null;
 
         URI tmpUri = new URI(url);
-        URI uri = URIUtils.createURI(tmpUri.getScheme(), tmpUri.getHost(), tmpUri.getPort(), tmpUri.getPath(),
-                queryString, null);
+        URI uri = URIUtils.createURI(tmpUri.getScheme(), tmpUri.getHost(), tmpUri.getPort(), tmpUri.getPath(), queryString, null);
         log.info("QHttpClient httpPostWithFile [1]  uri = " + uri.toURL());
         MultipartEntity mpEntity = new MultipartEntity();
         HttpPost httpPost = new HttpPost(uri);
@@ -220,8 +231,7 @@ public class QHttpClient {
         for (NameValuePair param : files) {
             filePath = param.getValue();
             targetFile = new File(filePath);
-            log.info("---------- File Path = " + filePath + "\n---------------- MIME Types = "
-                    + QHttpUtil.getContentType(targetFile));
+            log.info("---------- File Path = " + filePath + "\n---------------- MIME Types = " + QHttpUtil.getContentType(targetFile));
             fileBody = new FileBody(targetFile, QHttpUtil.getContentType(targetFile), "UTF-8");
             fbp = new FormBodyPart(param.getName(), fileBody);
             mpEntity.addPart(fbp);

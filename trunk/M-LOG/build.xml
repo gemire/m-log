@@ -86,7 +86,7 @@
 			<classes dir="${build.config.dir}">
 				<include name="*.*" />
 			</classes>
-			<lib dir="${dist.dir}" includes="${project.name}-${project.version}.jar" />
+			<lib dir="${dist.dir}" includes="${project.name}.jar" />
 			<lib dir="${lib.dir}" includes="*.jar" excludes="servlet-api-3.0.jar" />
 			<exclude name="uploads/**" />
 		</war>

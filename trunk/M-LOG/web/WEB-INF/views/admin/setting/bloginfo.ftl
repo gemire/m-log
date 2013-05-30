@@ -10,35 +10,35 @@
 		<tr>
 			<td class="fieldlabel" style="width:120px;">博客标题:</td>
 			<td>
-				<input type="input" class="textinput" style="width:95%;" name="blogname" value="${blogname!""}" validate="{required:true, maxlength:100, messages:{required:'博客标题必填', maxlength:'博客标题长度不能超过{0}'}}"/>
+				<input type="input" class="textinput" style="width:95%;" name="blogname" value="${blogname?default("")}" validate="{required:true, maxlength:100, messages:{required:'博客标题必填', maxlength:'博客标题长度不能超过{0}'}}"/>
 			</td>
 			<td class="fieldnotice" style="width:300px;">规则：必填、最大长度100</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:120px;">博客子标题:</td>
 			<td>
-				<input type="input" class="textinput" style="width:95%;" name="blogsubname" value="${blogsubname!""}" validate="{required:true, maxlength:300, messages:{required:'博客子标题必填', maxlength:'博客子标题长度不能超过{0}'}}"/>
+				<input type="input" class="textinput" style="width:95%;" name="blogsubname" value="${blogsubname?default("")}" validate="{required:true, maxlength:300, messages:{required:'博客子标题必填', maxlength:'博客子标题长度不能超过{0}'}}"/>
 			</td>
 			<td class="fieldnotice" style="width:300px;">规则：必填、最大长度300</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:120px;">博客地址:</td>
 			<td>
-				<input type="input" class="textinput" style="width:95%;" name="blogurl" value="${blogurl!""}" validate="{required:true, maxlength:200, blogurl:true, messages:{required:'博客地址必填', maxlength:'博客地址最大长度不能超过{0}', blogurl:'博客地址格式不正确'}}"/>
+				<input type="input" class="textinput" style="width:95%;" name="blogurl" value="${blogurl?default("")}" validate="{required:true, maxlength:200, blogurl:true, messages:{required:'博客地址必填', maxlength:'博客地址最大长度不能超过{0}', blogurl:'博客地址格式不正确'}}"/>
 			</td>
 			<td class="fieldnotice" style="width:300px;">规则：必填、最大长度200、必须以"http://"或"https://"开头、不能以"/"或"\"结尾</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:120px;">公告:<br />(支持HTML代码)</td>
 			<td>
-				<textarea class="textinput" style="width:95%;height:50px;" name="notice" validate="{maxlength:2000, messages:{maxlength:'公告最大长度不能超过{0}'}}">${notice!""}</textarea>
+				<textarea class="textinput" style="width:95%;height:50px;" name="notice" validate="{maxlength:2000, messages:{maxlength:'公告最大长度不能超过{0}'}}">${notice?default("")}</textarea>
 			</td>
 			<td class="fieldnotice" style="width:300px;">规则：最大长度不能超过2000</td>
 		</tr>
 		<tr>
 			<td class="fieldlabel" style="width:120px;">版权信息:<br /></td>
 			<td>
-				<textarea class="textinput" style="width:95%;" name="copyright" validate="{maxlength:2000, messages:{maxlength:'版权信息最大长度不能超过{0}'}}">${copyright!""}</textarea>
+				<textarea class="textinput" style="width:95%;" name="copyright" validate="{maxlength:2000, messages:{maxlength:'版权信息最大长度不能超过{0}'}}">${copyright?default("")}</textarea>
 			</td>
 			<td class="fieldnotice" style="width:300px;">规则：最大长度不能超过2000</td>
 		</tr>
@@ -47,7 +47,7 @@
 			<td class="fieldlabel" style="width:120px;">是否开启评论审核:</td>
 			<td>
 				<input type="checkbox" <#if comment_audit?exists && comment_audit == "true">checked="checked"</#if> onclick='$("#comment_audit").val(this.checked);' />
-				<input type="hidden" id="comment_audit" name="comment_audit" value="${comment_audit!"false"}" />
+				<input type="hidden" id="comment_audit" name="comment_audit" value="${comment_audit?default("false")}" />
 			</td>
 			<td class="fieldnotice" style="width:300px;"></td>
 		</tr>
@@ -55,7 +55,7 @@
 		<tr>
 			<td class="fieldlabel" style="width:120px;">菜单:</td>
 			<td>
-				<textarea class="textinput" style="width:95%;height:210px;" name="menu" validate="{maxlength:2000, messages:{maxlength:'菜单最大长度不能超过{0}'}}">${menu!""}</textarea>
+				<textarea class="textinput" style="width:95%;height:210px;" name="menu" validate="{maxlength:2000, messages:{maxlength:'菜单最大长度不能超过{0}'}}">${menu?default("")}</textarea>
 			</td>
 			<td class="fieldnotice" style="width:300px;">
 				规则：必填、最大长度2000<br/>
@@ -72,7 +72,7 @@
 			<td class="fieldlabel" style="width:120px;">关闭站点:</td>
 			<td>
 				<input type="checkbox" <#if site_close?exists && site_close == "true">checked="checked"</#if> onclick='$("#site_close").val(this.checked);' />
-				<input type="hidden" id="site_close" name="site_close" value="${site_close!"false"}" />
+				<input type="hidden" id="site_close" name="site_close" value="${site_close?default("false")}" />
 			</td>
 			<td class="fieldnotice" style="width:300px;"></td>
 		</tr>

@@ -36,7 +36,7 @@
 					操作
 				</th>
 			</tr>
-			<#if tagPage?? && tagPage.result??>
+			<#if tagPage?exists && tagPage.result?exists>
 				<#list tagPage.result as item>
 					<#assign tdClass = "odd">
 					<#if item_index%2 == 0>
@@ -46,7 +46,7 @@
 						<td class="${tdClass}"><input type="checkbox" name="id" value="${item.id}" /></td>
 						<td class="${tdClass}">${item.id}</td>
 						<td class="${tdClass}">${item.name}</td>
-						<td class="${tdClass}">${item.count!'0'}</td>
+						<td class="${tdClass}">${item.count?default("0")}</td>
 						<td class="${tdClass}">${item.createTime}</td>
 						<td class="${tdClass}">
 							<a href="${base}/admin/tag/edit?id=${item.id}">修改</a>

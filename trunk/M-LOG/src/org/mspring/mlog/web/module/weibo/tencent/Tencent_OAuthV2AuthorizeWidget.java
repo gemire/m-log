@@ -11,6 +11,7 @@ import org.mspring.mlog.api.weibo.tencent.oauthv2.OAuthV2;
 import org.mspring.mlog.api.weibo.tencent.oauthv2.OAuthV2Client;
 import org.mspring.mlog.api.weibo.tencent.service.TencentWeiboService;
 import org.mspring.mlog.entity.security.User;
+import org.mspring.mlog.service.OptionService;
 import org.mspring.mlog.web.module.weibo.AbstractWeiboWidget;
 import org.mspring.mlog.web.security.SecurityUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -32,6 +33,9 @@ public class Tencent_OAuthV2AuthorizeWidget extends AbstractWeiboWidget {
 
     @Autowired
     private TencentWeiboService tencentWeiboService;
+    
+    @Autowired
+    private OptionService optionService;
 
     private static OAuthV2 oAuth = new OAuthV2();
 
@@ -43,7 +47,7 @@ public class Tencent_OAuthV2AuthorizeWidget extends AbstractWeiboWidget {
         }
         oAuth.setClientId(Const.APP_KEY);
         oAuth.setClientSecret(Const.APP_SECRET);
-        oAuth.setRedirectUri("http://localhost:8080/weibo/tencent/callback");
+        oAuth.setRedirectUri(optionService.getOption("blogurl") + "/weibo/tencent/callback");
         String authorizationUrl = OAuthV2Client.generateAuthorizationURL(oAuth);
         return "redirect:" + authorizationUrl;
     }

@@ -14,7 +14,7 @@ import org.mspring.platform.persistence.query.QueryBuilder;
  * @description
  * @TODO
  */
-public class JawQueryCriterion extends AbstractQueryCriterion {
+public class TwitterQueryCriterion extends AbstractQueryCriterion {
 
     private String queryString;
     private String countString;
@@ -23,7 +23,7 @@ public class JawQueryCriterion extends AbstractQueryCriterion {
     /**
      * 
      */
-    public JawQueryCriterion(Map queryParams) {
+    public TwitterQueryCriterion(Map queryParams) {
         // TODO Auto-generated constructor stub
         QueryBuilder builder = new QueryBuilder(queryParams);
         builder.startBuild();
@@ -32,8 +32,8 @@ public class JawQueryCriterion extends AbstractQueryCriterion {
         namedQueryParams = builder.getNamedQueryParams();
         queryParamsString = builder.getQueryParamsAsString();
 
-        queryString = "select jaw from Jaw jaw ";
-        countString = "select count(*) from Jaw jaw ";
+        queryString = "select t from Twitter t ";
+        countString = "select count(*) from Twitter t ";
     }
 
     /*

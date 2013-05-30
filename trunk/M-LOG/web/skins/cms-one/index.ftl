@@ -66,7 +66,7 @@
 				<@m.render_link template="/widget/link.ftl"/>
 			</div>
 			<div class="span12" style="margin:0px;">
-				<p>自豪的采用<a href="http://www.mspring.org" target="_blank">M-LOG</a>&nbsp;&nbsp;${copyright!""}</p>
+				<p>自豪的采用<a href="http://www.mspring.org" target="_blank">M-LOG</a>&nbsp;&nbsp;${copyright?default("")}</p>
 			</div>
 		<div>
 		

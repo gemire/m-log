@@ -3,8 +3,7 @@
 			<#list posts as post>
 				<li>
 					<a href="<@postUrl post="post" />" target="_blank" style="boder-botton:solid 1px;" title="${post.title}">
-						<span class="label label-success">${post_index + 1}</span>
-						<@contentTransform content="${post.title}" substring=true endIndex=24 />
+						<i class="icon-file"></i><@contentTransform content="${post.title}" substring=true endIndex=24 />
 					</a>
 				</li>
 			</#list>

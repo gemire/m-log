@@ -1,5 +1,4 @@
 <div class="span3">
-  	
 	<div class="well sidebar-nav">
 		<div>
 			<ul class="nav nav-list">

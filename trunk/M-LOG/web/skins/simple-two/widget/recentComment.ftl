@@ -4,7 +4,7 @@
 		<#if (comments?exists && comments?size > 0)>
 			<#list comments as comment>
 				<#assign post=comment.post />
-				<li><a href="<@postUrl post="post" />" target="_blank" style="boder-botton:solid 1px;"><@contentTransform content=comment.content removeHtml=true substring=true endIndex=50 /></a></li>
+				<li><a href="<@postUrl post="post" />" target="_blank" title="<@contentTransform content=comment.content removeHtml=true />"><i class="icon-comment"></i><@contentTransform content=comment.content removeHtml=true substring=true endIndex=30 /></a></li>
 			</#list>
 		</#if>
 	</ul>
