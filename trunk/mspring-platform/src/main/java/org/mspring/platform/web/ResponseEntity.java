@@ -18,11 +18,11 @@ public class ResponseEntity implements Serializable {
      * 
      */
     private static final long serialVersionUID = -7967635578102238230L;
-    
-    private Boolean success = true;
-    private String message;
-    private Map<String, Object> data;
 
+    private Boolean success = true;
+    private String message = "";
+    private Map<String, Object> data = new HashMap<String, Object>();
+    
     public Boolean getSuccess() {
         return success;
     }
@@ -47,10 +47,17 @@ public class ResponseEntity implements Serializable {
         this.data = data;
     }
 
-    public void addData(String key, Object value) {
+    public void put(String key, Object value) {
         if (data == null) {
             data = new HashMap<String, Object>();
         }
         data.put(key, value);
+    }
+
+    public Object get(String key) {
+        if (data == null) {
+            return null;
+        }
+        return data.get(key);
     }
 }
