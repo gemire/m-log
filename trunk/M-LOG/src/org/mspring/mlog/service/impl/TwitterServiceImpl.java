@@ -53,4 +53,10 @@ public class TwitterServiceImpl extends AbstractServiceSupport implements Twitte
         return findPage(queryCriterion, page);
     }
 
+    @Override
+    public void setTencentWeiboId(Long twitter, String weiboId) {
+        // TODO Auto-generated method stub
+        executeUpdate("update Twitter t set t.tencentWeiboId = ? where t.id = ?", new Object[] { weiboId, twitter });
+    }
+
 }

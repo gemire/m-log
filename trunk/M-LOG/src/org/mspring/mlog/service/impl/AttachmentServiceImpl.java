@@ -50,7 +50,13 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
     @Override
     public Attachment getAttachmentById(Long id) {
         // TODO Auto-generated method stub
-        return (Attachment) loadById(Attachment.class, id);
+        return (Attachment) getById(Attachment.class, id);
+    }
+
+    @Override
+    public Attachment createAttachment(MultipartFile mf, String from) {
+        // TODO Auto-generated method stub
+        return createAttachment(mf, from, null);
     }
 
     /*
@@ -62,6 +68,11 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
     @Override
     public Attachment createAttachment(MultipartFile mf, String from, Long fid) {
         // TODO Auto-generated method stub
+        User user = SecurityUtils.getCurrentUser();
+        if (user == null) {
+            log.warn("can't upload attachment, please login.");
+            return null;
+        }
         String url = "";
         try {
             String fileName = AttachmentUtils.getUploadPath(mf);
@@ -75,10 +86,10 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
         attachment.setPath(url);
         attachment.setSize(mf.getSize());
         attachment.setUploadTime(new Date());
-        attachment.setUser(SecurityUtils.getCurrentUser());
+        attachment.setUser(user.getId());
         attachment.setFrom(from);
         attachment.setFid(fid);
-        
+
         // 判断是否为图片
         String ext = StringUtils.getFileExtend(mf.getOriginalFilename());
         if (ImageUtils.isImage(ext)) {
@@ -105,6 +116,11 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
     @Override
     public Attachment createAttachment(String base64Data, String ext, Long user, String from, Long fid) {
         // TODO Auto-generated method stub
+        User loginUser = SecurityUtils.getCurrentUser();
+        if (loginUser == null) {
+            log.warn("can't upload attachment, please login.");
+            return null;
+        }
         try {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -126,7 +142,7 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
             attachment.setPath(url);
             attachment.setSize(size);
             attachment.setUploadTime(new Date());
-            attachment.setUser(new User(user));
+            attachment.setUser(user);
             attachment.setFrom(from);
             attachment.setFid(fid);
 
@@ -150,7 +166,19 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
     @Override
     public List<Attachment> findAttachmentsByPost(Long post) {
         // TODO Auto-generated method stub
-        return find("select a from Attachment a where a.from = ? and a.fid = ?", new Object[] { Attachment.AttachFrom.FROM_POST, post });
+        return findAttachmentsByFid(post, Attachment.AttachFrom.FROM_POST);
+    }
+
+    @Override
+    public List<Attachment> findAttachmentsByTwitter(Long twitter) {
+        // TODO Auto-generated method stub
+        return findAttachmentsByFid(twitter, Attachment.AttachFrom.FROM_TWITTER);
+    }
+
+    @Override
+    public List<Attachment> findAttachmentsByFid(Long fid, String from) {
+        // TODO Auto-generated method stub
+        return find("select a from Attachment a where a.from = ? and a.fid = ?", new Object[] { from, fid });
     }
 
     @Override
@@ -159,6 +187,18 @@ public class AttachmentServiceImpl extends AbstractServiceSupport implements Att
         Attachment a = getAttachmentById(id);
         fileService.deleteFile(a.getPath());
         remove(Attachment.class, id);
+    }
+
+    @Override
+    public void setAttachmentFid(Long id, String from, Long fid) {
+        // TODO Auto-generated method stub
+        Attachment attachment = getAttachmentById(id);
+        if (attachment == null) {
+            return;
+        }
+        attachment.setFid(fid);
+        attachment.setFrom(from);
+        update(attachment);
     }
 
 }

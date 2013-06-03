@@ -41,7 +41,9 @@ public class Twitter implements Serializable {
     private String content;
     private Date createTime;
     private User author;
+    private String ip;
     private String tencentWeiboId;
+    private Attachment image;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,6 +85,15 @@ public class Twitter implements Serializable {
         this.author = author;
     }
 
+    @Column(name = "ip", length = 100)
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
     @Column(name = "tencent_weibo_id", length = 100)
     public String getTencentWeiboId() {
         return tencentWeiboId;
@@ -90,6 +101,17 @@ public class Twitter implements Serializable {
 
     public void setTencentWeiboId(String tencentWeiboId) {
         this.tencentWeiboId = tencentWeiboId;
+    }
+
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = CacheService.CacheName.LAZY_CACHE_NAME)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Attachment.class)
+    @JoinColumn(name = "image")
+    public Attachment getImage() {
+        return image;
+    }
+
+    public void setImage(Attachment image) {
+        this.image = image;
     }
 
 }

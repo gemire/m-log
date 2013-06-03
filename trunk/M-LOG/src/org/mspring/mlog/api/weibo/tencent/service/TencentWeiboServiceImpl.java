@@ -8,6 +8,7 @@ import org.mspring.mlog.api.weibo.tencent.api.TAPI;
 import org.mspring.mlog.api.weibo.tencent.oauthv2.OAuthV2;
 import org.mspring.mlog.entity.security.User;
 import org.mspring.mlog.service.security.UserService;
+import org.mspring.mlog.utils.WebUtils;
 import org.mspring.platform.core.AbstractServiceSupport;
 import org.mspring.platform.utils.JSONUtils;
 import org.mspring.platform.utils.StringUtils;
@@ -63,6 +64,12 @@ public class TencentWeiboServiceImpl extends AbstractServiceSupport implements T
     @Override
     public ResponseEntity postWeibo(Long userId, String content, String ip) {
         // TODO Auto-generated method stub
+        return postWeibo(userId, content, ip, null);
+    }
+
+    @Override
+    public ResponseEntity postWeibo(Long userId, String content, String ip, String picpath) {
+        // TODO Auto-generated method stub
         ResponseEntity response = new ResponseEntity();
 
         OAuthV2 oAuthV2 = getOAuthV2(userId);
@@ -73,7 +80,13 @@ public class TencentWeiboServiceImpl extends AbstractServiceSupport implements T
         }
         TAPI tAPI = new TAPI(oAuthV2.getOauthVersion());
         try {
-            String responseString = tAPI.add(oAuthV2, "json", content, ip, "0");
+            String responseString = "";
+            if (StringUtils.isBlank(picpath)) {
+                responseString = tAPI.add(oAuthV2, "json", content, ip);
+            } else {
+                picpath = WebUtils.getRealContextPath(picpath);
+                responseString = tAPI.addPic(oAuthV2, "json", content, ip, picpath);
+            }
             JsonObject jsonObject = JSONUtils.getAsJsonObject(responseString);
             int errcode = jsonObject.get("errcode").getAsInt();
             if (errcode == 0) {

@@ -41,4 +41,15 @@ public interface TencentWeiboService {
      * @return 服务器返回结果
      */
     public ResponseEntity postWeibo(Long userId, String content, String ip);
+
+    /**
+     * 发表微博
+     * 
+     * @param userId
+     * @param content
+     * @param ip
+     * @param picpath
+     * @return
+     */
+    public ResponseEntity postWeibo(Long userId, String content, String ip, String picpath);
 }

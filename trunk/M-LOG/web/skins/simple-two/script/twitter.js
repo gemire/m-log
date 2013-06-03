@@ -11,13 +11,27 @@ mlog.twitter.loadfinished = false; //判断是否全部加载完成
 $.extend(mlog.twitter,{
 	//发布JAW
 	add : function(){
+		if (mlog.variable.user === undefined) {
+			alert('请先登录');
+			return;
+		}
 		mlog.twitter.editor.lockButton(true, '发布中...');
 		$("#twitter-form").ajaxSubmit({
+			beforeSubmit : function(formData){
+				if(mlog.twitter.editor.uploadImage){
+					formData[formData.length] = {'name' : 'attachment', 'value' : mlog.twitter.editor.uploadImage };
+				}
+				return true;
+			},
 			success : function(response) {
 				if (response.success === true) {
 					var html = mlog.twitter.getListHTML(response.data.twitter);
 					$("#twitters").html(html + $("#twitters").html());
+					
+					//重置输入框
 					mlog.twitter.editor.setValue('content', '');
+					//重置图片上传
+					mlog.twitter.editor.reviewImageUpload();
 				} else {
 					alert(response.message);
 				}
@@ -72,6 +86,9 @@ $.extend(mlog.twitter,{
             html += '	</a>';
             html += '	<div class="twitter">';
             html += '		<p class="content"><a href="javascript:void(0);">' + author + '</a> : ' + content + '</p>';
+            if(data[i].image){
+        	html += '		<p class="content"><a href="' + mlog.variable.blogurl + '/' + data[i].image.path + '" target="_blank"></a><img src="' + mlog.variable.blogurl + '/' +data[i].image.path + '" id="attachment_' + data[i].image.id + '" style="max-width:100px; max-height:200px;"/></p>';
+			}
             html += '		<p class="meta">发布于' + createTime + '</p>';
             html += '	</div>';
             html += '</li>';

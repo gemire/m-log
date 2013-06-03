@@ -21,4 +21,12 @@ public interface TwitterService {
     public void deleteTwitter(Long... id);
 
     public Page<Twitter> findTwitterPage(QueryCriterion queryCriterion, Page<Twitter> page);
+
+    /**
+     * 设置同步腾讯微博后返回的微博ID
+     * 
+     * @param twitter
+     * @param weiboId
+     */
+    public void setTencentWeiboId(Long twitter, String weiboId);
 }

@@ -1,5 +1,4 @@
 <#include "header.ftl" />
-<#import "include/fun.ftl" as fun>
 		<link rel="stylesheet" type="text/css" href="${template_url}/style/twitter.css">
 		<script type="text/javascript" src="${template_url}/script/twitter.js"></script>
 		<script type="text/javascript" src="${base}/script/jquery.form.js"></script>

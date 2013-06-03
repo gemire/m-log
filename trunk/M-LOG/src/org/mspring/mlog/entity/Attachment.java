@@ -39,7 +39,8 @@ public class Attachment implements Serializable {
     private String path;
     private Long size;
     private Date uploadTime;
-    private User user;
+    // private User user;
+    private Long user;
     private String from = AttachFrom.FROM_POST; // 附件来源
     private Long fid;
     private Boolean isImage = false;
@@ -97,13 +98,23 @@ public class Attachment implements Serializable {
         this.uploadTime = uploadTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = User.class)
-    @JoinColumn(name = "user")
-    public User getUser() {
+    // @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity =
+    // User.class)
+    // @JoinColumn(name = "user")
+    // public User getUser() {
+    // return user;
+    // }
+    //
+    // public void setUser(User user) {
+    // this.user = user;
+    // }
+
+    @Column(name = "user", length = 30)
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
@@ -162,7 +173,7 @@ public class Attachment implements Serializable {
      */
     public static final class AttachFrom {
         public static final String FROM_POST = "POST"; // 文章
-        public static final String FROM_JAW = "JAW"; // 叨叨
+        public static final String FROM_TWITTER = "TWITTER"; // 叨叨
         public static final String FROM_METAWEBLOG = "METAWEBLOG"; // metaweblog
     }
 
