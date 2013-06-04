@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.IImageMetadata;
+import org.apache.log4j.Logger;
 
 import com.gif4j.GifDecoder;
 import com.gif4j.GifEncoder;
@@ -36,12 +37,14 @@ import com.mortennobel.imagescaling.ResampleOp;
  */
 public class ImageUtils {
 
+    private static final Logger log = Logger.getLogger(ImageUtils.class);
+
     public static final class ImageType {
-        public static final String PNG = "PNG";
-        public static final String JPG = "JPG";
-        public static final String JPEG = "JPEG";
-        public static final String BMP = "BMP";
-        public static final String GIF = "GIF";
+        public static final String PNG = "png";
+        public static final String JPG = "jpg";
+        public static final String JPEG = "jpeg";
+        public static final String BMP = "bmp";
+        public static final String GIF = "gif";
 
         public static final String[] types = { PNG, JPG, JPEG, BMP, GIF };
     }
@@ -128,6 +131,13 @@ public class ImageUtils {
         }
     }
 
+    /**
+     * BMT转为JPG
+     * 
+     * @param imgPath
+     * @return
+     * @throws IOException
+     */
     public static String BMP_TO_JPG(String imgPath) throws IOException {
         File fOrigionalImage = new File(imgPath);
         BufferedImage oldImage = (BufferedImage) ImageIO.read(fOrigionalImage);
@@ -144,12 +154,48 @@ public class ImageUtils {
     }
 
     /**
-     * 按规定比例缩放图片
+     * 按照规定比例缩放图片
      * 
      * @param source
+     *            图片文件
      * @param targetW
+     *            指定最大宽度
      * @param targetH
-     * @return
+     *            指定最大高度
+     * @return 缩放后的图片
+     */
+    public static BufferedImage resize(InputStream source, int targetW, int targetH) throws IOException {
+        return resize(ImageIO.read(source), targetW, targetH);
+    }
+
+    /**
+     * 按照规定比例缩放图片
+     * 
+     * @param source
+     *            图片文件
+     * @param targetW
+     *            指定最大宽度
+     * @param targetH
+     *            指定最大高度
+     * @return 缩放后的图片
+     */
+    public static BufferedImage resize(File source, int targetW, int targetH) throws IOException {
+        if (!source.exists()) {
+            return null;
+        }
+        return resize(ImageIO.read(source), targetW, targetH);
+    }
+
+    /**
+     * 按照规定比例缩放图片
+     * 
+     * @param source
+     *            图片文件
+     * @param targetW
+     *            指定最大宽度
+     * @param targetH
+     *            指定最大高度
+     * @return 缩放后的图片
      */
     public static BufferedImage resize(BufferedImage source, int targetW, int targetH) {
         // targetW，targetH分别表示目标长和宽
@@ -184,7 +230,7 @@ public class ImageUtils {
     }
 
     /**
-     * 图片缩放
+     * 按照指定宽度和高度缩放图片
      * 
      * @param originalFile
      *            源文件
@@ -197,16 +243,16 @@ public class ImageUtils {
      * @param format
      *            缩放后图片格式
      */
-    public static void resize(File originalFile, File thumnailFile, int newWidth, int newHeight, String format) {
+    public static void resizeAppoint(File originalFile, File thumnailFile, int newWidth, int newHeight, String format) {
         try {
-            resize(new FileInputStream(originalFile), new FileOutputStream(thumnailFile), newWidth, newHeight, format);
+            resizeAppoint(new FileInputStream(originalFile), new FileOutputStream(thumnailFile), newWidth, newHeight, format);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 图片缩放
+     * 按照指定宽度和高度缩放图片
      * 
      * @param originalStream
      *            源文件
@@ -219,7 +265,7 @@ public class ImageUtils {
      * @param format
      *            缩放后图片格式
      */
-    public static void resize(InputStream originalStream, OutputStream thumnailStream, int newWidth, int newHeight, String format) {
+    public static void resizeAppoint(InputStream originalStream, OutputStream thumnailStream, int newWidth, int newHeight, String format) {
         try {
             BufferedImage originalImage = ImageIO.read(originalStream);
 
@@ -318,6 +364,22 @@ public class ImageUtils {
     /**
      * 图片剪切
      * 
+     * @param sourceFile
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY
+     * @return
+     * @throws IOException
+     */
+    public static BufferedImage crop(File sourceFile, int startX, int startY, int endX, int endY) throws IOException {
+        BufferedImage source = ImageIO.read(sourceFile);
+        return crop(source, startX, startY, endX, endY);
+    }
+
+    /**
+     * 图片剪切
+     * 
      * @param source
      *            原图片
      * @param startX
@@ -350,7 +412,6 @@ public class ImageUtils {
         }
 
         BufferedImage result = new BufferedImage(endX - startX + 1, endY - startY + 1, 4);
-
         for (int y = startY; y < endY; y++) {
             for (int x = startX; x < endX; x++) {
                 int rgb = source.getRGB(x, y);
@@ -368,8 +429,15 @@ public class ImageUtils {
      * @throws ImageReadException
      * @throws IOException
      */
-    public static IImageMetadata getMetadataInfo(InputStream inputStream) throws ImageReadException, IOException {
-        return Imaging.getMetadata(inputStream, "");
+    public static IImageMetadata getMetadataInfo(InputStream inputStream) {
+        IImageMetadata metadata = null;
+        try {
+            metadata = Imaging.getMetadata(inputStream, "");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.warn("get image metadata error!");
+        }
+        return metadata;
     }
 
     /**
