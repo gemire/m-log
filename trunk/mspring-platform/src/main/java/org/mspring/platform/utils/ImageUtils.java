@@ -329,7 +329,7 @@ public class ImageUtils {
      * @param endY
      *            结束位置Y坐标
      */
-    public BufferedImage crop(BufferedImage source, int startX, int startY, int endX, int endY) {
+    public static BufferedImage crop(BufferedImage source, int startX, int startY, int endX, int endY) {
         int width = source.getWidth();
         int height = source.getHeight();
 
